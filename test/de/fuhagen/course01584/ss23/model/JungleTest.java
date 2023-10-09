@@ -9,8 +9,6 @@ import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import de.fuhagen.course01584.ss23.model.Jungle;
-
 /**
  * In der Klasse DschungelTest werden die Methoden der Klasse Dschungel
  * getestet. Hierbei werden alle Methoden parametrisierten Tests unterzogen, die

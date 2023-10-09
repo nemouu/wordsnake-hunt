@@ -3,7 +3,7 @@
 <Schlangenjagd>
   <Zeit einheit="s">
     <Vorgabe>10.0</Vorgabe>
-    <Abgabe>10.000019177</Abgabe>
+    <Abgabe>10.000011465</Abgabe>
   </Zeit>
   <Dschungel zeilen="5" spalten="10" zeichen="ABCDEFGHIJKLMNOPQRSTUVWXYZ">
     <Feld id="F0" zeile="0" spalte="0" verwendbarkeit="1" punkte="1">I</Feld>

@@ -11,7 +11,6 @@ import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import de.fuhagen.course01584.ss23.algorithm.SolutionExaminer;
 import de.fuhagen.course01584.ss23.ioprocessing.IReader;
 import de.fuhagen.course01584.ss23.ioprocessing.ReaderXML;
 import de.fuhagen.course01584.ss23.main.SnakeHunt;

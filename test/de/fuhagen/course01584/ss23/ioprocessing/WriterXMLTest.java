@@ -7,7 +7,6 @@ import java.util.List;
 import org.jdom2.Element;
 import org.junit.jupiter.api.*;
 
-import de.fuhagen.course01584.ss23.ioprocessing.WriterXML;
 import de.fuhagen.course01584.ss23.model.*;
 
 /**

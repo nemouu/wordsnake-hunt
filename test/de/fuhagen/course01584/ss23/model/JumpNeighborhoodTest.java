@@ -12,11 +12,6 @@ import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import de.fuhagen.course01584.ss23.model.Jungle;
-import de.fuhagen.course01584.ss23.model.Field;
-import de.fuhagen.course01584.ss23.model.INeighborhood;
-import de.fuhagen.course01584.ss23.model.JumpNeighborhood;
-
 /**
  * In der Klasse SprungNachbarschaftTest werden die Methoden der Klasse
  * SprungNachbarschaft getestet. Hierbei werden erst ein paar einfache Tests

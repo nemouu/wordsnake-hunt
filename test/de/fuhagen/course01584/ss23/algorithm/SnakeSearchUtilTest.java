@@ -10,7 +10,6 @@ import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import de.fuhagen.course01584.ss23.algorithm.SnakeSearchUtil;
 import de.fuhagen.course01584.ss23.model.*;
 
 /**

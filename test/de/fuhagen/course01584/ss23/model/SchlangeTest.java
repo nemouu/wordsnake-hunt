@@ -11,12 +11,6 @@ import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import de.fuhagen.course01584.ss23.model.DistanceNeighborhood;
-import de.fuhagen.course01584.ss23.model.Field;
-import de.fuhagen.course01584.ss23.model.Snake;
-import de.fuhagen.course01584.ss23.model.SnakeType;
-import de.fuhagen.course01584.ss23.model.SnakeElement;
-
 /**
  * In der Klasse SchlangeTest werden die Methoden der Klasse Schlange getestet.
  * Hierbei werden ein paar einfache Tests durchgefuehrt, die dazu dienen sollen

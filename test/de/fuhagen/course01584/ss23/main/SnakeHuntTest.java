@@ -2,14 +2,10 @@ package de.fuhagen.course01584.ss23.main;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.ArrayList;
-
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.*;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import de.fuhagen.course01584.ss23.main.SnakeHunt;
-import de.fuhagen.course01584.ss23.main.SnakeHuntAPI;
 import de.fuhagen.course01584.ss23.main.SnakeHuntAPI.Fehlertyp;
 
 import java.util.*;

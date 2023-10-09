@@ -9,14 +9,6 @@ import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import de.fuhagen.course01584.ss23.model.DistanceNeighborhood;
-import de.fuhagen.course01584.ss23.model.Jungle;
-import de.fuhagen.course01584.ss23.model.Field;
-import de.fuhagen.course01584.ss23.model.IModel;
-import de.fuhagen.course01584.ss23.model.Solution;
-import de.fuhagen.course01584.ss23.model.ProblemModel;
-import de.fuhagen.course01584.ss23.model.SnakeType;
-
 /**
  * In der Klasse ProblemModellTest werden die Methoden der Klasse ProblemModell
  * getestet. Hierbei werden erst ein paar einfache Tests durchgefuehrt, die dazu

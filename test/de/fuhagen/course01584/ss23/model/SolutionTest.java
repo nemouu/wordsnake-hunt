@@ -4,11 +4,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.*;
 
-import de.fuhagen.course01584.ss23.model.DistanceNeighborhood;
-import de.fuhagen.course01584.ss23.model.Solution;
-import de.fuhagen.course01584.ss23.model.Snake;
-import de.fuhagen.course01584.ss23.model.SnakeType;
-
 /**
  * In der Klasse LoesungTest werden die Methoden der Klasse Loesung getestet.
  * Hierbei werden erst ein paar einfache Tests durchgefuehrt, die dazu dienen

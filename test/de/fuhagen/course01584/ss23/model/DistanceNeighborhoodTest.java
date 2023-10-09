@@ -11,11 +11,6 @@ import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import de.fuhagen.course01584.ss23.model.DistanceNeighborhood;
-import de.fuhagen.course01584.ss23.model.Jungle;
-import de.fuhagen.course01584.ss23.model.Field;
-import de.fuhagen.course01584.ss23.model.INeighborhood;
-
 /**
  * In der Klasse DistanzNachbarschaftTest werden die Methoden der Klasse
  * DistanzNachbarschaft getestet. Hierbei werden erst ein paar einfache Tests

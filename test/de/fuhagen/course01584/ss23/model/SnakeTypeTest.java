@@ -9,10 +9,6 @@ import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import de.fuhagen.course01584.ss23.model.DistanceNeighborhood;
-import de.fuhagen.course01584.ss23.model.INeighborhood;
-import de.fuhagen.course01584.ss23.model.SnakeType;
-
 /**
  * In der Klasse SchlangenartTest werden die Methoden der Klasse Schlangenart
  * getestet. Hierbei werden erst ein paar einfache Tests durchgefuehrt, die dazu

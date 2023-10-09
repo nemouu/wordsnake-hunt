@@ -4,9 +4,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.*;
 
-import de.fuhagen.course01584.ss23.ioprocessing.IReader;
-import de.fuhagen.course01584.ss23.ioprocessing.ReaderXML;
-
 /**
  * In der Klasse LeserXMLTest werden die Methoden der Klasse LeserXML getestet.
  * Dazu wurden vier seperate Klassen erstellt, die jeweils einen Anwendungsfall

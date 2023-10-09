@@ -4,8 +4,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.*;
 
-import de.fuhagen.course01584.ss23.algorithm.JungleGenerator;
-import de.fuhagen.course01584.ss23.algorithm.SnakeSearch;
 import de.fuhagen.course01584.ss23.ioprocessing.IReader;
 import de.fuhagen.course01584.ss23.ioprocessing.ReaderXML;
 import de.fuhagen.course01584.ss23.model.*;
