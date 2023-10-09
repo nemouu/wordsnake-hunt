@@ -57,7 +57,7 @@ class ProblemModelTest {
 			Double[] initZeit = { 3.4 };
 			Double[] bspZeit = { Double.MAX_VALUE };
 			assertThrows(IllegalArgumentException.class,
-					() -> new ProblemModel(bspDschungel, bspLoesung, initZeit).setZeit(bspZeit),
+					() -> new ProblemModel(bspDschungel, bspLoesung, initZeit).setTime(bspZeit),
 					() -> "\nFuer den zu grossen Wert '" + Double.MAX_VALUE + "' wurde keine Ausnahme erzeugt.");
 		}
 
@@ -67,7 +67,7 @@ class ProblemModelTest {
 			Double[] initZeit = { 3.4 };
 			Double[] bspZeit = { 0.0 };
 			assertThrows(IllegalArgumentException.class,
-					() -> new ProblemModel(bspDschungel, bspLoesung, initZeit).setZeit(bspZeit),
+					() -> new ProblemModel(bspDschungel, bspLoesung, initZeit).setTime(bspZeit),
 					() -> "\nFuer den zu grossen Wert '" + 0.0 + "' wurde keine Ausnahme erzeugt.");
 		}
 
@@ -102,14 +102,14 @@ class ProblemModelTest {
 			SnakeType art1 = new SnakeType("A0", new DistanceNeighborhood(1), "FERNUNI", 1, 1);
 			SnakeType art2 = new SnakeType("A1", new DistanceNeighborhood(3), "JUNITTEST", 2, 4);
 			Jungle bspDschungel = new Jungle(3, 4, "asdertg", 1);
-			for (int i = 0; i < bspDschungel.getZeilen(); i++) {
-				for (int j = 0; j < bspDschungel.getSpalten(); j++) {
-					bspDschungel.getFelder()[i][j].setZeichen("a");
+			for (int i = 0; i < bspDschungel.getRows(); i++) {
+				for (int j = 0; j < bspDschungel.getColumns(); j++) {
+					bspDschungel.getFields()[i][j].setCharacter("a");
 				}
 			}
 			IModel bspModell = new ProblemModel(bspDschungel, null, bspZeit);
-			bspModell.addSchlangenart(art1);
-			bspModell.addSchlangenart(art2);
+			bspModell.addSnakeType(art1);
+			bspModell.addSnakeType(art2);
 			assertEquals("Der Dschungel dieses Problemes hat 3 Zeilen, " + "4 Spalten und die Zeichenmenge 'asdertg'. "
 					+ "Die Felder werden\nimmer in dem Format '(Zeichen, Verwendbarkeit, Punkte)' angegeben und"
 					+ " sind wie folgt angeordnet: \n\n\n (a,1,1) (a,1,1) (a,1,1) (a,1,1)\n\n (a,1,1) (a,1,1) (a,1,1) (a,1,1)"
@@ -128,7 +128,7 @@ class ProblemModelTest {
 			Double[] bspZeit = { 3.0 };
 			Jungle bspDschungel = new Jungle(3, 4, "asdertg", 1);
 			IModel bspModell = new ProblemModel(bspDschungel, null, bspZeit);
-			assertEquals(3.0E9, bspModell.berechneZeitInNanosekunden(bspZeit[0]),
+			assertEquals(3.0E9, bspModell.calculateTimeToNanoseconds(bspZeit[0]),
 					"\nDie errechnete Zeit stimmt " + "nicht mit dem zu erwartenden Wert ueberein.");
 		}
 
@@ -138,8 +138,8 @@ class ProblemModelTest {
 			Double[] bspZeit = { 2500.0 };
 			Jungle bspDschungel = new Jungle(3, 4, "asdertg", 1);
 			IModel bspModell = new ProblemModel(bspDschungel, null, bspZeit);
-			bspModell.setZeiteinheit("ms");
-			assertEquals(2.5E9, bspModell.berechneZeitInNanosekunden(bspZeit[0]),
+			bspModell.setUnitOfTime("ms");
+			assertEquals(2.5E9, bspModell.calculateTimeToNanoseconds(bspZeit[0]),
 					"\nDie errechnete Zeit stimmt " + "nicht mit dem zu erwartenden Wert ueberein.");
 		}
 
@@ -149,8 +149,8 @@ class ProblemModelTest {
 			Double[] bspZeit = { 0.03 };
 			Jungle bspDschungel = new Jungle(3, 4, "asdertg", 1);
 			IModel bspModell = new ProblemModel(bspDschungel, null, bspZeit);
-			bspModell.setZeiteinheit("min");
-			assertEquals(1.8E9, bspModell.berechneZeitInNanosekunden(bspZeit[0]),
+			bspModell.setUnitOfTime("min");
+			assertEquals(1.8E9, bspModell.calculateTimeToNanoseconds(bspZeit[0]),
 					"\nDie errechnete Zeit stimmt " + "nicht mit dem zu erwartenden Wert ueberein.");
 		}
 
@@ -160,8 +160,8 @@ class ProblemModelTest {
 			Double[] bspZeit = { 0.00015 };
 			Jungle bspDschungel = new Jungle(3, 4, "asdertg", 1);
 			IModel bspModell = new ProblemModel(bspDschungel, null, bspZeit);
-			bspModell.setZeiteinheit("h");
-			assertEquals(5.4E8, bspModell.berechneZeitInNanosekunden(bspZeit[0]),
+			bspModell.setUnitOfTime("h");
+			assertEquals(5.4E8, bspModell.calculateTimeToNanoseconds(bspZeit[0]),
 					"\nDie errechnete Zeit stimmt " + "nicht mit dem zu erwartenden Wert ueberein.");
 		}
 
@@ -171,8 +171,8 @@ class ProblemModelTest {
 			Double[] bspZeit = { 0.0000004 };
 			Jungle bspDschungel = new Jungle(3, 4, "asdertg", 1);
 			IModel bspModell = new ProblemModel(bspDschungel, null, bspZeit);
-			bspModell.setZeiteinheit("d");
-			assertEquals(3.456E7, bspModell.berechneZeitInNanosekunden(bspZeit[0]),
+			bspModell.setUnitOfTime("d");
+			assertEquals(3.456E7, bspModell.calculateTimeToNanoseconds(bspZeit[0]),
 					"\nDie errechnete Zeit stimmt " + "nicht mit dem zu erwartenden Wert ueberein.");
 		}
 
@@ -182,7 +182,7 @@ class ProblemModelTest {
 			Double[] bspZeit = { 3.0 };
 			Jungle bspDschungel = new Jungle(3, 4, "asdertg", 1);
 			IModel bspModell = new ProblemModel(bspDschungel, null, bspZeit);
-			assertEquals(23.413434134, bspModell.berechneZeitInModellEinheit((long) 23413434134.0),
+			assertEquals(23.413434134, bspModell.calculateTimeInUnitGivenByModel((long) 23413434134.0),
 					"\nDie errechnete Zeit stimmt " + "nicht mit dem zu erwartenden Wert ueberein.");
 		}
 
@@ -192,8 +192,8 @@ class ProblemModelTest {
 			Double[] bspZeit = { 2500.0 };
 			Jungle bspDschungel = new Jungle(3, 4, "asdertg", 1);
 			IModel bspModell = new ProblemModel(bspDschungel, null, bspZeit);
-			bspModell.setZeiteinheit("ms");
-			assertEquals(23413.434134, bspModell.berechneZeitInModellEinheit((long) 23413434134.0),
+			bspModell.setUnitOfTime("ms");
+			assertEquals(23413.434134, bspModell.calculateTimeInUnitGivenByModel((long) 23413434134.0),
 					"\nDie errechnete Zeit stimmt " + "nicht mit dem zu erwartenden Wert ueberein.");
 		}
 
@@ -203,8 +203,8 @@ class ProblemModelTest {
 			Double[] bspZeit = { 0.03 };
 			Jungle bspDschungel = new Jungle(3, 4, "asdertg", 1);
 			IModel bspModell = new ProblemModel(bspDschungel, null, bspZeit);
-			bspModell.setZeiteinheit("min");
-			assertEquals(0.3902239022333333, bspModell.berechneZeitInModellEinheit((long) 23413434134.0),
+			bspModell.setUnitOfTime("min");
+			assertEquals(0.3902239022333333, bspModell.calculateTimeInUnitGivenByModel((long) 23413434134.0),
 					"\nDie errechnete Zeit stimmt " + "nicht mit dem zu erwartenden Wert ueberein.");
 		}
 
@@ -214,8 +214,8 @@ class ProblemModelTest {
 			Double[] bspZeit = { 0.00015 };
 			Jungle bspDschungel = new Jungle(3, 4, "asdertg", 1);
 			IModel bspModell = new ProblemModel(bspDschungel, null, bspZeit);
-			bspModell.setZeiteinheit("h");
-			assertEquals(0.006503731703888889, bspModell.berechneZeitInModellEinheit((long) 23413434134.0),
+			bspModell.setUnitOfTime("h");
+			assertEquals(0.006503731703888889, bspModell.calculateTimeInUnitGivenByModel((long) 23413434134.0),
 					"\nDie errechnete Zeit stimmt " + "nicht mit dem zu erwartenden Wert ueberein.");
 		}
 
@@ -225,8 +225,8 @@ class ProblemModelTest {
 			Double[] bspZeit = { 0.0000004 };
 			Jungle bspDschungel = new Jungle(3, 4, "asdertg", 1);
 			IModel bspModell = new ProblemModel(bspDschungel, null, bspZeit);
-			bspModell.setZeiteinheit("d");
-			assertEquals(2.709888209953704E-4, bspModell.berechneZeitInModellEinheit((long) 23413434134.0),
+			bspModell.setUnitOfTime("d");
+			assertEquals(2.709888209953704E-4, bspModell.calculateTimeInUnitGivenByModel((long) 23413434134.0),
 					"\nDie errechnete Zeit stimmt " + "nicht mit dem zu erwartenden Wert ueberein.");
 		}
 
@@ -236,8 +236,8 @@ class ProblemModelTest {
 			Double[] bspZeit = { 0.0000004 };
 			Jungle bspDschungel = new Jungle(3, 4, "asdertg", 1);
 			IModel bspModell = new ProblemModel(bspDschungel, null, bspZeit);
-			bspModell.setZeiteinheit("d");
-			assertEquals("d", bspModell.getZeiteinheit(), "\nDie Zeiteinheit entspricht nicht dem erwarteten Wert.");
+			bspModell.setUnitOfTime("d");
+			assertEquals("d", bspModell.getUnitOfTime(), "\nDie Zeiteinheit entspricht nicht dem erwarteten Wert.");
 		}
 
 		@DisplayName("Einfacher Test von setZeiteinheit, Teil 2 ")
@@ -246,7 +246,7 @@ class ProblemModelTest {
 			Double[] bspZeit = { 0.0000004 };
 			Jungle bspDschungel = new Jungle(3, 4, "asdertg", 1);
 			IModel bspModell = new ProblemModel(bspDschungel, null, bspZeit);
-			assertThrows(Exception.class, () -> bspModell.setZeiteinheit("falsch"),
+			assertThrows(Exception.class, () -> bspModell.setUnitOfTime("falsch"),
 					"\nEs wird eine ungueltige Zeiteinheit gesetzt aber es wird keine Ausnahme ausgeloest.");
 		}
 	}
@@ -275,7 +275,7 @@ class ProblemModelTest {
 		void testeKonstruktorUndGetZeitPositivEinParameter(Double zeit) {
 			Double[] bspDouble = { zeit };
 			ProblemModel modell = new ProblemModel(bspDschungel, bspLoesung, bspDouble);
-			assertArrayEquals(modell.getZeit(), bspDouble,
+			assertArrayEquals(modell.getTime(), bspDouble,
 					"\nEiner oder mehrere der uebergebenen Werte stimmen nicht mit den Werten ueberein, "
 							+ "die mit getZeit() erhalten werden.");
 		}
@@ -286,7 +286,7 @@ class ProblemModelTest {
 		void testeKonstruktorUndGetZeitPositivZweiParameter(Double zeit) {
 			Double[] bspDouble = { zeit, zeit + 3.874 };
 			ProblemModel modell = new ProblemModel(bspDschungel, bspLoesung, bspDouble);
-			assertArrayEquals(modell.getZeit(), bspDouble,
+			assertArrayEquals(modell.getTime(), bspDouble,
 					"\nEiner oder mehrere der uebergebenen Werte stimmen nicht mit den Werten ueberein, "
 							+ "die mit getZeit() erhalten werden.");
 		}
@@ -315,10 +315,10 @@ class ProblemModelTest {
 		void testeSetZeitPositiv(Double zeit) {
 			Double[] bspZeit = { zeit };
 			IModel bspModell = new ProblemModel(bspDschungel, bspLoesung, bspZeit);
-			assertEquals(zeit, bspModell.getZeit()[0],
+			assertEquals(zeit, bspModell.getTime()[0],
 					"\nDer gegebene Wert fuer 'zeit' ('" + zeit
 							+ "') entspricht nicht dem erhaltenen Wert fuer 'zeit', denn der ist '"
-							+ bspModell.getZeit()[0] + "'.");
+							+ bspModell.getTime()[0] + "'.");
 		}
 
 		@DisplayName("Parametrisierter positiver Test von setZeit() mit zwei Eintraegen.")
@@ -327,7 +327,7 @@ class ProblemModelTest {
 		void testeSetZeitPositivMitZweiParametern(Double zeit) {
 			Double[] bspZeit = { zeit, zeit + 4.5 };
 			IModel bspModell = new ProblemModel(bspDschungel, bspLoesung, bspZeit);
-			assertArrayEquals(bspZeit, bspModell.getZeit(),
+			assertArrayEquals(bspZeit, bspModell.getTime(),
 					"\nDer gegebene Wert fuer 'zeit' entspricht nicht dem erhaltenen Wert fuer 'zeit'.");
 		}
 
@@ -338,7 +338,7 @@ class ProblemModelTest {
 			Double[] initZeit = { 0.0 };
 			Double[] bspZeit = { zeit };
 			assertThrows(IllegalArgumentException.class,
-					() -> new ProblemModel(bspDschungel, bspLoesung, initZeit).setZeit(bspZeit),
+					() -> new ProblemModel(bspDschungel, bspLoesung, initZeit).setTime(bspZeit),
 					() -> "\nFuer einen oder mehrere negative Werte in 'zeit' wird keine Ausnahme erzeugt.");
 		}
 
@@ -349,7 +349,7 @@ class ProblemModelTest {
 			Double[] initZeit = { 0.0 };
 			Double[] bspZeit = { zeit, zeit - 3.4 };
 			assertThrows(IllegalArgumentException.class,
-					() -> new ProblemModel(bspDschungel, bspLoesung, initZeit).setZeit(bspZeit),
+					() -> new ProblemModel(bspDschungel, bspLoesung, initZeit).setTime(bspZeit),
 					() -> "\nFuer einen oder mehrere negative Werte in 'zeit' wird keine Ausnahme erzeugt.");
 		}
 	}

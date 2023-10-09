@@ -29,7 +29,7 @@ class ReaderXMLTest {
 		void testeDateiVorhanden() {
 			assertDoesNotThrow(() -> {
 				try {
-					new ReaderXML().leseDatei("res/diese_xml_existiert_nicht.xml");
+					new ReaderXML().readFile("res/diese_xml_existiert_nicht.xml");
 				} catch (Exception e) {
 					System.out.println("Fehler beim Einlesen!");
 				}
@@ -46,26 +46,26 @@ class ReaderXMLTest {
 
 			// Lese die entsprechende Datei ein
 			xmlLeser = new ReaderXML();
-			xmlLeser.leseDatei("res/sj_p1_loesung.xml");
+			xmlLeser.readFile("res/sj_p1_loesung.xml");
 		}
 
 		@DisplayName("Einfacher Test fuer das Attribut 'zeit'.")
 		@Test
 		void testeZeit() {
 			Double[] zeitInDatei = { 60.0, 0.001205252 };
-			assertArrayEquals(zeitInDatei, xmlLeser.getUebergebenesModell().getZeit(),
+			assertArrayEquals(zeitInDatei, xmlLeser.getTransferredModel().getTime(),
 					"\nDie eingelesene Zeit entspricht nicht der Zeit aus der XML-Datei.");
 		}
 
 		@DisplayName("Einfacher Test fuer das Attribut 'dschungel'.")
 		@Test
 		void testeDschungel() {
-			assertEquals(2, xmlLeser.getUebergebenesModell().getDschungel().getZeilen(),
+			assertEquals(2, xmlLeser.getTransferredModel().getJungle().getRows(),
 					"\nDie eingelesene Zahl fuer die Spalten des Dschungels entspricht nicht dem Wert aus der einzulesenden Datei.");
-			assertEquals(4, xmlLeser.getUebergebenesModell().getDschungel().getSpalten(),
+			assertEquals(4, xmlLeser.getTransferredModel().getJungle().getColumns(),
 					"\nDie eingelesene Zahl fuer die Zeilen des Dschungels entspricht nicht dem Wert aus der einzulesenden Datei.");
 			assertEquals("ABCDEFGHIJKLMNOPQRSTUVWXYZ",
-					xmlLeser.getUebergebenesModell().getDschungel().getZeichenmenge(),
+					xmlLeser.getTransferredModel().getJungle().getSigns(),
 					"\nDie eingelesene Zeichenmenge des Dschungels entspricht nicht dem Wert aus der einzulesenden Datei.");
 		}
 
@@ -74,130 +74,130 @@ class ReaderXMLTest {
 		void testeDschungelFelder() {
 
 			// Ueberpruefe das Feld an Position[0][0]
-			assertEquals("F0", xmlLeser.getUebergebenesModell().getDschungel().getFelder()[0][0].getId(),
+			assertEquals("F0", xmlLeser.getTransferredModel().getJungle().getFields()[0][0].getId(),
 					"\nEin Feld an der Stelle [0][0] des Dschungels entspricht nicht dem entsprechenden Feld aus der einzulesenden Datei.");
-			assertEquals(0, xmlLeser.getUebergebenesModell().getDschungel().getFelder()[0][0].getZeile(),
+			assertEquals(0, xmlLeser.getTransferredModel().getJungle().getFields()[0][0].getRow(),
 					"\nEin Feld an der Stelle [0][0] des Dschungels entspricht nicht dem entsprechenden Feld aus der einzulesenden Datei.");
-			assertEquals(0, xmlLeser.getUebergebenesModell().getDschungel().getFelder()[0][0].getSpalte(),
+			assertEquals(0, xmlLeser.getTransferredModel().getJungle().getFields()[0][0].getColumn(),
 					"\nEin Feld an der Stelle [0][0] des Dschungels entspricht nicht dem entsprechenden Feld aus der einzulesenden Datei.");
-			assertEquals(1, xmlLeser.getUebergebenesModell().getDschungel().getFelder()[0][0].getVerwendbarkeit(),
+			assertEquals(1, xmlLeser.getTransferredModel().getJungle().getFields()[0][0].getUsage(),
 					"\nEin Feld an der Stelle [0][0] des Dschungels entspricht nicht dem entsprechenden Feld aus der einzulesenden Datei.");
-			assertEquals(1, xmlLeser.getUebergebenesModell().getDschungel().getFelder()[0][0].getPunkte(),
+			assertEquals(1, xmlLeser.getTransferredModel().getJungle().getFields()[0][0].getPoints(),
 					"\nEin Feld an der Stelle [0][0] des Dschungels entspricht nicht dem entsprechenden Feld aus der einzulesenden Datei.");
-			assertEquals("F", xmlLeser.getUebergebenesModell().getDschungel().getFelder()[0][0].getZeichen(),
+			assertEquals("F", xmlLeser.getTransferredModel().getJungle().getFields()[0][0].getCharacter(),
 					"\nEin Feld an der Stelle [0][0] des Dschungels entspricht nicht dem entsprechenden Feld aus der einzulesenden Datei.");
 
 			// Ueberpruefe das Feld an Position[0][1]
-			assertEquals("F1", xmlLeser.getUebergebenesModell().getDschungel().getFelder()[0][1].getId(),
+			assertEquals("F1", xmlLeser.getTransferredModel().getJungle().getFields()[0][1].getId(),
 					"\nEin Feld an der Stelle [0][1] des Dschungels entspricht nicht dem entsprechenden Feld aus der einzulesenden Datei.");
-			assertEquals(0, xmlLeser.getUebergebenesModell().getDschungel().getFelder()[0][1].getZeile(),
+			assertEquals(0, xmlLeser.getTransferredModel().getJungle().getFields()[0][1].getRow(),
 					"\nEin Feld an der Stelle [0][1] des Dschungels entspricht nicht dem entsprechenden Feld aus der einzulesenden Datei.");
-			assertEquals(1, xmlLeser.getUebergebenesModell().getDschungel().getFelder()[0][1].getSpalte(),
+			assertEquals(1, xmlLeser.getTransferredModel().getJungle().getFields()[0][1].getColumn(),
 					"\nEin Feld an der Stelle [0][1] des Dschungels entspricht nicht dem entsprechenden Feld aus der einzulesenden Datei.");
-			assertEquals(1, xmlLeser.getUebergebenesModell().getDschungel().getFelder()[0][1].getVerwendbarkeit(),
+			assertEquals(1, xmlLeser.getTransferredModel().getJungle().getFields()[0][1].getUsage(),
 					"\nEin Feld an der Stelle [0][1] des Dschungels entspricht nicht dem entsprechenden Feld aus der einzulesenden Datei.");
-			assertEquals(1, xmlLeser.getUebergebenesModell().getDschungel().getFelder()[0][1].getPunkte(),
+			assertEquals(1, xmlLeser.getTransferredModel().getJungle().getFields()[0][1].getPoints(),
 					"\nEin Feld an der Stelle [0][1] des Dschungels entspricht nicht dem entsprechenden Feld aus der einzulesenden Datei.");
-			assertEquals("E", xmlLeser.getUebergebenesModell().getDschungel().getFelder()[0][1].getZeichen(),
+			assertEquals("E", xmlLeser.getTransferredModel().getJungle().getFields()[0][1].getCharacter(),
 					"\nEin Feld an der Stelle [0][1] des Dschungels entspricht nicht dem entsprechenden Feld aus der einzulesenden Datei.");
 
 			// Ueberpruefe das Feld an Position[0][2]
-			assertEquals("F2", xmlLeser.getUebergebenesModell().getDschungel().getFelder()[0][2].getId(),
+			assertEquals("F2", xmlLeser.getTransferredModel().getJungle().getFields()[0][2].getId(),
 					"\nEin Feld an der Stelle [0][2] des Dschungels entspricht nicht dem entsprechenden Feld aus der einzulesenden Datei.");
-			assertEquals(0, xmlLeser.getUebergebenesModell().getDschungel().getFelder()[0][2].getZeile(),
+			assertEquals(0, xmlLeser.getTransferredModel().getJungle().getFields()[0][2].getRow(),
 					"\nEin Feld an der Stelle [0][2] des Dschungels entspricht nicht dem entsprechenden Feld aus der einzulesenden Datei.");
-			assertEquals(2, xmlLeser.getUebergebenesModell().getDschungel().getFelder()[0][2].getSpalte(),
+			assertEquals(2, xmlLeser.getTransferredModel().getJungle().getFields()[0][2].getColumn(),
 					"\nEin Feld an der Stelle [0][2] des Dschungels entspricht nicht dem entsprechenden Feld aus der einzulesenden Datei.");
-			assertEquals(1, xmlLeser.getUebergebenesModell().getDschungel().getFelder()[0][2].getVerwendbarkeit(),
+			assertEquals(1, xmlLeser.getTransferredModel().getJungle().getFields()[0][2].getUsage(),
 					"\nEin Feld an der Stelle [0][2] des Dschungels entspricht nicht dem entsprechenden Feld aus der einzulesenden Datei.");
-			assertEquals(1, xmlLeser.getUebergebenesModell().getDschungel().getFelder()[0][2].getPunkte(),
+			assertEquals(1, xmlLeser.getTransferredModel().getJungle().getFields()[0][2].getPoints(),
 					"\nEin Feld an der Stelle [0][2] des Dschungels entspricht nicht dem entsprechenden Feld aus der einzulesenden Datei.");
-			assertEquals("R", xmlLeser.getUebergebenesModell().getDschungel().getFelder()[0][2].getZeichen(),
+			assertEquals("R", xmlLeser.getTransferredModel().getJungle().getFields()[0][2].getCharacter(),
 					"\nEin Feld an der Stelle [0][2] des Dschungels entspricht nicht dem entsprechenden Feld aus der einzulesenden Datei.");
 
 			// Ueberpruefe das Feld an Position[0][3]
-			assertEquals("F3", xmlLeser.getUebergebenesModell().getDschungel().getFelder()[0][3].getId(),
+			assertEquals("F3", xmlLeser.getTransferredModel().getJungle().getFields()[0][3].getId(),
 					"\nEin Feld an der Stelle [0][3] des Dschungels entspricht nicht dem entsprechenden Feld aus der einzulesenden Datei.");
-			assertEquals(0, xmlLeser.getUebergebenesModell().getDschungel().getFelder()[0][3].getZeile(),
+			assertEquals(0, xmlLeser.getTransferredModel().getJungle().getFields()[0][3].getRow(),
 					"\nEin Feld an der Stelle [0][3] des Dschungels entspricht nicht dem entsprechenden Feld aus der einzulesenden Datei.");
-			assertEquals(3, xmlLeser.getUebergebenesModell().getDschungel().getFelder()[0][3].getSpalte(),
+			assertEquals(3, xmlLeser.getTransferredModel().getJungle().getFields()[0][3].getColumn(),
 					"\nEin Feld an der Stelle [0][3] des Dschungels entspricht nicht dem entsprechenden Feld aus der einzulesenden Datei.");
-			assertEquals(1, xmlLeser.getUebergebenesModell().getDschungel().getFelder()[0][3].getVerwendbarkeit(),
+			assertEquals(1, xmlLeser.getTransferredModel().getJungle().getFields()[0][3].getUsage(),
 					"\nEin Feld an der Stelle [0][3] des Dschungels entspricht nicht dem entsprechenden Feld aus der einzulesenden Datei.");
-			assertEquals(1, xmlLeser.getUebergebenesModell().getDschungel().getFelder()[0][3].getPunkte(),
+			assertEquals(1, xmlLeser.getTransferredModel().getJungle().getFields()[0][3].getPoints(),
 					"\nEin Feld an der Stelle [0][3] des Dschungels entspricht nicht dem entsprechenden Feld aus der einzulesenden Datei.");
-			assertEquals("N", xmlLeser.getUebergebenesModell().getDschungel().getFelder()[0][3].getZeichen(),
+			assertEquals("N", xmlLeser.getTransferredModel().getJungle().getFields()[0][3].getCharacter(),
 					"\nEin Feld an der Stelle [0][3] des Dschungels entspricht nicht dem entsprechenden Feld aus der einzulesenden Datei.");
 
 			// Ueberpruefe das Feld an Position[1][0]
-			assertEquals("F4", xmlLeser.getUebergebenesModell().getDschungel().getFelder()[1][0].getId(),
+			assertEquals("F4", xmlLeser.getTransferredModel().getJungle().getFields()[1][0].getId(),
 					"\nEin Feld an der Stelle [1][0] des Dschungels entspricht nicht dem entsprechenden Feld aus der einzulesenden Datei.");
-			assertEquals(1, xmlLeser.getUebergebenesModell().getDschungel().getFelder()[1][0].getZeile(),
+			assertEquals(1, xmlLeser.getTransferredModel().getJungle().getFields()[1][0].getRow(),
 					"\nEin Feld an der Stelle [1][0] des Dschungels entspricht nicht dem entsprechenden Feld aus der einzulesenden Datei.");
-			assertEquals(0, xmlLeser.getUebergebenesModell().getDschungel().getFelder()[1][0].getSpalte(),
+			assertEquals(0, xmlLeser.getTransferredModel().getJungle().getFields()[1][0].getColumn(),
 					"\nEin Feld an der Stelle [1][0] des Dschungels entspricht nicht dem entsprechenden Feld aus der einzulesenden Datei.");
-			assertEquals(1, xmlLeser.getUebergebenesModell().getDschungel().getFelder()[1][0].getVerwendbarkeit(),
+			assertEquals(1, xmlLeser.getTransferredModel().getJungle().getFields()[1][0].getUsage(),
 					"\nEin Feld an der Stelle [1][0] des Dschungels entspricht nicht dem entsprechenden Feld aus der einzulesenden Datei.");
-			assertEquals(1, xmlLeser.getUebergebenesModell().getDschungel().getFelder()[1][0].getPunkte(),
+			assertEquals(1, xmlLeser.getTransferredModel().getJungle().getFields()[1][0].getPoints(),
 					"\nEin Feld an der Stelle [1][0] des Dschungels entspricht nicht dem entsprechenden Feld aus der einzulesenden Datei.");
-			assertEquals("X", xmlLeser.getUebergebenesModell().getDschungel().getFelder()[1][0].getZeichen(),
+			assertEquals("X", xmlLeser.getTransferredModel().getJungle().getFields()[1][0].getCharacter(),
 					"\nEin Feld an der Stelle [1][0] des Dschungels entspricht nicht dem entsprechenden Feld aus der einzulesenden Datei.");
 
 			// Ueberpruefe das Feld an Position[1][1]
-			assertEquals("F5", xmlLeser.getUebergebenesModell().getDschungel().getFelder()[1][1].getId(),
+			assertEquals("F5", xmlLeser.getTransferredModel().getJungle().getFields()[1][1].getId(),
 					"\nEin Feld an der Stelle [1][1] des Dschungels entspricht nicht dem entsprechenden Feld aus der einzulesenden Datei.");
-			assertEquals(1, xmlLeser.getUebergebenesModell().getDschungel().getFelder()[1][1].getZeile(),
+			assertEquals(1, xmlLeser.getTransferredModel().getJungle().getFields()[1][1].getRow(),
 					"\nEin Feld an der Stelle [1][1] des Dschungels entspricht nicht dem entsprechenden Feld aus der einzulesenden Datei.");
-			assertEquals(1, xmlLeser.getUebergebenesModell().getDschungel().getFelder()[1][1].getSpalte(),
+			assertEquals(1, xmlLeser.getTransferredModel().getJungle().getFields()[1][1].getColumn(),
 					"\nEin Feld an der Stelle [1][1] des Dschungels entspricht nicht dem entsprechenden Feld aus der einzulesenden Datei.");
-			assertEquals(1, xmlLeser.getUebergebenesModell().getDschungel().getFelder()[1][1].getVerwendbarkeit(),
+			assertEquals(1, xmlLeser.getTransferredModel().getJungle().getFields()[1][1].getUsage(),
 					"\nEin Feld an der Stelle [1][1] des Dschungels entspricht nicht dem entsprechenden Feld aus der einzulesenden Datei.");
-			assertEquals(1, xmlLeser.getUebergebenesModell().getDschungel().getFelder()[1][1].getPunkte(),
+			assertEquals(1, xmlLeser.getTransferredModel().getJungle().getFields()[1][1].getPoints(),
 					"\nEin Feld an der Stelle [1][1] des Dschungels entspricht nicht dem entsprechenden Feld aus der einzulesenden Datei.");
-			assertEquals("I", xmlLeser.getUebergebenesModell().getDschungel().getFelder()[1][1].getZeichen(),
+			assertEquals("I", xmlLeser.getTransferredModel().getJungle().getFields()[1][1].getCharacter(),
 					"\nEin Feld an der Stelle [1][1] des Dschungels entspricht nicht dem entsprechenden Feld aus der einzulesenden Datei.");
 
 			// Ueberpruefe das Feld an Position[1][2]
-			assertEquals("F6", xmlLeser.getUebergebenesModell().getDschungel().getFelder()[1][2].getId(),
+			assertEquals("F6", xmlLeser.getTransferredModel().getJungle().getFields()[1][2].getId(),
 					"\nEin Feld an der Stelle [1][2] des Dschungels entspricht nicht dem entsprechenden Feld aus der einzulesenden Datei.");
-			assertEquals(1, xmlLeser.getUebergebenesModell().getDschungel().getFelder()[1][2].getZeile(),
+			assertEquals(1, xmlLeser.getTransferredModel().getJungle().getFields()[1][2].getRow(),
 					"\nEin Feld an der Stelle [1][2] des Dschungels entspricht nicht dem entsprechenden Feld aus der einzulesenden Datei.");
-			assertEquals(2, xmlLeser.getUebergebenesModell().getDschungel().getFelder()[1][2].getSpalte(),
+			assertEquals(2, xmlLeser.getTransferredModel().getJungle().getFields()[1][2].getColumn(),
 					"\nEin Feld an der Stelle [1][2] des Dschungels entspricht nicht dem entsprechenden Feld aus der einzulesenden Datei.");
-			assertEquals(1, xmlLeser.getUebergebenesModell().getDschungel().getFelder()[1][2].getVerwendbarkeit(),
+			assertEquals(1, xmlLeser.getTransferredModel().getJungle().getFields()[1][2].getUsage(),
 					"\nEin Feld an der Stelle [1][2] des Dschungels entspricht nicht dem entsprechenden Feld aus der einzulesenden Datei.");
-			assertEquals(1, xmlLeser.getUebergebenesModell().getDschungel().getFelder()[1][2].getPunkte(),
+			assertEquals(1, xmlLeser.getTransferredModel().getJungle().getFields()[1][2].getPoints(),
 					"\nEin Feld an der Stelle [1][2] des Dschungels entspricht nicht dem entsprechenden Feld aus der einzulesenden Datei.");
-			assertEquals("N", xmlLeser.getUebergebenesModell().getDschungel().getFelder()[1][2].getZeichen(),
+			assertEquals("N", xmlLeser.getTransferredModel().getJungle().getFields()[1][2].getCharacter(),
 					"\nEin Feld an der Stelle [1][2] des Dschungels entspricht nicht dem entsprechenden Feld aus der einzulesenden Datei.");
 
 			// Ueberpruefe das Feld an Position[1][3]
-			assertEquals("F7", xmlLeser.getUebergebenesModell().getDschungel().getFelder()[1][3].getId(),
+			assertEquals("F7", xmlLeser.getTransferredModel().getJungle().getFields()[1][3].getId(),
 					"\nEin Feld an der Stelle [1][3] des Dschungels entspricht nicht dem entsprechenden Feld aus der einzulesenden Datei.");
-			assertEquals(1, xmlLeser.getUebergebenesModell().getDschungel().getFelder()[1][3].getZeile(),
+			assertEquals(1, xmlLeser.getTransferredModel().getJungle().getFields()[1][3].getRow(),
 					"\nEin Feld an der Stelle [1][3] des Dschungels entspricht nicht dem entsprechenden Feld aus der einzulesenden Datei.");
-			assertEquals(3, xmlLeser.getUebergebenesModell().getDschungel().getFelder()[1][3].getSpalte(),
+			assertEquals(3, xmlLeser.getTransferredModel().getJungle().getFields()[1][3].getColumn(),
 					"\nEin Feld an der Stelle [1][3] des Dschungels entspricht nicht dem entsprechenden Feld aus der einzulesenden Datei.");
-			assertEquals(1, xmlLeser.getUebergebenesModell().getDschungel().getFelder()[1][3].getVerwendbarkeit(),
+			assertEquals(1, xmlLeser.getTransferredModel().getJungle().getFields()[1][3].getUsage(),
 					"\nEin Feld an der Stelle [1][3] des Dschungels entspricht nicht dem entsprechenden Feld aus der einzulesenden Datei.");
-			assertEquals(1, xmlLeser.getUebergebenesModell().getDschungel().getFelder()[1][3].getPunkte(),
+			assertEquals(1, xmlLeser.getTransferredModel().getJungle().getFields()[1][3].getPoints(),
 					"\nEin Feld an der Stelle [1][3] des Dschungels entspricht nicht dem entsprechenden Feld aus der einzulesenden Datei.");
-			assertEquals("U", xmlLeser.getUebergebenesModell().getDschungel().getFelder()[1][3].getZeichen(),
+			assertEquals("U", xmlLeser.getTransferredModel().getJungle().getFields()[1][3].getCharacter(),
 					"\nEin Feld an der Stelle [1][3] des Dschungels entspricht nicht dem entsprechenden Feld aus der einzulesenden Datei.");
 		}
 
 		@DisplayName("Einfacher Test fuer das Attribut 'schlangenarten'.")
 		@Test
 		void testeSchlangenarten() {
-			assertEquals("A0", xmlLeser.getUebergebenesModell().getSchlangenarten().get(0).getId(),
+			assertEquals("A0", xmlLeser.getTransferredModel().getSnakeTypes().get(0).getId(),
 					"\nDie eingelesene ID der Schlange entspricht nicht der ID aus der einzulesenden Datei.");
-			assertEquals("Distanz", xmlLeser.getUebergebenesModell().getSchlangenarten().get(0).getStruktur().getArt(),
+			assertEquals("Distanz", xmlLeser.getTransferredModel().getSnakeTypes().get(0).getStruktur().getType(),
 					"\nDie eingelesene Schlangenart entspricht nicht der Schlangenart aus der einzulesenden Datei.");
-			assertEquals("FERNUNI", xmlLeser.getUebergebenesModell().getSchlangenarten().get(0).getZeichenkette(),
+			assertEquals("FERNUNI", xmlLeser.getTransferredModel().getSnakeTypes().get(0).getZeichenkette(),
 					"\nDie eingelesende Zeichenkette entspricht nicht der Zeichenkette aus der einzulesenden Datei.");
-			assertEquals(1, xmlLeser.getUebergebenesModell().getSchlangenarten().get(0).getPunkte(),
+			assertEquals(1, xmlLeser.getTransferredModel().getSnakeTypes().get(0).getPunkte(),
 					"\nDie eingelesenen Punkte entsprechen nicht den Punkten aus der einzulesenden Datei.");
-			assertEquals(1, xmlLeser.getUebergebenesModell().getSchlangenarten().get(0).getAnzahl(),
+			assertEquals(1, xmlLeser.getTransferredModel().getSnakeTypes().get(0).getAnzahl(),
 					"\nDie eingelesene Anzahl entspricht nicht der Anzahl aus der einzulesenden Datei.");
 		}
 
@@ -205,31 +205,31 @@ class ReaderXMLTest {
 		@Test
 		void testeSchlangen() {
 			assertEquals("F0",
-					xmlLeser.getUebergebenesModell().getLoesung().getSchlangen().get(0).getGlieder().get(0).getFeld()
+					xmlLeser.getTransferredModel().getSolution().getSchlangen().get(0).getElements().get(0).getField()
 							.getId(),
 					"\nDie ID der eingelesenen Schlange entspricht nicht der in der einzulesenden Datei.");
 			assertEquals("F1",
-					xmlLeser.getUebergebenesModell().getLoesung().getSchlangen().get(0).getGlieder().get(1).getFeld()
+					xmlLeser.getTransferredModel().getSolution().getSchlangen().get(0).getElements().get(1).getField()
 							.getId(),
 					"\nDie ID der eingelesenen Schlange entspricht nicht der in der einzulesenden Datei.");
 			assertEquals("F2",
-					xmlLeser.getUebergebenesModell().getLoesung().getSchlangen().get(0).getGlieder().get(2).getFeld()
+					xmlLeser.getTransferredModel().getSolution().getSchlangen().get(0).getElements().get(2).getField()
 							.getId(),
 					"\nDie ID der eingelesenen Schlange entspricht nicht der in der einzulesenden Datei.");
 			assertEquals("F3",
-					xmlLeser.getUebergebenesModell().getLoesung().getSchlangen().get(0).getGlieder().get(3).getFeld()
+					xmlLeser.getTransferredModel().getSolution().getSchlangen().get(0).getElements().get(3).getField()
 							.getId(),
 					"\nDie ID der eingelesenen Schlange entspricht nicht der in der einzulesenden Datei.");
 			assertEquals("F7",
-					xmlLeser.getUebergebenesModell().getLoesung().getSchlangen().get(0).getGlieder().get(4).getFeld()
+					xmlLeser.getTransferredModel().getSolution().getSchlangen().get(0).getElements().get(4).getField()
 							.getId(),
 					"\nDie ID der eingelesenen Schlange entspricht nicht der in der einzulesenden Datei.");
 			assertEquals("F6",
-					xmlLeser.getUebergebenesModell().getLoesung().getSchlangen().get(0).getGlieder().get(5).getFeld()
+					xmlLeser.getTransferredModel().getSolution().getSchlangen().get(0).getElements().get(5).getField()
 							.getId(),
 					"\nDie ID der eingelesenen Schlange entspricht nicht der in der einzulesenden Datei.");
 			assertEquals("F5",
-					xmlLeser.getUebergebenesModell().getLoesung().getSchlangen().get(0).getGlieder().get(6).getFeld()
+					xmlLeser.getTransferredModel().getSolution().getSchlangen().get(0).getElements().get(6).getField()
 							.getId(),
 					"\nDie ID der eingelesenen Schlange entspricht nicht der in der einzulesenden Datei.");
 		}
@@ -243,26 +243,26 @@ class ReaderXMLTest {
 
 			// Lese die entsprechende Datei ein
 			xmlLeser = new ReaderXML();
-			xmlLeser.leseDatei("res/sj_p1_probleminstanz.xml");
+			xmlLeser.readFile("res/sj_p1_probleminstanz.xml");
 		}
 
 		@DisplayName("Einfacher Test fuer das Attribut 'zeit'.")
 		@Test
 		void testeZeit() {
 			Double[] zeitInDatei = { 60.0, 0.0 };
-			assertArrayEquals(zeitInDatei, xmlLeser.getUebergebenesModell().getZeit(),
+			assertArrayEquals(zeitInDatei, xmlLeser.getTransferredModel().getTime(),
 					"\nDie eingelesene Zeit entspricht nicht der Zeit aus der XML-Datei.");
 		}
 
 		@DisplayName("Einfacher Test fuer das Attribut 'dschungel'.")
 		@Test
 		void testeDschungel() {
-			assertEquals(2, xmlLeser.getUebergebenesModell().getDschungel().getZeilen(),
+			assertEquals(2, xmlLeser.getTransferredModel().getJungle().getRows(),
 					"\nDie eingelesene Zahl fuer die Spalten des Dschungels entspricht nicht dem Wert aus der einzulesenden Datei.");
-			assertEquals(4, xmlLeser.getUebergebenesModell().getDschungel().getSpalten(),
+			assertEquals(4, xmlLeser.getTransferredModel().getJungle().getColumns(),
 					"\nDie eingelesene Zahl fuer die Zeilen des Dschungels entspricht nicht dem Wert aus der einzulesenden Datei.");
 			assertEquals("ABCDEFGHIJKLMNOPQRSTUVWXYZ",
-					xmlLeser.getUebergebenesModell().getDschungel().getZeichenmenge(),
+					xmlLeser.getTransferredModel().getJungle().getSigns(),
 					"\nDie eingelesene Zeichenmenge des Dschungels entspricht nicht dem Wert aus der einzulesenden Datei.");
 		}
 
@@ -271,130 +271,130 @@ class ReaderXMLTest {
 		void testeDschungelFelder() {
 
 			// Ueberpruefe das Feld an Position[0][0]
-			assertEquals("F0", xmlLeser.getUebergebenesModell().getDschungel().getFelder()[0][0].getId(),
+			assertEquals("F0", xmlLeser.getTransferredModel().getJungle().getFields()[0][0].getId(),
 					"\nEin Feld an der Stelle [0][0] des Dschungels entspricht nicht dem entsprechenden Feld aus der einzulesenden Datei.");
-			assertEquals(0, xmlLeser.getUebergebenesModell().getDschungel().getFelder()[0][0].getZeile(),
+			assertEquals(0, xmlLeser.getTransferredModel().getJungle().getFields()[0][0].getRow(),
 					"\nEin Feld an der Stelle [0][0] des Dschungels entspricht nicht dem entsprechenden Feld aus der einzulesenden Datei.");
-			assertEquals(0, xmlLeser.getUebergebenesModell().getDschungel().getFelder()[0][0].getSpalte(),
+			assertEquals(0, xmlLeser.getTransferredModel().getJungle().getFields()[0][0].getColumn(),
 					"\nEin Feld an der Stelle [0][0] des Dschungels entspricht nicht dem entsprechenden Feld aus der einzulesenden Datei.");
-			assertEquals(1, xmlLeser.getUebergebenesModell().getDschungel().getFelder()[0][0].getVerwendbarkeit(),
+			assertEquals(1, xmlLeser.getTransferredModel().getJungle().getFields()[0][0].getUsage(),
 					"\nEin Feld an der Stelle [0][0] des Dschungels entspricht nicht dem entsprechenden Feld aus der einzulesenden Datei.");
-			assertEquals(1, xmlLeser.getUebergebenesModell().getDschungel().getFelder()[0][0].getPunkte(),
+			assertEquals(1, xmlLeser.getTransferredModel().getJungle().getFields()[0][0].getPoints(),
 					"\nEin Feld an der Stelle [0][0] des Dschungels entspricht nicht dem entsprechenden Feld aus der einzulesenden Datei.");
-			assertEquals("F", xmlLeser.getUebergebenesModell().getDschungel().getFelder()[0][0].getZeichen(),
+			assertEquals("F", xmlLeser.getTransferredModel().getJungle().getFields()[0][0].getCharacter(),
 					"\nEin Feld an der Stelle [0][0] des Dschungels entspricht nicht dem entsprechenden Feld aus der einzulesenden Datei.");
 
 			// Ueberpruefe das Feld an Position[0][1]
-			assertEquals("F1", xmlLeser.getUebergebenesModell().getDschungel().getFelder()[0][1].getId(),
+			assertEquals("F1", xmlLeser.getTransferredModel().getJungle().getFields()[0][1].getId(),
 					"\nEin Feld an der Stelle [0][1] des Dschungels entspricht nicht dem entsprechenden Feld aus der einzulesenden Datei.");
-			assertEquals(0, xmlLeser.getUebergebenesModell().getDschungel().getFelder()[0][1].getZeile(),
+			assertEquals(0, xmlLeser.getTransferredModel().getJungle().getFields()[0][1].getRow(),
 					"\nEin Feld an der Stelle [0][1] des Dschungels entspricht nicht dem entsprechenden Feld aus der einzulesenden Datei.");
-			assertEquals(1, xmlLeser.getUebergebenesModell().getDschungel().getFelder()[0][1].getSpalte(),
+			assertEquals(1, xmlLeser.getTransferredModel().getJungle().getFields()[0][1].getColumn(),
 					"\nEin Feld an der Stelle [0][1] des Dschungels entspricht nicht dem entsprechenden Feld aus der einzulesenden Datei.");
-			assertEquals(1, xmlLeser.getUebergebenesModell().getDschungel().getFelder()[0][1].getVerwendbarkeit(),
+			assertEquals(1, xmlLeser.getTransferredModel().getJungle().getFields()[0][1].getUsage(),
 					"\nEin Feld an der Stelle [0][1] des Dschungels entspricht nicht dem entsprechenden Feld aus der einzulesenden Datei.");
-			assertEquals(1, xmlLeser.getUebergebenesModell().getDschungel().getFelder()[0][1].getPunkte(),
+			assertEquals(1, xmlLeser.getTransferredModel().getJungle().getFields()[0][1].getPoints(),
 					"\nEin Feld an der Stelle [0][1] des Dschungels entspricht nicht dem entsprechenden Feld aus der einzulesenden Datei.");
-			assertEquals("E", xmlLeser.getUebergebenesModell().getDschungel().getFelder()[0][1].getZeichen(),
+			assertEquals("E", xmlLeser.getTransferredModel().getJungle().getFields()[0][1].getCharacter(),
 					"\nEin Feld an der Stelle [0][1] des Dschungels entspricht nicht dem entsprechenden Feld aus der einzulesenden Datei.");
 
 			// Ueberpruefe das Feld an Position[0][2]
-			assertEquals("F2", xmlLeser.getUebergebenesModell().getDschungel().getFelder()[0][2].getId(),
+			assertEquals("F2", xmlLeser.getTransferredModel().getJungle().getFields()[0][2].getId(),
 					"\nEin Feld an der Stelle [0][2] des Dschungels entspricht nicht dem entsprechenden Feld aus der einzulesenden Datei.");
-			assertEquals(0, xmlLeser.getUebergebenesModell().getDschungel().getFelder()[0][2].getZeile(),
+			assertEquals(0, xmlLeser.getTransferredModel().getJungle().getFields()[0][2].getRow(),
 					"\nEin Feld an der Stelle [0][2] des Dschungels entspricht nicht dem entsprechenden Feld aus der einzulesenden Datei.");
-			assertEquals(2, xmlLeser.getUebergebenesModell().getDschungel().getFelder()[0][2].getSpalte(),
+			assertEquals(2, xmlLeser.getTransferredModel().getJungle().getFields()[0][2].getColumn(),
 					"\nEin Feld an der Stelle [0][2] des Dschungels entspricht nicht dem entsprechenden Feld aus der einzulesenden Datei.");
-			assertEquals(1, xmlLeser.getUebergebenesModell().getDschungel().getFelder()[0][2].getVerwendbarkeit(),
+			assertEquals(1, xmlLeser.getTransferredModel().getJungle().getFields()[0][2].getUsage(),
 					"\nEin Feld an der Stelle [0][2] des Dschungels entspricht nicht dem entsprechenden Feld aus der einzulesenden Datei.");
-			assertEquals(1, xmlLeser.getUebergebenesModell().getDschungel().getFelder()[0][2].getPunkte(),
+			assertEquals(1, xmlLeser.getTransferredModel().getJungle().getFields()[0][2].getPoints(),
 					"\nEin Feld an der Stelle [0][2] des Dschungels entspricht nicht dem entsprechenden Feld aus der einzulesenden Datei.");
-			assertEquals("R", xmlLeser.getUebergebenesModell().getDschungel().getFelder()[0][2].getZeichen(),
+			assertEquals("R", xmlLeser.getTransferredModel().getJungle().getFields()[0][2].getCharacter(),
 					"\nEin Feld an der Stelle [0][2] des Dschungels entspricht nicht dem entsprechenden Feld aus der einzulesenden Datei.");
 
 			// Ueberpruefe das Feld an Position[0][3]
-			assertEquals("F3", xmlLeser.getUebergebenesModell().getDschungel().getFelder()[0][3].getId(),
+			assertEquals("F3", xmlLeser.getTransferredModel().getJungle().getFields()[0][3].getId(),
 					"\nEin Feld an der Stelle [0][3] des Dschungels entspricht nicht dem entsprechenden Feld aus der einzulesenden Datei.");
-			assertEquals(0, xmlLeser.getUebergebenesModell().getDschungel().getFelder()[0][3].getZeile(),
+			assertEquals(0, xmlLeser.getTransferredModel().getJungle().getFields()[0][3].getRow(),
 					"\nEin Feld an der Stelle [0][3] des Dschungels entspricht nicht dem entsprechenden Feld aus der einzulesenden Datei.");
-			assertEquals(3, xmlLeser.getUebergebenesModell().getDschungel().getFelder()[0][3].getSpalte(),
+			assertEquals(3, xmlLeser.getTransferredModel().getJungle().getFields()[0][3].getColumn(),
 					"\nEin Feld an der Stelle [0][3] des Dschungels entspricht nicht dem entsprechenden Feld aus der einzulesenden Datei.");
-			assertEquals(1, xmlLeser.getUebergebenesModell().getDschungel().getFelder()[0][3].getVerwendbarkeit(),
+			assertEquals(1, xmlLeser.getTransferredModel().getJungle().getFields()[0][3].getUsage(),
 					"\nEin Feld an der Stelle [0][3] des Dschungels entspricht nicht dem entsprechenden Feld aus der einzulesenden Datei.");
-			assertEquals(1, xmlLeser.getUebergebenesModell().getDschungel().getFelder()[0][3].getPunkte(),
+			assertEquals(1, xmlLeser.getTransferredModel().getJungle().getFields()[0][3].getPoints(),
 					"\nEin Feld an der Stelle [0][3] des Dschungels entspricht nicht dem entsprechenden Feld aus der einzulesenden Datei.");
-			assertEquals("N", xmlLeser.getUebergebenesModell().getDschungel().getFelder()[0][3].getZeichen(),
+			assertEquals("N", xmlLeser.getTransferredModel().getJungle().getFields()[0][3].getCharacter(),
 					"\nEin Feld an der Stelle [0][3] des Dschungels entspricht nicht dem entsprechenden Feld aus der einzulesenden Datei.");
 
 			// Ueberpruefe das Feld an Position[1][0]
-			assertEquals("F4", xmlLeser.getUebergebenesModell().getDschungel().getFelder()[1][0].getId(),
+			assertEquals("F4", xmlLeser.getTransferredModel().getJungle().getFields()[1][0].getId(),
 					"\nEin Feld an der Stelle [1][0] des Dschungels entspricht nicht dem entsprechenden Feld aus der einzulesenden Datei.");
-			assertEquals(1, xmlLeser.getUebergebenesModell().getDschungel().getFelder()[1][0].getZeile(),
+			assertEquals(1, xmlLeser.getTransferredModel().getJungle().getFields()[1][0].getRow(),
 					"\nEin Feld an der Stelle [1][0] des Dschungels entspricht nicht dem entsprechenden Feld aus der einzulesenden Datei.");
-			assertEquals(0, xmlLeser.getUebergebenesModell().getDschungel().getFelder()[1][0].getSpalte(),
+			assertEquals(0, xmlLeser.getTransferredModel().getJungle().getFields()[1][0].getColumn(),
 					"\nEin Feld an der Stelle [1][0] des Dschungels entspricht nicht dem entsprechenden Feld aus der einzulesenden Datei.");
-			assertEquals(1, xmlLeser.getUebergebenesModell().getDschungel().getFelder()[1][0].getVerwendbarkeit(),
+			assertEquals(1, xmlLeser.getTransferredModel().getJungle().getFields()[1][0].getUsage(),
 					"\nEin Feld an der Stelle [1][0] des Dschungels entspricht nicht dem entsprechenden Feld aus der einzulesenden Datei.");
-			assertEquals(1, xmlLeser.getUebergebenesModell().getDschungel().getFelder()[1][0].getPunkte(),
+			assertEquals(1, xmlLeser.getTransferredModel().getJungle().getFields()[1][0].getPoints(),
 					"\nEin Feld an der Stelle [1][0] des Dschungels entspricht nicht dem entsprechenden Feld aus der einzulesenden Datei.");
-			assertEquals("X", xmlLeser.getUebergebenesModell().getDschungel().getFelder()[1][0].getZeichen(),
+			assertEquals("X", xmlLeser.getTransferredModel().getJungle().getFields()[1][0].getCharacter(),
 					"\nEin Feld an der Stelle [1][0] des Dschungels entspricht nicht dem entsprechenden Feld aus der einzulesenden Datei.");
 
 			// Ueberpruefe das Feld an Position[1][1]
-			assertEquals("F5", xmlLeser.getUebergebenesModell().getDschungel().getFelder()[1][1].getId(),
+			assertEquals("F5", xmlLeser.getTransferredModel().getJungle().getFields()[1][1].getId(),
 					"\nEin Feld an der Stelle [1][1] des Dschungels entspricht nicht dem entsprechenden Feld aus der einzulesenden Datei.");
-			assertEquals(1, xmlLeser.getUebergebenesModell().getDschungel().getFelder()[1][1].getZeile(),
+			assertEquals(1, xmlLeser.getTransferredModel().getJungle().getFields()[1][1].getRow(),
 					"\nEin Feld an der Stelle [1][1] des Dschungels entspricht nicht dem entsprechenden Feld aus der einzulesenden Datei.");
-			assertEquals(1, xmlLeser.getUebergebenesModell().getDschungel().getFelder()[1][1].getSpalte(),
+			assertEquals(1, xmlLeser.getTransferredModel().getJungle().getFields()[1][1].getColumn(),
 					"\nEin Feld an der Stelle [1][1] des Dschungels entspricht nicht dem entsprechenden Feld aus der einzulesenden Datei.");
-			assertEquals(1, xmlLeser.getUebergebenesModell().getDschungel().getFelder()[1][1].getVerwendbarkeit(),
+			assertEquals(1, xmlLeser.getTransferredModel().getJungle().getFields()[1][1].getUsage(),
 					"\nEin Feld an der Stelle [1][1] des Dschungels entspricht nicht dem entsprechenden Feld aus der einzulesenden Datei.");
-			assertEquals(1, xmlLeser.getUebergebenesModell().getDschungel().getFelder()[1][1].getPunkte(),
+			assertEquals(1, xmlLeser.getTransferredModel().getJungle().getFields()[1][1].getPoints(),
 					"\nEin Feld an der Stelle [1][1] des Dschungels entspricht nicht dem entsprechenden Feld aus der einzulesenden Datei.");
-			assertEquals("I", xmlLeser.getUebergebenesModell().getDschungel().getFelder()[1][1].getZeichen(),
+			assertEquals("I", xmlLeser.getTransferredModel().getJungle().getFields()[1][1].getCharacter(),
 					"\nEin Feld an der Stelle [1][1] des Dschungels entspricht nicht dem entsprechenden Feld aus der einzulesenden Datei.");
 
 			// Ueberpruefe das Feld an Position[1][2]
-			assertEquals("F6", xmlLeser.getUebergebenesModell().getDschungel().getFelder()[1][2].getId(),
+			assertEquals("F6", xmlLeser.getTransferredModel().getJungle().getFields()[1][2].getId(),
 					"\nEin Feld an der Stelle [1][2] des Dschungels entspricht nicht dem entsprechenden Feld aus der einzulesenden Datei.");
-			assertEquals(1, xmlLeser.getUebergebenesModell().getDschungel().getFelder()[1][2].getZeile(),
+			assertEquals(1, xmlLeser.getTransferredModel().getJungle().getFields()[1][2].getRow(),
 					"\nEin Feld an der Stelle [1][2] des Dschungels entspricht nicht dem entsprechenden Feld aus der einzulesenden Datei.");
-			assertEquals(2, xmlLeser.getUebergebenesModell().getDschungel().getFelder()[1][2].getSpalte(),
+			assertEquals(2, xmlLeser.getTransferredModel().getJungle().getFields()[1][2].getColumn(),
 					"\nEin Feld an der Stelle [1][2] des Dschungels entspricht nicht dem entsprechenden Feld aus der einzulesenden Datei.");
-			assertEquals(1, xmlLeser.getUebergebenesModell().getDschungel().getFelder()[1][2].getVerwendbarkeit(),
+			assertEquals(1, xmlLeser.getTransferredModel().getJungle().getFields()[1][2].getUsage(),
 					"\nEin Feld an der Stelle [1][2] des Dschungels entspricht nicht dem entsprechenden Feld aus der einzulesenden Datei.");
-			assertEquals(1, xmlLeser.getUebergebenesModell().getDschungel().getFelder()[1][2].getPunkte(),
+			assertEquals(1, xmlLeser.getTransferredModel().getJungle().getFields()[1][2].getPoints(),
 					"\nEin Feld an der Stelle [1][2] des Dschungels entspricht nicht dem entsprechenden Feld aus der einzulesenden Datei.");
-			assertEquals("N", xmlLeser.getUebergebenesModell().getDschungel().getFelder()[1][2].getZeichen(),
+			assertEquals("N", xmlLeser.getTransferredModel().getJungle().getFields()[1][2].getCharacter(),
 					"\nEin Feld an der Stelle [1][2] des Dschungels entspricht nicht dem entsprechenden Feld aus der einzulesenden Datei.");
 
 			// Ueberpruefe das Feld an Position[1][3]
-			assertEquals("F7", xmlLeser.getUebergebenesModell().getDschungel().getFelder()[1][3].getId(),
+			assertEquals("F7", xmlLeser.getTransferredModel().getJungle().getFields()[1][3].getId(),
 					"\nEin Feld an der Stelle [1][3] des Dschungels entspricht nicht dem entsprechenden Feld aus der einzulesenden Datei.");
-			assertEquals(1, xmlLeser.getUebergebenesModell().getDschungel().getFelder()[1][3].getZeile(),
+			assertEquals(1, xmlLeser.getTransferredModel().getJungle().getFields()[1][3].getRow(),
 					"\nEin Feld an der Stelle [1][3] des Dschungels entspricht nicht dem entsprechenden Feld aus der einzulesenden Datei.");
-			assertEquals(3, xmlLeser.getUebergebenesModell().getDschungel().getFelder()[1][3].getSpalte(),
+			assertEquals(3, xmlLeser.getTransferredModel().getJungle().getFields()[1][3].getColumn(),
 					"\nEin Feld an der Stelle [1][3] des Dschungels entspricht nicht dem entsprechenden Feld aus der einzulesenden Datei.");
-			assertEquals(1, xmlLeser.getUebergebenesModell().getDschungel().getFelder()[1][3].getVerwendbarkeit(),
+			assertEquals(1, xmlLeser.getTransferredModel().getJungle().getFields()[1][3].getUsage(),
 					"\nEin Feld an der Stelle [1][3] des Dschungels entspricht nicht dem entsprechenden Feld aus der einzulesenden Datei.");
-			assertEquals(1, xmlLeser.getUebergebenesModell().getDschungel().getFelder()[1][3].getPunkte(),
+			assertEquals(1, xmlLeser.getTransferredModel().getJungle().getFields()[1][3].getPoints(),
 					"\nEin Feld an der Stelle [1][3] des Dschungels entspricht nicht dem entsprechenden Feld aus der einzulesenden Datei.");
-			assertEquals("U", xmlLeser.getUebergebenesModell().getDschungel().getFelder()[1][3].getZeichen(),
+			assertEquals("U", xmlLeser.getTransferredModel().getJungle().getFields()[1][3].getCharacter(),
 					"\nEin Feld an der Stelle [1][3] des Dschungels entspricht nicht dem entsprechenden Feld aus der einzulesenden Datei.");
 		}
 
 		@DisplayName("Einfacher Test fuer das Attribut 'schlangenarten'.")
 		@Test
 		void testeSchlangenarten() {
-			assertEquals("A0", xmlLeser.getUebergebenesModell().getSchlangenarten().get(0).getId(),
+			assertEquals("A0", xmlLeser.getTransferredModel().getSnakeTypes().get(0).getId(),
 					"\nDie eingelesene ID der Schlange entspricht nicht der ID aus der einzulesenden Datei.");
-			assertEquals("Distanz", xmlLeser.getUebergebenesModell().getSchlangenarten().get(0).getStruktur().getArt(),
+			assertEquals("Distanz", xmlLeser.getTransferredModel().getSnakeTypes().get(0).getStruktur().getType(),
 					"\nDie eingelesene Schlangenart entspricht nicht der Schlangenart aus der einzulesenden Datei.");
-			assertEquals("FERNUNI", xmlLeser.getUebergebenesModell().getSchlangenarten().get(0).getZeichenkette(),
+			assertEquals("FERNUNI", xmlLeser.getTransferredModel().getSnakeTypes().get(0).getZeichenkette(),
 					"\nDie eingelesende Zeichenkette entspricht nicht der Zeichenkette aus der einzulesenden Datei.");
-			assertEquals(1, xmlLeser.getUebergebenesModell().getSchlangenarten().get(0).getPunkte(),
+			assertEquals(1, xmlLeser.getTransferredModel().getSnakeTypes().get(0).getPunkte(),
 					"\nDie eingelesenen Punkte entsprechen nicht den Punkten aus der einzulesenden Datei.");
-			assertEquals(1, xmlLeser.getUebergebenesModell().getSchlangenarten().get(0).getAnzahl(),
+			assertEquals(1, xmlLeser.getTransferredModel().getSnakeTypes().get(0).getAnzahl(),
 					"\nDie eingelesene Anzahl entspricht nicht der Anzahl aus der einzulesenden Datei.");
 		}
 	}
@@ -407,41 +407,41 @@ class ReaderXMLTest {
 
 			// Lese die entsprechende Datei ein
 			xmlLeser = new ReaderXML();
-			xmlLeser.leseDatei("res/sj_p1_unvollstaendig.xml");
+			xmlLeser.readFile("res/sj_p1_unvollstaendig.xml");
 		}
 
 		@DisplayName("Einfacher Test fuer das Attribut 'zeit'.")
 		@Test
 		void testeZeit() {
 			Double[] zeitInDatei = { 60.0, 0.0 };
-			assertArrayEquals(zeitInDatei, xmlLeser.getUebergebenesModell().getZeit(),
+			assertArrayEquals(zeitInDatei, xmlLeser.getTransferredModel().getTime(),
 					"\nDie eingelesene Zeit entspricht nicht der Zeit aus der XML-Datei.");
 		}
 
 		@DisplayName("Einfacher Test fuer das Attribut 'dschungel'.")
 		@Test
 		void testeDschungel() {
-			assertEquals(2, xmlLeser.getUebergebenesModell().getDschungel().getZeilen(),
+			assertEquals(2, xmlLeser.getTransferredModel().getJungle().getRows(),
 					"\nDie eingelesene Zahl fuer die Spalten des Dschungels entspricht nicht dem Wert aus der einzulesenden Datei.");
-			assertEquals(4, xmlLeser.getUebergebenesModell().getDschungel().getSpalten(),
+			assertEquals(4, xmlLeser.getTransferredModel().getJungle().getColumns(),
 					"\nDie eingelesene Zahl fuer die Zeilen des Dschungels entspricht nicht dem Wert aus der einzulesenden Datei.");
 			assertEquals("ABCDEFGHIJKLMNOPQRSTUVWXYZ",
-					xmlLeser.getUebergebenesModell().getDschungel().getZeichenmenge(),
+					xmlLeser.getTransferredModel().getJungle().getSigns(),
 					"\nDie eingelesene Zeichenmenge des Dschungels entspricht nicht dem Wert aus der einzulesenden Datei.");
 		}
 
 		@DisplayName("Einfacher Test fuer das Attribut 'schlangenarten'.")
 		@Test
 		void testeSchlangenarten() {
-			assertEquals("A0", xmlLeser.getUebergebenesModell().getSchlangenarten().get(0).getId(),
+			assertEquals("A0", xmlLeser.getTransferredModel().getSnakeTypes().get(0).getId(),
 					"\nDie eingelesene ID der Schlange entspricht nicht der ID aus der einzulesenden Datei.");
-			assertEquals("Distanz", xmlLeser.getUebergebenesModell().getSchlangenarten().get(0).getStruktur().getArt(),
+			assertEquals("Distanz", xmlLeser.getTransferredModel().getSnakeTypes().get(0).getStruktur().getType(),
 					"\nDie eingelesene Schlangenart entspricht nicht der Schlangenart aus der einzulesenden Datei.");
-			assertEquals("FERNUNI", xmlLeser.getUebergebenesModell().getSchlangenarten().get(0).getZeichenkette(),
+			assertEquals("FERNUNI", xmlLeser.getTransferredModel().getSnakeTypes().get(0).getZeichenkette(),
 					"\nDie eingelesende Zeichenkette entspricht nicht der Zeichenkette aus der einzulesenden Datei.");
-			assertEquals(1, xmlLeser.getUebergebenesModell().getSchlangenarten().get(0).getPunkte(),
+			assertEquals(1, xmlLeser.getTransferredModel().getSnakeTypes().get(0).getPunkte(),
 					"\nDie eingelesenen Punkte entsprechen nicht den Punkten aus der einzulesenden Datei.");
-			assertEquals(1, xmlLeser.getUebergebenesModell().getSchlangenarten().get(0).getAnzahl(),
+			assertEquals(1, xmlLeser.getTransferredModel().getSnakeTypes().get(0).getAnzahl(),
 					"\nDie eingelesene Anzahl entspricht nicht der Anzahl aus der einzulesenden Datei.");
 		}
 	}

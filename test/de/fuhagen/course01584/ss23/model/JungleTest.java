@@ -31,7 +31,7 @@ class JungleTest {
 		void testeGetZeilen() {
 			int zeilen = 1;
 			Jungle dschungel = new Jungle(zeilen, 0, null, "");
-			assertEquals(dschungel.getZeilen(), zeilen, () -> "\nDer Zeilenanzahl '" + dschungel.getZeilen()
+			assertEquals(dschungel.getRows(), zeilen, () -> "\nDer Zeilenanzahl '" + dschungel.getRows()
 					+ "' entspricht nicht dem vorgegebenen Wert '" + zeilen + "'.");
 		}
 
@@ -72,7 +72,7 @@ class JungleTest {
 			Jungle dschungel = new Jungle(3, 4, "", 1);
 			for (int i = 0; i < 3; i++) {
 				for (int j = 0; j < 4; j++) {
-					dschungel.getFelder()[i][j].setZeichen("a");
+					dschungel.getFields()[i][j].setCharacter("a");
 				}
 			}
 			assertEquals(
@@ -86,7 +86,7 @@ class JungleTest {
 			Jungle dschungel = new Jungle(13, 14, "", 1);
 			for (int i = 0; i < 13; i++) {
 				for (int j = 0; j < 14; j++) {
-					dschungel.getFelder()[i][j].setZeichen("a");
+					dschungel.getFields()[i][j].setCharacter("a");
 				}
 			}
 			assertEquals(
@@ -112,12 +112,12 @@ class JungleTest {
 			Jungle dschungel = new Jungle(13, 14, "", 1);
 			for (int i = 0; i < 13; i++) {
 				for (int j = 0; j < 14; j++) {
-					dschungel.getFelder()[i][j].setZeichen("a");
+					dschungel.getFields()[i][j].setCharacter("a");
 				}
 			}
-			assertEquals(182, dschungel.anzahlFelder(),
+			assertEquals(182, dschungel.numberOfFields(),
 					"\nDie Methode gibt nicht den richtigen Wert fuer die Dschungelgroesse "
-							+ "aus. Der Dschungel hat 182 Felder aber es wurde " + dschungel.anzahlFelder()
+							+ "aus. Der Dschungel hat 182 Felder aber es wurde " + dschungel.numberOfFields()
 							+ " ausgegeben.");
 		}
 
@@ -127,19 +127,19 @@ class JungleTest {
 			Jungle dschungel = new Jungle(13, 14, "", 1);
 			for (int i = 0; i < 13; i++) {
 				for (int j = 0; j < 14; j++) {
-					dschungel.getFelder()[i][j].setZeichen("a");
+					dschungel.getFields()[i][j].setCharacter("a");
 				}
 			}
-			dschungel.getFelder()[4][7].setZeichen(null);
-			dschungel.getFelder()[4][1].setZeichen(null);
-			dschungel.getFelder()[5][7].setZeichen(null);
-			dschungel.getFelder()[8][2].setZeichen(null);
-			dschungel.getFelder()[12][1].setZeichen(null);
-			dschungel.getFelder()[10][7].setZeichen(null);
-			dschungel.getFelder()[4][3].setZeichen(null);
-			assertEquals(175, dschungel.anzahlBelegterFelder(),
+			dschungel.getFields()[4][7].setCharacter(null);
+			dschungel.getFields()[4][1].setCharacter(null);
+			dschungel.getFields()[5][7].setCharacter(null);
+			dschungel.getFields()[8][2].setCharacter(null);
+			dschungel.getFields()[12][1].setCharacter(null);
+			dschungel.getFields()[10][7].setCharacter(null);
+			dschungel.getFields()[4][3].setCharacter(null);
+			assertEquals(175, dschungel.numberOfTakenFields(),
 					"\nDie Methode gibt nicht den richtigen Wert fuer die belegten Felder des Dschungels "
-							+ "aus. Der Dschungel hat 175 belegte Felder aber es wurde " + dschungel.anzahlFelder()
+							+ "aus. Der Dschungel hat 175 belegte Felder aber es wurde " + dschungel.numberOfFields()
 							+ " ausgegeben.");
 		}
 	}
@@ -167,7 +167,7 @@ class JungleTest {
 		@MethodSource("erzeugePositiveParameterwerte")
 		void testeKonstruktorUndGetSpaltePositiv(int spalten) {
 			Jungle dschungel = new Jungle(0, spalten, null, "");
-			assertEquals(dschungel.getSpalten(), spalten, "\nDie Spaltenanzahl '" + dschungel.getSpalten()
+			assertEquals(dschungel.getColumns(), spalten, "\nDie Spaltenanzahl '" + dschungel.getColumns()
 					+ "' entspricht nicht dem vorgegebenen Wert '" + spalten + "'.");
 		}
 
@@ -176,7 +176,7 @@ class JungleTest {
 		@MethodSource("erzeugePositiveParameterwerte")
 		void testeKonstruktorUndGetZeilePositiv(int zeilen) {
 			Jungle dschungel = new Jungle(zeilen, 0, null, "");
-			assertEquals(dschungel.getZeilen(), zeilen, "\nDie Zeilenanzahl '" + dschungel.getZeilen()
+			assertEquals(dschungel.getRows(), zeilen, "\nDie Zeilenanzahl '" + dschungel.getRows()
 					+ "' entspricht nicht dem vorgegebenen Wert '" + zeilen + "'.");
 		}
 
@@ -200,7 +200,7 @@ class JungleTest {
 		@ParameterizedTest
 		@MethodSource("erzeugeNegativeParameterwerte")
 		void testeSetZeileNegativ(int zeilen) {
-			assertThrows(IllegalArgumentException.class, () -> new Jungle(0, 0, null, "").setZeilen(zeilen),
+			assertThrows(IllegalArgumentException.class, () -> new Jungle(0, 0, null, "").setRows(zeilen),
 					() -> "\nFuer die (negative) Zeilenanzahl '" + zeilen + "' wird keine Ausnahme erzeugt.");
 		}
 
@@ -208,7 +208,7 @@ class JungleTest {
 		@ParameterizedTest
 		@MethodSource("erzeugeNegativeParameterwerte")
 		void testeSetSpalteNegativ(int spalten) {
-			assertThrows(IllegalArgumentException.class, () -> new Jungle(0, 0, null, "").setSpalten(spalten),
+			assertThrows(IllegalArgumentException.class, () -> new Jungle(0, 0, null, "").setColumns(spalten),
 					() -> "\nFuer die (negative) Spaltenanzahl '" + spalten + "' wird keine Ausnahme erzeugt.");
 		}
 	}

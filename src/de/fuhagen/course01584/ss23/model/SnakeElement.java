@@ -12,7 +12,7 @@ package de.fuhagen.course01584.ss23.model;
  *
  */
 public class SnakeElement {
-	private Field feld;
+	private Field field;
 
 	/**
 	 * Ein parametrisierter Konstruktor fuer die Klasse Schlangenglied. Bei der
@@ -23,7 +23,7 @@ public class SnakeElement {
 	 */
 	public SnakeElement(Field feld) {
 		super();
-		this.feld = feld;
+		this.field = feld;
 
 	}
 
@@ -40,8 +40,8 @@ public class SnakeElement {
 	 * 
 	 * @return Das Feld, das zu diesem Schlangenglied gehoert.
 	 */
-	public Field getFeld() {
-		return feld;
+	public Field getField() {
+		return field;
 	}
 
 	/**
@@ -52,7 +52,7 @@ public class SnakeElement {
 	 * 
 	 * @param feld Das Feld, das dem Schlangenglied uebergeben werden soll.
 	 */
-	public void setFeld(Field feld) {
-		this.feld = feld;
+	public void setField(Field feld) {
+		this.field = feld;
 	}
 }

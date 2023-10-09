@@ -20,7 +20,7 @@ public interface ISnakeSearch {
 	 * worden ist oder bis ein vorgegebenes Zeitlimit erreicht worden ist. Die
 	 * Loesung wird in einer private Variablen <code>Loesung</code> gespeichert.
 	 */
-	void sucheSchlangen();
+	void searchSnakes();
 
 	/**
 	 * Es wird der Wert der Variablen <code>funktionen</code> zurueckgegeben.
@@ -30,7 +30,7 @@ public interface ISnakeSearch {
 	 * 
 	 * @return Der Wert der Variablen <code>funktionen</code>.
 	 */
-	ISnakeSearchUtil getFunktionen();
+	ISnakeSearchUtil getFunctions();
 
 	/**
 	 * Es kann der Wert der Variablen <code>funktionen</code> gesetzt. Hierbei
@@ -41,7 +41,7 @@ public interface ISnakeSearch {
 	 * @param funktionen Eine Instanz einer Klasse, die das Interface
 	 *                   <code>ISchlangenSucheUtil</code> implementiert.
 	 */
-	void setFunktionen(ISnakeSearchUtil funktionen);
+	void setFunctions(ISnakeSearchUtil funktionen);
 
 	/**
 	 * Es wird das Modell zurueckgegeben, dass sich aktuell in der Schlangesuche
@@ -50,7 +50,7 @@ public interface ISnakeSearch {
 	 * 
 	 * @return Der Wert der Variablen <code>modell</code>.
 	 */
-	IModel getModell();
+	IModel getModel();
 
 	/**
 	 * Es kann das Modell der Schlangesuche gesetzt werden. So ist es zum Beispiel
@@ -62,7 +62,7 @@ public interface ISnakeSearch {
 	 * @throws IllegalArgumentException Eine Ausnahme wird geworfen, wenn ein
 	 *                                  unpassendes Modell uebergeben wird.
 	 */
-	void setModell(IModel modell) throws IllegalArgumentException;
+	void setModel(IModel modell) throws IllegalArgumentException;
 
 	/**
 	 * Es wird die Loesung zurueckgegeben, die die Schlangensuche gefunden hat.
@@ -73,7 +73,7 @@ public interface ISnakeSearch {
 	 * 
 	 * @return Der Wert der Variable <code>loesung</code>.
 	 */
-	Solution getLoesung();
+	Solution getSolution();
 
 	/**
 	 * Es wird der Zeitpunkt zurueckgegeben, an dem die Schlangensuche gestartet
@@ -82,6 +82,6 @@ public interface ISnakeSearch {
 	 * 
 	 * @return Der Wert der Variable <code>aktZeit</code>.
 	 */
-	Long getAktZeit();
+	Long getCurrTime();
 
 }

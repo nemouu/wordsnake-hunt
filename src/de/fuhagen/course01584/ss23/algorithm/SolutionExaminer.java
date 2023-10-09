@@ -2,7 +2,7 @@ package de.fuhagen.course01584.ss23.algorithm;
 
 import java.util.*;
 
-import de.fuhagen.course01584.ss23.main.SnakeHuntAPI.Fehlertyp;
+import de.fuhagen.course01584.ss23.main.SnakeHuntAPI.ErrorType;
 import de.fuhagen.course01584.ss23.model.*;
 
 /**
@@ -16,10 +16,10 @@ import de.fuhagen.course01584.ss23.model.*;
  *
  */
 public class SolutionExaminer {
-	private IModel modell;
-	private Jungle dschungel;
-	private List<Snake> schlangen;
-	private List<Fehlertyp> fehlerliste;
+	private IModel model;
+	private Jungle jungle;
+	private List<Snake> snakes;
+	private List<ErrorType> errorList;
 
 	/**
 	 * Ein parametrisierter Konstruktor fuer die Klasse LoesungsPruefer, der ein
@@ -33,7 +33,7 @@ public class SolutionExaminer {
 	 */
 	public SolutionExaminer(IModel modell) throws IllegalArgumentException {
 		super();
-		if (modell.getLoesung() == null || modell.getLoesung().getSchlangen().size() == 0) {
+		if (modell.getSolution() == null || modell.getSolution().getSchlangen().size() == 0) {
 			System.out.println("Das Modell, dass dem Loesungspruefer uebergeben werden soll, hat keine Loesung. Um "
 					+ "eine Loesung zu\npruefen, muss ein Modell uebergeben werden, dass eine Loesung besitzt. Ist "
 					+ "keine Loesung vorhanden,\nso kann diese mit der Schlangensuche gefunden werden. Es wird eine "
@@ -42,9 +42,9 @@ public class SolutionExaminer {
 			throw new IllegalArgumentException("Dem Konstruktor von LoesungsPruefer muss ein Modell uebergeben werden, "
 					+ "dass eine Loesung enthaelt.");
 		}
-		this.modell = modell;
-		this.dschungel = modell.getDschungel();
-		this.schlangen = modell.getLoesung().getSchlangen();
+		this.model = modell;
+		this.jungle = modell.getJungle();
+		this.snakes = modell.getSolution().getSchlangen();
 	}
 
 	/**
@@ -63,41 +63,41 @@ public class SolutionExaminer {
 	 * 
 	 * @return Die (ungeordnete) Liste mit allen in der Loesung vorkommenen Fehler.
 	 */
-	public List<Fehlertyp> pruefeLoesung() {
-		fehlerliste = new ArrayList<Fehlertyp>();
-		pruefeAnzahl(fehlerliste);
-		pruefeZuordnung(fehlerliste);
-		pruefeVerwendung(fehlerliste);
-		pruefeNachbarschaft(fehlerliste);
-		return fehlerliste;
+	public List<ErrorType> examineSolution() {
+		errorList = new ArrayList<ErrorType>();
+		examineNumber(errorList);
+		examineAssignment(errorList);
+		examineUsage(errorList);
+		examineNeighborhood(errorList);
+		return errorList;
 	}
 
-	private void pruefeAnzahl(List<Fehlertyp> fehlerliste) {
+	private void examineNumber(List<ErrorType> fehlerliste) {
 		/*
 		 * Die im Modell enthaltene Loesung wird auf Fehler des Typs 'Fehlertyp.GLIEDER'
 		 * ueberrpueft. Kommt ein solcher Fehler vor, wird fuer jeden dieser Fehler ein
 		 * Element des entsprechenden Fehlertyps der Fehlerliste hinzugefuegt.
 		 */
-		for (Snake schlange : schlangen) {
-			if (schlange.getGlieder().size() != schlange.getArt().getZeichenkette().length()) {
-				fehlerliste.add(Fehlertyp.GLIEDER);
+		for (Snake schlange : snakes) {
+			if (schlange.getElements().size() != schlange.getType().getZeichenkette().length()) {
+				fehlerliste.add(ErrorType.GLIEDER);
 			}
 		}
 	}
 
-	private void pruefeZuordnung(List<Fehlertyp> fehlerliste) {
+	private void examineAssignment(List<ErrorType> fehlerliste) {
 		/*
 		 * Die im Modell enthaltene Loesung wird auf Fehler des Typs
 		 * 'Fehlertyp.ZUORDNUNG' ueberrpueft. Kommt ein solcher Fehler vor, wird fuer
 		 * jeden dieser Fehler ein Element des entsprechenden Fehlertyps der Fehlerliste
 		 * hinzugefuegt.
 		 */
-		for (Snake schlange : schlangen) {
-			if (schlange.getGlieder().size() == schlange.getArt().getZeichenkette().length()) {
-				for (int i = 0; i < schlange.getGlieder().size(); i++) {
-					if (schlange.getGlieder().get(i).getFeld().getZeichen()
-							.equals(schlange.getArt().getZeichenkette().substring(i, i + 1)) == false) {
-						fehlerliste.add(Fehlertyp.ZUORDNUNG);
+		for (Snake schlange : snakes) {
+			if (schlange.getElements().size() == schlange.getType().getZeichenkette().length()) {
+				for (int i = 0; i < schlange.getElements().size(); i++) {
+					if (schlange.getElements().get(i).getField().getCharacter()
+							.equals(schlange.getType().getZeichenkette().substring(i, i + 1)) == false) {
+						fehlerliste.add(ErrorType.ZUORDNUNG);
 					}
 
 				}
@@ -105,7 +105,7 @@ public class SolutionExaminer {
 		}
 	}
 
-	private void pruefeVerwendung(List<Fehlertyp> fehlerliste) {
+	private void examineUsage(List<ErrorType> fehlerliste) {
 		/*
 		 * Die im Modell enthaltene Loesung wird auf Fehler des Typs
 		 * 'Fehlertyp.VERWENDUNG' ueberrpueft. Kommt ein solcher Fehler vor, wird fuer
@@ -114,37 +114,37 @@ public class SolutionExaminer {
 		 * Verwendbarkeit der Felder zu speichern. So kann die Loesung auf
 		 * Verwendbarkeitsfehler untersucht werden ohne das Modell an sich zu aendern.
 		 */
-		int[][] verwendungsArr = new int[dschungel.getZeilen()][dschungel.getSpalten()];
+		int[][] verwendungsArr = new int[jungle.getRows()][jungle.getColumns()];
 		for (int i = 0; i < verwendungsArr.length; i++) {
 			for (int j = 0; j < verwendungsArr[0].length; j++) {
-				verwendungsArr[i][j] = dschungel.getFelder()[i][j].getVerwendbarkeit();
+				verwendungsArr[i][j] = jungle.getFields()[i][j].getUsage();
 			}
 		}
-		for (Snake schlange : schlangen) {
-			for (SnakeElement schlangenglied : schlange.getGlieder()) {
-				if (verwendungsArr[schlangenglied.getFeld().getZeile()][schlangenglied.getFeld().getSpalte()] < 1) {
-					fehlerliste.add(Fehlertyp.VERWENDUNG);
+		for (Snake schlange : snakes) {
+			for (SnakeElement schlangenglied : schlange.getElements()) {
+				if (verwendungsArr[schlangenglied.getField().getRow()][schlangenglied.getField().getColumn()] < 1) {
+					fehlerliste.add(ErrorType.VERWENDUNG);
 				}
-				verwendungsArr[schlangenglied.getFeld().getZeile()][schlangenglied.getFeld()
-						.getSpalte()] = verwendungsArr[schlangenglied.getFeld().getZeile()][schlangenglied.getFeld()
-								.getSpalte()] - 1;
+				verwendungsArr[schlangenglied.getField().getRow()][schlangenglied.getField()
+						.getColumn()] = verwendungsArr[schlangenglied.getField().getRow()][schlangenglied.getField()
+								.getColumn()] - 1;
 			}
 		}
 	}
 
-	private void pruefeNachbarschaft(List<Fehlertyp> fehlerliste) {
+	private void examineNeighborhood(List<ErrorType> fehlerliste) {
 		/*
 		 * Die im Modell enthaltene Loesung wird auf Fehler des Typs
 		 * 'Fehlertyp.NACHBARSCHAFT' ueberrpueft. Kommt ein solcher Fehler vor, wird
 		 * fuer jeden dieser Fehler ein Element des entsprechenden Fehlertyps der
 		 * Fehlerliste hinzugefuegt.
 		 */
-		for (Snake schlange : schlangen) {
-			for (int i = 0; i < schlange.getGlieder().size() - 1; i++) {
-				schlange.getArt().getStruktur().getNachbarn(dschungel, schlange.getGlieder().get(i).getFeld());
-				if (schlange.getArt().getStruktur().getNachbarn(dschungel, schlange.getGlieder().get(i).getFeld())
-						.contains(schlange.getGlieder().get(i + 1).getFeld()) == false) {
-					fehlerliste.add(Fehlertyp.NACHBARSCHAFT);
+		for (Snake schlange : snakes) {
+			for (int i = 0; i < schlange.getElements().size() - 1; i++) {
+				schlange.getType().getStruktur().getNeighbors(jungle, schlange.getElements().get(i).getField());
+				if (schlange.getType().getStruktur().getNeighbors(jungle, schlange.getElements().get(i).getField())
+						.contains(schlange.getElements().get(i + 1).getField()) == false) {
+					fehlerliste.add(ErrorType.NACHBARSCHAFT);
 				}
 			}
 		}
@@ -157,8 +157,8 @@ public class SolutionExaminer {
 	 * 
 	 * @return Wert der Variablen <code>modell</code>.
 	 */
-	public IModel getModell() {
-		return modell;
+	public IModel getModel() {
+		return model;
 	}
 
 	/**
@@ -171,8 +171,8 @@ public class SolutionExaminer {
 	 * @throws IllegalArgumentException Eine Ausnahme wird geworfen, wenn ein
 	 *                                  unpassendes Modell uebergeben wird.
 	 */
-	public void setModell(IModel modell) throws IllegalArgumentException {
-		if (modell.getLoesung() == null || modell.getLoesung().getSchlangen().size() == 0) {
+	public void setModel(IModel modell) throws IllegalArgumentException {
+		if (modell.getSolution() == null || modell.getSolution().getSchlangen().size() == 0) {
 			System.out.println("Das Modell, dass dem Loesungspruefer uebergeben werden soll, hat keine Loesung. Um "
 					+ "eine Loesung zu\npruefen, muss ein Modell uebergeben werden, dass eine Loesung besitzt. Ist "
 					+ "keine Loesung vorhanden,\nso kann diese mit der Schlangensuche gefunden werden. Es wird eine "
@@ -181,7 +181,7 @@ public class SolutionExaminer {
 			throw new IllegalArgumentException(
 					"Dem LoesungsPruefer muss ein Modell uebergeben werden, dass eine Loesung enthaelt.");
 		}
-		this.modell = modell;
+		this.model = modell;
 	}
 
 	/**
@@ -191,8 +191,8 @@ public class SolutionExaminer {
 	 * 
 	 * @return Die (aktuelle) Fehlerliste des LoesungsPruefers.
 	 */
-	public List<Fehlertyp> getFehlerliste() {
-		return fehlerliste;
+	public List<ErrorType> getErrorList() {
+		return errorList;
 	}
 
 	/**
@@ -202,7 +202,7 @@ public class SolutionExaminer {
 	 * 
 	 * @return Die Schlangenliste des LoesungsPruefers.
 	 */
-	public List<Snake> getSchlangen() {
-		return schlangen;
+	public List<Snake> getSnakes() {
+		return snakes;
 	}
 }

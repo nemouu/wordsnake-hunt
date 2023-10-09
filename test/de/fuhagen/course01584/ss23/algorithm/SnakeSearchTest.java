@@ -35,37 +35,37 @@ class SnakeSearchTest {
 			Double[] zeit = { 30.0 };
 			String zeiteinheit = "s";
 			Jungle bspDschungel = new Jungle(4, 5, "ABCDEFG", 1);
-			bspDschungel.setFeld(new Field("F0", 0, 0, 1, 1, "O"));
-			bspDschungel.setFeld(new Field("F1", 0, 1, 1, 1, "O"));
-			bspDschungel.setFeld(new Field("F2", 0, 2, 1, 1, "O"));
-			bspDschungel.setFeld(new Field("F3", 0, 3, 1, 1, "O"));
-			bspDschungel.setFeld(new Field("F4", 0, 4, 1, 1, "O"));
-			bspDschungel.setFeld(new Field("F5", 1, 0, 1, 1, "O"));
-			bspDschungel.setFeld(new Field("F6", 1, 1, 1, 1, "J"));
-			bspDschungel.setFeld(new Field("F7", 1, 2, 1, 1, "U"));
-			bspDschungel.setFeld(new Field("F8", 1, 3, 1, 1, "O"));
-			bspDschungel.setFeld(new Field("F9", 1, 4, 1, 1, "O"));
-			bspDschungel.setFeld(new Field("F10", 2, 0, 1, 1, "O"));
-			bspDschungel.setFeld(new Field("F11", 2, 1, 1, 1, "O"));
-			bspDschungel.setFeld(new Field("F12", 2, 2, 1, 1, "O"));
-			bspDschungel.setFeld(new Field("F13", 2, 3, 1, 1, "N"));
-			bspDschungel.setFeld(new Field("F14", 2, 4, 1, 1, "O"));
-			bspDschungel.setFeld(new Field("F15", 3, 0, 1, 1, "O"));
-			bspDschungel.setFeld(new Field("F16", 3, 1, 1, 1, "O"));
-			bspDschungel.setFeld(new Field("F17", 3, 2, 1, 1, "O"));
-			bspDschungel.setFeld(new Field("F18", 3, 3, 1, 1, "T"));
-			bspDschungel.setFeld(new Field("F19", 3, 4, 1, 1, "I"));
+			bspDschungel.setField(new Field("F0", 0, 0, 1, 1, "O"));
+			bspDschungel.setField(new Field("F1", 0, 1, 1, 1, "O"));
+			bspDschungel.setField(new Field("F2", 0, 2, 1, 1, "O"));
+			bspDschungel.setField(new Field("F3", 0, 3, 1, 1, "O"));
+			bspDschungel.setField(new Field("F4", 0, 4, 1, 1, "O"));
+			bspDschungel.setField(new Field("F5", 1, 0, 1, 1, "O"));
+			bspDschungel.setField(new Field("F6", 1, 1, 1, 1, "J"));
+			bspDschungel.setField(new Field("F7", 1, 2, 1, 1, "U"));
+			bspDschungel.setField(new Field("F8", 1, 3, 1, 1, "O"));
+			bspDschungel.setField(new Field("F9", 1, 4, 1, 1, "O"));
+			bspDschungel.setField(new Field("F10", 2, 0, 1, 1, "O"));
+			bspDschungel.setField(new Field("F11", 2, 1, 1, 1, "O"));
+			bspDschungel.setField(new Field("F12", 2, 2, 1, 1, "O"));
+			bspDschungel.setField(new Field("F13", 2, 3, 1, 1, "N"));
+			bspDschungel.setField(new Field("F14", 2, 4, 1, 1, "O"));
+			bspDschungel.setField(new Field("F15", 3, 0, 1, 1, "O"));
+			bspDschungel.setField(new Field("F16", 3, 1, 1, 1, "O"));
+			bspDschungel.setField(new Field("F17", 3, 2, 1, 1, "O"));
+			bspDschungel.setField(new Field("F18", 3, 3, 1, 1, "T"));
+			bspDschungel.setField(new Field("F19", 3, 4, 1, 1, "I"));
 			SnakeType art = new SnakeType("A0", new DistanceNeighborhood(1), "JUNIT", 1, 1);
 			IModel modell = new ProblemModel();
-			modell.setZeit(zeit);
-			modell.setZeiteinheit(zeiteinheit);
-			modell.setDschungel(bspDschungel);
-			modell.addSchlangenart(art);
+			modell.setTime(zeit);
+			modell.setUnitOfTime(zeiteinheit);
+			modell.setJungle(bspDschungel);
+			modell.addSnakeType(art);
 			SnakeSearch suche = new SnakeSearch(modell);
-			suche.sucheSchlangen();
+			suche.searchSnakes();
 			for (int i = 0; i < 5; i++) {
 				assertEquals("JUNIT".substring(i, i + 1),
-						suche.getLoesung().getSchlangen().get(0).getGlieder().get(i).getFeld().getZeichen(),
+						suche.getSolution().getSchlangen().get(0).getElements().get(i).getField().getCharacter(),
 						"\nDie Zeichen der Felder an der Stelle " + i + " stimmen nicht ueberein.");
 			}
 		}
@@ -76,44 +76,44 @@ class SnakeSearchTest {
 			Double[] zeit = { 30.0 };
 			String zeiteinheit = "s";
 			Jungle bspDschungel = new Jungle(4, 5, "ABCDEFG", 1);
-			bspDschungel.setFeld(new Field("F0", 0, 0, 1, 1, "O"));
-			bspDschungel.setFeld(new Field("F1", 0, 1, 1, 1, "O"));
-			bspDschungel.setFeld(new Field("F2", 0, 2, 1, 1, "O"));
-			bspDschungel.setFeld(new Field("F3", 0, 3, 1, 1, "O"));
-			bspDschungel.setFeld(new Field("F4", 0, 4, 1, 1, "N"));
-			bspDschungel.setFeld(new Field("F5", 1, 0, 1, 1, "O"));
-			bspDschungel.setFeld(new Field("F6", 1, 1, 1, 1, "J"));
-			bspDschungel.setFeld(new Field("F7", 1, 2, 1, 1, "U"));
-			bspDschungel.setFeld(new Field("F8", 1, 3, 1, 1, "E"));
-			bspDschungel.setFeld(new Field("F9", 1, 4, 1, 1, "O"));
-			bspDschungel.setFeld(new Field("F10", 2, 0, 1, 1, "H"));
-			bspDschungel.setFeld(new Field("F11", 2, 1, 1, 1, "A"));
-			bspDschungel.setFeld(new Field("F12", 2, 2, 1, 1, "G"));
-			bspDschungel.setFeld(new Field("F13", 2, 3, 1, 1, "N"));
-			bspDschungel.setFeld(new Field("F14", 2, 4, 1, 1, "O"));
-			bspDschungel.setFeld(new Field("F15", 3, 0, 1, 1, "O"));
-			bspDschungel.setFeld(new Field("F16", 3, 1, 1, 1, "O"));
-			bspDschungel.setFeld(new Field("F17", 3, 2, 1, 1, "O"));
-			bspDschungel.setFeld(new Field("F18", 3, 3, 1, 1, "T"));
-			bspDschungel.setFeld(new Field("F19", 3, 4, 1, 1, "I"));
+			bspDschungel.setField(new Field("F0", 0, 0, 1, 1, "O"));
+			bspDschungel.setField(new Field("F1", 0, 1, 1, 1, "O"));
+			bspDschungel.setField(new Field("F2", 0, 2, 1, 1, "O"));
+			bspDschungel.setField(new Field("F3", 0, 3, 1, 1, "O"));
+			bspDschungel.setField(new Field("F4", 0, 4, 1, 1, "N"));
+			bspDschungel.setField(new Field("F5", 1, 0, 1, 1, "O"));
+			bspDschungel.setField(new Field("F6", 1, 1, 1, 1, "J"));
+			bspDschungel.setField(new Field("F7", 1, 2, 1, 1, "U"));
+			bspDschungel.setField(new Field("F8", 1, 3, 1, 1, "E"));
+			bspDschungel.setField(new Field("F9", 1, 4, 1, 1, "O"));
+			bspDschungel.setField(new Field("F10", 2, 0, 1, 1, "H"));
+			bspDschungel.setField(new Field("F11", 2, 1, 1, 1, "A"));
+			bspDschungel.setField(new Field("F12", 2, 2, 1, 1, "G"));
+			bspDschungel.setField(new Field("F13", 2, 3, 1, 1, "N"));
+			bspDschungel.setField(new Field("F14", 2, 4, 1, 1, "O"));
+			bspDschungel.setField(new Field("F15", 3, 0, 1, 1, "O"));
+			bspDschungel.setField(new Field("F16", 3, 1, 1, 1, "O"));
+			bspDschungel.setField(new Field("F17", 3, 2, 1, 1, "O"));
+			bspDschungel.setField(new Field("F18", 3, 3, 1, 1, "T"));
+			bspDschungel.setField(new Field("F19", 3, 4, 1, 1, "I"));
 			SnakeType art1 = new SnakeType("A0", new DistanceNeighborhood(1), "JUNIT", 1, 1);
 			SnakeType art2 = new SnakeType("A1", new DistanceNeighborhood(1), "HAGEN", 1, 1);
 			IModel modell = new ProblemModel();
-			modell.setZeit(zeit);
-			modell.setZeiteinheit(zeiteinheit);
-			modell.setDschungel(bspDschungel);
-			modell.addSchlangenart(art1);
-			modell.addSchlangenart(art2);
+			modell.setTime(zeit);
+			modell.setUnitOfTime(zeiteinheit);
+			modell.setJungle(bspDschungel);
+			modell.addSnakeType(art1);
+			modell.addSnakeType(art2);
 			SnakeSearch suche = new SnakeSearch(modell);
-			suche.sucheSchlangen();
+			suche.searchSnakes();
 			for (int i = 0; i < 5; i++) {
 				assertEquals("JUNIT".substring(i, i + 1),
-						suche.getLoesung().getSchlangen().get(0).getGlieder().get(i).getFeld().getZeichen(),
+						suche.getSolution().getSchlangen().get(0).getElements().get(i).getField().getCharacter(),
 						"\nDie Zeichen der Felder an der Stelle " + i + " stimmen nicht ueberein.");
 			}
 			for (int i = 0; i < 5; i++) {
 				assertEquals("HAGEN".substring(i, i + 1),
-						suche.getLoesung().getSchlangen().get(1).getGlieder().get(i).getFeld().getZeichen(),
+						suche.getSolution().getSchlangen().get(1).getElements().get(i).getField().getCharacter(),
 						"\nDie Zeichen der Felder an der Stelle " + i + " stimmen nicht ueberein.");
 			}
 		}
@@ -122,29 +122,29 @@ class SnakeSearchTest {
 		@Test
 		void testeSchlangenSucheMitEingelesenerProbleminstanz() throws Exception {
 			IReader xmlLeser = new ReaderXML();
-			xmlLeser.leseDatei("res/sj_p1_probleminstanz.xml");
-			IModel modell = xmlLeser.getUebergebenesModell();
+			xmlLeser.readFile("res/sj_p1_probleminstanz.xml");
+			IModel modell = xmlLeser.getTransferredModel();
 			SnakeSearch suche = new SnakeSearch(modell);
 			SnakeType art = new SnakeType("A0", new DistanceNeighborhood(1), "FERNUNI", 1, 1);
-			SnakeElement glied1 = new SnakeElement(modell.getDschungel().getFelder()[0][0]);
-			SnakeElement glied2 = new SnakeElement(modell.getDschungel().getFelder()[0][1]);
-			SnakeElement glied3 = new SnakeElement(modell.getDschungel().getFelder()[0][2]);
-			SnakeElement glied4 = new SnakeElement(modell.getDschungel().getFelder()[0][3]);
-			SnakeElement glied5 = new SnakeElement(modell.getDschungel().getFelder()[1][3]);
-			SnakeElement glied6 = new SnakeElement(modell.getDschungel().getFelder()[1][2]);
-			SnakeElement glied7 = new SnakeElement(modell.getDschungel().getFelder()[1][1]);
+			SnakeElement glied1 = new SnakeElement(modell.getJungle().getFields()[0][0]);
+			SnakeElement glied2 = new SnakeElement(modell.getJungle().getFields()[0][1]);
+			SnakeElement glied3 = new SnakeElement(modell.getJungle().getFields()[0][2]);
+			SnakeElement glied4 = new SnakeElement(modell.getJungle().getFields()[0][3]);
+			SnakeElement glied5 = new SnakeElement(modell.getJungle().getFields()[1][3]);
+			SnakeElement glied6 = new SnakeElement(modell.getJungle().getFields()[1][2]);
+			SnakeElement glied7 = new SnakeElement(modell.getJungle().getFields()[1][1]);
 			Snake schlange1 = new Snake(art);
-			schlange1.addGlied(glied1);
-			schlange1.addGlied(glied2);
-			schlange1.addGlied(glied3);
-			schlange1.addGlied(glied4);
-			schlange1.addGlied(glied5);
-			schlange1.addGlied(glied6);
-			schlange1.addGlied(glied7);
-			suche.sucheSchlangen();
+			schlange1.addElement(glied1);
+			schlange1.addElement(glied2);
+			schlange1.addElement(glied3);
+			schlange1.addElement(glied4);
+			schlange1.addElement(glied5);
+			schlange1.addElement(glied6);
+			schlange1.addElement(glied7);
+			suche.searchSnakes();
 			for (int i = 0; i < 7; i++) {
-				assertEquals(schlange1.getGlieder().get(i).getFeld().getZeichen(),
-						suche.getLoesung().getSchlangen().get(0).getGlieder().get(i).getFeld().getZeichen(),
+				assertEquals(schlange1.getElements().get(i).getField().getCharacter(),
+						suche.getSolution().getSchlangen().get(0).getElements().get(i).getField().getCharacter(),
 						"\nDie Zeichen der Felder an der Stelle " + i + " stimmen nicht ueberein.");
 			}
 		}
@@ -153,42 +153,42 @@ class SnakeSearchTest {
 		@Test
 		void testeSchlangenSucheMitEingelesenerProbleminstanzMehrerenSchlangen() throws Exception {
 			IReader xmlLeser = new ReaderXML();
-			xmlLeser.leseDatei("res/sj_p2_probleminstanz.xml");
-			IModel modell = xmlLeser.getUebergebenesModell();
+			xmlLeser.readFile("res/sj_p2_probleminstanz.xml");
+			IModel modell = xmlLeser.getTransferredModel();
 			SnakeSearch suche = new SnakeSearch(modell);
-			suche.sucheSchlangen();
+			suche.searchSnakes();
 			for (int i = 0; i < 6; i++) {
 				assertEquals("DIESES".substring(i, i + 1),
-						suche.getLoesung().getSchlangen().get(0).getGlieder().get(i).getFeld().getZeichen(),
+						suche.getSolution().getSchlangen().get(0).getElements().get(i).getField().getCharacter(),
 						"\nDie Zeichen der Felder der ersten Schlange an der Stelle " + i + " stimmen nicht ueberein.");
 			}
 			for (int i = 0; i < 6; i++) {
 				assertEquals("DIESEN".substring(i, i + 1),
-						suche.getLoesung().getSchlangen().get(1).getGlieder().get(i).getFeld().getZeichen(),
+						suche.getSolution().getSchlangen().get(1).getElements().get(i).getField().getCharacter(),
 						"\nDie Zeichen der Felder der zweiten Schlange an der Stelle " + i
 								+ " stimmen nicht ueberein.");
 			}
 			for (int i = 0; i < 6; i++) {
 				assertEquals("DIESER".substring(i, i + 1),
-						suche.getLoesung().getSchlangen().get(2).getGlieder().get(i).getFeld().getZeichen(),
+						suche.getSolution().getSchlangen().get(2).getElements().get(i).getField().getCharacter(),
 						"\nDie Zeichen der Felder der dritten Schlange an der Stelle " + i
 								+ " stimmen nicht ueberein.");
 			}
 			for (int i = 0; i < 5; i++) {
 				assertEquals("DIESE".substring(i, i + 1),
-						suche.getLoesung().getSchlangen().get(3).getGlieder().get(i).getFeld().getZeichen(),
+						suche.getSolution().getSchlangen().get(3).getElements().get(i).getField().getCharacter(),
 						"\nDie Zeichen der Felder der vierten Schlange an der Stelle " + i
 								+ " stimmen nicht ueberein.");
 			}
 			for (int i = 0; i < 4; i++) {
 				assertEquals("DIES".substring(i, i + 1),
-						suche.getLoesung().getSchlangen().get(4).getGlieder().get(i).getFeld().getZeichen(),
+						suche.getSolution().getSchlangen().get(4).getElements().get(i).getField().getCharacter(),
 						"\nDie Zeichen der Felder der fuenften Schlange an der Stelle " + i
 								+ " stimmen nicht ueberein.");
 			}
 			for (int i = 0; i < 3; i++) {
 				assertEquals("DIE".substring(i, i + 1),
-						suche.getLoesung().getSchlangen().get(5).getGlieder().get(i).getFeld().getZeichen(),
+						suche.getSolution().getSchlangen().get(5).getElements().get(i).getField().getCharacter(),
 						"\nDie Zeichen der Felder der sechsten Schlange an der Stelle " + i
 								+ " stimmen nicht ueberein.");
 			}
@@ -199,7 +199,7 @@ class SnakeSearchTest {
 		void testeSchlangenSucheMitLeererProbleminstanz() {
 			IModel modell = new ProblemModel();
 			Jungle bspDschungel = new Jungle(3, 3, "ABC", 1);
-			modell.setDschungel(bspDschungel);
+			modell.setJungle(bspDschungel);
 			assertThrows(IllegalArgumentException.class, () -> new SnakeSearch(modell),
 					"\nDas Uebergeben eines unvollstaendigen Modelles loest keine Ausnahme aus.");
 		}
@@ -208,8 +208,8 @@ class SnakeSearchTest {
 		@Test
 		void testeSchlangenSucheMitEingelesenerLeererProbleminstanz() throws Exception {
 			IReader xmlLeser = new ReaderXML();
-			xmlLeser.leseDatei("res/sj_p1_unvollstaendig.xml");
-			assertThrows(IllegalArgumentException.class, () -> new SnakeSearch(xmlLeser.getUebergebenesModell()),
+			xmlLeser.readFile("res/sj_p1_unvollstaendig.xml");
+			assertThrows(IllegalArgumentException.class, () -> new SnakeSearch(xmlLeser.getTransferredModel()),
 					"\nDas Uebergeben eines unvollstaendigen Modelles loest keine Ausnahme aus.");
 		}
 	}

@@ -23,7 +23,7 @@ public interface IReader {
 	 * @throws Exception Eine Ausnahme wird geworfen, wenn keine Datei gefunden wird
 	 *                   oder wenn sie das falsche Format hat.
 	 */
-	void leseDatei(String dateiPfad) throws Exception;
+	void readFile(String dateiPfad) throws Exception;
 
 	/**
 	 * Es wird das Modell zurueckgegeben, dass sich aktuell in der Leserklasse
@@ -32,6 +32,6 @@ public interface IReader {
 	 * 
 	 * @return Wert der Variablen <code>uebergebenesModell</code>.
 	 */
-	IModel getUebergebenesModell();
+	IModel getTransferredModel();
 
 }

@@ -18,8 +18,8 @@ import java.io.*;
  *
  */
 public class WriterXML implements IWriter {
-	private IModel zuUebergebendesModell;
-	private Document dokument;
+	private IModel toBeTransferredModel;
+	private Document doc;
 
 	/**
 	 * Ein parametrisierter Konstruktor fuer die Klasse SchreiberXML. Es wird ein
@@ -31,7 +31,7 @@ public class WriterXML implements IWriter {
 	 */
 	public WriterXML(IModel modell) {
 		super();
-		this.zuUebergebendesModell = modell;
+		this.toBeTransferredModel = modell;
 	}
 
 	/**
@@ -43,7 +43,7 @@ public class WriterXML implements IWriter {
 	}
 
 	@Override
-	public void schreibeInDatei(String dateiName) throws Exception {
+	public void writeInFile(String dateiName) throws Exception {
 		// Es wird geprueft ob der Name der Ausgabedatei ein gueltiges Format hat.
 		if (dateiName == null || !dateiName.endsWith(".xml")) {
 			System.out.println("Es ist zu einem Fehler gekommen! Der angegebene Dateipfad zum Speichern hat nicht\ndas "
@@ -61,34 +61,34 @@ public class WriterXML implements IWriter {
 		 */
 		Element root = new Element("Schlangenjagd");
 		DocType dType = new DocType("Schlangenjagd", "schlangenjagd.dtd");
-		dokument = new Document(root, dType);
+		doc = new Document(root, dType);
 
 		// Die Daten des Modelles werden mit Hilfe dieser privaten Methoden uebergeben.
-		uebergebeZeitAusModell(dokument);
-		uebergebeDschungelUndFelderAusModell(dokument);
-		uebergebeSchlangenartenAusModell(dokument);
-		uebergebeSchlangenAusModell(dokument);
+		transferTimeFromModel(doc);
+		transferJungleAndFieldsFromModel(doc);
+		transferSnakeTypesFromModel(doc);
+		transferSnakesFromModel(doc);
 
 		// Das Dokument wird ausgegeben und an der angegebenen Stelle gespeichert.
 		XMLOutputter xml = new XMLOutputter();
 		xml.setFormat(Format.getPrettyFormat());
-		xml.output(dokument, new FileWriter(dateiName));
+		xml.output(doc, new FileWriter(dateiName));
 	}
 
-	private void uebergebeSchlangenAusModell(Document doc) {
+	private void transferSnakesFromModel(Document doc) {
 		/*
 		 * Hier werden die Schlangen aus der Loesung des Modelles des Programmes
 		 * uebertragen. Es werden hier aber nur Schlangen geschrieben, wenn diese auch
 		 * vorher im Modell standen. Sind keine Schlangen vorhanden, wird dieser Schritt
 		 * uebersprungen.
 		 */
-		if (zuUebergebendesModell.getLoesung() != null) {
+		if (toBeTransferredModel.getSolution() != null) {
 			Element schlangen = new Element("Schlangen");
-			for (Snake schlange : zuUebergebendesModell.getLoesung().getSchlangen()) {
-				Element neueSchlange = new Element("Schlange").setAttribute("art", schlange.getArt().getId());
-				for (SnakeElement glied : schlange.getGlieder()) {
+			for (Snake schlange : toBeTransferredModel.getSolution().getSchlangen()) {
+				Element neueSchlange = new Element("Schlange").setAttribute("art", schlange.getType().getId());
+				for (SnakeElement glied : schlange.getElements()) {
 					Element neuesGlied = new Element("Schlangenglied");
-					neuesGlied.setAttribute("feld", glied.getFeld().getId());
+					neuesGlied.setAttribute("feld", glied.getField().getId());
 					neueSchlange.addContent(neuesGlied);
 				}
 				schlangen.addContent(neueSchlange);
@@ -97,54 +97,54 @@ public class WriterXML implements IWriter {
 		}
 	}
 
-	private void uebergebeSchlangenartenAusModell(Document doc) {
+	private void transferSnakeTypesFromModel(Document doc) {
 		/*
 		 * Hier werden die Schlangenarten des Modelles, mit ID, Punkten, Anzahl und
 		 * Nachbarschaftsstruktur, dem Dokument hinzugefuegt.
 		 */
 		Element schlangenarten = new Element("Schlangenarten");
-		for (SnakeType art : zuUebergebendesModell.getSchlangenarten()) {
+		for (SnakeType art : toBeTransferredModel.getSnakeTypes()) {
 			Element schlangenart = new Element("Schlangenart");
 			schlangenart.setAttribute("id", art.getId());
 			schlangenart.setAttribute("punkte", Integer.toString(art.getPunkte()));
 			schlangenart.setAttribute("anzahl", Integer.toString(art.getAnzahl()));
 			schlangenart.addContent(new Element("Zeichenkette").setText(art.getZeichenkette()));
 			Element nachbarschaft = new Element("Nachbarschaftsstruktur");
-			for (int parameter : art.getStruktur().getParameter()) {
+			for (int parameter : art.getStruktur().getParameters()) {
 				Element neuerParameter = new Element("Parameter").setAttribute("wert", Integer.toString(parameter));
 				nachbarschaft.addContent(neuerParameter);
 			}
-			schlangenart.addContent(nachbarschaft.setAttribute("typ", art.getStruktur().getArt()));
+			schlangenart.addContent(nachbarschaft.setAttribute("typ", art.getStruktur().getType()));
 			schlangenarten.addContent(schlangenart);
 		}
 		doc.getRootElement().addContent(schlangenarten);
 	}
 
-	private void uebergebeDschungelUndFelderAusModell(Document doc) {
+	private void transferJungleAndFieldsFromModel(Document doc) {
 		/*
 		 * Hier wird der Dschungel des Modelles, mit allen Feldern und den Angaben fuer
 		 * Zeilen, Spalten und Zeichenmenge, dem Dokument hinzugefuegt.
 		 */
 		Element dschungel = new Element("Dschungel");
 		dschungel.setAttribute(
-				new Attribute("zeilen", Integer.toString(zuUebergebendesModell.getDschungel().getZeilen())));
+				new Attribute("zeilen", Integer.toString(toBeTransferredModel.getJungle().getRows())));
 		dschungel.setAttribute(
-				new Attribute("spalten", Integer.toString(zuUebergebendesModell.getDschungel().getSpalten())));
-		dschungel.setAttribute(new Attribute("zeichen", zuUebergebendesModell.getDschungel().getZeichenmenge()));
-		if (zuUebergebendesModell.getDschungel().getFelder()[0][0].getZeichen() != null) {
-			for (int i = 0; i < zuUebergebendesModell.getDschungel().getFelder().length; i++) {
-				for (int j = 0; j < zuUebergebendesModell.getDschungel().getFelder()[i].length; j++) {
+				new Attribute("spalten", Integer.toString(toBeTransferredModel.getJungle().getColumns())));
+		dschungel.setAttribute(new Attribute("zeichen", toBeTransferredModel.getJungle().getSigns()));
+		if (toBeTransferredModel.getJungle().getFields()[0][0].getCharacter() != null) {
+			for (int i = 0; i < toBeTransferredModel.getJungle().getFields().length; i++) {
+				for (int j = 0; j < toBeTransferredModel.getJungle().getFields()[i].length; j++) {
 					Element feld = new Element("Feld");
-					feld.setText(zuUebergebendesModell.getDschungel().getFelder()[i][j].getZeichen());
-					feld.setAttribute("id", zuUebergebendesModell.getDschungel().getFelder()[i][j].getId());
+					feld.setText(toBeTransferredModel.getJungle().getFields()[i][j].getCharacter());
+					feld.setAttribute("id", toBeTransferredModel.getJungle().getFields()[i][j].getId());
 					feld.setAttribute("zeile",
-							Integer.toString(zuUebergebendesModell.getDschungel().getFelder()[i][j].getZeile()));
+							Integer.toString(toBeTransferredModel.getJungle().getFields()[i][j].getRow()));
 					feld.setAttribute("spalte",
-							Integer.toString(zuUebergebendesModell.getDschungel().getFelder()[i][j].getSpalte()));
+							Integer.toString(toBeTransferredModel.getJungle().getFields()[i][j].getColumn()));
 					feld.setAttribute("verwendbarkeit", Integer
-							.toString(zuUebergebendesModell.getDschungel().getFelder()[i][j].getVerwendbarkeit()));
+							.toString(toBeTransferredModel.getJungle().getFields()[i][j].getUsage()));
 					feld.setAttribute("punkte",
-							Integer.toString(zuUebergebendesModell.getDschungel().getFelder()[i][j].getPunkte()));
+							Integer.toString(toBeTransferredModel.getJungle().getFields()[i][j].getPoints()));
 					dschungel.addContent(feld);
 				}
 			}
@@ -152,16 +152,16 @@ public class WriterXML implements IWriter {
 		doc.getRootElement().addContent(dschungel);
 	}
 
-	private void uebergebeZeitAusModell(Document doc) {
+	private void transferTimeFromModel(Document doc) {
 		/*
 		 * Hier wird die Zeit zusammen mit der Zeiteinheit, die sich im Modell befindet,
 		 * in das Dokument geschrieben.
 		 */
 		Element zeit = new Element("Zeit");
-		zeit.setAttribute(new Attribute("einheit", zuUebergebendesModell.getZeiteinheit()));
-		zeit.addContent(new Element("Vorgabe").setText(Double.toString(zuUebergebendesModell.getZeit()[0])));
-		if (zuUebergebendesModell.getZeit()[1] != 0.0) {
-			zeit.addContent(new Element("Abgabe").setText(Double.toString(zuUebergebendesModell.getZeit()[1])));
+		zeit.setAttribute(new Attribute("einheit", toBeTransferredModel.getUnitOfTime()));
+		zeit.addContent(new Element("Vorgabe").setText(Double.toString(toBeTransferredModel.getTime()[0])));
+		if (toBeTransferredModel.getTime()[1] != 0.0) {
+			zeit.addContent(new Element("Abgabe").setText(Double.toString(toBeTransferredModel.getTime()[1])));
 		}
 		doc.getRootElement().addContent(zeit);
 	}
@@ -176,17 +176,17 @@ public class WriterXML implements IWriter {
 	 * 
 	 * @return Der Wert der Variable <code>dokument</code>.
 	 */
-	public Document getDokument() {
-		return dokument;
+	public Document getDocument() {
+		return doc;
 	}
 
 	@Override
-	public IModel getZuUebergebendesModell() {
-		return zuUebergebendesModell;
+	public IModel getToBeTransferredModel() {
+		return toBeTransferredModel;
 	}
 
 	@Override
-	public void setZuUebergebendesModell(IModel zuUebergebendesModell) {
-		this.zuUebergebendesModell = zuUebergebendesModell;
+	public void setToBeTransferredModel(IModel zuUebergebendesModell) {
+		this.toBeTransferredModel = zuUebergebendesModell;
 	}
 }

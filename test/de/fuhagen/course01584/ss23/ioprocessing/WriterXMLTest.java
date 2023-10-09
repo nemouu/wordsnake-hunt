@@ -30,7 +30,7 @@ class WriterXMLTest {
 		void testeModellLeer() {
 			assertThrows(Exception.class,
 					() -> new WriterXML(new ProblemModel())
-							.schreibeInDatei("res/das_modell_ist_unvollstaendig.xml"),
+							.writeInFile("res/das_modell_ist_unvollstaendig.xml"),
 					() -> "\nDas uebergebene Modell existiert nicht aber es wird keine Ausnahme erzeugt.");
 		}
 	}
@@ -56,14 +56,14 @@ class WriterXMLTest {
 		static void setUpBeforeClass() throws Exception {
 			// Erstelle ein Dschungelbeispiel
 			Jungle bspDschungel = new Jungle(2, 3, "asdertg", 1);
-			for (int i = 0; i < bspDschungel.getZeilen(); i++) {
-				for (int j = 0; j < bspDschungel.getSpalten(); j++) {
-					bspDschungel.getFelder()[i][j].setZeichen("a" + (i + j + j));
-					bspDschungel.getFelder()[i][j].setPunkte(1);
-					bspDschungel.getFelder()[i][j].setVerwendbarkeit(1);
-					bspDschungel.getFelder()[i][j].setZeile(i);
-					bspDschungel.getFelder()[i][j].setSpalte(j);
-					bspDschungel.getFelder()[i][j].setId("F" + (bspDschungel.getSpalten() * i + j));
+			for (int i = 0; i < bspDschungel.getRows(); i++) {
+				for (int j = 0; j < bspDschungel.getColumns(); j++) {
+					bspDschungel.getFields()[i][j].setCharacter("a" + (i + j + j));
+					bspDschungel.getFields()[i][j].setPoints(1);
+					bspDschungel.getFields()[i][j].setUsage(1);
+					bspDschungel.getFields()[i][j].setRow(i);
+					bspDschungel.getFields()[i][j].setColumn(j);
+					bspDschungel.getFields()[i][j].setId("F" + (bspDschungel.getColumns() * i + j));
 				}
 			}
 
@@ -75,8 +75,8 @@ class WriterXMLTest {
 					new SnakeType("A1", bspNachbarschaft, "hjgzhi", 21, 31) };
 
 			// Erstelle eine Beispielschlange mit zwei Beispielgliedern
-			SnakeElement erstesGlied = new SnakeElement(bspDschungel.getFelder()[0][0]);
-			SnakeElement zweitesGlied = new SnakeElement(bspDschungel.getFelder()[0][1]);
+			SnakeElement erstesGlied = new SnakeElement(bspDschungel.getFields()[0][0]);
+			SnakeElement zweitesGlied = new SnakeElement(bspDschungel.getFields()[0][1]);
 			List<SnakeElement> glieder = new ArrayList<SnakeElement>();
 			glieder.add(erstesGlied);
 			glieder.add(zweitesGlied);
@@ -88,19 +88,19 @@ class WriterXMLTest {
 
 			// Fuege dem bspModell alle erstellten Daten hinzu
 			bspModell = new ProblemModel(bspDschungel, bspLoesung, bspZeit);
-			bspModell.addSchlangenart(new SnakeType("A0", bspNachbarschaft, "abcdefghij", 1, 1));
-			bspModell.addSchlangenart(new SnakeType("A1", bspNachbarschaft, "hjgzhi", 21, 31));
+			bspModell.addSnakeType(new SnakeType("A0", bspNachbarschaft, "abcdefghij", 1, 1));
+			bspModell.addSnakeType(new SnakeType("A1", bspNachbarschaft, "hjgzhi", 21, 31));
 
 			// Schreibe nun diese Daten in ein Document
 			schreiberXML = new WriterXML(bspModell);
-			schreiberXML.schreibeInDatei("res/test_fuer_schreiben_in_loesungsdatei.xml");
-			listeFuerTest = schreiberXML.getDokument().getRootElement().getChildren();
+			schreiberXML.writeInFile("res/test_fuer_schreiben_in_loesungsdatei.xml");
+			listeFuerTest = schreiberXML.getDocument().getRootElement().getChildren();
 		}
 
 		@DisplayName("Einfacher Test fuer das Wurzelelement.")
 		@Test
 		void testeWurzel() {
-			assertEquals("Schlangenjagd", schreiberXML.getDokument().getRootElement().getName(),
+			assertEquals("Schlangenjagd", schreiberXML.getDocument().getRootElement().getName(),
 					"\nDas eingelesene Wurzelelement entspricht nicht dem Inhalt des Modelles");
 		}
 
@@ -299,14 +299,14 @@ class WriterXMLTest {
 		static void setUpBeforeClass() throws Exception {
 			// Erstelle ein Dschungelbeispiel
 			Jungle bspDschungel = new Jungle(2, 3, "asdertg", 1);
-			for (int i = 0; i < bspDschungel.getZeilen(); i++) {
-				for (int j = 0; j < bspDschungel.getSpalten(); j++) {
-					bspDschungel.getFelder()[i][j].setZeichen("a" + (i + j + j));
-					bspDschungel.getFelder()[i][j].setPunkte(1);
-					bspDschungel.getFelder()[i][j].setVerwendbarkeit(1);
-					bspDschungel.getFelder()[i][j].setZeile(i);
-					bspDschungel.getFelder()[i][j].setSpalte(j);
-					bspDschungel.getFelder()[i][j].setId("F" + (i + j + j));
+			for (int i = 0; i < bspDschungel.getRows(); i++) {
+				for (int j = 0; j < bspDschungel.getColumns(); j++) {
+					bspDschungel.getFields()[i][j].setCharacter("a" + (i + j + j));
+					bspDschungel.getFields()[i][j].setPoints(1);
+					bspDschungel.getFields()[i][j].setUsage(1);
+					bspDschungel.getFields()[i][j].setRow(i);
+					bspDschungel.getFields()[i][j].setColumn(j);
+					bspDschungel.getFields()[i][j].setId("F" + (i + j + j));
 				}
 			}
 
@@ -318,19 +318,19 @@ class WriterXMLTest {
 
 			// Fuege dem bspModell alle erstellten Daten hinzu
 			bspModell = new ProblemModel(bspDschungel, null, bspZeit);
-			bspModell.addSchlangenart(new SnakeType("A0", bspNachbarschaft, "abcdefghij", 1, 1));
-			bspModell.addSchlangenart(new SnakeType("A1", bspNachbarschaft, "hjgzhi", 21, 31));
+			bspModell.addSnakeType(new SnakeType("A0", bspNachbarschaft, "abcdefghij", 1, 1));
+			bspModell.addSnakeType(new SnakeType("A1", bspNachbarschaft, "hjgzhi", 21, 31));
 
 			// Schreibe nun diese Daten in ein Document
 			schreiberXML = new WriterXML(bspModell);
-			schreiberXML.schreibeInDatei("res/test_fuer_schreiben_in_loesungsdatei.xml");
-			listeFuerTest = schreiberXML.getDokument().getRootElement().getChildren();
+			schreiberXML.writeInFile("res/test_fuer_schreiben_in_loesungsdatei.xml");
+			listeFuerTest = schreiberXML.getDocument().getRootElement().getChildren();
 		}
 
 		@DisplayName("Einfacher Test fuer das Wurzelelement.")
 		@Test
 		void testeWurzel() {
-			assertEquals("Schlangenjagd", schreiberXML.getDokument().getRootElement().getName(),
+			assertEquals("Schlangenjagd", schreiberXML.getDocument().getRootElement().getName(),
 					"\nDas eingelesene Wurzelelement entspricht nicht dem Inhalt des Modelles");
 		}
 
@@ -521,19 +521,19 @@ class WriterXMLTest {
 
 			// Fuege dem bspModell alle erstellten Daten hinzu
 			bspModell = new ProblemModel(bspDschungel, null, bspZeit);
-			bspModell.addSchlangenart(new SnakeType("A0", bspNachbarschaft, "abcdefghij", 1, 1));
-			bspModell.addSchlangenart(new SnakeType("A1", bspNachbarschaft, "hjgzhi", 21, 31));
+			bspModell.addSnakeType(new SnakeType("A0", bspNachbarschaft, "abcdefghij", 1, 1));
+			bspModell.addSnakeType(new SnakeType("A1", bspNachbarschaft, "hjgzhi", 21, 31));
 
 			// Schreibe nun diese Daten in ein Document
 			schreiberXML = new WriterXML(bspModell);
-			schreiberXML.schreibeInDatei("res/test_fuer_schreiben_in_loesungsdatei.xml");
-			listeFuerTest = schreiberXML.getDokument().getRootElement().getChildren();
+			schreiberXML.writeInFile("res/test_fuer_schreiben_in_loesungsdatei.xml");
+			listeFuerTest = schreiberXML.getDocument().getRootElement().getChildren();
 		}
 
 		@DisplayName("Einfacher Test fuer das Wurzelelement.")
 		@Test
 		void testeWurzel() {
-			assertEquals("Schlangenjagd", schreiberXML.getDokument().getRootElement().getName(),
+			assertEquals("Schlangenjagd", schreiberXML.getDocument().getRootElement().getName(),
 					"\nDas eingelesene Wurzelelement entspricht nicht dem Inhalt des Modelles");
 		}
 

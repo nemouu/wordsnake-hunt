@@ -13,7 +13,7 @@ import java.util.*;
  *
  */
 public class DistanceNeighborhood implements INeighborhood {
-	private String art = "Distanz";
+	private String type = "Distanz";
 	private List<Integer> parameter = new ArrayList<Integer>();
 
 	/**
@@ -48,7 +48,7 @@ public class DistanceNeighborhood implements INeighborhood {
 	}
 
 	@Override
-	public List<Field> getNachbarn(Jungle dschungel, Field feld) {
+	public List<Field> getNeighbors(Jungle dschungel, Field feld) {
 		/*
 		 * In dieser Methode werden die Nachbarn eines Feldes in einem Dschungel
 		 * gefunden. Dabei werden alle Felder, die in der Entfernung des Parameters vom
@@ -60,29 +60,29 @@ public class DistanceNeighborhood implements INeighborhood {
 		 */
 		List<Field> listeMitNachbarn = new ArrayList<Field>();
 		int param = parameter.get(0);
-		Field[][] felder = dschungel.getFelder();
+		Field[][] felder = dschungel.getFields();
 		for (int i = 0; i < param + 1; i++) {
 			for (int j = 0; j < param + 1; j++) {
 				if (i == 0 && j == 0) {
 				} else {
-					if (feld.getZeile() + i < felder.length && feld.getSpalte() + j < felder[0].length) {
-						if (listeMitNachbarn.contains(felder[feld.getZeile() + i][feld.getSpalte() + j]) == false) {
-							listeMitNachbarn.add(felder[feld.getZeile() + i][feld.getSpalte() + j]);
+					if (feld.getRow() + i < felder.length && feld.getColumn() + j < felder[0].length) {
+						if (listeMitNachbarn.contains(felder[feld.getRow() + i][feld.getColumn() + j]) == false) {
+							listeMitNachbarn.add(felder[feld.getRow() + i][feld.getColumn() + j]);
 						}
 					}
-					if (feld.getZeile() - i >= 0 && feld.getSpalte() - j >= 0) {
-						if (listeMitNachbarn.contains(felder[feld.getZeile() - i][feld.getSpalte() - j]) == false) {
-							listeMitNachbarn.add(felder[feld.getZeile() - i][feld.getSpalte() - j]);
+					if (feld.getRow() - i >= 0 && feld.getColumn() - j >= 0) {
+						if (listeMitNachbarn.contains(felder[feld.getRow() - i][feld.getColumn() - j]) == false) {
+							listeMitNachbarn.add(felder[feld.getRow() - i][feld.getColumn() - j]);
 						}
 					}
-					if (feld.getZeile() + i < felder.length && feld.getSpalte() - j >= 0) {
-						if (listeMitNachbarn.contains(felder[feld.getZeile() + i][feld.getSpalte() - j]) == false) {
-							listeMitNachbarn.add(felder[feld.getZeile() + i][feld.getSpalte() - j]);
+					if (feld.getRow() + i < felder.length && feld.getColumn() - j >= 0) {
+						if (listeMitNachbarn.contains(felder[feld.getRow() + i][feld.getColumn() - j]) == false) {
+							listeMitNachbarn.add(felder[feld.getRow() + i][feld.getColumn() - j]);
 						}
 					}
-					if (feld.getZeile() - i >= 0 && feld.getSpalte() + j < felder[0].length) {
-						if (listeMitNachbarn.contains(felder[feld.getZeile() - i][feld.getSpalte() + j]) == false) {
-							listeMitNachbarn.add(felder[feld.getZeile() - i][feld.getSpalte() + j]);
+					if (feld.getRow() - i >= 0 && feld.getColumn() + j < felder[0].length) {
+						if (listeMitNachbarn.contains(felder[feld.getRow() - i][feld.getColumn() + j]) == false) {
+							listeMitNachbarn.add(felder[feld.getRow() - i][feld.getColumn() + j]);
 						}
 					}
 				}
@@ -93,21 +93,21 @@ public class DistanceNeighborhood implements INeighborhood {
 
 	@Override
 	public String toString() {
-		return art + ", Parameter=" + parameter.get(0);
+		return type + ", Parameter=" + parameter.get(0);
 	}
 
 	@Override
-	public String getArt() {
-		return art;
+	public String getType() {
+		return type;
 	}
 
 	@Override
-	public List<Integer> getParameter() {
+	public List<Integer> getParameters() {
 		return parameter;
 	}
 
 	@Override
-	public void setParameter(List<Integer> parameters) {
+	public void setParameters(List<Integer> parameters) {
 		if (parameters.size() > 1) {
 			throw new IllegalArgumentException("Fuer die Klasse DistanzNachbarschaft darf das Attribut 'parameters'"
 					+ "nicht mehr als ein Element haben");
@@ -134,7 +134,7 @@ public class DistanceNeighborhood implements INeighborhood {
 	 * 
 	 * @param parameter Eine Zahl, die als Parameter uebergeben werden soll.
 	 */
-	public void setParameterEinzeln(int parameter) {
+	public void setParameter(int parameter) {
 		if (parameter < 1) {
 			throw new IllegalArgumentException(
 					"Fuer die Klasse DistanzNachbarschaft darf das Attribut 'parameters' keine "

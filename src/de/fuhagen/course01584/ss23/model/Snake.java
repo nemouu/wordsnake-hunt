@@ -12,8 +12,8 @@ import java.util.*;
  *
  */
 public class Snake {
-	private SnakeType art;
-	private List<SnakeElement> glieder;
+	private SnakeType type;
+	private List<SnakeElement> elements;
 
 	/**
 	 * In diesem parametrisierten Konstruktor kann bei Instanziierung dieser Klasse
@@ -27,8 +27,8 @@ public class Snake {
 	 */
 	public Snake(SnakeType art, List<SnakeElement> glieder) {
 		super();
-		this.art = art;
-		this.glieder = glieder;
+		this.type = art;
+		this.elements = glieder;
 	}
 
 	/**
@@ -42,8 +42,8 @@ public class Snake {
 	 */
 	public Snake(SnakeType art) {
 		super();
-		this.art = art;
-		this.glieder = new ArrayList<SnakeElement>();
+		this.type = art;
+		this.elements = new ArrayList<SnakeElement>();
 	}
 
 	/**
@@ -55,7 +55,7 @@ public class Snake {
 	 */
 	public Snake() {
 		super();
-		this.glieder = new ArrayList<SnakeElement>();
+		this.elements = new ArrayList<SnakeElement>();
 	}
 
 	/**
@@ -64,16 +64,16 @@ public class Snake {
 	 * 
 	 * @param inGlied Das Schlangenglied, das hinzugefuegt werden soll.
 	 */
-	public void addGlied(SnakeElement inGlied) {
-		this.glieder.add(inGlied);
+	public void addElement(SnakeElement inGlied) {
+		this.elements.add(inGlied);
 	}
 
 	/**
 	 * Eine Methode, die das letzte Schlangenglied einer Schlange entfernt.
 	 */
-	public void entferneLetztesGlied() {
-		if (glieder != null && glieder.size() > 0) {
-			this.glieder.remove(glieder.size() - 1);
+	public void removeLastElement() {
+		if (elements != null && elements.size() > 0) {
+			this.elements.remove(elements.size() - 1);
 		}
 	}
 
@@ -86,9 +86,9 @@ public class Snake {
 	 *         Wenn es kein naechstes Glied mehr gibt wird <code>null</code>
 	 *         zurueckgegeben.
 	 */
-	public String naechstesGlied() {
-		if (glieder.size() < art.getZeichenkette().length()) {
-			return art.getZeichenkette().substring(glieder.size(), glieder.size() + 1);
+	public String characterOfNextElement() {
+		if (elements.size() < type.getZeichenkette().length()) {
+			return type.getZeichenkette().substring(elements.size(), elements.size() + 1);
 		}
 		return "";
 	}
@@ -99,8 +99,8 @@ public class Snake {
 	 * 
 	 * @return Ein String, der das Zeichen des letzten Schlangengliedes enthaelt.
 	 */
-	public String letztesGlied() {
-		return art.getZeichenkette().substring(art.getZeichenkette().length() - 1, art.getZeichenkette().length());
+	public String characterOfLastElement() {
+		return type.getZeichenkette().substring(type.getZeichenkette().length() - 1, type.getZeichenkette().length());
 	}
 
 	/**
@@ -109,8 +109,8 @@ public class Snake {
 	 * @return Eine Schlangenart, gemaess der in diesem Paket definierten
 	 *         Datenstruktur Schlangenart.
 	 */
-	public SnakeType getArt() {
-		return art;
+	public SnakeType getType() {
+		return type;
 	}
 
 	/**
@@ -121,8 +121,8 @@ public class Snake {
 	 * 
 	 * @param art Eine Schlangenart, die der Schlange uebergeben werden soll.
 	 */
-	public void setArt(SnakeType art) {
-		this.art = art;
+	public void setType(SnakeType art) {
+		this.type = art;
 	}
 
 	/**
@@ -131,8 +131,8 @@ public class Snake {
 	 * @return Eine Liste von Schlangengliedern gemaess der in diesem Paket
 	 *         definierten Datenstruktur Schlangenglied.
 	 */
-	public List<SnakeElement> getGlieder() {
-		return glieder;
+	public List<SnakeElement> getElements() {
+		return elements;
 	}
 
 	/**
@@ -144,7 +144,7 @@ public class Snake {
 	 * @param glieder Eine Liste mit Schlangengliedern, die der Schlange uebergeben
 	 *                werden soll.
 	 */
-	public void setGlieder(List<SnakeElement> glieder) {
-		this.glieder = glieder;
+	public void setElements(List<SnakeElement> glieder) {
+		this.elements = glieder;
 	}
 }

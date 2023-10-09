@@ -58,7 +58,7 @@ class SchlangeTest {
 			glieder1.add(glied4);
 			Snake bspSchlange = new Snake(new SnakeType("A0", new DistanceNeighborhood(), "HALLOS", 3, 1),
 					glieder1);
-			assertEquals("O", bspSchlange.naechstesGlied(),
+			assertEquals("O", bspSchlange.characterOfNextElement(),
 					"\nDas ausgegebene naechste Glied stimmt nicht mit dem tatsaechlichen naechsten Glied ueberein.");
 		}
 
@@ -74,7 +74,7 @@ class SchlangeTest {
 			glieder1.add(glied3);
 			Snake bspSchlange = new Snake(new SnakeType("A0", new DistanceNeighborhood(), "HALLOS", 3, 1),
 					glieder1);
-			assertEquals("L", bspSchlange.naechstesGlied(),
+			assertEquals("L", bspSchlange.characterOfNextElement(),
 					"\nDas ausgegebene naechste Glied stimmt nicht mit dem tatsaechlichen naechsten Glied ueberein.");
 		}
 
@@ -94,7 +94,7 @@ class SchlangeTest {
 			glieder1.add(glied5);
 			Snake bspSchlange = new Snake(new SnakeType("A0", new DistanceNeighborhood(), "HALLOS", 3, 1),
 					glieder1);
-			assertEquals("S", bspSchlange.naechstesGlied(),
+			assertEquals("S", bspSchlange.characterOfNextElement(),
 					"\nDas ausgegebene naechste Glied stimmt nicht mit dem tatsaechlichen naechsten Glied ueberein.");
 		}
 
@@ -116,34 +116,34 @@ class SchlangeTest {
 			glieder.add(glied6);
 			Snake bspSchlange = new Snake(new SnakeType("A0", new DistanceNeighborhood(), "HALLOS", 3, 1),
 					glieder);
-			assertEquals("", bspSchlange.naechstesGlied(),
+			assertEquals("", bspSchlange.characterOfNextElement(),
 					"\nDas ausgegebene naechste Glied stimmt nicht mit dem tatsaechlichen naechsten Glied ueberein.");
 		}
 
 		@DisplayName("Einfacher Test von lastGlied")
 		@Test
 		void testeLastGlied() {
-			assertEquals("S", schlange.letztesGlied(),
+			assertEquals("S", schlange.characterOfLastElement(),
 					"\nDas ausgegebene naechste Glied stimmt nicht mit dem tatsaechlichen naechsten Glied ueberein.");
 		}
 
 		@DisplayName("Einfacher Test von entferneLetztesGlied, Teil 1")
 		@Test
 		void testeEntferneLetztesGliedEins() {
-			schlange.entferneLetztesGlied();
-			assertEquals(5, schlange.getGlieder().size(),
+			schlange.removeLastElement();
+			assertEquals(5, schlange.getElements().size(),
 					"\nDie Schlange hat nicht die gewuenschte Anzahl Glieder. Es sollte ein Glied weniger sein also vorher "
-							+ "(also 5) aber es wurde " + schlange.getGlieder().size() + " ausgegeben.");
+							+ "(also 5) aber es wurde " + schlange.getElements().size() + " ausgegeben.");
 		}
 
 		@DisplayName("Einfacher Test von entferneLetztesGlied, Teil 2")
 		@Test
 		void testeEntferneLetztesGliedZwei() {
 			Snake bspSchlange = new Snake();
-			bspSchlange.entferneLetztesGlied();
-			assertEquals(0, bspSchlange.getGlieder().size(),
+			bspSchlange.removeLastElement();
+			assertEquals(0, bspSchlange.getElements().size(),
 					"\nDie Schlange hat nicht die gewuenschte Anzahl Glieder. Es sollte ein Glied weniger sein also vorher "
-							+ "(also 5) aber es wurde " + schlange.getGlieder().size() + " ausgegeben.");
+							+ "(also 5) aber es wurde " + schlange.getElements().size() + " ausgegeben.");
 		}
 	}
 }

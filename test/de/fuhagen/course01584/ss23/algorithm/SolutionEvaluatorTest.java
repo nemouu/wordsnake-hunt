@@ -26,7 +26,7 @@ class SolutionEvaluatorTest {
 		@Test
 		void testeBewerteLoesungBeispielEins() {
 			SnakeHuntAPI jagd = new SnakeHunt();
-			assertEquals(8, jagd.bewerteLoesung("res/sj_p1_loesung.xml"),
+			assertEquals(8, jagd.evaluateSolution("res/sj_p1_loesung.xml"),
 					"\nDie Loesungpruefung findet nicht die erwarteten Fehler.");
 		}
 
@@ -34,7 +34,7 @@ class SolutionEvaluatorTest {
 		@Test
 		void testeBewerteLoesungBeispielZwei() {
 			SnakeHuntAPI jagd = new SnakeHunt();
-			assertEquals(36, jagd.bewerteLoesung("res/sj_p2_loesung.xml"),
+			assertEquals(36, jagd.evaluateSolution("res/sj_p2_loesung.xml"),
 					"\nDie Loesungpruefung findet nicht die erwarteten Fehler.");
 		}
 
@@ -42,7 +42,7 @@ class SolutionEvaluatorTest {
 		@Test
 		void testeBewerteLoesungBeispielDrei() {
 			SnakeHuntAPI jagd = new SnakeHunt();
-			assertEquals(81, jagd.bewerteLoesung("res/sj_p3_loesung.xml"),
+			assertEquals(81, jagd.evaluateSolution("res/sj_p3_loesung.xml"),
 					"\nDie Loesungpruefung findet nicht die erwarteten Fehler.");
 		}
 
@@ -50,7 +50,7 @@ class SolutionEvaluatorTest {
 		@Test
 		void testeBewerteLoesungBeispielVier() {
 			SnakeHuntAPI jagd = new SnakeHunt();
-			assertEquals(41, jagd.bewerteLoesung("res/sj_p4_loesung.xml"),
+			assertEquals(41, jagd.evaluateSolution("res/sj_p4_loesung.xml"),
 					"\nDie Loesungpruefung findet nicht die erwarteten Fehler.");
 		}
 
@@ -58,7 +58,7 @@ class SolutionEvaluatorTest {
 		@Test
 		void testeBewerteLoesungBeispielKeineFehler() {
 			SnakeHuntAPI jagd = new SnakeHunt();
-			assertEquals(0, jagd.bewerteLoesung("res/sj_p4_probleminstanz.xml"),
+			assertEquals(0, jagd.evaluateSolution("res/sj_p4_probleminstanz.xml"),
 					"\nDie Loesungpruefung findet nicht die erwarteten Fehler.");
 		}
 	}

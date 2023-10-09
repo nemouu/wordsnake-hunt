@@ -16,6 +16,6 @@ public interface IView {
 	 * moeglich sein, wenn eine Loesung vorhanden ist aber auch wenn keine Loesung
 	 * vorhanden ist.
 	 */
-	void darstellen();
+	void view();
 
 }

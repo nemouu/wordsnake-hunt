@@ -25,7 +25,7 @@ import de.fuhagen.course01584.ss23.model.*;
  *
  */
 public class ReaderXML implements IReader {
-	private IModel uebergebenesModell;
+	private IModel transferredModel;
 
 	/**
 	 * Ein parameterloser Konstruktor in dem bei Instanziierung direkt eine Instanz
@@ -35,11 +35,11 @@ public class ReaderXML implements IReader {
 	 */
 	public ReaderXML() {
 		super();
-		this.uebergebenesModell = new ProblemModel();
+		this.transferredModel = new ProblemModel();
 	}
 
 	@Override
-	public void leseDatei(String dateiPfad) throws Exception {
+	public void readFile(String dateiPfad) throws Exception {
 		try {
 			SAXBuilder builder = new SAXBuilder(XMLReaders.DTDVALIDATING);
 			Document xmlDatei = null;
@@ -48,22 +48,22 @@ public class ReaderXML implements IReader {
 			List<Element> items = wurzel.getChildren();
 			for (Element item : items) {
 				if (item.getName() == "Zeit") {
-					uebertrageZeitAusDatei(item);
+					transferTimeFromFile(item);
 				}
 				if (item.getName() == "Dschungel") {
-					uebertrageDschungelAusDatei(item);
+					transferJungleFromFile(item);
 				}
 				if (item.getName() == "Schlangenarten") {
-					uebertrageSchlangenartenAusDatei(item);
+					transferSnakeTypesFromFile(item);
 				}
 				if (item.getName() == "Schlangen") {
-					uebertrageSchlangenAusDatei(item);
+					transferSnakesFromFile(item);
 				}
 			}
-			if (uebergebenesModell.getZeit() == null) {
+			if (transferredModel.getTime() == null) {
 				Double[] zeit = { 30.0, 0.0 };
-				uebergebenesModell.setZeit(zeit);
-				uebergebenesModell.setZeiteinheit("s");
+				transferredModel.setTime(zeit);
+				transferredModel.setUnitOfTime("s");
 			}
 		} catch (JDOMException e) {
 			System.out.println("Fehler beim Einlesen. Die unter '" + dateiPfad
@@ -76,7 +76,7 @@ public class ReaderXML implements IReader {
 		}
 	}
 
-	private void uebertrageSchlangenAusDatei(Element item) throws Exception {
+	private void transferSnakesFromFile(Element item) throws Exception {
 		/*
 		 * Hier werden die Schlangen, die in der Eingabedatei stehen, in das Modell
 		 * geschrieben. Haben die Daten ein ungueltiges Format, so wird eine Ausnahme
@@ -85,13 +85,13 @@ public class ReaderXML implements IReader {
 		try {
 			Solution uebergebeneLoesung = new Solution();
 			for (Element element : item.getChildren()) {
-				uebergebeneLoesung.addSchlange(new Snake(findeSchlangenartMitID(element.getAttributeValue("art"))));
+				uebergebeneLoesung.addSchlange(new Snake(findeSnakeTypeWithID(element.getAttributeValue("art"))));
 				for (Element glied : element.getChildren()) {
 					uebergebeneLoesung.getSchlangen().get(uebergebeneLoesung.getSchlangen().size() - 1)
-							.addGlied(new SnakeElement(findeFeldMitID(glied.getAttributeValue("feld"))));
+							.addElement(new SnakeElement(findFieldWithID(glied.getAttributeValue("feld"))));
 				}
 			}
-			uebergebenesModell.setLoesung(uebergebeneLoesung);
+			transferredModel.setSolution(uebergebeneLoesung);
 		} catch (Exception e) {
 			System.out.println(
 					"Es ist zu einem Fehler gekommen! Die Daten fuer die Schlangen der eingelesenen Datei sind fehlerhaft.");
@@ -100,7 +100,7 @@ public class ReaderXML implements IReader {
 		}
 	}
 
-	private void uebertrageSchlangenartenAusDatei(Element item) throws Exception {
+	private void transferSnakeTypesFromFile(Element item) throws Exception {
 		/*
 		 * Hier werden die Schlangenarten, die in der Eingabedatei stehen, in das Modell
 		 * geschrieben. Haben die Daten ein ungueltiges Format, so wird eine Ausnahme
@@ -115,7 +115,7 @@ public class ReaderXML implements IReader {
 				if (element.getChild("Nachbarschaftsstruktur").getAttributeValue("typ").equals("Distanz")) {
 					INeighborhood uebergebeneNachbarschaft = new DistanceNeighborhood(Integer.parseInt(element
 							.getChild("Nachbarschaftsstruktur").getChild("Parameter").getAttributeValue("wert")));
-					uebergebenesModell.addSchlangenart(new SnakeType(element.getAttributeValue("id"),
+					transferredModel.addSnakeType(new SnakeType(element.getAttributeValue("id"),
 							uebergebeneNachbarschaft, element.getChild("Zeichenkette").getText(),
 							Integer.parseInt(element.getAttributeValue("punkte")),
 							Integer.parseInt(element.getAttributeValue("anzahl"))));
@@ -125,7 +125,7 @@ public class ReaderXML implements IReader {
 						uebergebeneParameter.add(Integer.parseInt(parameter.getAttributeValue("wert")));
 					}
 					INeighborhood uebergebeneNachbarschaft = new JumpNeighborhood(uebergebeneParameter);
-					uebergebenesModell.addSchlangenart(new SnakeType(element.getAttributeValue("id"),
+					transferredModel.addSnakeType(new SnakeType(element.getAttributeValue("id"),
 							uebergebeneNachbarschaft, element.getChild("Zeichenkette").getText(),
 							Integer.parseInt(element.getAttributeValue("punkte")),
 							Integer.parseInt(element.getAttributeValue("anzahl"))));
@@ -135,7 +135,7 @@ public class ReaderXML implements IReader {
 						uebergebeneParameter.add(Integer.parseInt(parameter.getAttributeValue("wert")));
 					}
 					INeighborhood uebergebeneNachbarschaft = new StarNeighborhood(uebergebeneParameter);
-					uebergebenesModell.addSchlangenart(new SnakeType(element.getAttributeValue("id"),
+					transferredModel.addSnakeType(new SnakeType(element.getAttributeValue("id"),
 							uebergebeneNachbarschaft, element.getChild("Zeichenkette").getText(),
 							Integer.parseInt(element.getAttributeValue("punkte")),
 							Integer.parseInt(element.getAttributeValue("anzahl"))));
@@ -151,7 +151,7 @@ public class ReaderXML implements IReader {
 		}
 	}
 
-	private void uebertrageDschungelAusDatei(Element item) throws Exception {
+	private void transferJungleFromFile(Element item) throws Exception {
 		/*
 		 * Hier wird der Dschungel, der in der Eingabedatei steht, in das Modell
 		 * geschrieben. Dabei wird erst ein leerer Dschungel erzeugt und danach wird
@@ -164,16 +164,16 @@ public class ReaderXML implements IReader {
 			Jungle uebergebenerDschungel = new Jungle(Integer.parseInt(item.getAttributeValue("zeilen")),
 					Integer.parseInt(item.getAttributeValue("spalten")), item.getAttributeValue("zeichen"), 0);
 			for (Element element : children) {
-				uebergebenerDschungel.getFelder()[Integer.parseInt(element.getAttributeValue("zeile"))][Integer
+				uebergebenerDschungel.getFields()[Integer.parseInt(element.getAttributeValue("zeile"))][Integer
 						.parseInt(element.getAttributeValue("spalte"))]
-						.setVerwendbarkeit(Integer.parseInt(element.getAttributeValue("verwendbarkeit")));
-				uebergebenerDschungel.getFelder()[Integer.parseInt(element.getAttributeValue("zeile"))][Integer
+						.setUsage(Integer.parseInt(element.getAttributeValue("verwendbarkeit")));
+				uebergebenerDschungel.getFields()[Integer.parseInt(element.getAttributeValue("zeile"))][Integer
 						.parseInt(element.getAttributeValue("spalte"))]
-						.setPunkte(Integer.parseInt(element.getAttributeValue("punkte")));
-				uebergebenerDschungel.getFelder()[Integer.parseInt(element.getAttributeValue("zeile"))][Integer
-						.parseInt(element.getAttributeValue("spalte"))].setZeichen(element.getText());
+						.setPoints(Integer.parseInt(element.getAttributeValue("punkte")));
+				uebergebenerDschungel.getFields()[Integer.parseInt(element.getAttributeValue("zeile"))][Integer
+						.parseInt(element.getAttributeValue("spalte"))].setCharacter(element.getText());
 			}
-			uebergebenesModell.setDschungel(uebergebenerDschungel);
+			transferredModel.setJungle(uebergebenerDschungel);
 		} catch (Exception e) {
 			System.out.println(
 					"Es ist zu einem Fehler gekommen! Die Daten fuer den Dschungel der eingelesenen Datei sind fehlerhaft.");
@@ -182,7 +182,7 @@ public class ReaderXML implements IReader {
 		}
 	}
 
-	private void uebertrageZeitAusDatei(Element item) throws Exception {
+	private void transferTimeFromFile(Element item) throws Exception {
 		/*
 		 * Hier werden die Zeitangaben, die in der Eingabedatei stehen, in das Modell
 		 * geschrieben. Hierbei wird auf die Groesse der Zeitangabe der Datei Ruecksicht
@@ -198,8 +198,8 @@ public class ReaderXML implements IReader {
 			} else {
 				uebergebendeZeit[0] = Double.parseDouble(item.getChildText("Vorgabe"));
 			}
-			uebergebenesModell.setZeiteinheit(uebergebeneZeiteinheit);
-			uebergebenesModell.setZeit(uebergebendeZeit);
+			transferredModel.setUnitOfTime(uebergebeneZeiteinheit);
+			transferredModel.setTime(uebergebendeZeit);
 		} catch (Exception e) {
 			System.out.println(
 					"Es ist zu einem Fehler gekommen! Die Daten fuer die Zeit der eingelesenen Datei sind fehlerhaft.");
@@ -208,12 +208,12 @@ public class ReaderXML implements IReader {
 		}
 	}
 
-	private SnakeType findeSchlangenartMitID(String id) {
+	private SnakeType findeSnakeTypeWithID(String id) {
 		/*
 		 * Eine Hilfsmethode, um die Schlangen aus einer Datei in das Modell zu
 		 * uebertragen.
 		 */
-		for (SnakeType art : uebergebenesModell.getSchlangenarten()) {
+		for (SnakeType art : transferredModel.getSnakeTypes()) {
 			if (art.getId().equals(id)) {
 				return art;
 			}
@@ -221,15 +221,15 @@ public class ReaderXML implements IReader {
 		return null;
 	}
 
-	private Field findeFeldMitID(String id) {
+	private Field findFieldWithID(String id) {
 		/*
 		 * Eine Hilfsmethode, um die Schlangen aus einer Datei in das Modell zu
 		 * uebertragen.
 		 */
-		for (int i = 0; i < uebergebenesModell.getDschungel().getZeilen(); i++) {
-			for (int j = 0; j < uebergebenesModell.getDschungel().getSpalten(); j++) {
-				if (uebergebenesModell.getDschungel().getFelder()[i][j].getId().equals(id)) {
-					return uebergebenesModell.getDschungel().getFelder()[i][j];
+		for (int i = 0; i < transferredModel.getJungle().getRows(); i++) {
+			for (int j = 0; j < transferredModel.getJungle().getColumns(); j++) {
+				if (transferredModel.getJungle().getFields()[i][j].getId().equals(id)) {
+					return transferredModel.getJungle().getFields()[i][j];
 				}
 			}
 		}
@@ -237,7 +237,7 @@ public class ReaderXML implements IReader {
 	}
 
 	@Override
-	public IModel getUebergebenesModell() {
-		return uebergebenesModell;
+	public IModel getTransferredModel() {
+		return transferredModel;
 	}
 }

@@ -10,7 +10,7 @@ import de.fuhagen.course01584.ss23.model.IModel;
  *
  */
 public class ViewText implements IView {
-	private IModel darzustellendesModell;
+	private IModel modelToBeViewed;
 
 	/**
 	 * Ein parametrisierter Konstruktor fuer die Klasse DarstellungTextausgabe dem
@@ -20,7 +20,7 @@ public class ViewText implements IView {
 	 */
 	public ViewText(IModel darzustellendesModell) {
 		super();
-		this.darzustellendesModell = darzustellendesModell;
+		this.modelToBeViewed = darzustellendesModell;
 	}
 
 	/**
@@ -38,8 +38,8 @@ public class ViewText implements IView {
 	 * 
 	 * @return Der Wert der Variablen <code>darzustellendesModell</code>.
 	 */
-	public IModel getDarzustellendesModell() {
-		return darzustellendesModell;
+	public IModel getModelToBeViewed() {
+		return modelToBeViewed;
 	}
 
 	/**
@@ -50,13 +50,13 @@ public class ViewText implements IView {
 	 * 
 	 * @param darzustellendesModell Das Modell, das uebergeben werden soll.
 	 */
-	public void setDarzustellendesModell(IModel darzustellendesModell) {
-		this.darzustellendesModell = darzustellendesModell;
+	public void setModelToBeViewed(IModel darzustellendesModell) {
+		this.modelToBeViewed = darzustellendesModell;
 	}
 
 	@Override
-	public void darstellen() {
-		System.out.println(darzustellendesModell.toString());
+	public void view() {
+		System.out.println(modelToBeViewed.toString());
 		System.out.println();
 	}
 }

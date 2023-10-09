@@ -51,8 +51,8 @@ public class Solution {
 	public int getAnzahlSchlangenarten() {
 		List<SnakeType> verschiedeneArten = new ArrayList<SnakeType>();
 		for (Snake schlange : schlangen) {
-			if (verschiedeneArten.contains(schlange.getArt()) == false) {
-				verschiedeneArten.add(schlange.getArt());
+			if (verschiedeneArten.contains(schlange.getType()) == false) {
+				verschiedeneArten.add(schlange.getType());
 			}
 		}
 		return verschiedeneArten.size();
@@ -69,7 +69,7 @@ public class Solution {
 	 */
 	public Snake getSchlangeMitSchlangenartID(String id) {
 		for (Snake schlange : schlangen) {
-			if (schlange.getArt().getId().equals(id)) {
+			if (schlange.getType().getId().equals(id)) {
 				return schlange;
 			}
 		}

@@ -13,11 +13,11 @@ import java.util.*;
  *
  */
 public class ProblemModel implements IModel {
-	private String zeiteinheit;
-	private Double[] zeit;
-	private Jungle dschungel;
-	private List<SnakeType> schlangenarten;
-	private Solution loesung;
+	private String unitOfTime;
+	private Double[] time;
+	private Jungle jungle;
+	private List<SnakeType> snakeTypes;
+	private Solution solution;
 
 	/**
 	 * Ein parametrisierter Konstruktor, der eine Instanz des Modelles erstellen
@@ -68,10 +68,10 @@ public class ProblemModel implements IModel {
 						"Das Attribut 'zeit' darf in der Klasse 'ProblemModell' nicht zu gross sein.");
 			}
 		}
-		this.dschungel = dschungel;
-		this.schlangenarten = schlangenarten;
-		this.loesung = loesung;
-		this.zeit = zeit;
+		this.jungle = dschungel;
+		this.snakeTypes = schlangenarten;
+		this.solution = loesung;
+		this.time = zeit;
 	}
 
 	/**
@@ -120,12 +120,12 @@ public class ProblemModel implements IModel {
 						"Das Attribut 'zeit' darf in der Klasse 'ProblemModell' nicht zu gross sein.");
 			}
 		}
-		this.dschungel = dschungel;
-		this.schlangenarten = new ArrayList<SnakeType>();
-		this.loesung = loesung;
-		this.zeit = zeit;
-		if (zeiteinheit == null) {
-			zeiteinheit = "s";
+		this.jungle = dschungel;
+		this.snakeTypes = new ArrayList<SnakeType>();
+		this.solution = loesung;
+		this.time = zeit;
+		if (unitOfTime == null) {
+			unitOfTime = "s";
 		}
 	}
 
@@ -137,26 +137,26 @@ public class ProblemModel implements IModel {
 	 */
 	public ProblemModel() {
 		super();
-		this.schlangenarten = new ArrayList<SnakeType>();
+		this.snakeTypes = new ArrayList<SnakeType>();
 	}
 
 	@Override
-	public Double berechneZeitInNanosekunden(Double vorgabeAusModell) throws IllegalArgumentException {
-		switch (getZeiteinheit()) {
+	public Double calculateTimeToNanoseconds(Double vorgabeAusModell) throws IllegalArgumentException {
+		switch (getUnitOfTime()) {
 		case "ms": {
-			return getZeit()[0] * 1000000;
+			return getTime()[0] * 1000000;
 		}
 		case "s": {
-			return getZeit()[0] * 1000000000;
+			return getTime()[0] * 1000000000;
 		}
 		case "min": {
-			return getZeit()[0] * 6.0 * (Math.pow(10, 10));
+			return getTime()[0] * 6.0 * (Math.pow(10, 10));
 		}
 		case "h": {
-			return getZeit()[0] * 3.6 * (Math.pow(10, 12));
+			return getTime()[0] * 3.6 * (Math.pow(10, 12));
 		}
 		case "d": {
-			return getZeit()[0] * 8.64 * (Math.pow(10, 13));
+			return getTime()[0] * 8.64 * (Math.pow(10, 13));
 		}
 		default:
 			throw new IllegalArgumentException("Die Zeitangabe des Modelles kann nicht umgerechnet werden.");
@@ -164,8 +164,8 @@ public class ProblemModel implements IModel {
 	}
 
 	@Override
-	public Double berechneZeitInModellEinheit(Long genutzteZeitInNanosekunden) throws IllegalArgumentException {
-		switch (getZeiteinheit()) {
+	public Double calculateTimeInUnitGivenByModel(Long genutzteZeitInNanosekunden) throws IllegalArgumentException {
+		switch (getUnitOfTime()) {
 		case "ms": {
 			return (double) (genutzteZeitInNanosekunden / 1000000.0);
 		}
@@ -189,87 +189,87 @@ public class ProblemModel implements IModel {
 	@Override
 	public String toString() {
 		String schlangenartenToString = "";
-		for (SnakeType schlangenart : schlangenarten) {
+		for (SnakeType schlangenart : snakeTypes) {
 			schlangenartenToString += " (" + schlangenart.toString() + ")\n";
 		}
 		try {
-			if (dschungel.anzahlBelegterFelder() == 0) {
-				return "Der Dschungel dieses Problemes hat " + dschungel.getZeilen() + " Zeilen, "
-						+ dschungel.getSpalten() + " Spalten und die Zeichenmenge '" + dschungel.getZeichenmenge()
+			if (jungle.numberOfTakenFields() == 0) {
+				return "Der Dschungel dieses Problemes hat " + jungle.getRows() + " Zeilen, "
+						+ jungle.getColumns() + " Spalten und die Zeichenmenge '" + jungle.getSigns()
 						+ "' \naber keine Felder und es kann nach Schlangen der Schlangenart/en \n\n"
 						+ schlangenartenToString
 						+ "\ngesucht werden. Die Felder koennen mit dem Befehl 'e' erzeugt werden. Die Loesung hierzu ist "
 						+ "nicht \nvorhanden und kann mit dem Befehl 'l' gesucht werden.";
-			} else if (loesung == null && dschungel.anzahlBelegterFelder() < dschungel.anzahlFelder()) {
-				return "Der Dschungel dieses Problemes hat " + dschungel.getZeilen() + " Zeilen, "
-						+ dschungel.getSpalten() + " Spalten und die Zeichenmenge '" + dschungel.getZeichenmenge()
+			} else if (solution == null && jungle.numberOfTakenFields() < jungle.numberOfFields()) {
+				return "Der Dschungel dieses Problemes hat " + jungle.getRows() + " Zeilen, "
+						+ jungle.getColumns() + " Spalten und die Zeichenmenge '" + jungle.getSigns()
 						+ "'. "
 						+ "Die Felder werden\nimmer in dem Format '(Zeichen, Verwendbarkeit, Punkte)' angegeben und leere Felder "
 						+ " werden durch '(Ø, 0, 0)'\ngekennzeichnet. Die Felder sind wie folgt angeordnet: \n\n\n"
-						+ dschungel.toString() + "\nEs kann nach Schlangen der Schlangenart/en \n\n"
+						+ jungle.toString() + "\nEs kann nach Schlangen der Schlangenart/en \n\n"
 						+ schlangenartenToString
 						+ "\ngesucht werden und im Modell ist aktuell keine Loesung enthalten. Dabei ist jedoch zu beachten, dass"
-						+ " der eingelesene\nDschungel leere Felder enthaelt. Es wurden " + dschungel.anzahlFelder()
-						+ " Felder erwartet aber nur " + dschungel.anzahlBelegterFelder()
+						+ " der eingelesene\nDschungel leere Felder enthaelt. Es wurden " + jungle.numberOfFields()
+						+ " Felder erwartet aber nur " + jungle.numberOfTakenFields()
 						+ " wurden eingelesen. Die uebrigen\n"
 						+ "Felder sind leer. Mit dem Befehl 'e' kann ein vollstaendiger Dschungel erzeugt werden.";
-			} else if (loesung == null || loesung.getSchlangen().size() == 0) {
-				return "Der Dschungel dieses Problemes hat " + dschungel.getZeilen() + " Zeilen, "
-						+ dschungel.getSpalten() + " Spalten und die Zeichenmenge '" + dschungel.getZeichenmenge()
+			} else if (solution == null || solution.getSchlangen().size() == 0) {
+				return "Der Dschungel dieses Problemes hat " + jungle.getRows() + " Zeilen, "
+						+ jungle.getColumns() + " Spalten und die Zeichenmenge '" + jungle.getSigns()
 						+ "'. "
 						+ "Die Felder werden\nimmer in dem Format '(Zeichen, Verwendbarkeit, Punkte)' angegeben und"
-						+ " sind wie folgt angeordnet: \n\n\n" + dschungel.toString() + "\nEs kann nach Schlangen"
+						+ " sind wie folgt angeordnet: \n\n\n" + jungle.toString() + "\nEs kann nach Schlangen"
 						+ " der Schlangenart/en \n\n" + schlangenartenToString
 						+ "\ngesucht werden und im Modell ist aktuell keine Loesung vorhanden. Es kann mit dem Befehl 'l' nach einer"
 						+ " Loesung\ngesucht werden.";
-			} else if (dschungel.anzahlBelegterFelder() < dschungel.anzahlFelder()) {
-				return "Der Dschungel dieses Problemes hat " + dschungel.getZeilen() + " Zeilen, "
-						+ dschungel.getSpalten() + " Spalten und die Zeichenmenge '" + dschungel.getZeichenmenge()
+			} else if (jungle.numberOfTakenFields() < jungle.numberOfFields()) {
+				return "Der Dschungel dieses Problemes hat " + jungle.getRows() + " Zeilen, "
+						+ jungle.getColumns() + " Spalten und die Zeichenmenge '" + jungle.getSigns()
 						+ "'. "
 						+ "Die\nFelder werden immer in dem Format '(Zeichen, Verwendbarkeit, Punkte)' angegeben und leere Felder "
 						+ " werden durch '(Ø, 0, 0)'\ngekennzeichnet. Die Felder sind wie folgt angeordnet: \n\n\n"
-						+ dschungel.toString() + "\nEs kann nach Schlangen der Schlangenart/en \n\n"
+						+ jungle.toString() + "\nEs kann nach Schlangen der Schlangenart/en \n\n"
 						+ schlangenartenToString
 						+ "\ngesucht werden. Zu jeder gefundenen Schlange werden einige Informationen ausgegeben. "
 						+ "Dann wird die Reihenfolge der\nGlieder der jeweiligen Schlange in dem Format '(Zeichen, Zeile, Spalte)' "
 						+ "angegeben und schließlich wird ein\nDschungel ausgegeben, der die Schlange hervorhebt. Hierbei "
 						+ "werden die nicht genutzten Felder mit ( ) gekennzeichnet.\nEs ist hierbei zu beachten, dass "
-						+ " der eingelesene Dschungel leere Felder enthaelt. Es wurden " + dschungel.anzahlFelder()
-						+ " Felder erwartet aber\nnur " + dschungel.anzahlBelegterFelder()
+						+ " der eingelesene Dschungel leere Felder enthaelt. Es wurden " + jungle.numberOfFields()
+						+ " Felder erwartet aber\nnur " + jungle.numberOfTakenFields()
 						+ " wurden eingelesen. Die uebrigen Felder sind leer. Mit dem Befehl 'e' kann ein vollstaendiger Dschungel "
-						+ "erzeugt\nwerden.\n\n" + toStringLoesung();
+						+ "erzeugt\nwerden.\n\n" + toStringSolution();
 			} else {
-				return "Der Dschungel dieses Problemes hat " + dschungel.getZeilen() + " Zeilen, "
-						+ dschungel.getSpalten() + " Spalten und die Zeichenmenge '" + dschungel.getZeichenmenge()
+				return "Der Dschungel dieses Problemes hat " + jungle.getRows() + " Zeilen, "
+						+ jungle.getColumns() + " Spalten und die Zeichenmenge '" + jungle.getSigns()
 						+ "'. "
 						+ "Die\nFelder werden immer in dem Format '(Zeichen, Verwendbarkeit, Punkte)' angegeben und"
-						+ " sind wie folgt angeordnet: \n\n\n" + dschungel.toString() + "\nEs kann nach Schlangen"
+						+ " sind wie folgt angeordnet: \n\n\n" + jungle.toString() + "\nEs kann nach Schlangen"
 						+ " der Schlangenart/en \n\n" + schlangenartenToString
 						+ "\ngesucht werden. Zu jeder gefundenen Schlange werden einige Informationen ausgegeben. "
 						+ "Dann wird die Reihenfolge der\nGlieder der jeweiligen Schlange in dem Format '(Zeichen, Zeile, Spalte)' "
 						+ "angegeben und schließlich wird ein\nDschungel ausgegeben, der die Schlange hervorhebt. Hierbei "
-						+ "werden die nicht genutzten Felder mit ( ) gekennzeichnet.\n\n" + toStringLoesung();
+						+ "werden die nicht genutzten Felder mit ( ) gekennzeichnet.\n\n" + toStringSolution();
 			}
 		} catch (Exception e) {
 			return "Beim Ausgeben des Modelles in einer Textausgabe ist ein Fehler aufgetreten.";
 		}
 	}
 
-	private String toStringLoesung() {
+	private String toStringSolution() {
 		String output = "";
 		int zeilenumbruch = 1;
-		for (int i = 0; i < loesung.getSchlangen().size(); i++) {
+		for (int i = 0; i < solution.getSchlangen().size(); i++) {
 			List<Field> loesungsFelder = new ArrayList<Field>();
-			output += " (" + (i + 1) + ") Information: (ID=" + loesung.getSchlangen().get(i).getArt().getId()
-					+ ", Zeichenkette=" + loesung.getSchlangen().get(i).getArt().getZeichenkette()
-					+ ", Nachbarschaftsstruktur=" + loesung.getSchlangen().get(i).getArt().getStruktur().toString()
+			output += " (" + (i + 1) + ") Information: (ID=" + solution.getSchlangen().get(i).getType().getId()
+					+ ", Zeichenkette=" + solution.getSchlangen().get(i).getType().getZeichenkette()
+					+ ", Nachbarschaftsstruktur=" + solution.getSchlangen().get(i).getType().getStruktur().toString()
 					+ ")\n\n     Verlauf: ";
-			for (int l = 0; l < loesung.getSchlangen().get(i).getGlieder().size(); l++) {
-				loesungsFelder.add(loesung.getSchlangen().get(i).getGlieder().get(l).getFeld());
-				output += "(" + loesung.getSchlangen().get(i).getGlieder().get(l).getFeld().getZeichen() + ", "
-						+ loesung.getSchlangen().get(i).getGlieder().get(l).getFeld().getZeile() + ", "
-						+ loesung.getSchlangen().get(i).getGlieder().get(l).getFeld().getSpalte() + ")";
-				if (l < loesung.getSchlangen().get(i).getGlieder().size() - 1) {
+			for (int l = 0; l < solution.getSchlangen().get(i).getElements().size(); l++) {
+				loesungsFelder.add(solution.getSchlangen().get(i).getElements().get(l).getField());
+				output += "(" + solution.getSchlangen().get(i).getElements().get(l).getField().getCharacter() + ", "
+						+ solution.getSchlangen().get(i).getElements().get(l).getField().getRow() + ", "
+						+ solution.getSchlangen().get(i).getElements().get(l).getField().getColumn() + ")";
+				if (l < solution.getSchlangen().get(i).getElements().size() - 1) {
 					output += " -> ";
 				}
 				if (l == 13) {
@@ -281,18 +281,18 @@ public class ProblemModel implements IModel {
 				}
 			}
 			output += " \n\n     Dschungel: ";
-			for (int j = 0; j < dschungel.getZeilen(); j++) {
+			for (int j = 0; j < jungle.getRows(); j++) {
 				if (j > 0) {
 					output += "                ";
 				}
-				for (int k = 0; k < dschungel.getSpalten(); k++) {
-					if (loesungsFelder.contains(dschungel.getFelder()[j][k])) {
-						output += " (" + dschungel.getFelder()[j][k].getZeichen() + ")";
+				for (int k = 0; k < jungle.getColumns(); k++) {
+					if (loesungsFelder.contains(jungle.getFields()[j][k])) {
+						output += " (" + jungle.getFields()[j][k].getCharacter() + ")";
 					} else {
 						output += " ( )";
 					}
 				}
-				if (j != dschungel.getZeilen() - 1) {
+				if (j != jungle.getRows() - 1) {
 					output += "\n\n";
 				}
 			}
@@ -302,12 +302,12 @@ public class ProblemModel implements IModel {
 	}
 
 	@Override
-	public Double[] getZeit() {
-		return zeit;
+	public Double[] getTime() {
+		return time;
 	}
 
 	@Override
-	public void setZeit(Double[] zeit) throws IllegalArgumentException {
+	public void setTime(Double[] zeit) throws IllegalArgumentException {
 		if (zeit.length == 1) {
 			if (zeit[0] == 0.0) {
 				throw new IllegalArgumentException(
@@ -336,19 +336,19 @@ public class ProblemModel implements IModel {
 						"Das Attribut 'zeit' darf in der Klasse 'ProblemModell' nicht zu gross sein.");
 			}
 		}
-		this.zeit = zeit;
+		this.time = zeit;
 	}
 
 	@Override
-	public String getZeiteinheit() {
-		return zeiteinheit;
+	public String getUnitOfTime() {
+		return unitOfTime;
 	}
 
 	@Override
-	public void setZeiteinheit(String zeiteinheit) throws IllegalArgumentException {
+	public void setUnitOfTime(String zeiteinheit) throws IllegalArgumentException {
 		if (zeiteinheit.equals("ms") || zeiteinheit.equals("s") || zeiteinheit.equals("min") || zeiteinheit.equals("h")
 				|| zeiteinheit.equals("d")) {
-			this.zeiteinheit = zeiteinheit;
+			this.unitOfTime = zeiteinheit;
 		} else {
 			throw new IllegalArgumentException(
 					"Es wurde eine ungueltige Zeiteinheit uebergeben. Gueltige Zeiteinheiten sind "
@@ -357,38 +357,38 @@ public class ProblemModel implements IModel {
 	}
 
 	@Override
-	public Jungle getDschungel() {
-		return dschungel;
+	public Jungle getJungle() {
+		return jungle;
 	}
 
 	@Override
-	public void setDschungel(Jungle dschungel) {
-		this.dschungel = dschungel;
+	public void setJungle(Jungle dschungel) {
+		this.jungle = dschungel;
 	}
 
 	@Override
-	public List<SnakeType> getSchlangenarten() {
-		return schlangenarten;
+	public List<SnakeType> getSnakeTypes() {
+		return snakeTypes;
 	}
 
 	@Override
-	public void setSchlangenarten(List<SnakeType> schlangenarten) {
-		this.schlangenarten = schlangenarten;
+	public void setSnakeTypes(List<SnakeType> schlangenarten) {
+		this.snakeTypes = schlangenarten;
 	}
 
 	@Override
-	public void addSchlangenart(SnakeType inArt) {
-		this.schlangenarten.add(inArt);
+	public void addSnakeType(SnakeType inArt) {
+		this.snakeTypes.add(inArt);
 	}
 
 	@Override
-	public Solution getLoesung() {
-		return loesung;
+	public Solution getSolution() {
+		return solution;
 	}
 
 	@Override
-	public void setLoesung(Solution loesung) {
-		this.loesung = loesung;
+	public void setSolution(Solution loesung) {
+		this.solution = loesung;
 
 	}
 }

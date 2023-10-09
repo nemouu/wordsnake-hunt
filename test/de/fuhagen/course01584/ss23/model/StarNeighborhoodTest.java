@@ -41,10 +41,10 @@ class StarNeighborhoodTest {
 			List<Integer> paramList2 = new ArrayList<Integer>();
 			paramList2.add(param3);
 			paramList2.add(param4);
-			sprungNachb.setParameter(paramList2);
-			assertEquals(paramList2, sprungNachb.getParameter(),
-					"\nDie Parameter '" + sprungNachb.getParameter().get(0) + "' und '"
-							+ sprungNachb.getParameter().get(1) + "' entsprechen nicht dem vorgegebenen Werten '"
+			sprungNachb.setParameters(paramList2);
+			assertEquals(paramList2, sprungNachb.getParameters(),
+					"\nDie Parameter '" + sprungNachb.getParameters().get(0) + "' und '"
+							+ sprungNachb.getParameters().get(1) + "' entsprechen nicht dem vorgegebenen Werten '"
 							+ param3 + "' und '" + param4 + "'.");
 		}
 
@@ -60,7 +60,7 @@ class StarNeighborhoodTest {
 			paramListGross.add(param1);
 			paramListGross.add(param2);
 			assertThrows(IllegalArgumentException.class,
-					() -> new StarNeighborhood(paramList).setParameter(paramListGross),
+					() -> new StarNeighborhood(paramList).setParameters(paramListGross),
 					() -> "\nEiner oder mehrere der Parameterwerte '" + param1 + "' und '" + param2
 							+ "' erzeugt/erzeugen keine Ausnahme, obwohl er/sie zu gross ist/sind.");
 		}
@@ -77,7 +77,7 @@ class StarNeighborhoodTest {
 			paramListGross.add(param1);
 			paramListGross.add(param2);
 			assertThrows(IllegalArgumentException.class,
-					() -> new StarNeighborhood(paramList).setParameter(paramListGross),
+					() -> new StarNeighborhood(paramList).setParameters(paramListGross),
 					() -> "\nEiner oder mehrere der Parameterwerte '" + param1 + "' und '" + param2
 							+ "' erzeugt/erzeugen keine Ausnahme, obwohl er/sie zu klein ist/sind.");
 		}
@@ -94,9 +94,9 @@ class StarNeighborhoodTest {
 		static void initDschungel() {
 			zufallsZeichen = new Random(1);
 			bspDschungel = new Jungle(6, 8, "asdertg", 1);
-			for (int i = 0; i < bspDschungel.getZeilen(); i++) {
-				for (int j = 0; j < bspDschungel.getSpalten(); j++) {
-					bspDschungel.getFelder()[i][j].setZeichen("" + (char) (zufallsZeichen.nextInt(26) + 'a'));
+			for (int i = 0; i < bspDschungel.getRows(); i++) {
+				for (int j = 0; j < bspDschungel.getColumns(); j++) {
+					bspDschungel.getFields()[i][j].setCharacter("" + (char) (zufallsZeichen.nextInt(26) + 'a'));
 				}
 			}
 			List<Integer> paramList = new ArrayList<Integer>();
@@ -116,46 +116,46 @@ class StarNeighborhoodTest {
 		@DisplayName("Test fuer getNachbarn mit den Parametern 1 und 2 in der Mitte.")
 		@Test
 		void testeNachbarnMitParameterEinsMitte() {
-			Field zuTestendesFeld = bspDschungel.getFelder()[3][3];
+			Field zuTestendesFeld = bspDschungel.getFields()[3][3];
 			HashSet<Field> nachbarFelder = new HashSet<Field>();
-			nachbarFelder.add(bspDschungel.getFelder()[1][1]);
-			nachbarFelder.add(bspDschungel.getFelder()[3][2]);
-			nachbarFelder.add(bspDschungel.getFelder()[2][2]);
-			nachbarFelder.add(bspDschungel.getFelder()[4][4]);
-			nachbarFelder.add(bspDschungel.getFelder()[5][5]);
-			nachbarFelder.add(bspDschungel.getFelder()[2][3]);
-			nachbarFelder.add(bspDschungel.getFelder()[2][4]);
-			nachbarFelder.add(bspDschungel.getFelder()[1][5]);
-			nachbarFelder.add(bspDschungel.getFelder()[3][4]);
-			nachbarFelder.add(bspDschungel.getFelder()[4][3]);
-			nachbarFelder.add(bspDschungel.getFelder()[4][2]);
-			nachbarFelder.add(bspDschungel.getFelder()[5][1]);
-			assertEquals(nachbarFelder.size(), bspNachb.getNachbarn(bspDschungel, zuTestendesFeld).size(),
+			nachbarFelder.add(bspDschungel.getFields()[1][1]);
+			nachbarFelder.add(bspDschungel.getFields()[3][2]);
+			nachbarFelder.add(bspDschungel.getFields()[2][2]);
+			nachbarFelder.add(bspDschungel.getFields()[4][4]);
+			nachbarFelder.add(bspDschungel.getFields()[5][5]);
+			nachbarFelder.add(bspDschungel.getFields()[2][3]);
+			nachbarFelder.add(bspDschungel.getFields()[2][4]);
+			nachbarFelder.add(bspDschungel.getFields()[1][5]);
+			nachbarFelder.add(bspDschungel.getFields()[3][4]);
+			nachbarFelder.add(bspDschungel.getFields()[4][3]);
+			nachbarFelder.add(bspDschungel.getFields()[4][2]);
+			nachbarFelder.add(bspDschungel.getFields()[5][1]);
+			assertEquals(nachbarFelder.size(), bspNachb.getNeighbors(bspDschungel, zuTestendesFeld).size(),
 					"\nDie erhaltene Liste hat die Groesse "
-							+ bspNachb.getNachbarn(bspDschungel, zuTestendesFeld).size()
+							+ bspNachb.getNeighbors(bspDschungel, zuTestendesFeld).size()
 							+ " aber es wurde eine Liste mit Groesse " + nachbarFelder.size() + " erwartet.");
-			assertTrue(nachbarFelder.containsAll(bspNachb.getNachbarn(bspDschungel, zuTestendesFeld)),
+			assertTrue(nachbarFelder.containsAll(bspNachb.getNeighbors(bspDschungel, zuTestendesFeld)),
 					"\nDie erhaltene Liste enthaelt nicht alle oder keine Elemente der erwarteten Liste.");
-			assertTrue(bspNachb.getNachbarn(bspDschungel, zuTestendesFeld).containsAll(nachbarFelder),
+			assertTrue(bspNachb.getNeighbors(bspDschungel, zuTestendesFeld).containsAll(nachbarFelder),
 					"\nDie erhaltene Liste enthaelt nicht alle oder keine Elemente der erwarteten Liste.");
 		}
 
 		@DisplayName("Test fuer getNachbarn mit den Parametern 1 und 2 in der linken oberen Ecke.")
 		@Test
 		void testeNachbarnMitParameterEinsEckeLinksOben() {
-			Field zuTestendesFeld = bspDschungel.getFelder()[0][0];
+			Field zuTestendesFeld = bspDschungel.getFields()[0][0];
 			HashSet<Field> nachbarFelder = new HashSet<Field>();
-			nachbarFelder.add(bspDschungel.getFelder()[0][1]);
-			nachbarFelder.add(bspDschungel.getFelder()[1][0]);
-			nachbarFelder.add(bspDschungel.getFelder()[1][1]);
-			nachbarFelder.add(bspDschungel.getFelder()[2][2]);
-			assertEquals(nachbarFelder.size(), bspNachb.getNachbarn(bspDschungel, zuTestendesFeld).size(),
+			nachbarFelder.add(bspDschungel.getFields()[0][1]);
+			nachbarFelder.add(bspDschungel.getFields()[1][0]);
+			nachbarFelder.add(bspDschungel.getFields()[1][1]);
+			nachbarFelder.add(bspDschungel.getFields()[2][2]);
+			assertEquals(nachbarFelder.size(), bspNachb.getNeighbors(bspDschungel, zuTestendesFeld).size(),
 					"\nDie erhaltene Liste hat die Groesse "
-							+ bspNachb.getNachbarn(bspDschungel, zuTestendesFeld).size()
+							+ bspNachb.getNeighbors(bspDschungel, zuTestendesFeld).size()
 							+ " aber es wurde eine Liste mit Groesse " + nachbarFelder.size() + " erwartet.");
-			assertTrue(nachbarFelder.containsAll(bspNachb.getNachbarn(bspDschungel, zuTestendesFeld)),
+			assertTrue(nachbarFelder.containsAll(bspNachb.getNeighbors(bspDschungel, zuTestendesFeld)),
 					"\nDie erhaltene Liste enthaelt nicht alle oder keine Elemente der erwarteten Liste.");
-			assertTrue(bspNachb.getNachbarn(bspDschungel, zuTestendesFeld).containsAll(nachbarFelder),
+			assertTrue(bspNachb.getNeighbors(bspDschungel, zuTestendesFeld).containsAll(nachbarFelder),
 					"\nDie erhaltene Liste enthaelt nicht alle oder keine Elemente der erwarteten Liste.");
 		}
 
@@ -163,19 +163,19 @@ class StarNeighborhoodTest {
 
 		@Test
 		void testeNachbarnMitParameterEinsEckeRechtsOben() {
-			Field zuTestendesFeld = bspDschungel.getFelder()[0][7];
+			Field zuTestendesFeld = bspDschungel.getFields()[0][7];
 			HashSet<Field> nachbarFelder = new HashSet<Field>();
-			nachbarFelder.add(bspDschungel.getFelder()[0][6]);
-			nachbarFelder.add(bspDschungel.getFelder()[1][7]);
-			nachbarFelder.add(bspDschungel.getFelder()[1][6]);
-			nachbarFelder.add(bspDschungel.getFelder()[2][5]);
-			assertEquals(nachbarFelder.size(), bspNachb.getNachbarn(bspDschungel, zuTestendesFeld).size(),
+			nachbarFelder.add(bspDschungel.getFields()[0][6]);
+			nachbarFelder.add(bspDschungel.getFields()[1][7]);
+			nachbarFelder.add(bspDschungel.getFields()[1][6]);
+			nachbarFelder.add(bspDschungel.getFields()[2][5]);
+			assertEquals(nachbarFelder.size(), bspNachb.getNeighbors(bspDschungel, zuTestendesFeld).size(),
 					"\nDie erhaltene Liste hat die Groesse "
-							+ bspNachb.getNachbarn(bspDschungel, zuTestendesFeld).size()
+							+ bspNachb.getNeighbors(bspDschungel, zuTestendesFeld).size()
 							+ " aber es wurde eine Liste mit Groesse " + nachbarFelder.size() + " erwartet.");
-			assertTrue(nachbarFelder.containsAll(bspNachb.getNachbarn(bspDschungel, zuTestendesFeld)),
+			assertTrue(nachbarFelder.containsAll(bspNachb.getNeighbors(bspDschungel, zuTestendesFeld)),
 					"\nDie erhaltene Liste enthaelt nicht alle oder keine Elemente der erwarteten Liste.");
-			assertTrue(bspNachb.getNachbarn(bspDschungel, zuTestendesFeld).containsAll(nachbarFelder),
+			assertTrue(bspNachb.getNeighbors(bspDschungel, zuTestendesFeld).containsAll(nachbarFelder),
 					"\nDie erhaltene Liste enthaelt nicht alle oder keine Elemente der erwarteten Liste.");
 		}
 
@@ -183,19 +183,19 @@ class StarNeighborhoodTest {
 
 		@Test
 		void testeNachbarnMitParameterEinsEckeLinksUnten() {
-			Field zuTestendesFeld = bspDschungel.getFelder()[5][0];
+			Field zuTestendesFeld = bspDschungel.getFields()[5][0];
 			HashSet<Field> nachbarFelder = new HashSet<Field>();
-			nachbarFelder.add(bspDschungel.getFelder()[4][0]);
-			nachbarFelder.add(bspDschungel.getFelder()[4][1]);
-			nachbarFelder.add(bspDschungel.getFelder()[5][1]);
-			nachbarFelder.add(bspDschungel.getFelder()[3][2]);
-			assertEquals(nachbarFelder.size(), bspNachb.getNachbarn(bspDschungel, zuTestendesFeld).size(),
+			nachbarFelder.add(bspDschungel.getFields()[4][0]);
+			nachbarFelder.add(bspDschungel.getFields()[4][1]);
+			nachbarFelder.add(bspDschungel.getFields()[5][1]);
+			nachbarFelder.add(bspDschungel.getFields()[3][2]);
+			assertEquals(nachbarFelder.size(), bspNachb.getNeighbors(bspDschungel, zuTestendesFeld).size(),
 					"\nDie erhaltene Liste hat die Groesse "
-							+ bspNachb.getNachbarn(bspDschungel, zuTestendesFeld).size()
+							+ bspNachb.getNeighbors(bspDschungel, zuTestendesFeld).size()
 							+ " aber es wurde eine Liste mit Groesse " + nachbarFelder.size() + " erwartet.");
-			assertTrue(nachbarFelder.containsAll(bspNachb.getNachbarn(bspDschungel, zuTestendesFeld)),
+			assertTrue(nachbarFelder.containsAll(bspNachb.getNeighbors(bspDschungel, zuTestendesFeld)),
 					"\nDie erhaltene Liste enthaelt nicht alle oder keine Elemente der erwarteten Liste.");
-			assertTrue(bspNachb.getNachbarn(bspDschungel, zuTestendesFeld).containsAll(nachbarFelder),
+			assertTrue(bspNachb.getNeighbors(bspDschungel, zuTestendesFeld).containsAll(nachbarFelder),
 					"\nDie erhaltene Liste enthaelt nicht alle oder keine Elemente der erwarteten Liste.");
 		}
 
@@ -203,19 +203,19 @@ class StarNeighborhoodTest {
 
 		@Test
 		void testeNachbarnMitParameterEinsRechtsUnten() {
-			Field zuTestendesFeld = bspDschungel.getFelder()[5][7];
+			Field zuTestendesFeld = bspDschungel.getFields()[5][7];
 			HashSet<Field> nachbarFelder = new HashSet<Field>();
-			nachbarFelder.add(bspDschungel.getFelder()[4][7]);
-			nachbarFelder.add(bspDschungel.getFelder()[4][6]);
-			nachbarFelder.add(bspDschungel.getFelder()[5][6]);
-			nachbarFelder.add(bspDschungel.getFelder()[3][5]);
-			assertEquals(nachbarFelder.size(), bspNachb.getNachbarn(bspDschungel, zuTestendesFeld).size(),
+			nachbarFelder.add(bspDschungel.getFields()[4][7]);
+			nachbarFelder.add(bspDschungel.getFields()[4][6]);
+			nachbarFelder.add(bspDschungel.getFields()[5][6]);
+			nachbarFelder.add(bspDschungel.getFields()[3][5]);
+			assertEquals(nachbarFelder.size(), bspNachb.getNeighbors(bspDschungel, zuTestendesFeld).size(),
 					"\nDie erhaltene Liste hat die Groesse "
-							+ bspNachb.getNachbarn(bspDschungel, zuTestendesFeld).size()
+							+ bspNachb.getNeighbors(bspDschungel, zuTestendesFeld).size()
 							+ " aber es wurde eine Liste mit Groesse " + nachbarFelder.size() + " erwartet.");
-			assertTrue(nachbarFelder.containsAll(bspNachb.getNachbarn(bspDschungel, zuTestendesFeld)),
+			assertTrue(nachbarFelder.containsAll(bspNachb.getNeighbors(bspDschungel, zuTestendesFeld)),
 					"\nDie erhaltene Liste enthaelt nicht alle oder keine Elemente der erwarteten Liste.");
-			assertTrue(bspNachb.getNachbarn(bspDschungel, zuTestendesFeld).containsAll(nachbarFelder),
+			assertTrue(bspNachb.getNeighbors(bspDschungel, zuTestendesFeld).containsAll(nachbarFelder),
 					"\nDie erhaltene Liste enthaelt nicht alle oder keine Elemente der erwarteten Liste.");
 		}
 	}
@@ -231,9 +231,9 @@ class StarNeighborhoodTest {
 		static void initDschungel() {
 			zufallsZeichen = new Random(1);
 			bspDschungel = new Jungle(6, 8, "asdertg", 1);
-			for (int i = 0; i < bspDschungel.getZeilen(); i++) {
-				for (int j = 0; j < bspDschungel.getSpalten(); j++) {
-					bspDschungel.getFelder()[i][j].setZeichen("" + (char) (zufallsZeichen.nextInt(26) + 'a'));
+			for (int i = 0; i < bspDschungel.getRows(); i++) {
+				for (int j = 0; j < bspDschungel.getColumns(); j++) {
+					bspDschungel.getFields()[i][j].setCharacter("" + (char) (zufallsZeichen.nextInt(26) + 'a'));
 				}
 			}
 			List<Integer> paramList = new ArrayList<Integer>();
@@ -245,35 +245,35 @@ class StarNeighborhoodTest {
 		@DisplayName("Test fuer getNachbarn mit den Parametern 0 und 3 in der Mitte.")
 		@Test
 		void testeNachbarnMitParameterEinsMitte() {
-			Field zuTestendesFeld = bspDschungel.getFelder()[3][3];
+			Field zuTestendesFeld = bspDschungel.getFields()[3][3];
 			HashSet<Field> nachbarFelder = new HashSet<Field>();
-			nachbarFelder.add(bspDschungel.getFelder()[3][0]);
-			nachbarFelder.add(bspDschungel.getFelder()[0][3]);
-			nachbarFelder.add(bspDschungel.getFelder()[3][6]);
-			assertEquals(nachbarFelder.size(), bspNachb.getNachbarn(bspDschungel, zuTestendesFeld).size(),
+			nachbarFelder.add(bspDschungel.getFields()[3][0]);
+			nachbarFelder.add(bspDschungel.getFields()[0][3]);
+			nachbarFelder.add(bspDschungel.getFields()[3][6]);
+			assertEquals(nachbarFelder.size(), bspNachb.getNeighbors(bspDschungel, zuTestendesFeld).size(),
 					"\nDie erhaltene Liste hat die Groesse "
-							+ bspNachb.getNachbarn(bspDschungel, zuTestendesFeld).size()
+							+ bspNachb.getNeighbors(bspDschungel, zuTestendesFeld).size()
 							+ " aber es wurde eine Liste mit Groesse " + nachbarFelder.size() + " erwartet.");
-			assertTrue(nachbarFelder.containsAll(bspNachb.getNachbarn(bspDschungel, zuTestendesFeld)),
+			assertTrue(nachbarFelder.containsAll(bspNachb.getNeighbors(bspDschungel, zuTestendesFeld)),
 					"\nDie erhaltene Liste enthaelt nicht alle oder keine Elemente der erwarteten Liste.");
-			assertTrue(bspNachb.getNachbarn(bspDschungel, zuTestendesFeld).containsAll(nachbarFelder),
+			assertTrue(bspNachb.getNeighbors(bspDschungel, zuTestendesFeld).containsAll(nachbarFelder),
 					"\nDie erhaltene Liste enthaelt nicht alle oder keine Elemente der erwarteten Liste.");
 		}
 
 		@DisplayName("Test fuer getNachbarn mit den Parametern 0 und 3 in der linken oberen Ecke.")
 		@Test
 		void testeNachbarnMitParameterEinsEckeLinksOben() {
-			Field zuTestendesFeld = bspDschungel.getFelder()[0][0];
+			Field zuTestendesFeld = bspDschungel.getFields()[0][0];
 			HashSet<Field> nachbarFelder = new HashSet<Field>();
-			nachbarFelder.add(bspDschungel.getFelder()[3][0]);
-			nachbarFelder.add(bspDschungel.getFelder()[0][3]);
-			assertEquals(nachbarFelder.size(), bspNachb.getNachbarn(bspDschungel, zuTestendesFeld).size(),
+			nachbarFelder.add(bspDschungel.getFields()[3][0]);
+			nachbarFelder.add(bspDschungel.getFields()[0][3]);
+			assertEquals(nachbarFelder.size(), bspNachb.getNeighbors(bspDschungel, zuTestendesFeld).size(),
 					"\nDie erhaltene Liste hat die Groesse "
-							+ bspNachb.getNachbarn(bspDschungel, zuTestendesFeld).size()
+							+ bspNachb.getNeighbors(bspDschungel, zuTestendesFeld).size()
 							+ " aber es wurde eine Liste mit Groesse " + nachbarFelder.size() + " erwartet.");
-			assertTrue(nachbarFelder.containsAll(bspNachb.getNachbarn(bspDschungel, zuTestendesFeld)),
+			assertTrue(nachbarFelder.containsAll(bspNachb.getNeighbors(bspDschungel, zuTestendesFeld)),
 					"\nDie erhaltene Liste enthaelt nicht alle oder keine Elemente der erwarteten Liste.");
-			assertTrue(bspNachb.getNachbarn(bspDschungel, zuTestendesFeld).containsAll(nachbarFelder),
+			assertTrue(bspNachb.getNeighbors(bspDschungel, zuTestendesFeld).containsAll(nachbarFelder),
 					"\nDie erhaltene Liste enthaelt nicht alle oder keine Elemente der erwarteten Liste.");
 		}
 
@@ -281,17 +281,17 @@ class StarNeighborhoodTest {
 
 		@Test
 		void testeNachbarnMitParameterEinsEckeRechtsOben() {
-			Field zuTestendesFeld = bspDschungel.getFelder()[0][7];
+			Field zuTestendesFeld = bspDschungel.getFields()[0][7];
 			HashSet<Field> nachbarFelder = new HashSet<Field>();
-			nachbarFelder.add(bspDschungel.getFelder()[0][4]);
-			nachbarFelder.add(bspDschungel.getFelder()[3][7]);
-			assertEquals(nachbarFelder.size(), bspNachb.getNachbarn(bspDschungel, zuTestendesFeld).size(),
+			nachbarFelder.add(bspDschungel.getFields()[0][4]);
+			nachbarFelder.add(bspDschungel.getFields()[3][7]);
+			assertEquals(nachbarFelder.size(), bspNachb.getNeighbors(bspDschungel, zuTestendesFeld).size(),
 					"\nDie erhaltene Liste hat die Groesse "
-							+ bspNachb.getNachbarn(bspDschungel, zuTestendesFeld).size()
+							+ bspNachb.getNeighbors(bspDschungel, zuTestendesFeld).size()
 							+ " aber es wurde eine Liste mit Groesse " + nachbarFelder.size() + " erwartet.");
-			assertTrue(nachbarFelder.containsAll(bspNachb.getNachbarn(bspDschungel, zuTestendesFeld)),
+			assertTrue(nachbarFelder.containsAll(bspNachb.getNeighbors(bspDschungel, zuTestendesFeld)),
 					"\nDie erhaltene Liste enthaelt nicht alle oder keine Elemente der erwarteten Liste.");
-			assertTrue(bspNachb.getNachbarn(bspDschungel, zuTestendesFeld).containsAll(nachbarFelder),
+			assertTrue(bspNachb.getNeighbors(bspDschungel, zuTestendesFeld).containsAll(nachbarFelder),
 					"\nDie erhaltene Liste enthaelt nicht alle oder keine Elemente der erwarteten Liste.");
 		}
 
@@ -299,17 +299,17 @@ class StarNeighborhoodTest {
 
 		@Test
 		void testeNachbarnMitParameterEinsEckeLinksUnten() {
-			Field zuTestendesFeld = bspDschungel.getFelder()[5][0];
+			Field zuTestendesFeld = bspDschungel.getFields()[5][0];
 			HashSet<Field> nachbarFelder = new HashSet<Field>();
-			nachbarFelder.add(bspDschungel.getFelder()[2][0]);
-			nachbarFelder.add(bspDschungel.getFelder()[5][3]);
-			assertEquals(nachbarFelder.size(), bspNachb.getNachbarn(bspDschungel, zuTestendesFeld).size(),
+			nachbarFelder.add(bspDschungel.getFields()[2][0]);
+			nachbarFelder.add(bspDschungel.getFields()[5][3]);
+			assertEquals(nachbarFelder.size(), bspNachb.getNeighbors(bspDschungel, zuTestendesFeld).size(),
 					"\nDie erhaltene Liste hat die Groesse "
-							+ bspNachb.getNachbarn(bspDschungel, zuTestendesFeld).size()
+							+ bspNachb.getNeighbors(bspDschungel, zuTestendesFeld).size()
 							+ " aber es wurde eine Liste mit Groesse " + nachbarFelder.size() + " erwartet.");
-			assertTrue(nachbarFelder.containsAll(bspNachb.getNachbarn(bspDschungel, zuTestendesFeld)),
+			assertTrue(nachbarFelder.containsAll(bspNachb.getNeighbors(bspDschungel, zuTestendesFeld)),
 					"\nDie erhaltene Liste enthaelt nicht alle oder keine Elemente der erwarteten Liste.");
-			assertTrue(bspNachb.getNachbarn(bspDschungel, zuTestendesFeld).containsAll(nachbarFelder),
+			assertTrue(bspNachb.getNeighbors(bspDschungel, zuTestendesFeld).containsAll(nachbarFelder),
 					"\nDie erhaltene Liste enthaelt nicht alle oder keine Elemente der erwarteten Liste.");
 		}
 
@@ -317,17 +317,17 @@ class StarNeighborhoodTest {
 
 		@Test
 		void testeNachbarnMitParameterEinsRechtsUnten() {
-			Field zuTestendesFeld = bspDschungel.getFelder()[5][7];
+			Field zuTestendesFeld = bspDschungel.getFields()[5][7];
 			HashSet<Field> nachbarFelder = new HashSet<Field>();
-			nachbarFelder.add(bspDschungel.getFelder()[2][7]);
-			nachbarFelder.add(bspDschungel.getFelder()[5][4]);
-			assertEquals(nachbarFelder.size(), bspNachb.getNachbarn(bspDschungel, zuTestendesFeld).size(),
+			nachbarFelder.add(bspDschungel.getFields()[2][7]);
+			nachbarFelder.add(bspDschungel.getFields()[5][4]);
+			assertEquals(nachbarFelder.size(), bspNachb.getNeighbors(bspDschungel, zuTestendesFeld).size(),
 					"\nDie erhaltene Liste hat die Groesse "
-							+ bspNachb.getNachbarn(bspDschungel, zuTestendesFeld).size()
+							+ bspNachb.getNeighbors(bspDschungel, zuTestendesFeld).size()
 							+ " aber es wurde eine Liste mit Groesse " + nachbarFelder.size() + " erwartet.");
-			assertTrue(nachbarFelder.containsAll(bspNachb.getNachbarn(bspDschungel, zuTestendesFeld)),
+			assertTrue(nachbarFelder.containsAll(bspNachb.getNeighbors(bspDschungel, zuTestendesFeld)),
 					"\nDie erhaltene Liste enthaelt nicht alle oder keine Elemente der erwarteten Liste.");
-			assertTrue(bspNachb.getNachbarn(bspDschungel, zuTestendesFeld).containsAll(nachbarFelder),
+			assertTrue(bspNachb.getNeighbors(bspDschungel, zuTestendesFeld).containsAll(nachbarFelder),
 					"\nDie erhaltene Liste enthaelt nicht alle oder keine Elemente der erwarteten Liste.");
 		}
 	}
@@ -358,9 +358,9 @@ class StarNeighborhoodTest {
 			paramList.add(param);
 			paramList.add(param + 1);
 			INeighborhood sprungNachb = new JumpNeighborhood(paramList);
-			assertIterableEquals(sprungNachb.getParameter(), paramList,
-					"\nDie Parameter '" + sprungNachb.getParameter().get(0) + "' und '"
-							+ sprungNachb.getParameter().get(1) + "' entsprechen nicht dem vorgegebenen Werten '"
+			assertIterableEquals(sprungNachb.getParameters(), paramList,
+					"\nDie Parameter '" + sprungNachb.getParameters().get(0) + "' und '"
+							+ sprungNachb.getParameters().get(1) + "' entsprechen nicht dem vorgegebenen Werten '"
 							+ param + "' und " + (param + 1) + "'.");
 		}
 
@@ -399,7 +399,7 @@ class StarNeighborhoodTest {
 			paramList.add(param);
 			paramList.add(param - 1);
 			assertThrows(IllegalArgumentException.class,
-					() -> new JumpNeighborhood(paramListInit).setParameter(paramList),
+					() -> new JumpNeighborhood(paramListInit).setParameters(paramList),
 					() -> "\nEiner oder mehrere der Parameterwerte '" + param + "' und '" + (param - 1)
 							+ "' erzeugt/erzeugen keine Ausnahme, obwohl er/sie negativ ist/sind.");
 		}
@@ -416,7 +416,7 @@ class StarNeighborhoodTest {
 			paramListGross.add(param + 3);
 			paramListGross.add(param + 4);
 			assertThrows(IllegalArgumentException.class,
-					() -> new JumpNeighborhood(paramList).setParameter(paramListGross),
+					() -> new JumpNeighborhood(paramList).setParameters(paramListGross),
 					() -> "\nFuer die zu grosse Liste wird keine Ausnahme erzeugt.");
 		}
 	}

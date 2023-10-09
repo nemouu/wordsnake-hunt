@@ -22,7 +22,7 @@ public interface INeighborhood {
 	 * @return Der Wert einer Variable <code>art</code>, der die Art der
 	 *         Nachbarschaft beschreibt.
 	 */
-	String getArt();
+	String getType();
 
 	/**
 	 * Es werden die Parameter der jeweiligen Implementierung ausgegeben. Je nach
@@ -33,7 +33,7 @@ public interface INeighborhood {
 	 * 
 	 * @return Eine Liste mit Parametern der implementierten Nachbarschaftsklasse.
 	 */
-	List<Integer> getParameter();
+	List<Integer> getParameters();
 
 	/**
 	 * Es ist durch diese Methode moeglich die Parameter der implementierenden
@@ -44,7 +44,7 @@ public interface INeighborhood {
 	 * @param parameters Eine Liste mit einem oder mehreren Parametern, die der
 	 *                   implementierenden Klasse uebergeben werden sollen.
 	 */
-	void setParameter(List<Integer> parameters);
+	void setParameters(List<Integer> parameters);
 
 	/**
 	 * Diese Methode bestimmt die Nachbarn eines Feldes in einem uebergebenen
@@ -56,6 +56,6 @@ public interface INeighborhood {
 	 * @return Eine Liste mit Nachbarn des eingegebenen Feldes, die im eingegebenen
 	 *         Dschungel liegen.
 	 */
-	List<Field> getNachbarn(Jungle dschungel, Field feld);
+	List<Field> getNeighbors(Jungle dschungel, Field feld);
 
 }

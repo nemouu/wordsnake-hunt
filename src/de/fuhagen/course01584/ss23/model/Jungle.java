@@ -11,10 +11,10 @@ package de.fuhagen.course01584.ss23.model;
  *
  */
 public class Jungle {
-	private int zeilen;
-	private int spalten;
-	private Field[][] felder;
-	private String zeichenmenge;
+	private int rows;
+	private int columns;
+	private Field[][] fields;
+	private String signs;
 
 	/**
 	 * Ein Konstruktor fuer die Dschungelklasse dem zwei Zahlen fuer die Anzahl der
@@ -44,10 +44,10 @@ public class Jungle {
 			throw new IllegalArgumentException(
 					"Fuer die Klasse 'Dschungel' duerfen die Attribute 'zeilen' und 'spalten' nicht groesser als der groesste Integerwert sein");
 		}
-		this.zeilen = zeilen;
-		this.spalten = spalten;
-		this.felder = felder;
-		this.zeichenmenge = zeichenmenge;
+		this.rows = zeilen;
+		this.columns = spalten;
+		this.fields = felder;
+		this.signs = zeichenmenge;
 	}
 
 	/**
@@ -83,15 +83,15 @@ public class Jungle {
 			throw new IllegalArgumentException(
 					"Fuer die Klasse 'Dschungel' duerfen die Attribute 'zeilen' und 'spalten' nicht groesser als der groesste Integerwert sein");
 		}
-		this.zeilen = zeilen;
-		this.spalten = spalten;
-		this.zeichenmenge = zeichenmenge;
-		this.felder = new Field[zeilen][spalten];
+		this.rows = zeilen;
+		this.columns = spalten;
+		this.signs = zeichenmenge;
+		this.fields = new Field[zeilen][spalten];
 		for (int i = 0; i < zeilen; i++) {
 			for (int j = 0; j < spalten; j++) {
-				felder[i][j] = new Field(i, j, parameter);
+				fields[i][j] = new Field(i, j, parameter);
 				int idNummer = spalten * i + j;
-				felder[i][j].setId("F" + idNummer);
+				fields[i][j].setId("F" + idNummer);
 			}
 		}
 	}
@@ -111,14 +111,14 @@ public class Jungle {
 	 * 
 	 * @return Die Anzahl, der mit einem Zeichen belegten Felder.
 	 */
-	public int anzahlBelegterFelder() {
+	public int numberOfTakenFields() {
 		int anzahl = 0;
-		if (felder == null) {
+		if (fields == null) {
 			return anzahl;
 		}
-		for (int i = 0; i < felder.length; i++) {
-			for (int j = 0; j < felder[0].length; j++) {
-				if (felder[i][j].getZeichen() != null) {
+		for (int i = 0; i < fields.length; i++) {
+			for (int j = 0; j < fields[0].length; j++) {
+				if (fields[i][j].getCharacter() != null) {
 					anzahl++;
 				}
 			}
@@ -134,23 +134,23 @@ public class Jungle {
 	 * 
 	 * @return Die Anzahl der Felder im Dschungel insgesamt.
 	 */
-	public int anzahlFelder() {
-		return felder.length * felder[0].length;
+	public int numberOfFields() {
+		return fields.length * fields[0].length;
 	}
 
 	@Override
 	public String toString() {
 		String output = "";
-		if (anzahlBelegterFelder() == 0) {
+		if (numberOfTakenFields() == 0) {
 			return output;
 		}
-		for (int i = 0; i < zeilen; i++) {
-			for (int j = 0; j < spalten; j++) {
-				if (felder[i][j].getZeichen() == null) {
-					output += " (Ø," + felder[i][j].getVerwendbarkeit() + "," + felder[i][j].getPunkte() + ")";
+		for (int i = 0; i < rows; i++) {
+			for (int j = 0; j < columns; j++) {
+				if (fields[i][j].getCharacter() == null) {
+					output += " (Ø," + fields[i][j].getUsage() + "," + fields[i][j].getPoints() + ")";
 				} else {
-					output += " (" + felder[i][j].getZeichen() + "," + felder[i][j].getVerwendbarkeit() + ","
-							+ felder[i][j].getPunkte() + ")";
+					output += " (" + fields[i][j].getCharacter() + "," + fields[i][j].getUsage() + ","
+							+ fields[i][j].getPoints() + ")";
 				}
 			}
 			output += "\n\n";
@@ -165,8 +165,8 @@ public class Jungle {
 	 * 
 	 * @return Die Anzahl der Zeilen des Dschungels.
 	 */
-	public int getZeilen() {
-		return zeilen;
+	public int getRows() {
+		return rows;
 	}
 
 	/**
@@ -180,7 +180,7 @@ public class Jungle {
 	 *                                  uebergeben wird, wird eine Ausnahme
 	 *                                  geworfen.
 	 */
-	public void setZeilen(int zeilen) throws IllegalArgumentException {
+	public void setRows(int zeilen) throws IllegalArgumentException {
 		if (zeilen < 0) {
 			throw new IllegalArgumentException(
 					"Fuer die Klasse 'Dschungel' darf das Attribut 'zeilen' keine negativen Werte annehmen.");
@@ -189,7 +189,7 @@ public class Jungle {
 			throw new IllegalArgumentException(
 					"Fuer die Klasse 'Dschungel' darf das Attribut 'zeilen' nicht groesser als der groesste Integerwert sein");
 		}
-		this.zeilen = zeilen;
+		this.rows = zeilen;
 	}
 
 	/**
@@ -199,8 +199,8 @@ public class Jungle {
 	 * 
 	 * @return Die Anzahl der Spalten des Dschungels.
 	 */
-	public int getSpalten() {
-		return spalten;
+	public int getColumns() {
+		return columns;
 	}
 
 	/**
@@ -214,7 +214,7 @@ public class Jungle {
 	 *                                  uebergeben wird, wird eine Ausnahme
 	 *                                  geworfen.
 	 */
-	public void setSpalten(int spalten) throws IllegalArgumentException {
+	public void setColumns(int spalten) throws IllegalArgumentException {
 		if (spalten < 0) {
 			throw new IllegalArgumentException(
 					"Fuer die Klasse 'Dschungel' darf das Attribut 'spalten' keine negativen Werte annehmen.");
@@ -223,7 +223,7 @@ public class Jungle {
 			throw new IllegalArgumentException(
 					"Fuer die Klasse 'Dschungel' darf das Attribut 'spalten' nicht groesser als der groesste Integerwert sein");
 		}
-		this.spalten = spalten;
+		this.columns = spalten;
 	}
 
 	/**
@@ -233,8 +233,8 @@ public class Jungle {
 	 * 
 	 * @param inFeld Das Feld, das im Dschungel platziert werden soll.
 	 */
-	public void setFeld(Field inFeld) {
-		this.felder[inFeld.getZeile()][inFeld.getSpalte()] = inFeld;
+	public void setField(Field inFeld) {
+		this.fields[inFeld.getRow()][inFeld.getColumn()] = inFeld;
 	}
 
 	/**
@@ -246,8 +246,8 @@ public class Jungle {
 	 * 
 	 * @return Die Felder des Dschungel (2D Array aus Feldern).
 	 */
-	public Field[][] getFelder() {
-		return felder;
+	public Field[][] getFields() {
+		return fields;
 	}
 
 	/**
@@ -257,8 +257,8 @@ public class Jungle {
 	 * 
 	 * @param felder Ein 2D Array aus Feldern, das dem Dschungel uebergeben wird.
 	 */
-	public void setFelder(Field[][] felder) {
-		this.felder = felder;
+	public void setFields(Field[][] felder) {
+		this.fields = felder;
 	}
 
 	/**
@@ -270,8 +270,8 @@ public class Jungle {
 	 * 
 	 * @return Die Zeichenmenge des Dschungels.
 	 */
-	public String getZeichenmenge() {
-		return zeichenmenge;
+	public String getSigns() {
+		return signs;
 	}
 
 	/**
@@ -282,7 +282,7 @@ public class Jungle {
 	 * @param zeichenmenge Die Zeichenmenge, die dem Dschungel uebergeben werden
 	 *                     soll.
 	 */
-	public void setZeichenmenge(String zeichenmenge) {
-		this.zeichenmenge = zeichenmenge;
+	public void setSigns(String zeichenmenge) {
+		this.signs = zeichenmenge;
 	}
 }

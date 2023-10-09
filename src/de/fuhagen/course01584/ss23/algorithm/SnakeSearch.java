@@ -14,13 +14,13 @@ import de.fuhagen.course01584.ss23.model.*;
  *
  */
 public class SnakeSearch implements ISnakeSearch {
-	private IModel modell;
-	private Solution aktLoesung;
-	private Solution loesung;
-	private SolutionEvaluator bewerter;
-	private Long aktZeit;
-	private Double modellZeit;
-	private ISnakeSearchUtil funktionen;
+	private IModel model;
+	private Solution currSolution;
+	private Solution solution;
+	private SolutionEvaluator evaluator;
+	private Long currTime;
+	private Double modelTime;
+	private ISnakeSearchUtil functions;
 
 	/**
 	 * Ein parametrisierter Konstruktor dem das Modell, in dem nach Schlangen
@@ -33,7 +33,7 @@ public class SnakeSearch implements ISnakeSearch {
 	 */
 	public SnakeSearch(IModel modell) throws IllegalArgumentException {
 		super();
-		if (modell.getDschungel().anzahlBelegterFelder() == 0) {
+		if (modell.getJungle().numberOfTakenFields() == 0) {
 			System.out.println("Das Modell, dass der Schlangensuche uebergeben werden soll, hat einen Dschungel ohne "
 					+ "Felder. Es\nmuss ein Modell uebergeben werden, dass "
 					+ "Feldern besitzt. Sind keine Felder vorhanden, so koennen\ndiese mit dem "
@@ -43,12 +43,12 @@ public class SnakeSearch implements ISnakeSearch {
 					"Dem Konstruktor von SchlangenSuche muss ein Modell uebergeben werden, dass"
 							+ " Felder im Dschungel hat.");
 		}
-		this.modell = modell;
-		this.aktLoesung = new Solution();
-		this.loesung = new Solution();
-		this.bewerter = new SolutionEvaluator();
-		this.funktionen = new SnakeSearchUtil(modell);
-		this.modellZeit = modell.berechneZeitInNanosekunden(modell.getZeit()[0]);
+		this.model = modell;
+		this.currSolution = new Solution();
+		this.solution = new Solution();
+		this.evaluator = new SolutionEvaluator();
+		this.functions = new SnakeSearchUtil(modell);
+		this.modelTime = modell.calculateTimeToNanoseconds(modell.getTime()[0]);
 	}
 
 	/**
@@ -60,12 +60,12 @@ public class SnakeSearch implements ISnakeSearch {
 	}
 
 	@Override
-	public void sucheSchlangen() {
-		this.aktZeit = System.nanoTime();
-		sucheSchlange();
+	public void searchSnakes() {
+		this.currTime = System.nanoTime();
+		searchSnake();
 	}
 
-	private void sucheSchlange() {
+	private void searchSnake() {
 		/*
 		 * Eine Methode, die in die SchlangenSuche einsteigt. Es werden Schlangen nach
 		 * und nach aufgebaut und dann gegebenenfalls wieder abgebaut, falls keine neuen
@@ -76,14 +76,14 @@ public class SnakeSearch implements ISnakeSearch {
 		 * beachten, dass zusaetzliche Zeitabfragen eingefuegt wurden, denn so
 		 * terminiert das Programm schneller, wenn die Zeit abgelaufen ist.
 		 */
-		if (bewerter.bewerteLoesung(aktLoesung) > bewerter.bewerteLoesung(loesung)) {
-			loesung = new Solution();
-			for (Snake schlange : aktLoesung.getSchlangen()) {
-				Snake neueSchlange = new Snake(schlange.getArt());
-				for (SnakeElement glied : schlange.getGlieder()) {
-					neueSchlange.addGlied(glied);
+		if (evaluator.evaluateSolution(currSolution) > evaluator.evaluateSolution(solution)) {
+			solution = new Solution();
+			for (Snake schlange : currSolution.getSchlangen()) {
+				Snake neueSchlange = new Snake(schlange.getType());
+				for (SnakeElement glied : schlange.getElements()) {
+					neueSchlange.addElement(glied);
 				}
-				loesung.addSchlange(neueSchlange);
+				solution.addSchlange(neueSchlange);
 			}
 		}
 
@@ -91,35 +91,35 @@ public class SnakeSearch implements ISnakeSearch {
 		 * Es wird zuerst ueber die Schlangenarten iteriert, um die Priorisierung ueber
 		 * Schlangenarten zu vereinfachen.
 		 */
-		List<SnakeType> schlangenarten = funktionen.erzeugeZulaessigeSchlangenarten();
+		List<SnakeType> schlangenarten = functions.createValidSnakeTypes();
 		for (SnakeType schlangenart : schlangenarten) {
-			List<Field> startfelder = funktionen.erzeugeZulaessigeStartfelder(schlangenart);
+			List<Field> startfelder = functions.createValidStartingFields(schlangenart);
 			for (Field startfeld : startfelder) {
-				if (System.nanoTime() - aktZeit > modellZeit) {
+				if (System.nanoTime() - currTime > modelTime) {
 					return;
 				}
 				// Es wird eine neue Schlange erstellt mit entsprechendem Schlangenkopf.
-				startfeld.setVerwendbarkeit(startfeld.getVerwendbarkeit() - 1);
+				startfeld.setUsage(startfeld.getUsage() - 1);
 				Snake neueSchlange = new Snake(schlangenart);
 				SnakeElement schlangenkopf = new SnakeElement(startfeld);
-				neueSchlange.addGlied(schlangenkopf);
-				aktLoesung.addSchlange(neueSchlange);
+				neueSchlange.addElement(schlangenkopf);
+				currSolution.addSchlange(neueSchlange);
 
 				// Es wird versucht die weiteren Schlangenglieder zu suchen.
-				sucheSchlangenglied(schlangenkopf, neueSchlange);
+				searchSnakeElement(schlangenkopf, neueSchlange);
 
 				/*
 				 * Die Schlange wird und der Schlangenkopf werden wieder entfernt und die
 				 * genutzten Felder werden wieder freigegeben.
 				 */
-				startfeld.setVerwendbarkeit(startfeld.getVerwendbarkeit() + 1);
-				neueSchlange.entferneLetztesGlied();
-				aktLoesung.entferneLetzteSchlange();
+				startfeld.setUsage(startfeld.getUsage() + 1);
+				neueSchlange.removeLastElement();
+				currSolution.entferneLetzteSchlange();
 			}
 		}
 	}
 
-	private void sucheSchlangenglied(SnakeElement vorherigesGlied, Snake aktSchlange) {
+	private void searchSnakeElement(SnakeElement vorherigesGlied, Snake aktSchlange) {
 		/*
 		 * Eine Methode, die von der Methode 'sucheSchlange' und von sich selbst
 		 * aufgerufen wird. Es wird immer das naechste Glied der aktuellen Schlange
@@ -129,46 +129,46 @@ public class SnakeSearch implements ISnakeSearch {
 		 * hier in die Methode 'sucheSchlange' gesprungen, um nach der naechsten
 		 * Schlange zu suchen.
 		 */
-		if (vorherigesGlied.getFeld().getZeichen().equals(aktSchlange.letztesGlied())
-				&& aktSchlange.getGlieder().size() == aktSchlange.getArt().getZeichenkette().length()) {
-			sucheSchlange();
+		if (vorherigesGlied.getField().getCharacter().equals(aktSchlange.characterOfLastElement())
+				&& aktSchlange.getElements().size() == aktSchlange.getType().getZeichenkette().length()) {
+			searchSnake();
 			return;
 		}
 		/*
 		 * Es werden zulaessige Nachbarn aufgelistet und nach und nach ueber diese
 		 * iteriert.
 		 */
-		List<Field> nachbarn = funktionen.erzeugeZulaessigeNachbarn(vorherigesGlied, aktSchlange);
+		List<Field> nachbarn = functions.createValidNeighbors(vorherigesGlied, aktSchlange);
 		for (Field nachbar : nachbarn) {
-			if (System.nanoTime() - aktZeit > modellZeit) {
+			if (System.nanoTime() - currTime > modelTime) {
 				return;
 			}
 
 			// Fuege der aktuellen Schlange den naechsten Nachbar hinzu.
-			nachbar.setVerwendbarkeit(nachbar.getVerwendbarkeit() - 1);
+			nachbar.setUsage(nachbar.getUsage() - 1);
 			SnakeElement neuesGlied = new SnakeElement(nachbar);
-			aktSchlange.addGlied(neuesGlied);
+			aktSchlange.addElement(neuesGlied);
 
 			// Suche nach dem naechsten Schlangenglied.
-			sucheSchlangenglied(neuesGlied, aktSchlange);
+			searchSnakeElement(neuesGlied, aktSchlange);
 
 			/*
 			 * Entferne die einzelnen Schlangenglieder wieder und gebe die genutzten Felder
 			 * wieder frei.
 			 */
-			nachbar.setVerwendbarkeit(nachbar.getVerwendbarkeit() + 1);
-			aktSchlange.entferneLetztesGlied();
+			nachbar.setUsage(nachbar.getUsage() + 1);
+			aktSchlange.removeLastElement();
 		}
 	}
 
 	@Override
-	public IModel getModell() {
-		return modell;
+	public IModel getModel() {
+		return model;
 	}
 
 	@Override
-	public void setModell(IModel modell) throws IllegalArgumentException {
-		if (modell.getDschungel().anzahlBelegterFelder() == 0) {
+	public void setModel(IModel modell) throws IllegalArgumentException {
+		if (modell.getJungle().numberOfTakenFields() == 0) {
 			System.out.println("Das Modell, dass der Schlangensuche uebergeben werden soll, hat einen Dschungel ohne "
 					+ "Felder. Es\nmuss ein Modell uebergeben werden, dass "
 					+ "Feldern besitzt. Sind keine Felder vorhanden, so koennen\ndiese mit dem "
@@ -177,26 +177,26 @@ public class SnakeSearch implements ISnakeSearch {
 			throw new IllegalArgumentException(
 					"Der SchlangenSuche muss ein Modell uebergeben werden, dass" + " Felder im Dschungel hat.");
 		}
-		this.modell = modell;
+		this.model = modell;
 	}
 
 	@Override
-	public Solution getLoesung() {
-		return loesung;
+	public Solution getSolution() {
+		return solution;
 	}
 
 	@Override
-	public Long getAktZeit() {
-		return aktZeit;
+	public Long getCurrTime() {
+		return currTime;
 	}
 
 	@Override
-	public ISnakeSearchUtil getFunktionen() {
-		return funktionen;
+	public ISnakeSearchUtil getFunctions() {
+		return functions;
 	}
 
 	@Override
-	public void setFunktionen(ISnakeSearchUtil funktionen) {
-		this.funktionen = funktionen;
+	public void setFunctions(ISnakeSearchUtil funktionen) {
+		this.functions = funktionen;
 	}
 }

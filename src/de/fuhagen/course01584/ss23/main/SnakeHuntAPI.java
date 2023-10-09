@@ -27,7 +27,7 @@ public interface SnakeHuntAPI {
 	 *         ansonsten <code>false</code>. Beim Auftreten eines Fehlers wird
 	 *         ebenfalls <code>false</code> zurückgegeben.
 	 */
-	public boolean loeseProbleminstanz(String xmlEingabeDatei, String xmlAusgabeDatei);
+	public boolean solveProblem(String xmlEingabeDatei, String xmlAusgabeDatei);
 
 	/**
 	 * Liest die Vorgegebene Eingabedatei mit einer (moeglicherweise
@@ -43,7 +43,7 @@ public interface SnakeHuntAPI {
 	 *         Auftreten eines Fehlers wird ebenfalls <code>false</code>
 	 *         zurückgegeben.
 	 */
-	public boolean erzeugeProbleminstanz(String xmlEingabeDatei, String xmlAusgabeDatei);
+	public boolean generateProblem(String xmlEingabeDatei, String xmlAusgabeDatei);
 
 	/**
 	 * Moegliche Fehlertypen fuer eine Loesung einer Probleminstanz.
@@ -58,7 +58,7 @@ public interface SnakeHuntAPI {
 	 * Nachbarschaft des jeweils vorherigen Schlangengliedes.</li>
 	 * </ul>
 	 */
-	public enum Fehlertyp {
+	public enum ErrorType {
 		/**
 		 * Eine Schlange besteht nicht aus der richtigen Anzahl von Schlangengliedern.
 		 */
@@ -88,7 +88,7 @@ public interface SnakeHuntAPI {
 	 * @return Liste der gefundenen Einzelfehler. Beim Auftreten eines Fehlers wird
 	 *         eine leere Liste zurueckgegeben.
 	 */
-	public List<Fehlertyp> pruefeLoesung(String xmlEingabeDatei);
+	public List<ErrorType> examineSolution(String xmlEingabeDatei);
 
 	/**
 	 * Liest die Probleminstanz und Loesung aus der gegebenen Datei ein und
@@ -102,26 +102,5 @@ public interface SnakeHuntAPI {
 	 * @return Erreichte Gesamtpunktzahl. Beim Auftreten eines Fehlers wird der Wert
 	 *         <code>0</code> zurueckgegeben.
 	 */
-	public int bewerteLoesung(String xmlEingabeDatei);
-
-	/**
-	 * Gibt Informationen ueber den Ersteller des Programmes zurueck.
-	 * 
-	 * @return Ihr vollstaendiger Name.
-	 */
-	public String getName();
-
-	/**
-	 * Gibt Informationen ueber den Ersteller des Programmes zurueck.
-	 * 
-	 * @return Ihre Matrikelnummer.
-	 */
-	public String getMatrikelnummer();
-
-	/**
-	 * Gibt Informationen ueber den Ersteller des Programmes zurueck.
-	 * 
-	 * @return Ihre E-Mail Adresse.
-	 */
-	public String getEmail();
+	public int evaluateSolution(String xmlEingabeDatei);
 }

@@ -23,7 +23,7 @@ public interface IWriter {
 	 *                   passiert oder der <code>dateiName</code> das falsche Format
 	 *                   hat.
 	 */
-	void schreibeInDatei(String dateiName) throws Exception;
+	void writeInFile(String dateiName) throws Exception;
 
 	/**
 	 * Es wird das Modell zurueckgegeben, dass sich aktuell in der Schreiberklasse
@@ -32,7 +32,7 @@ public interface IWriter {
 	 * 
 	 * @return Wert der Variablen <code>ZuUebergebendesModell</code>.
 	 */
-	IModel getZuUebergebendesModell();
+	IModel getToBeTransferredModel();
 
 	/**
 	 * Es kann das Modell der Schreiberklasse gesetzt werden. So ist es zum Beispiel
@@ -42,6 +42,6 @@ public interface IWriter {
 	 * 
 	 * @param zuUebergebendesModell Das Modell, das uebergeben werden soll.
 	 */
-	void setZuUebergebendesModell(IModel zuUebergebendesModell);
+	void setToBeTransferredModel(IModel zuUebergebendesModell);
 
 }

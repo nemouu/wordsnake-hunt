@@ -23,7 +23,7 @@ public interface IModel {
 	 * @return Ein Array, in dem entweder ein Eintrag oder zwei Eintraege fuer die
 	 *         Zeitvorgabe beziehungsweise Zeitabgabe stehen.
 	 */
-	Double[] getZeit();
+	Double[] getTime();
 
 	/**
 	 * Durch diese Methode ist das Setzen der Zeit des Modelles auch nach
@@ -38,14 +38,14 @@ public interface IModel {
 	 *                                  uebergeben wird, wird eine Ausnahme
 	 *                                  geworfen.
 	 */
-	void setZeit(Double[] zeit) throws IllegalArgumentException;
+	void setTime(Double[] zeit) throws IllegalArgumentException;
 
 	/**
 	 * Es wird die Zeiteinheit der Zeitangaben des Modelles zurueckgegeben.
 	 * 
 	 * @return Ein String, der die Zeiteinheit enthaelt.
 	 */
-	String getZeiteinheit();
+	String getUnitOfTime();
 
 	/**
 	 * Durch diese Methode ist das Setzen der Zeiteinheit des Modelles auch nach
@@ -62,7 +62,7 @@ public interface IModel {
 	 *                                  Zeiteinheit uebergeben wird, wird eine
 	 *                                  Ausnahme geworfen.
 	 */
-	void setZeiteinheit(String zeiteinheit) throws IllegalArgumentException;
+	void setUnitOfTime(String zeiteinheit) throws IllegalArgumentException;
 
 	/**
 	 * Es wird der Dschungel des Modelles mit Zeilen, Spalten, Zeichenmenge und
@@ -70,7 +70,7 @@ public interface IModel {
 	 * 
 	 * @return Der Dschungel des Modelles.
 	 */
-	Jungle getDschungel();
+	Jungle getJungle();
 
 	/**
 	 * Durch diese Methode ist das Setzen des Dschungels des Modelles auch nach
@@ -81,7 +81,7 @@ public interface IModel {
 	 * @param dschungel Ein Dschungel gemaess der in diesem Paket definierten
 	 *                  Datenstruktur Dschungel.
 	 */
-	void setDschungel(Jungle dschungel);
+	void setJungle(Jungle dschungel);
 
 	/**
 	 * Es werden die Schlangenarten des Modelles zurueckgegeben.
@@ -89,7 +89,7 @@ public interface IModel {
 	 * @return Eine Liste von Schlangenarten gemaess der in diesem Paket definierten
 	 *         Datenstruktur Schlangenart.
 	 */
-	List<SnakeType> getSchlangenarten();
+	List<SnakeType> getSnakeTypes();
 
 	/**
 	 * Durch diese Methode ist das Setzen der Schlangenarten des Modelles auch nach
@@ -100,7 +100,7 @@ public interface IModel {
 	 * @param schlangenarten Eine Liste mit Schlangenarten, die dem Dschungel
 	 *                       uebergeben werden soll.
 	 */
-	void setSchlangenarten(List<SnakeType> schlangenarten);
+	void setSnakeTypes(List<SnakeType> schlangenarten);
 
 	/**
 	 * Eine Methode, die es ermoeglicht dem Modell eine einzelne Schlangenart,
@@ -109,7 +109,7 @@ public interface IModel {
 	 * 
 	 * @param inArt Die Schlangenart, die hinzugefuegt werden soll.
 	 */
-	void addSchlangenart(SnakeType inArt);
+	void addSnakeType(SnakeType inArt);
 
 	/**
 	 * Es wird der Loesung des Modelles mit den dazugehoerigen Schlangenarten
@@ -118,7 +118,7 @@ public interface IModel {
 	 * @return Die Loesung des Modelles, gemaess der in diesem Paket definierten
 	 *         Datenstruktur Loesung.
 	 */
-	Solution getLoesung();
+	Solution getSolution();
 
 	/**
 	 * Durch diese Methode ist das Setzen der Loesung des Modelles auch nach
@@ -129,7 +129,7 @@ public interface IModel {
 	 * @param loesung Eine Loesung gemaess der in diesem Paket definierten
 	 *                Datenstruktur Loesung.
 	 */
-	void setLoesung(Solution loesung);
+	void setSolution(Solution loesung);
 
 	/**
 	 * Mit dieser Hilfsmethode wird die im Modell stehende Zeit in Nanosekunden
@@ -143,7 +143,7 @@ public interface IModel {
 	 *                                  Parameter uebergeben, wird eine Ausnahme
 	 *                                  ausgeloest.
 	 */
-	Double berechneZeitInNanosekunden(Double vorgabeAusModell) throws IllegalArgumentException;
+	Double calculateTimeToNanoseconds(Double vorgabeAusModell) throws IllegalArgumentException;
 
 	/**
 	 * Mit dieser Hilfsmethode wird die gemessene Zeit bei der Schlangensuche in die
@@ -158,6 +158,6 @@ public interface IModel {
 	 *                                  Parameter uebergeben, wird eine Ausnahme
 	 *                                  ausgeloest.
 	 */
-	Double berechneZeitInModellEinheit(Long genutzteZeitInNanosekunden) throws IllegalArgumentException;
+	Double calculateTimeInUnitGivenByModel(Long genutzteZeitInNanosekunden) throws IllegalArgumentException;
 
 }

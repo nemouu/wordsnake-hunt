@@ -16,9 +16,9 @@ import de.fuhagen.course01584.ss23.model.*;
  *
  */
 public class SnakeSearchUtil implements ISnakeSearchUtil {
-	private IModel modell;
-	private Double durchschnittlichePunkteArten;
-	private int meistePunkteArt;
+	private IModel model;
+	private Double averagePointsAllTypes;
+	private int pointsOfMostValuableType;
 
 	/**
 	 * Ein parametrisierter Konstruktor, dem das Modell in dem gesucht wird, direkt
@@ -30,9 +30,9 @@ public class SnakeSearchUtil implements ISnakeSearchUtil {
 	 */
 	public SnakeSearchUtil(IModel modell) {
 		super();
-		this.modell = modell;
-		this.durchschnittlichePunkteArten = getDurchschnittlichePunkteArten(modell.getSchlangenarten());
-		this.meistePunkteArt = getPunkteGroessterSchlangenart(modell.getSchlangenarten());
+		this.model = modell;
+		this.averagePointsAllTypes = getAveragePointsAllTypes(modell.getSnakeTypes());
+		this.pointsOfMostValuableType = getPointsOfMostValuableSnakeType(modell.getSnakeTypes());
 	}
 
 	/**
@@ -44,7 +44,7 @@ public class SnakeSearchUtil implements ISnakeSearchUtil {
 	}
 
 	@Override
-	public List<SnakeType> erzeugeZulaessigeSchlangenarten() {
+	public List<SnakeType> createValidSnakeTypes() {
 		/*
 		 * Es werden alle Schlangenarten des Modelles aufgelistet und mittels einem
 		 * Komparator so verglichen, dass die Schlangenart, die vorraussichtlich die
@@ -52,15 +52,15 @@ public class SnakeSearchUtil implements ISnakeSearchUtil {
 		 * Schlangenartkomparator finden sich weiter unten in dieser Klasse hier.
 		 */
 		List<SnakeType> zulArten = new ArrayList<SnakeType>();
-		for (SnakeType schlangenart : modell.getSchlangenarten()) {
+		for (SnakeType schlangenart : model.getSnakeTypes()) {
 			zulArten.add(schlangenart);
 		}
-		zulArten.sort(new SchlangenartComp());
+		zulArten.sort(new SnakeTypeComp());
 		return zulArten;
 	}
 
 	@Override
-	public List<Field> erzeugeZulaessigeStartfelder(SnakeType art) {
+	public List<Field> createValidStartingFields(SnakeType art) {
 		/*
 		 * Es werden alle Startfelder fuer eine bestimmte Schlangenart aufgelistet.
 		 * Dabei werden nur die Felder hinzugefuegt, die dasselbe Zeichen wie das erste
@@ -70,20 +70,20 @@ public class SnakeSearchUtil implements ISnakeSearchUtil {
 		 * Klasse hier.
 		 */
 		List<Field> zulStart = new ArrayList<Field>();
-		for (int i = 0; i < modell.getDschungel().getFelder().length; i++) {
-			for (int j = 0; j < modell.getDschungel().getFelder()[0].length; j++) {
-				if (modell.getDschungel().getFelder()[i][j].getZeichen().equals(art.getZeichenkette().substring(0, 1))
-						&& modell.getDschungel().getFelder()[i][j].getVerwendbarkeit() > 0) {
-					zulStart.add(modell.getDschungel().getFelder()[i][j]);
+		for (int i = 0; i < model.getJungle().getFields().length; i++) {
+			for (int j = 0; j < model.getJungle().getFields()[0].length; j++) {
+				if (model.getJungle().getFields()[i][j].getCharacter().equals(art.getZeichenkette().substring(0, 1))
+						&& model.getJungle().getFields()[i][j].getUsage() > 0) {
+					zulStart.add(model.getJungle().getFields()[i][j]);
 				}
 			}
 		}
-		zulStart.sort(new FeldComp(art));
+		zulStart.sort(new FieldComp(art));
 		return zulStart;
 	}
 
 	@Override
-	public List<Field> erzeugeZulaessigeNachbarn(SnakeElement vorherigesGlied, Snake dieseSchlange) {
+	public List<Field> createValidNeighbors(SnakeElement vorherigesGlied, Snake dieseSchlange) {
 		/*
 		 * Hiermit werdenzu einer Schlange und einem Schlangenglied die moeglichen
 		 * Nachbarn aufgelistet. Es werden die Nachbarn hinzugefuegt, die mit
@@ -93,27 +93,27 @@ public class SnakeSearchUtil implements ISnakeSearchUtil {
 		 * Klasse hier.
 		 */
 		List<Field> zulNachbarn = new ArrayList<Field>();
-		for (Field nachbar : dieseSchlange.getArt().getStruktur().getNachbarn(modell.getDschungel(),
-				vorherigesGlied.getFeld())) {
-			if (nachbar.getZeichen().equals(dieseSchlange.naechstesGlied()) && nachbar.getVerwendbarkeit() > 0) {
+		for (Field nachbar : dieseSchlange.getType().getStruktur().getNeighbors(model.getJungle(),
+				vorherigesGlied.getField())) {
+			if (nachbar.getCharacter().equals(dieseSchlange.characterOfNextElement()) && nachbar.getUsage() > 0) {
 				zulNachbarn.add(nachbar);
 			}
 		}
-		zulNachbarn.sort(new FeldComp(dieseSchlange.getArt()));
+		zulNachbarn.sort(new FieldComp(dieseSchlange.getType()));
 		return zulNachbarn;
 	}
 
 	@Override
-	public IModel getModell() {
-		return modell;
+	public IModel getModel() {
+		return model;
 	}
 
 	@Override
-	public void setModell(IModel modell) {
-		this.modell = modell;
+	public void setModel(IModel modell) {
+		this.model = modell;
 	}
 
-	private Double getDurchschittlichePunkteArten(SnakeType art) {
+	private Double getProbablePointsOfOneType(SnakeType art) {
 		/*
 		 * Eine Hilfsfunktion fuer den Schlangenartkomparator. Es werden fuer eine
 		 * Schlangenart die Punkte berechnet, die eine Schlange dieser Art in dem
@@ -124,11 +124,11 @@ public class SnakeSearchUtil implements ISnakeSearchUtil {
 		int punkteGesamt = 0;
 		int anzahlFelder = 0;
 		Double punkte = 0.0;
-		for (int i = 0; i < modell.getDschungel().getFelder().length; i++) {
-			for (int j = 0; j < modell.getDschungel().getFelder()[0].length; j++) {
-				if (modell.getDschungel().getFelder()[i][j].getVerwendbarkeit() > 0
-						&& art.getZeichenkette().contains(modell.getDschungel().getFelder()[i][j].getZeichen())) {
-					punkteGesamt += modell.getDschungel().getFelder()[i][j].getPunkte();
+		for (int i = 0; i < model.getJungle().getFields().length; i++) {
+			for (int j = 0; j < model.getJungle().getFields()[0].length; j++) {
+				if (model.getJungle().getFields()[i][j].getUsage() > 0
+						&& art.getZeichenkette().contains(model.getJungle().getFields()[i][j].getCharacter())) {
+					punkteGesamt += model.getJungle().getFields()[i][j].getPoints();
 					anzahlFelder++;
 				}
 			}
@@ -139,22 +139,22 @@ public class SnakeSearchUtil implements ISnakeSearchUtil {
 		return punkte;
 	}
 
-	private int getAnzahlNachbarn(SnakeType art, Jungle dschungel, Field feld) {
+	private int getAmountNeighbors(SnakeType art, Jungle dschungel, Field feld) {
 		/*
 		 * Eine Hilfsfunktion fuer den Feldkomparator. Fuer eine Schlangenart, einen
 		 * Dschungel und ein (aktuelles) Feld wird die Anzahl der Nachbarn mit
 		 * Verwendbarkeit groesser als 0 ausgegeben.
 		 */
 		int anzahl = 0;
-		for (Field nachbar : art.getStruktur().getNachbarn(dschungel, feld)) {
-			if (nachbar.getVerwendbarkeit() > 0) {
+		for (Field nachbar : art.getStruktur().getNeighbors(dschungel, feld)) {
+			if (nachbar.getUsage() > 0) {
 				anzahl++;
 			}
 		}
 		return anzahl;
 	}
 
-	private Double getDurchschnittlichePunkteArten(List<SnakeType> arten) {
+	private Double getAveragePointsAllTypes(List<SnakeType> arten) {
 		/*
 		 * Eine Hilfsfunktion fuer den Feldkomparator. Es werden die durchschnittlichen
 		 * Punkte einer Schlangenart in einer Probleminstanz berechnet.
@@ -171,7 +171,7 @@ public class SnakeSearchUtil implements ISnakeSearchUtil {
 		}
 	}
 
-	private int getPunkteGroessterSchlangenart(List<SnakeType> arten) {
+	private int getPointsOfMostValuableSnakeType(List<SnakeType> arten) {
 		/*
 		 * Eine Hilfsfunktion fuer den Feldkomparator. Fuer eine Probleminstanz werden
 		 * die Punkte der Schlangenart ausgegeben, die die meisten Punkte hat.
@@ -195,12 +195,12 @@ public class SnakeSearchUtil implements ISnakeSearchUtil {
 	 * @author Philip Redecker
 	 *
 	 */
-	private class SchlangenartComp implements Comparator<SnakeType> {
+	private class SnakeTypeComp implements Comparator<SnakeType> {
 
 		@Override
 		public int compare(SnakeType art1, SnakeType art2) {
-			if (((art1.getZeichenkette().length() * getDurchschittlichePunkteArten(art1))
-					+ art1.getPunkte()) > ((art2.getZeichenkette().length() * getDurchschittlichePunkteArten(art2))
+			if (((art1.getZeichenkette().length() * getProbablePointsOfOneType(art1))
+					+ art1.getPunkte()) > ((art2.getZeichenkette().length() * getProbablePointsOfOneType(art2))
 							+ art2.getPunkte())) {
 				return -1;
 			} else {
@@ -225,28 +225,28 @@ public class SnakeSearchUtil implements ISnakeSearchUtil {
 	 * @author Philip Redecker
 	 *
 	 */
-	private class FeldComp implements Comparator<Field> {
-		private SnakeType art;
+	private class FieldComp implements Comparator<Field> {
+		private SnakeType type;
 
-		public FeldComp(SnakeType art) {
+		public FieldComp(SnakeType art) {
 			super();
-			this.art = art;
+			this.type = art;
 		}
 
 		@Override
 		public int compare(Field feld1, Field feld2) {
-			if (meistePunkteArt - durchschnittlichePunkteArten > 15.0) {
-				if (((getAnzahlNachbarn(art, modell.getDschungel(), feld1)) < (getAnzahlNachbarn(art,
-						modell.getDschungel(), feld2)))) {
+			if (pointsOfMostValuableType - averagePointsAllTypes > 15.0) {
+				if (((getAmountNeighbors(type, model.getJungle(), feld1)) < (getAmountNeighbors(type,
+						model.getJungle(), feld2)))) {
 					return -1;
 				}
 			} else {
-				if (getAnzahlNachbarn(art, modell.getDschungel(), feld1)
-						- getAnzahlNachbarn(art, modell.getDschungel(), feld2) > 4) {
+				if (getAmountNeighbors(type, model.getJungle(), feld1)
+						- getAmountNeighbors(type, model.getJungle(), feld2) > 4) {
 					return -1;
 				}
 			}
-			if (feld1.getPunkte() > feld2.getPunkte()) {
+			if (feld1.getPoints() > feld2.getPoints()) {
 				return -1;
 			} else {
 				return 0;

@@ -19,7 +19,7 @@ import de.fuhagen.course01584.ss23.view.IView;
  *
  */
 public class SnakeHunt implements SnakeHuntAPI {
-	private IModel modell;
+	private IModel model;
 
 	/**
 	 * Der parameterlose Konstruktor der Klasse Schlangenjagd.
@@ -29,11 +29,11 @@ public class SnakeHunt implements SnakeHuntAPI {
 	}
 
 	@Override
-	public boolean loeseProbleminstanz(String xmlEingabeDatei, String xmlAusgabeDatei) {
+	public boolean solveProblem(String xmlEingabeDatei, String xmlAusgabeDatei) {
 		try {
-			leseUndUebergebeModell(xmlEingabeDatei);
-			sucheSchlangenInAktuellemModell();
-			schreibeAktuellesModellInDatei(xmlAusgabeDatei);
+			readInAndTransferModel(xmlEingabeDatei);
+			searchSnakesInCurrentModel();
+			writeCurrentModelInFile(xmlAusgabeDatei);
 			return true;
 		} catch (Exception e) {
 			System.out.println("Es ist zu einem Fehler gekommen. Die Schlangensuche wird abgebrochen.");
@@ -43,11 +43,11 @@ public class SnakeHunt implements SnakeHuntAPI {
 	}
 
 	@Override
-	public boolean erzeugeProbleminstanz(String xmlEingabeDatei, String xmlAusgabeDatei) {
+	public boolean generateProblem(String xmlEingabeDatei, String xmlAusgabeDatei) {
 		try {
-			leseUndUebergebeModell(xmlEingabeDatei);
-			generiereDschungelMitAktuellemModell();
-			schreibeAktuellesModellInDatei(xmlAusgabeDatei);
+			readInAndTransferModel(xmlEingabeDatei);
+			generateJungleWithCurrentModel();
+			writeCurrentModelInFile(xmlAusgabeDatei);
 			return true;
 		} catch (Exception e) {
 			System.out.println("Es ist zu einem Fehler gekommen. Der Dschungelgenerator wird abgebrochen.");
@@ -57,12 +57,12 @@ public class SnakeHunt implements SnakeHuntAPI {
 	}
 
 	@Override
-	public List<Fehlertyp> pruefeLoesung(String xmlEingabeDatei) {
-		List<Fehlertyp> fehlerliste = new ArrayList<Fehlertyp>();
+	public List<ErrorType> examineSolution(String xmlEingabeDatei) {
+		List<ErrorType> fehlerliste = new ArrayList<ErrorType>();
 		try {
-			leseUndUebergebeModell(xmlEingabeDatei);
-			SolutionExaminer pruefer = new SolutionExaminer(modell);
-			fehlerliste = pruefer.pruefeLoesung();
+			readInAndTransferModel(xmlEingabeDatei);
+			SolutionExaminer pruefer = new SolutionExaminer(model);
+			fehlerliste = pruefer.examineSolution();
 			return fehlerliste;
 		} catch (Exception e) {
 			System.out.println("Es ist zu einem Fehler gekommen und das Programm wird "
@@ -73,16 +73,16 @@ public class SnakeHunt implements SnakeHuntAPI {
 	}
 
 	@Override
-	public int bewerteLoesung(String xmlEingabeDatei) {
+	public int evaluateSolution(String xmlEingabeDatei) {
 		try {
-			leseUndUebergebeModell(xmlEingabeDatei);
-			if (modell.getLoesung() == null) {
+			readInAndTransferModel(xmlEingabeDatei);
+			if (model.getSolution() == null) {
 				System.out.println("Es ist keine Loesung vorhanden und deswegen kann"
 						+ " nichts bewertet werden. Es wird die 0 zurueckgegeben.");
 				System.out.println();
 			}
 			SolutionEvaluator bewerter = new SolutionEvaluator();
-			return bewerter.bewerteLoesung(modell.getLoesung());
+			return bewerter.evaluateSolution(model.getSolution());
 		} catch (Exception e) {
 			System.out.println("Es ist zu einem Fehler gekommen und das Programm wird "
 					+ "abbgebrochen. Es wird die 0 zurueckgegeben.");
@@ -91,70 +91,70 @@ public class SnakeHunt implements SnakeHuntAPI {
 		}
 	}
 
-	private void leseUndUebergebeModell(String eingabeDatei) throws Exception {
+	private void readInAndTransferModel(String eingabeDatei) throws Exception {
 		/*
 		 * Es wird die unter 'xmlEingabeDatei' zu findene XML-Datei eingelesen und die
 		 * Daten der XML-Datei werden ins Modell des Programmes uebertragen.
 		 */
 		IReader xmlLeser = new ReaderXML();
-		xmlLeser.leseDatei(eingabeDatei);
-		modell = xmlLeser.getUebergebenesModell();
+		xmlLeser.readFile(eingabeDatei);
+		model = xmlLeser.getTransferredModel();
 	}
 
-	private void sucheSchlangenInAktuellemModell() {
+	private void searchSnakesInCurrentModel() {
 		/*
 		 * Eine Methode, die als Einstieg in die Suche von Schlangen dient. Dabei wird
 		 * davon ausgegangen, dass das Modell des Programmes nicht leer ist.
 		 */
-		ISnakeSearch suche = new SnakeSearch(modell);
-		suche.sucheSchlangen();
-		Double[] zeit = { modell.getZeit()[0],
-				modell.berechneZeitInModellEinheit(System.nanoTime() - suche.getAktZeit()) };
-		modell.setZeit(zeit);
-		modell.setLoesung(suche.getLoesung());
+		ISnakeSearch suche = new SnakeSearch(model);
+		suche.searchSnakes();
+		Double[] zeit = { model.getTime()[0],
+				model.calculateTimeInUnitGivenByModel(System.nanoTime() - suche.getCurrTime()) };
+		model.setTime(zeit);
+		model.setSolution(suche.getSolution());
 	}
 
-	private void generiereDschungelMitAktuellemModell() throws Exception {
+	private void generateJungleWithCurrentModel() throws Exception {
 		/*
 		 * Eine Methode, die als Einstieg in das Generieren eines Dschungel dient. Dabei
 		 * wird davon ausgegangen, dass das Modell des Programmes nicht leer ist.
 		 */
-		JungleGenerator generator = new JungleGenerator(modell);
-		generator.generiereDschungel();
-		modell.setDschungel(generator.getNeuerDschungel());
-		modell.setLoesung(null);
-		Double[] zeit = { modell.getZeit()[0], 0.0 };
-		modell.setZeit(zeit);
+		JungleGenerator generator = new JungleGenerator(model);
+		generator.generateJungle();
+		model.setJungle(generator.getNewJungle());
+		model.setSolution(null);
+		Double[] zeit = { model.getTime()[0], 0.0 };
+		model.setTime(zeit);
 	}
 
-	private void darstellungDesAktuellenModelles(String xmlEingabeDatei) throws Exception {
+	private void viewOfCurrentModel(String xmlEingabeDatei) throws Exception {
 		/*
 		 * Eine Methode, die es ermoeglicht ein Modell in einer Konsole oder einem
 		 * Terminal in Textform darzustellen. Es wird hierbei entweder das aktuelle
 		 * Modell des Programmes oder das eingelesene Modell dargestellt.
 		 */
-		if (modell == null) {
-			leseUndUebergebeModell(xmlEingabeDatei);
+		if (model == null) {
+			readInAndTransferModel(xmlEingabeDatei);
 		}
-		if (modell != null) {
-			IView darstellung = new ViewText(modell);
-			darstellung.darstellen();
+		if (model != null) {
+			IView darstellung = new ViewText(model);
+			darstellung.view();
 		} else {
 			System.out.println("Es ist kein Modell vorhanden, dass dargestellt werden koennte.");
 			System.out.println();
 		}
 	}
 
-	private void schreibeAktuellesModellInDatei(String ausgabeDatei) throws Exception {
+	private void writeCurrentModelInFile(String ausgabeDatei) throws Exception {
 		/*
 		 * Das Modell des Programmes wird unter 'ausgabeDatei' in eine XML-Datei
 		 * gespeichert.
 		 */
-		IWriter xmlSchreiber = new WriterXML(modell);
-		xmlSchreiber.schreibeInDatei(ausgabeDatei);
+		IWriter xmlSchreiber = new WriterXML(model);
+		xmlSchreiber.writeInFile(ausgabeDatei);
 	}
 
-	private void druckeFehlerliste(List<Fehlertyp> fehlerliste) {
+	private void printErrorList(List<ErrorType> fehlerliste) {
 		/*
 		 * Eine Hilfsmethode, um die Anzahl und Art der Fehlertypen in einer Fehlerliste
 		 * darstellen zu koennen.
@@ -166,17 +166,17 @@ public class SnakeHunt implements SnakeHuntAPI {
 			int zuordnung = 0;
 			int verwendung = 0;
 			int nachbarschaft = 0;
-			for (Fehlertyp fehlertyp : fehlerliste) {
-				if (fehlertyp == Fehlertyp.GLIEDER) {
+			for (ErrorType fehlertyp : fehlerliste) {
+				if (fehlertyp == ErrorType.GLIEDER) {
 					glieder++;
 				}
-				if (fehlertyp == Fehlertyp.ZUORDNUNG) {
+				if (fehlertyp == ErrorType.ZUORDNUNG) {
 					zuordnung++;
 				}
-				if (fehlertyp == Fehlertyp.VERWENDUNG) {
+				if (fehlertyp == ErrorType.VERWENDUNG) {
 					verwendung++;
 				}
-				if (fehlertyp == Fehlertyp.NACHBARSCHAFT) {
+				if (fehlertyp == ErrorType.NACHBARSCHAFT) {
 					nachbarschaft++;
 				}
 			}
@@ -187,21 +187,6 @@ public class SnakeHunt implements SnakeHuntAPI {
 			System.out.println(verwendung + " Fehler vom Typ VERWENDUNG und");
 			System.out.println(nachbarschaft + " Fehler vom Typ NACHBARSCHAFT.");
 		}
-	}
-
-	@Override
-	public String getName() {
-		return "Philip Redecker";
-	}
-
-	@Override
-	public String getMatrikelnummer() {
-		return "3257525";
-	}
-
-	@Override
-	public String getEmail() {
-		return "philipredecker@web.de";
 	}
 
 	/**
@@ -370,18 +355,18 @@ public class SnakeHunt implements SnakeHuntAPI {
 						System.out.println("Loese Probleminstanz...");
 						System.out.println();
 
-						if (jagd.modell == null) {
-							jagd.leseUndUebergebeModell(eingabe);
+						if (jagd.model == null) {
+							jagd.readInAndTransferModel(eingabe);
 						}
-						jagd.sucheSchlangenInAktuellemModell();
+						jagd.searchSnakesInCurrentModel();
 						System.out.println("Die im Modell gefundene Probleminstanz wurde geloest.");
 						System.out.println();
-						if (!ablauf.contains("d") && jagd.modell.getDschungel().anzahlFelder() != jagd.modell
-								.getDschungel().anzahlBelegterFelder()) {
+						if (!ablauf.contains("d") && jagd.model.getJungle().numberOfFields() != jagd.model
+								.getJungle().numberOfTakenFields()) {
 							System.out.println("Es ist hierbei zu beachten, dass "
 									+ " der eingelesene Dschungel leere Felder enthaelt. Es wurden\n"
-									+ jagd.modell.getDschungel().anzahlFelder() + " Felder erwartet aber nur "
-									+ jagd.modell.getDschungel().anzahlBelegterFelder() + " wurden eingelesen. "
+									+ jagd.model.getJungle().numberOfFields() + " Felder erwartet aber nur "
+									+ jagd.model.getJungle().numberOfTakenFields() + " wurden eingelesen. "
 									+ " Die uebrigen Felder sind leer. Mit dem\nBefehl 'e' kann ein vollstaendiger "
 									+ " Dschungel erzeugt werden.");
 							System.out.println();
@@ -396,23 +381,23 @@ public class SnakeHunt implements SnakeHuntAPI {
 				if (befehl == 'e') {
 					System.out.println("Erzeuge Dschungel...");
 					System.out.println();
-					if (jagd.modell == null) {
-						jagd.leseUndUebergebeModell(eingabe);
+					if (jagd.model == null) {
+						jagd.readInAndTransferModel(eingabe);
 					}
-					jagd.generiereDschungelMitAktuellemModell();
+					jagd.generateJungleWithCurrentModel();
 					System.out.println(
 							"Der im Modell zu findenden Probleminstanz wurde ein (neuer) Dschungel hinzugefuegt.");
 					System.out.println();
 				}
 				if (befehl == 'p') {
 					try {
-						if (jagd.modell == null) {
-							jagd.leseUndUebergebeModell(eingabe);
+						if (jagd.model == null) {
+							jagd.readInAndTransferModel(eingabe);
 						}
-						SolutionExaminer pruefer = new SolutionExaminer(jagd.modell);
-						List<Fehlertyp> fehlerliste = pruefer.pruefeLoesung();
-						if (jagd.modell != null && jagd.modell.getLoesung() != null) {
-							jagd.druckeFehlerliste(fehlerliste);
+						SolutionExaminer pruefer = new SolutionExaminer(jagd.model);
+						List<ErrorType> fehlerliste = pruefer.examineSolution();
+						if (jagd.model != null && jagd.model.getSolution() != null) {
+							jagd.printErrorList(fehlerliste);
 							System.out.println();
 						}
 					} catch (IllegalArgumentException modellZuLeer) {
@@ -423,26 +408,26 @@ public class SnakeHunt implements SnakeHuntAPI {
 					}
 				}
 				if (befehl == 'b') {
-					if (jagd.modell == null) {
-						jagd.leseUndUebergebeModell(eingabe);
+					if (jagd.model == null) {
+						jagd.readInAndTransferModel(eingabe);
 					}
 					int bewertung;
-					if (jagd.modell.getLoesung() == null) {
+					if (jagd.model.getSolution() == null) {
 						System.out.println("Es ist keine Loesung vorhanden und deswegen kann"
 								+ " nichts bewertet werden. Es wird 0 zurueckgegeben.");
 						System.out.println();
 						bewertung = 0;
 					} else {
 						SolutionEvaluator bewerter = new SolutionEvaluator();
-						bewertung = bewerter.bewerteLoesung(jagd.modell.getLoesung());
+						bewertung = bewerter.evaluateSolution(jagd.model.getSolution());
 					}
-					if (jagd.modell != null && jagd.modell.getLoesung() != null) {
+					if (jagd.model != null && jagd.model.getSolution() != null) {
 						System.out.println("Die gegebene Loesung hat " + bewertung + " Punkte erzielt.");
 						System.out.println();
 					}
 				}
 				if (befehl == 'd') {
-					jagd.darstellungDesAktuellenModelles(eingabe);
+					jagd.viewOfCurrentModel(eingabe);
 				}
 				if ((befehl != 'l') && (befehl != 'e') && (befehl != 'p') && (befehl != 'b') && (befehl != 'd')) {
 					System.out.println("Achtung! Der uebergebene Parameter " + befehl
@@ -456,7 +441,7 @@ public class SnakeHunt implements SnakeHuntAPI {
 			 * das Modell in eine Datei mit dem angegebenen Namen geschrieben.
 			 */
 			if (!ausgabe.equals("")) {
-				jagd.schreibeAktuellesModellInDatei(ausgabe);
+				jagd.writeCurrentModelInFile(ausgabe);
 				System.out.println("Nach Bearbeitung der angegebenen Ablaufparameter wurde der Inhalt "
 						+ "des Modelles unter\n'" + ausgabe + "' gespeichert.");
 				System.out.println();

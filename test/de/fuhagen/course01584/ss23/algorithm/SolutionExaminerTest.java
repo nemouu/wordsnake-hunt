@@ -15,7 +15,7 @@ import de.fuhagen.course01584.ss23.ioprocessing.IReader;
 import de.fuhagen.course01584.ss23.ioprocessing.ReaderXML;
 import de.fuhagen.course01584.ss23.main.SnakeHunt;
 import de.fuhagen.course01584.ss23.main.SnakeHuntAPI;
-import de.fuhagen.course01584.ss23.main.SnakeHuntAPI.Fehlertyp;
+import de.fuhagen.course01584.ss23.main.SnakeHuntAPI.ErrorType;
 
 /**
  * In der Klasse LoesungsPrueferTest werden die Methoden der Klasse
@@ -39,10 +39,10 @@ class SolutionExaminerTest {
 		@Test
 		void testePruefeLoesungBeispielEins() {
 			SnakeHuntAPI jagd = new SnakeHunt();
-			List<Fehlertyp> fehler = new ArrayList<Fehlertyp>();
-			fehler.add(Fehlertyp.GLIEDER);
-			fehler.add(Fehlertyp.GLIEDER);
-			assertEquals(fehler, jagd.pruefeLoesung("res/sj_p11_loesung_fehler.xml"),
+			List<ErrorType> fehler = new ArrayList<ErrorType>();
+			fehler.add(ErrorType.GLIEDER);
+			fehler.add(ErrorType.GLIEDER);
+			assertEquals(fehler, jagd.examineSolution("res/sj_p11_loesung_fehler.xml"),
 					"\nDie Loesungpruefung findet nicht die erwarteten Fehler.");
 		}
 
@@ -50,9 +50,9 @@ class SolutionExaminerTest {
 		@Test
 		void testePruefeLoesungBeispielZwei() {
 			SnakeHuntAPI jagd = new SnakeHunt();
-			List<Fehlertyp> fehler = new ArrayList<Fehlertyp>();
-			fehler.add(Fehlertyp.VERWENDUNG);
-			assertEquals(fehler, jagd.pruefeLoesung("res/sj_p12_loesung_fehler.xml"),
+			List<ErrorType> fehler = new ArrayList<ErrorType>();
+			fehler.add(ErrorType.VERWENDUNG);
+			assertEquals(fehler, jagd.examineSolution("res/sj_p12_loesung_fehler.xml"),
 					"\nDie Loesungpruefung findet nicht die erwarteten Fehler.");
 		}
 
@@ -60,9 +60,9 @@ class SolutionExaminerTest {
 		@Test
 		void testePruefeLoesungBeispielDrei() {
 			SnakeHuntAPI jagd = new SnakeHunt();
-			List<Fehlertyp> fehler = new ArrayList<Fehlertyp>();
-			fehler.add(Fehlertyp.NACHBARSCHAFT);
-			assertEquals(fehler, jagd.pruefeLoesung("res/sj_p13_loesung_fehler.xml"),
+			List<ErrorType> fehler = new ArrayList<ErrorType>();
+			fehler.add(ErrorType.NACHBARSCHAFT);
+			assertEquals(fehler, jagd.examineSolution("res/sj_p13_loesung_fehler.xml"),
 					"\nDie Loesungpruefung findet nicht die erwarteten Fehler.");
 		}
 
@@ -70,9 +70,9 @@ class SolutionExaminerTest {
 		@Test
 		void testePruefeLoesungBeispielVier() {
 			SnakeHuntAPI jagd = new SnakeHunt();
-			List<Fehlertyp> fehler = new ArrayList<Fehlertyp>();
-			fehler.add(Fehlertyp.ZUORDNUNG);
-			assertEquals(fehler, jagd.pruefeLoesung("res/sj_p14_loesung_fehler.xml"),
+			List<ErrorType> fehler = new ArrayList<ErrorType>();
+			fehler.add(ErrorType.ZUORDNUNG);
+			assertEquals(fehler, jagd.examineSolution("res/sj_p14_loesung_fehler.xml"),
 					"\nDie Loesungpruefung findet nicht die erwarteten Fehler.");
 		}
 
@@ -80,8 +80,8 @@ class SolutionExaminerTest {
 		@Test
 		void testePruefeLoesungBeispielKeineFehler() {
 			SnakeHuntAPI jagd = new SnakeHunt();
-			List<Fehlertyp> fehler = new ArrayList<Fehlertyp>();
-			assertEquals(fehler, jagd.pruefeLoesung("res/sj_p11_loesung.xml"),
+			List<ErrorType> fehler = new ArrayList<ErrorType>();
+			assertEquals(fehler, jagd.examineSolution("res/sj_p11_loesung.xml"),
 					"\nDie Loesungpruefung findet nicht die erwarteten Fehler.");
 		}
 
@@ -89,8 +89,8 @@ class SolutionExaminerTest {
 		@Test
 		void testePruefeLoesungBeispielKeineLoesung() {
 			SnakeHuntAPI jagd = new SnakeHunt();
-			List<Fehlertyp> fehler = new ArrayList<Fehlertyp>();
-			assertEquals(fehler, jagd.pruefeLoesung("res/sj_p11_probleminstanz.xml"),
+			List<ErrorType> fehler = new ArrayList<ErrorType>();
+			assertEquals(fehler, jagd.examineSolution("res/sj_p11_probleminstanz.xml"),
 					"\nDie Loesungpruefung findet nicht die erwarteten Fehler.");
 		}
 
@@ -98,8 +98,8 @@ class SolutionExaminerTest {
 		@Test
 		void testePruefeLoesungBeispielKeineLoesungAusnahme() throws Exception {
 			IReader xmlLeser = new ReaderXML();
-			xmlLeser.leseDatei("res/sj_p11_probleminstanz.xml");
-			assertThrows(IllegalArgumentException.class, () -> new SolutionExaminer(xmlLeser.getUebergebenesModell()),
+			xmlLeser.readFile("res/sj_p11_probleminstanz.xml");
+			assertThrows(IllegalArgumentException.class, () -> new SolutionExaminer(xmlLeser.getTransferredModel()),
 					"\nEs wird ein Modell ohne Loesung uebergeben aber es wird keine Ausnahme ausgeloest.");
 		}
 	}

@@ -13,7 +13,7 @@ import de.fuhagen.course01584.ss23.model.*;
  *
  */
 public class SolutionEvaluator {
-	private int bewertung = 0;
+	private int evaluation = 0;
 
 	/**
 	 * Es wird eine neue Instanz der Klasse LoesungsBewerter erstellt.
@@ -30,23 +30,23 @@ public class SolutionEvaluator {
 	 * @param loesung Die Loesung deren Bewertung berechnet werden soll.
 	 * @return Die Punkte der zuvor uebergebenen Loesung.
 	 */
-	public int bewerteLoesung(Solution loesung) {
+	public int evaluateSolution(Solution loesung) {
 		int punkte = 0;
 		for (Snake schlange : loesung.getSchlangen()) {
-			punkte += schlange.getArt().getPunkte();
-			for (SnakeElement glied : schlange.getGlieder()) {
-				punkte += glied.getFeld().getPunkte();
+			punkte += schlange.getType().getPunkte();
+			for (SnakeElement glied : schlange.getElements()) {
+				punkte += glied.getField().getPoints();
 			}
 		}
-		bewertung = punkte;
+		evaluation = punkte;
 		return punkte;
 	}
 
 	/**
 	 * Es wird die Bewertung der Loesung auf die Konsole ausgegeben.
 	 */
-	public void druckeBewertung() {
-		System.out.println("Die uebergebene Loesung hat " + bewertung + " Punkte.");
+	public void printOutEvaluation() {
+		System.out.println("Die uebergebene Loesung hat " + evaluation + " Punkte.");
 	}
 
 	/**
@@ -56,7 +56,7 @@ public class SolutionEvaluator {
 	 * 
 	 * @return Der Wert der Variable <code>bewertung</code>.
 	 */
-	public int getBewertung() {
-		return bewertung;
+	public int getEvaluation() {
+		return evaluation;
 	}
 }

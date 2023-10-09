@@ -24,7 +24,7 @@ public interface ISnakeSearchUtil {
 	 * 
 	 * @return Eine (sortierte) Liste mit Schlangenarten.
 	 */
-	List<SnakeType> erzeugeZulaessigeSchlangenarten();
+	List<SnakeType> createValidSnakeTypes();
 
 	/**
 	 * Eine Methode, die fuer eine gegebene Schlangenart und einen gegebenen
@@ -35,7 +35,7 @@ public interface ISnakeSearchUtil {
 	 * @param art Die Schlangenart fuer die, die Startfelder bestimmt werden sollen.
 	 * @return Eine (sortierte) Liste mit Startfeldern fuer eine Schlangenart.
 	 */
-	List<Field> erzeugeZulaessigeStartfelder(SnakeType art);
+	List<Field> createValidStartingFields(SnakeType art);
 
 	/**
 	 * Eine Methode, die fuer eine gegebene (noch nicht fertige) Schlange und einen
@@ -50,7 +50,7 @@ public interface ISnakeSearchUtil {
 	 * @return Eine (sortierte) Liste mit Nachbarfeldern fuer die aktuelle Schlange
 	 *         und das aktuelle Schlangenglied.
 	 */
-	List<Field> erzeugeZulaessigeNachbarn(SnakeElement vorherigesGlied, Snake dieseSchlange);
+	List<Field> createValidNeighbors(SnakeElement vorherigesGlied, Snake dieseSchlange);
 
 	/**
 	 * Es wird das Modell zurueckgegeben, dass sich aktuell in der SchlangesucheUtil
@@ -59,7 +59,7 @@ public interface ISnakeSearchUtil {
 	 * 
 	 * @return Der Wert der Variablen <code>modell</code>.
 	 */
-	IModel getModell();
+	IModel getModel();
 
 	/**
 	 * Es kann das Modell der SchlangesucheUtil gesetzt werden. So ist es zum
@@ -69,6 +69,6 @@ public interface ISnakeSearchUtil {
 	 * 
 	 * @param modell Das Modell, das uebergeben werden soll.
 	 */
-	void setModell(IModel modell);
+	void setModel(IModel modell);
 
 }

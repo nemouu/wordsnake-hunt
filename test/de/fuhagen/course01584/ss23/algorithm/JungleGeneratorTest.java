@@ -28,8 +28,8 @@ class JungleGeneratorTest {
 		@Test
 		void testeDschungelGeneratorZuVieleSchlangeEingelesen() throws Exception {
 			IReader xmlLeser = new ReaderXML();
-			xmlLeser.leseDatei("res/sj_p11_unvollstaendig.xml");
-			assertThrows(IllegalArgumentException.class, () -> new JungleGenerator(xmlLeser.getUebergebenesModell()),
+			xmlLeser.readFile("res/sj_p11_unvollstaendig.xml");
+			assertThrows(IllegalArgumentException.class, () -> new JungleGenerator(xmlLeser.getTransferredModel()),
 					"\nEs wird keine Ausnahme ausgeloest, obwohl mehr Schlangen im Modell verteilt werden sollten als "
 							+ "Platz im Dschungel des Modelles ist.");
 		}
@@ -39,19 +39,19 @@ class JungleGeneratorTest {
 		void testeDschungelGenerator() throws Exception {
 			Jungle bspDschungel = new Jungle(5, 5, "ABCDEFG", 1);
 			IModel modell = new ProblemModel();
-			modell.setDschungel(bspDschungel);
+			modell.setJungle(bspDschungel);
 			JungleGenerator generator = new JungleGenerator(modell);
-			generator.generiereDschungel();
+			generator.generateJungle();
 			boolean enthaeltRichtigeZeichen = true;
-			for (int i = 0; i < generator.getNeuerDschungel().getFelder().length; i++) {
-				for (int j = 0; j < generator.getNeuerDschungel().getFelder()[0].length; j++) {
-					if (!"ABCDEFG".contains(generator.getNeuerDschungel().getFelder()[i][j].getZeichen())) {
+			for (int i = 0; i < generator.getNewJungle().getFields().length; i++) {
+				for (int j = 0; j < generator.getNewJungle().getFields()[0].length; j++) {
+					if (!"ABCDEFG".contains(generator.getNewJungle().getFields()[i][j].getCharacter())) {
 						enthaeltRichtigeZeichen = false;
 					}
 				}
 			}
 			System.out.println("Erster einfacher Test (visuelle Bestaetigung: ");
-			System.out.println(generator.getNeuerDschungel());
+			System.out.println(generator.getNewJungle());
 			System.out.println();
 			assertTrue(enthaeltRichtigeZeichen, "\nDer generierte Dschungel enthaelt nicht die richtigen Zeichen.");
 		}
@@ -62,20 +62,20 @@ class JungleGeneratorTest {
 			Jungle bspDschungel = new Jungle(5, 5, "X", 1);
 			SnakeType art = new SnakeType("A0", new DistanceNeighborhood(1), "FERNUNI", 1, 1);
 			IModel modell = new ProblemModel();
-			modell.addSchlangenart(art);
-			modell.setDschungel(bspDschungel);
+			modell.addSnakeType(art);
+			modell.setJungle(bspDschungel);
 			JungleGenerator generator = new JungleGenerator(modell);
-			generator.generiereDschungel();
+			generator.generateJungle();
 			boolean enthaeltRichtigeZeichen = true;
-			for (int i = 0; i < generator.getNeuerDschungel().getFelder().length; i++) {
-				for (int j = 0; j < generator.getNeuerDschungel().getFelder()[0].length; j++) {
-					if (!"XFERNUNI".contains(generator.getNeuerDschungel().getFelder()[i][j].getZeichen())) {
+			for (int i = 0; i < generator.getNewJungle().getFields().length; i++) {
+				for (int j = 0; j < generator.getNewJungle().getFields()[0].length; j++) {
+					if (!"XFERNUNI".contains(generator.getNewJungle().getFields()[i][j].getCharacter())) {
 						enthaeltRichtigeZeichen = false;
 					}
 				}
 			}
 			System.out.println("Zweiter einfacher Test (visuelle Bestaetigung: ");
-			System.out.println(generator.getNeuerDschungel());
+			System.out.println(generator.getNewJungle());
 			System.out.println();
 			assertTrue(enthaeltRichtigeZeichen, "\nDer generierte Dschungel enthaelt nicht die richtigen Zeichen.");
 		}
@@ -84,20 +84,20 @@ class JungleGeneratorTest {
 		@Test
 		void testeDschungelGeneratorMitEingelesenenDatenEins() throws Exception {
 			IReader xmlLeser = new ReaderXML();
-			xmlLeser.leseDatei("res/sj_p2_unvollstaendig.xml");
-			JungleGenerator generator = new JungleGenerator(xmlLeser.getUebergebenesModell());
-			generator.generiereDschungel();
+			xmlLeser.readFile("res/sj_p2_unvollstaendig.xml");
+			JungleGenerator generator = new JungleGenerator(xmlLeser.getTransferredModel());
+			generator.generateJungle();
 			boolean enthaeltRichtigeZeichen = true;
-			for (int i = 0; i < generator.getNeuerDschungel().getFelder().length; i++) {
-				for (int j = 0; j < generator.getNeuerDschungel().getFelder()[0].length; j++) {
+			for (int i = 0; i < generator.getNewJungle().getFields().length; i++) {
+				for (int j = 0; j < generator.getNewJungle().getFields()[0].length; j++) {
 					if (!"ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-							.contains(generator.getNeuerDschungel().getFelder()[i][j].getZeichen())) {
+							.contains(generator.getNewJungle().getFields()[i][j].getCharacter())) {
 						enthaeltRichtigeZeichen = false;
 					}
 				}
 			}
 			System.out.println("Driiter einfacher Test (visuelle Bestaetigung: ");
-			System.out.println(generator.getNeuerDschungel());
+			System.out.println(generator.getNewJungle());
 			System.out.println();
 			assertTrue(enthaeltRichtigeZeichen, "\nDer generierte Dschungel enthaelt nicht die richtigen Zeichen.");
 		}
@@ -106,20 +106,20 @@ class JungleGeneratorTest {
 		@Test
 		void testeDschungelGeneratorMitEingelesenenDatenZwei() throws Exception {
 			IReader xmlLeser = new ReaderXML();
-			xmlLeser.leseDatei("res/sj_p4_unvollstaendig.xml");
-			JungleGenerator generator = new JungleGenerator(xmlLeser.getUebergebenesModell());
-			generator.generiereDschungel();
+			xmlLeser.readFile("res/sj_p4_unvollstaendig.xml");
+			JungleGenerator generator = new JungleGenerator(xmlLeser.getTransferredModel());
+			generator.generateJungle();
 			boolean enthaeltRichtigeZeichen = true;
-			for (int i = 0; i < generator.getNeuerDschungel().getFelder().length; i++) {
-				for (int j = 0; j < generator.getNeuerDschungel().getFelder()[0].length; j++) {
+			for (int i = 0; i < generator.getNewJungle().getFields().length; i++) {
+				for (int j = 0; j < generator.getNewJungle().getFields()[0].length; j++) {
 					if (!"ÄABCDEFGHIJKLMNOPQRSTUVWXYZ"
-							.contains(generator.getNeuerDschungel().getFelder()[i][j].getZeichen())) {
+							.contains(generator.getNewJungle().getFields()[i][j].getCharacter())) {
 						enthaeltRichtigeZeichen = false;
 					}
 				}
 			}
 			System.out.println("Vierter einfacher Test (visuelle Bestaetigung: ");
-			System.out.println(generator.getNeuerDschungel());
+			System.out.println(generator.getNewJungle());
 			System.out.println();
 			assertTrue(enthaeltRichtigeZeichen, "\nDer generierte Dschungel enthaelt nicht die richtigen Zeichen.");
 		}
@@ -128,20 +128,20 @@ class JungleGeneratorTest {
 		@Test
 		void testeDschungelGeneratorMitEingelesenenDatenDrei() throws Exception {
 			IReader xmlLeser = new ReaderXML();
-			xmlLeser.leseDatei("res/sj_p2_loesung.xml");
-			JungleGenerator generator = new JungleGenerator(xmlLeser.getUebergebenesModell());
-			generator.generiereDschungel();
+			xmlLeser.readFile("res/sj_p2_loesung.xml");
+			JungleGenerator generator = new JungleGenerator(xmlLeser.getTransferredModel());
+			generator.generateJungle();
 			boolean enthaeltRichtigeZeichen = true;
-			for (int i = 0; i < generator.getNeuerDschungel().getFelder().length; i++) {
-				for (int j = 0; j < generator.getNeuerDschungel().getFelder()[0].length; j++) {
+			for (int i = 0; i < generator.getNewJungle().getFields().length; i++) {
+				for (int j = 0; j < generator.getNewJungle().getFields()[0].length; j++) {
 					if (!"ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-							.contains(generator.getNeuerDschungel().getFelder()[i][j].getZeichen())) {
+							.contains(generator.getNewJungle().getFields()[i][j].getCharacter())) {
 						enthaeltRichtigeZeichen = false;
 					}
 				}
 			}
 			System.out.println("Fuenfter einfacher Test (visuelle Bestaetigung: ");
-			System.out.println(generator.getNeuerDschungel());
+			System.out.println(generator.getNewJungle());
 			System.out.println();
 			assertTrue(enthaeltRichtigeZeichen, "\nDer generierte Dschungel enthaelt nicht die richtigen Zeichen.");
 		}
@@ -154,18 +154,18 @@ class JungleGeneratorTest {
 			Jungle bspDschungel = new Jungle(5, 5, "X", 1);
 			SnakeType art = new SnakeType("A0", new DistanceNeighborhood(1), "FERNUNI", 1, 1);
 			IModel modell = new ProblemModel();
-			modell.setZeiteinheit(einheit);
-			modell.setZeit(zeit);
-			modell.addSchlangenart(art);
-			modell.setDschungel(bspDschungel);
+			modell.setUnitOfTime(einheit);
+			modell.setTime(zeit);
+			modell.addSnakeType(art);
+			modell.setJungle(bspDschungel);
 			JungleGenerator generator = new JungleGenerator(modell);
-			generator.generiereDschungel();
-			modell.setDschungel(generator.getNeuerDschungel());
+			generator.generateJungle();
+			modell.setJungle(generator.getNewJungle());
 			SnakeSearch suche = new SnakeSearch(modell);
-			suche.sucheSchlangen();
+			suche.searchSnakes();
 			String loesung = "";
-			for (SnakeElement glied : suche.getLoesung().getSchlangen().get(0).getGlieder()) {
-				loesung += glied.getFeld().getZeichen();
+			for (SnakeElement glied : suche.getSolution().getSchlangen().get(0).getElements()) {
+				loesung += glied.getField().getCharacter();
 			}
 			assertEquals("FERNUNI", loesung,
 					"\nDie Schlangensuche findet nicht diesselbe Schlange, die der Dschungelgenerator vorher verteilt hatte.");
@@ -175,28 +175,28 @@ class JungleGeneratorTest {
 		@Test
 		void testeDschungelGeneratorMitSchlangenUndSchlangensucheZwei() throws Exception {
 			IReader xmlLeser = new ReaderXML();
-			xmlLeser.leseDatei("res/sj_p4_unvollstaendig.xml");
-			IModel modell = xmlLeser.getUebergebenesModell();
+			xmlLeser.readFile("res/sj_p4_unvollstaendig.xml");
+			IModel modell = xmlLeser.getTransferredModel();
 			JungleGenerator generator = new JungleGenerator(modell);
-			generator.generiereDschungel();
-			modell.setDschungel(generator.getNeuerDschungel());
+			generator.generateJungle();
+			modell.setJungle(generator.getNewJungle());
 			SnakeSearch suche = new SnakeSearch(modell);
-			suche.sucheSchlangen();
+			suche.searchSnakes();
 			String loesung = "";
-			for (SnakeElement glied : suche.getLoesung().getSchlangen().get(0).getGlieder()) {
-				loesung += glied.getFeld().getZeichen();
+			for (SnakeElement glied : suche.getSolution().getSchlangen().get(0).getElements()) {
+				loesung += glied.getField().getCharacter();
 			}
 			assertEquals("ÄSKULAPNATTER", loesung,
 					"\nDie Schlangensuche findet nicht diesselbe Schlange, die der Dschungelgenerator vorher verteilt hatte.");
 			loesung = "";
-			for (SnakeElement glied : suche.getLoesung().getSchlangen().get(1).getGlieder()) {
-				loesung += glied.getFeld().getZeichen();
+			for (SnakeElement glied : suche.getSolution().getSchlangen().get(1).getElements()) {
+				loesung += glied.getField().getCharacter();
 			}
 			assertEquals("SCHLINGNATTER", loesung,
 					"\nDie Schlangensuche findet nicht diesselbe Schlange, die der Dschungelgenerator vorher verteilt hatte.");
 			loesung = "";
-			for (SnakeElement glied : suche.getLoesung().getSchlangen().get(2).getGlieder()) {
-				loesung += glied.getFeld().getZeichen();
+			for (SnakeElement glied : suche.getSolution().getSchlangen().get(2).getElements()) {
+				loesung += glied.getField().getCharacter();
 			}
 			assertEquals("RINGELNATTER", loesung,
 					"\nDie Schlangensuche findet nicht diesselbe Schlange, die der Dschungelgenerator vorher verteilt hatte.");
@@ -207,10 +207,10 @@ class JungleGeneratorTest {
 		void testeDschungelGeneratorMitZuLeeremModell() throws Exception {
 			Jungle bspDschungel = new Jungle();
 			IModel modell = new ProblemModel();
-			modell.setDschungel(bspDschungel);
+			modell.setJungle(bspDschungel);
 			JungleGenerator generator = new JungleGenerator(modell);
-			generator.generiereDschungel();
-			assertEquals("", generator.getNeuerDschungel().toString(),
+			generator.generateJungle();
+			assertEquals("", generator.getNewJungle().toString(),
 					"\nEs wurde nicht der leere String erzeugt, obwohl im Dschungel nicht genuegend Informationen vorhanden waren.");
 		}
 	}

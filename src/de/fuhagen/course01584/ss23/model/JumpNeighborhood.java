@@ -14,7 +14,7 @@ import java.util.*;
  *
  */
 public class JumpNeighborhood implements INeighborhood {
-	private String art = "Sprung";
+	private String type = "Sprung";
 	private List<Integer> parameter = new ArrayList<Integer>();
 
 	/**
@@ -55,7 +55,7 @@ public class JumpNeighborhood implements INeighborhood {
 	}
 
 	@Override
-	public List<Field> getNachbarn(Jungle dschungel, Field feld) {
+	public List<Field> getNeighbors(Jungle dschungel, Field feld) {
 		/*
 		 * In dieser Methode werden die Nachbarn eines Feldes in einem Dschungel
 		 * gefunden. Dabei werden alle mit den Parametern moegliche Kombinationen
@@ -68,45 +68,45 @@ public class JumpNeighborhood implements INeighborhood {
 		List<Field> listeMitNachbarn = new ArrayList<Field>();
 		int param1 = parameter.get(0);
 		int param2 = parameter.get(1);
-		Field[][] felder = dschungel.getFelder();
-		if (feld.getZeile() + param1 < felder.length && feld.getSpalte() + param2 < felder[0].length) {
-			if (listeMitNachbarn.contains(felder[feld.getZeile() + param1][feld.getSpalte() + param2]) == false) {
-				listeMitNachbarn.add(felder[feld.getZeile() + param1][feld.getSpalte() + param2]);
+		Field[][] felder = dschungel.getFields();
+		if (feld.getRow() + param1 < felder.length && feld.getColumn() + param2 < felder[0].length) {
+			if (listeMitNachbarn.contains(felder[feld.getRow() + param1][feld.getColumn() + param2]) == false) {
+				listeMitNachbarn.add(felder[feld.getRow() + param1][feld.getColumn() + param2]);
 			}
 		}
-		if (feld.getZeile() + param2 < felder.length && feld.getSpalte() + param1 < felder[0].length) {
-			if (listeMitNachbarn.contains(felder[feld.getZeile() + param2][feld.getSpalte() + param1]) == false) {
-				listeMitNachbarn.add(felder[feld.getZeile() + param2][feld.getSpalte() + param1]);
+		if (feld.getRow() + param2 < felder.length && feld.getColumn() + param1 < felder[0].length) {
+			if (listeMitNachbarn.contains(felder[feld.getRow() + param2][feld.getColumn() + param1]) == false) {
+				listeMitNachbarn.add(felder[feld.getRow() + param2][feld.getColumn() + param1]);
 			}
 		}
-		if (feld.getZeile() - param1 >= 0 && feld.getSpalte() - param2 >= 0) {
-			if (listeMitNachbarn.contains(felder[feld.getZeile() - param1][feld.getSpalte() - param2]) == false) {
-				listeMitNachbarn.add(felder[feld.getZeile() - param1][feld.getSpalte() - param2]);
+		if (feld.getRow() - param1 >= 0 && feld.getColumn() - param2 >= 0) {
+			if (listeMitNachbarn.contains(felder[feld.getRow() - param1][feld.getColumn() - param2]) == false) {
+				listeMitNachbarn.add(felder[feld.getRow() - param1][feld.getColumn() - param2]);
 			}
 		}
-		if (feld.getZeile() - param2 >= 0 && feld.getSpalte() - param1 >= 0) {
-			if (listeMitNachbarn.contains(felder[feld.getZeile() - param2][feld.getSpalte() - param1]) == false) {
-				listeMitNachbarn.add(felder[feld.getZeile() - param2][feld.getSpalte() - param1]);
+		if (feld.getRow() - param2 >= 0 && feld.getColumn() - param1 >= 0) {
+			if (listeMitNachbarn.contains(felder[feld.getRow() - param2][feld.getColumn() - param1]) == false) {
+				listeMitNachbarn.add(felder[feld.getRow() - param2][feld.getColumn() - param1]);
 			}
 		}
-		if (feld.getZeile() - param1 >= 0 && feld.getSpalte() + param2 < felder[0].length) {
-			if (listeMitNachbarn.contains(felder[feld.getZeile() - param1][feld.getSpalte() + param2]) == false) {
-				listeMitNachbarn.add(felder[feld.getZeile() - param1][feld.getSpalte() + param2]);
+		if (feld.getRow() - param1 >= 0 && feld.getColumn() + param2 < felder[0].length) {
+			if (listeMitNachbarn.contains(felder[feld.getRow() - param1][feld.getColumn() + param2]) == false) {
+				listeMitNachbarn.add(felder[feld.getRow() - param1][feld.getColumn() + param2]);
 			}
 		}
-		if (feld.getZeile() + param1 < felder.length && feld.getSpalte() - param2 >= 0) {
-			if (listeMitNachbarn.contains(felder[feld.getZeile() + param1][feld.getSpalte() - param2]) == false) {
-				listeMitNachbarn.add(felder[feld.getZeile() + param1][feld.getSpalte() - param2]);
+		if (feld.getRow() + param1 < felder.length && feld.getColumn() - param2 >= 0) {
+			if (listeMitNachbarn.contains(felder[feld.getRow() + param1][feld.getColumn() - param2]) == false) {
+				listeMitNachbarn.add(felder[feld.getRow() + param1][feld.getColumn() - param2]);
 			}
 		}
-		if (feld.getZeile() - param2 >= 0 && feld.getSpalte() + param1 < felder[0].length) {
-			if (listeMitNachbarn.contains(felder[feld.getZeile() - param2][feld.getSpalte() + param1]) == false) {
-				listeMitNachbarn.add(felder[feld.getZeile() - param2][feld.getSpalte() + param1]);
+		if (feld.getRow() - param2 >= 0 && feld.getColumn() + param1 < felder[0].length) {
+			if (listeMitNachbarn.contains(felder[feld.getRow() - param2][feld.getColumn() + param1]) == false) {
+				listeMitNachbarn.add(felder[feld.getRow() - param2][feld.getColumn() + param1]);
 			}
 		}
-		if (feld.getZeile() + param2 < felder.length && feld.getSpalte() - param1 >= 0) {
-			if (listeMitNachbarn.contains(felder[feld.getZeile() + param2][feld.getSpalte() - param1]) == false) {
-				listeMitNachbarn.add(felder[feld.getZeile() + param2][feld.getSpalte() - param1]);
+		if (feld.getRow() + param2 < felder.length && feld.getColumn() - param1 >= 0) {
+			if (listeMitNachbarn.contains(felder[feld.getRow() + param2][feld.getColumn() - param1]) == false) {
+				listeMitNachbarn.add(felder[feld.getRow() + param2][feld.getColumn() - param1]);
 			}
 		}
 		return listeMitNachbarn;
@@ -114,21 +114,21 @@ public class JumpNeighborhood implements INeighborhood {
 
 	@Override
 	public String toString() {
-		return art + ", Parameter=(" + parameter.get(0) + ", " + parameter.get(1) + ")";
+		return type + ", Parameter=(" + parameter.get(0) + ", " + parameter.get(1) + ")";
 	}
 
 	@Override
-	public String getArt() {
-		return art;
+	public String getType() {
+		return type;
 	}
 
 	@Override
-	public List<Integer> getParameter() {
+	public List<Integer> getParameters() {
 		return parameter;
 	}
 
 	@Override
-	public void setParameter(List<Integer> parameters) {
+	public void setParameters(List<Integer> parameters) {
 		if (parameters.size() != 2) {
 			throw new IllegalArgumentException("Fuer die Klasse 'SprungNachbarschaft' kann nur eine"
 					+ "Liste uebergeben werden, die zwei Eintraege hat.");

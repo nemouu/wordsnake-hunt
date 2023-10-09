@@ -82,7 +82,7 @@ public class SnakeType {
 		if (id == null || struktur == null || zeichenkette == null) {
 			return "";
 		}
-		return "ID=" + id + ", Nachbarschaftsstruktur=" + struktur.getArt() + ", Zeichenkette=" + zeichenkette
+		return "ID=" + id + ", Nachbarschaftsstruktur=" + struktur.getType() + ", Zeichenkette=" + zeichenkette
 				+ ", Punkte=" + punkte + ", Anzahl=" + anzahl;
 	}
 

@@ -12,11 +12,11 @@ package de.fuhagen.course01584.ss23.model;
  */
 public class Field {
 	private String id;
-	private int zeile;
-	private int spalte;
-	private int verwendbarkeit;
-	private int punkte;
-	private String zeichen;
+	private int row;
+	private int column;
+	private int usage;
+	private int points;
+	private String character;
 
 	/**
 	 * Ein parametrisierter Konstruktor dem direkt alle Attribute als Parameter
@@ -56,11 +56,11 @@ public class Field {
 					"Fuer die Klasse 'Feld' darf das Attribut 'verwendbarkeit' nicht zu gross oder zu klein sein.");
 		}
 		this.id = id;
-		this.zeile = zeile;
-		this.spalte = spalte;
-		this.verwendbarkeit = verwendbarkeit;
-		this.punkte = punkte;
-		this.zeichen = zeichen;
+		this.row = zeile;
+		this.column = spalte;
+		this.usage = verwendbarkeit;
+		this.points = punkte;
+		this.character = zeichen;
 	}
 
 	/**
@@ -92,10 +92,10 @@ public class Field {
 					"Fuer die Klasse 'Feld' duerfen die Attribute 'verwendbarkeit' und 'punkte' nicht groesser als der groesste "
 							+ "Integerwert und nicht kleiner als der kleinste Integerwert sein");
 		}
-		this.zeile = zeile;
-		this.spalte = spalte;
-		this.verwendbarkeit = parameter;
-		this.punkte = parameter;
+		this.row = zeile;
+		this.column = spalte;
+		this.usage = parameter;
+		this.points = parameter;
 	}
 
 	/**
@@ -132,8 +132,8 @@ public class Field {
 	 * 
 	 * @return Die Zahl der Zeile in der das Feld zu finden ist.
 	 */
-	public int getZeile() {
-		return zeile;
+	public int getRow() {
+		return row;
 	}
 
 	/**
@@ -146,7 +146,7 @@ public class Field {
 	 *                                  uebergeben wird, wird eine Ausnahme
 	 *                                  geworfen.
 	 */
-	public void setZeile(int zeile) throws IllegalArgumentException {
+	public void setRow(int zeile) throws IllegalArgumentException {
 		if (zeile < 0) {
 			throw new IllegalArgumentException(
 					"Fuer die Klasse Feld darf das Attribut 'zeile' keine negativen Werte annehmen.");
@@ -155,7 +155,7 @@ public class Field {
 			throw new IllegalArgumentException(
 					"Fuer die Klasse 'Feld' darf das Attribut 'zeile' nicht groesser als der groesste Integerwert sein");
 		}
-		this.zeile = zeile;
+		this.row = zeile;
 	}
 
 	/**
@@ -163,8 +163,8 @@ public class Field {
 	 * 
 	 * @return Die Zahl der Spalte in der das Feld zu finden ist.
 	 */
-	public int getSpalte() {
-		return spalte;
+	public int getColumn() {
+		return column;
 	}
 
 	/**
@@ -177,7 +177,7 @@ public class Field {
 	 *                                  uebergeben wird, wird eine Ausnahme
 	 *                                  geworfen.
 	 */
-	public void setSpalte(int spalte) throws IllegalArgumentException {
+	public void setColumn(int spalte) throws IllegalArgumentException {
 		if (spalte < 0) {
 			throw new IllegalArgumentException(
 					"Fuer die Klasse Feld darf das Attribut 'spalte' keine negativen Werte annehmen.");
@@ -186,7 +186,7 @@ public class Field {
 			throw new IllegalArgumentException(
 					"Fuer die Klasse 'Feld' darf das Attribut 'spalte' nicht groesser als der groesste Integerwert sein");
 		}
-		this.spalte = spalte;
+		this.column = spalte;
 	}
 
 	/**
@@ -195,8 +195,8 @@ public class Field {
 	 * 
 	 * @return Die Verwendbarkeit des Feldes.
 	 */
-	public int getVerwendbarkeit() {
-		return verwendbarkeit;
+	public int getUsage() {
+		return usage;
 	}
 
 	/**
@@ -210,12 +210,12 @@ public class Field {
 	 *                                  Verwendbarkeit uebergeben wird, wird eine
 	 *                                  Ausnahme geworfen.
 	 */
-	public void setVerwendbarkeit(int verwendbarkeit) throws IllegalArgumentException {
+	public void setUsage(int verwendbarkeit) throws IllegalArgumentException {
 		if (verwendbarkeit > Integer.MAX_VALUE - 1) {
 			throw new IllegalArgumentException(
 					"Fuer die Klasse 'Feld' darf das Attribut 'verwendbarkeit' nicht groesser als der groesste Integerwert sein");
 		}
-		this.verwendbarkeit = verwendbarkeit;
+		this.usage = verwendbarkeit;
 	}
 
 	/**
@@ -224,8 +224,8 @@ public class Field {
 	 * 
 	 * @return Die Punkte des Feldes.
 	 */
-	public int getPunkte() {
-		return punkte;
+	public int getPoints() {
+		return points;
 	}
 
 	/**
@@ -238,12 +238,12 @@ public class Field {
 	 *                                  uebergeben wird, wird eine Ausnahme
 	 *                                  geworfen.
 	 */
-	public void setPunkte(int punkte) throws IllegalArgumentException {
+	public void setPoints(int punkte) throws IllegalArgumentException {
 		if (punkte > Integer.MAX_VALUE - 1 || punkte < 0) {
 			throw new IllegalArgumentException(
 					"Fuer die Klasse 'Feld' darf das Attribut 'punkte' nicht zu gross oder zu klein sein.");
 		}
-		this.punkte = punkte;
+		this.points = punkte;
 	}
 
 	/**
@@ -251,8 +251,8 @@ public class Field {
 	 * 
 	 * @return Ein String, der das Zeichen des Feldes enthaelt.
 	 */
-	public String getZeichen() {
-		return zeichen;
+	public String getCharacter() {
+		return character;
 	}
 
 	/**
@@ -263,7 +263,7 @@ public class Field {
 	 * @param zeichen Ein String, das das Zeichen enthaelt, das dem Feld uebergeben
 	 *                werden soll.
 	 */
-	public void setZeichen(String zeichen) {
-		this.zeichen = zeichen;
+	public void setCharacter(String zeichen) {
+		this.character = zeichen;
 	}
 }

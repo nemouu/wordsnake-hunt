@@ -54,37 +54,37 @@ public class StarNeighborhood implements INeighborhood {
 	}
 
 	@Override
-	public List<Field> getNachbarn(Jungle dschungel, Field feld) {
+	public List<Field> getNeighbors(Jungle dschungel, Field feld) {
 		List<Field> listeMitNachbarn = new ArrayList<Field>();
 		int param1 = parameter.get(0);
 		int param2 = parameter.get(1);
-		Field[][] felder = dschungel.getFelder();
+		Field[][] felder = dschungel.getFields();
 		for (int i = 1; i <= param1; i++) {
-			if (feld.getZeile() - i >= 0) {
-				listeMitNachbarn.add(felder[feld.getZeile() - i][feld.getSpalte()]);
+			if (feld.getRow() - i >= 0) {
+				listeMitNachbarn.add(felder[feld.getRow() - i][feld.getColumn()]);
 			}
-			if (feld.getZeile() + i < felder.length) {
-				listeMitNachbarn.add(felder[feld.getZeile() + i][feld.getSpalte()]);
+			if (feld.getRow() + i < felder.length) {
+				listeMitNachbarn.add(felder[feld.getRow() + i][feld.getColumn()]);
 			}
-			if (feld.getSpalte() - i >= 0) {
-				listeMitNachbarn.add(felder[feld.getZeile()][feld.getSpalte() - i]);
+			if (feld.getColumn() - i >= 0) {
+				listeMitNachbarn.add(felder[feld.getRow()][feld.getColumn() - i]);
 			}
-			if (feld.getSpalte() + i < felder[0].length) {
-				listeMitNachbarn.add(felder[feld.getZeile()][feld.getSpalte() + i]);
+			if (feld.getColumn() + i < felder[0].length) {
+				listeMitNachbarn.add(felder[feld.getRow()][feld.getColumn() + i]);
 			}
 		}
 		for (int i = 1; i <= param2; i++) {
-			if (feld.getZeile() - i >= 0 && feld.getSpalte() - i >= 0) {
-				listeMitNachbarn.add(felder[feld.getZeile() - i][feld.getSpalte() - i]);
+			if (feld.getRow() - i >= 0 && feld.getColumn() - i >= 0) {
+				listeMitNachbarn.add(felder[feld.getRow() - i][feld.getColumn() - i]);
 			}
-			if (feld.getZeile() - i >= 0 && feld.getSpalte() + i < felder[0].length) {
-				listeMitNachbarn.add(felder[feld.getZeile() - i][feld.getSpalte() + i]);
+			if (feld.getRow() - i >= 0 && feld.getColumn() + i < felder[0].length) {
+				listeMitNachbarn.add(felder[feld.getRow() - i][feld.getColumn() + i]);
 			}
-			if (feld.getZeile() + i < felder.length && feld.getSpalte() - i >= 0) {
-				listeMitNachbarn.add(felder[feld.getZeile() + i][feld.getSpalte() - i]);
+			if (feld.getRow() + i < felder.length && feld.getColumn() - i >= 0) {
+				listeMitNachbarn.add(felder[feld.getRow() + i][feld.getColumn() - i]);
 			}
-			if (feld.getZeile() + i < felder.length && feld.getSpalte() + i < felder[0].length) {
-				listeMitNachbarn.add(felder[feld.getZeile() + i][feld.getSpalte() + i]);
+			if (feld.getRow() + i < felder.length && feld.getColumn() + i < felder[0].length) {
+				listeMitNachbarn.add(felder[feld.getRow() + i][feld.getColumn() + i]);
 			}
 		}
 		return listeMitNachbarn;
@@ -96,17 +96,17 @@ public class StarNeighborhood implements INeighborhood {
 	}
 
 	@Override
-	public String getArt() {
+	public String getType() {
 		return art;
 	}
 
 	@Override
-	public List<Integer> getParameter() {
+	public List<Integer> getParameters() {
 		return parameter;
 	}
 
 	@Override
-	public void setParameter(List<Integer> parameters) {
+	public void setParameters(List<Integer> parameters) {
 		if (parameters.size() != 2) {
 			throw new IllegalArgumentException("Fuer die Klasse 'SternNachbarschaft' kann nur eine"
 					+ "Liste uebergeben werden, die zwei Eintraege hat.");
