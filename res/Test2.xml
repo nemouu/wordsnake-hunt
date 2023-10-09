@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Schlangenjagd SYSTEM "schlangenjagd.dtd" >
+<Schlangenjagd>
+	<Zeit einheit="s">
+		<Vorgabe>60.0</Vorgabe>
+	</Zeit>
+	<Dschungel zeilen="3" spalten="2" zeichen="ABCDEFGHIJKLMNOPQRSTUVWXYZ">
+	</Dschungel>
+	<Schlangenarten>
+		<Schlangenart id="A0" punkte="1" anzahl="1">
+			<Zeichenkette>DA</Zeichenkette>
+			<Nachbarschaftsstruktur typ="Distanz">
+				<Parameter wert="1" />
+			</Nachbarschaftsstruktur>
+		</Schlangenart>
+		<Schlangenart id="A1" punkte="1" anzahl="1">
+			<Zeichenkette>IM</Zeichenkette>
+			<Nachbarschaftsstruktur typ="Sprung">
+				<Parameter wert="1" />
+				<Parameter wert="2" />
+			</Nachbarschaftsstruktur>
+		</Schlangenart>
+		<Schlangenart id="A2" punkte="1" anzahl="1">
+			<Zeichenkette>SO</Zeichenkette>
+			<Nachbarschaftsstruktur typ="Sprung">
+				<Parameter wert="1" />
+				<Parameter wert="2" />
+			</Nachbarschaftsstruktur>
+		</Schlangenart>
+	</Schlangenarten>
+</Schlangenjagd>
