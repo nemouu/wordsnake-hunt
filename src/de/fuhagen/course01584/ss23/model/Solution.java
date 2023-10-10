@@ -50,9 +50,9 @@ public class Solution {
 	 */
 	public int getNumberOfDifferentSnakeTypes() {
 		List<SnakeType> differentSnakeTypes = new ArrayList<SnakeType>();
-		for (Snake schlange : snakes) {
-			if (differentSnakeTypes.contains(schlange.getType()) == false) {
-				differentSnakeTypes.add(schlange.getType());
+		for (Snake snake : snakes) {
+			if (differentSnakeTypes.contains(snake.getType()) == false) {
+				differentSnakeTypes.add(snake.getType());
 			}
 		}
 		return differentSnakeTypes.size();

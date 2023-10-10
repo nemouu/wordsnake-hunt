@@ -38,78 +38,78 @@ class ProblemModelTest {
 		@DisplayName("Einfacher Test des Konstruktors mit zu grossem Parameter fuer 'zeit'.")
 		@Test
 		void testConstructorLargeTime() {
-			Double[] bspZeit = { Double.MAX_VALUE };
-			assertThrows(IllegalArgumentException.class, () -> new ProblemModel(exampleJungle, exampleSolution, bspZeit),
+			Double[] exampleTime = { Double.MAX_VALUE };
+			assertThrows(IllegalArgumentException.class, () -> new ProblemModel(exampleJungle, exampleSolution, exampleTime),
 					() -> "\nFuer den zu grossen Wert '" + Double.MAX_VALUE + "' wurde keine Ausnahme erzeugt.");
 		}
 
 		@DisplayName("Einfacher Test des Konstruktors mit Parameter 0.0 fuer 'zeit'.")
 		@Test
 		void testConstructorTimeZero() {
-			Double[] bspZeit = { 0.0 };
-			assertThrows(IllegalArgumentException.class, () -> new ProblemModel(exampleJungle, exampleSolution, bspZeit),
+			Double[] exampleTime = { 0.0 };
+			assertThrows(IllegalArgumentException.class, () -> new ProblemModel(exampleJungle, exampleSolution, exampleTime),
 					() -> "\nFuer den zu kleinen Wert '" + 0.0 + "' wurde keine Ausnahme erzeugt.");
 		}
 
 		@DisplayName("Einfacher Test von setZeit() mit zu grossem Parameter.")
 		@Test
 		void testSetTimeLargeTime() {
-			Double[] initZeit = { 3.4 };
-			Double[] bspZeit = { Double.MAX_VALUE };
+			Double[] initTime = { 3.4 };
+			Double[] exampleTime = { Double.MAX_VALUE };
 			assertThrows(IllegalArgumentException.class,
-					() -> new ProblemModel(exampleJungle, exampleSolution, initZeit).setTime(bspZeit),
+					() -> new ProblemModel(exampleJungle, exampleSolution, initTime).setTime(exampleTime),
 					() -> "\nFuer den zu grossen Wert '" + Double.MAX_VALUE + "' wurde keine Ausnahme erzeugt.");
 		}
 
 		@DisplayName("Einfacher Test von setZeit() mit Parameter 0.0.")
 		@Test
 		void testSetTimeZero() {
-			Double[] initZeit = { 3.4 };
-			Double[] bspZeit = { 0.0 };
+			Double[] initTime = { 3.4 };
+			Double[] exampleTime = { 0.0 };
 			assertThrows(IllegalArgumentException.class,
-					() -> new ProblemModel(exampleJungle, exampleSolution, initZeit).setTime(bspZeit),
+					() -> new ProblemModel(exampleJungle, exampleSolution, initTime).setTime(exampleTime),
 					() -> "\nFuer den zu grossen Wert '" + 0.0 + "' wurde keine Ausnahme erzeugt.");
 		}
 
 		@DisplayName("Test toString Methode, wenn moeglichst viel leer ist, Teil 1")
 		@Test
 		void testToStringEmptyOne() {
-			Double[] bspZeit = { 3.0 };
-			IModel bspModell = new ProblemModel(new Jungle(0, 0, null, 1), exampleSolution, bspZeit);
+			Double[] exampleTime = { 3.0 };
+			IModel exampleModel = new ProblemModel(new Jungle(0, 0, null, 1), exampleSolution, exampleTime);
 			assertEquals("Der Dschungel dieses Problemes hat 0 Zeilen, 0 Spalten und die Zeichenmenge 'null' \naber "
 					+ "keine Felder und es kann nach Schlangen der Schlangenart/en \n\n"
 					+ "\ngesucht werden. Die Felder koennen mit dem Befehl 'e' erzeugt werden. Die Loesung hierzu ist "
-					+ "nicht \nvorhanden und kann mit dem Befehl 'l' gesucht werden.", bspModell.toString(),
+					+ "nicht \nvorhanden und kann mit dem Befehl 'l' gesucht werden.", exampleModel.toString(),
 					"\nEs wird nicht der entsprechende String zurueckgegeben, obwohl das Modell leer ist.");
 		}
 
 		@DisplayName("Test toString Methode, wenn moeglichst viel leer ist, Teil 2")
 		@Test
 		void testToStringTwo() {
-			Double[] bspZeit = { 3.0 };
-			IModel bspModell = new ProblemModel(new Jungle(3, 3, "FERNUNI", 1), exampleSolution, bspZeit);
+			Double[] exampleTime = { 3.0 };
+			IModel exampleModel = new ProblemModel(new Jungle(3, 3, "FERNUNI", 1), exampleSolution, exampleTime);
 			assertEquals("Der Dschungel dieses Problemes hat 3 Zeilen, 3 Spalten und die "
 					+ "Zeichenmenge 'FERNUNI' \naber keine Felder und es kann nach Schlangen der Schlangenart/en \n\n"
 					+ "\ngesucht werden. Die Felder koennen mit dem Befehl 'e' erzeugt werden. Die Loesung hierzu ist "
-					+ "nicht \nvorhanden und kann mit dem Befehl 'l' gesucht werden.", bspModell.toString(),
+					+ "nicht \nvorhanden und kann mit dem Befehl 'l' gesucht werden.", exampleModel.toString(),
 					"\nEs wird nicht der entsprechende String zurueckgegeben, obwohl das Modell leer ist.");
 		}
 
 		@DisplayName("Test toString Methode mit ohne Loesung")
 		@Test
 		void testToStringWithoutSolution() {
-			Double[] bspZeit = { 3.0 };
-			SnakeType art1 = new SnakeType("A0", new DistanceNeighborhood(1), "FERNUNI", 1, 1);
-			SnakeType art2 = new SnakeType("A1", new DistanceNeighborhood(3), "JUNITTEST", 2, 4);
-			Jungle bspDschungel = new Jungle(3, 4, "asdertg", 1);
-			for (int i = 0; i < bspDschungel.getRows(); i++) {
-				for (int j = 0; j < bspDschungel.getColumns(); j++) {
-					bspDschungel.getFields()[i][j].setCharacter("a");
+			Double[] exampleTime = { 3.0 };
+			SnakeType type1 = new SnakeType("A0", new DistanceNeighborhood(1), "FERNUNI", 1, 1);
+			SnakeType type2 = new SnakeType("A1", new DistanceNeighborhood(3), "JUNITTEST", 2, 4);
+			Jungle exampleJungle = new Jungle(3, 4, "asdertg", 1);
+			for (int i = 0; i < exampleJungle.getRows(); i++) {
+				for (int j = 0; j < exampleJungle.getColumns(); j++) {
+					exampleJungle.getFields()[i][j].setCharacter("a");
 				}
 			}
-			IModel bspModell = new ProblemModel(bspDschungel, null, bspZeit);
-			bspModell.addSnakeType(art1);
-			bspModell.addSnakeType(art2);
+			IModel exampleModel = new ProblemModel(exampleJungle, null, exampleTime);
+			exampleModel.addSnakeType(type1);
+			exampleModel.addSnakeType(type2);
 			assertEquals("Der Dschungel dieses Problemes hat 3 Zeilen, " + "4 Spalten und die Zeichenmenge 'asdertg'. "
 					+ "Die Felder werden\nimmer in dem Format '(Zeichen, Verwendbarkeit, Punkte)' angegeben und"
 					+ " sind wie folgt angeordnet: \n\n\n (a,1,1) (a,1,1) (a,1,1) (a,1,1)\n\n (a,1,1) (a,1,1) (a,1,1) (a,1,1)"
@@ -117,7 +117,7 @@ class ProblemModelTest {
 					+ " (ID=A0, Nachbarschaftsstruktur=Distanz, Zeichenkette=FERNUNI, Punkte=1, Anzahl=1)\n"
 					+ " (ID=A1, Nachbarschaftsstruktur=Distanz, Zeichenkette=JUNITTEST, Punkte=2, Anzahl=4)"
 					+ "\n\ngesucht werden und im Modell ist aktuell keine Loesung vorhanden. Es kann mit dem Befehl 'l' nach einer"
-					+ " Loesung\ngesucht werden.", bspModell.toString(),
+					+ " Loesung\ngesucht werden.", exampleModel.toString(),
 					"\nEs wird nicht der richtige String zurueckgegeben.");
 
 		}
@@ -125,128 +125,128 @@ class ProblemModelTest {
 		@DisplayName("Einfacher Test von berechneZeitInNanosekunden, Teil 1 ")
 		@Test
 		void testCalculateTimeInNanosecondsOne() {
-			Double[] bspZeit = { 3.0 };
-			Jungle bspDschungel = new Jungle(3, 4, "asdertg", 1);
-			IModel bspModell = new ProblemModel(bspDschungel, null, bspZeit);
-			assertEquals(3.0E9, bspModell.calculateTimeToNanoseconds(),
+			Double[] exampleTime = { 3.0 };
+			Jungle exampleJungle = new Jungle(3, 4, "asdertg", 1);
+			IModel exampleModel = new ProblemModel(exampleJungle, null, exampleTime);
+			assertEquals(3.0E9, exampleModel.calculateTimeToNanoseconds(),
 					"\nDie errechnete Zeit stimmt " + "nicht mit dem zu erwartenden Wert ueberein.");
 		}
 
 		@DisplayName("Einfacher Test von berechneZeitInNanosekunden, Teil 2 ")
 		@Test
 		void testCalculateTimeInNanosecondsTwo() {
-			Double[] bspZeit = { 2500.0 };
-			Jungle bspDschungel = new Jungle(3, 4, "asdertg", 1);
-			IModel bspModell = new ProblemModel(bspDschungel, null, bspZeit);
-			bspModell.setUnitOfTime("ms");
-			assertEquals(2.5E9, bspModell.calculateTimeToNanoseconds(),
+			Double[] exampleTime = { 2500.0 };
+			Jungle exampleJungle = new Jungle(3, 4, "asdertg", 1);
+			IModel exampleModel = new ProblemModel(exampleJungle, null, exampleTime);
+			exampleModel.setUnitOfTime("ms");
+			assertEquals(2.5E9, exampleModel.calculateTimeToNanoseconds(),
 					"\nDie errechnete Zeit stimmt " + "nicht mit dem zu erwartenden Wert ueberein.");
 		}
 
 		@DisplayName("Einfacher Test von berechneZeitInNanosekunden, Teil 3 ")
 		@Test
 		void testCalculateTimeInNanosecondsThree() {
-			Double[] bspZeit = { 0.03 };
-			Jungle bspDschungel = new Jungle(3, 4, "asdertg", 1);
-			IModel bspModell = new ProblemModel(bspDschungel, null, bspZeit);
-			bspModell.setUnitOfTime("min");
-			assertEquals(1.8E9, bspModell.calculateTimeToNanoseconds(),
+			Double[] exampleTime = { 0.03 };
+			Jungle exampleJungle = new Jungle(3, 4, "asdertg", 1);
+			IModel exampleModel = new ProblemModel(exampleJungle, null, exampleTime);
+			exampleModel.setUnitOfTime("min");
+			assertEquals(1.8E9, exampleModel.calculateTimeToNanoseconds(),
 					"\nDie errechnete Zeit stimmt " + "nicht mit dem zu erwartenden Wert ueberein.");
 		}
 
 		@DisplayName("Einfacher Test von berechneZeitInNanosekunden, Teil 4 ")
 		@Test
 		void testCalculateTimeInNanosecondsFour() {
-			Double[] bspZeit = { 0.00015 };
-			Jungle bspDschungel = new Jungle(3, 4, "asdertg", 1);
-			IModel bspModell = new ProblemModel(bspDschungel, null, bspZeit);
-			bspModell.setUnitOfTime("h");
-			assertEquals(5.4E8, bspModell.calculateTimeToNanoseconds(),
+			Double[] exampleTime = { 0.00015 };
+			Jungle exampleJungle = new Jungle(3, 4, "asdertg", 1);
+			IModel exampleModel = new ProblemModel(exampleJungle, null, exampleTime);
+			exampleModel.setUnitOfTime("h");
+			assertEquals(5.4E8, exampleModel.calculateTimeToNanoseconds(),
 					"\nDie errechnete Zeit stimmt " + "nicht mit dem zu erwartenden Wert ueberein.");
 		}
 
 		@DisplayName("Einfacher Test von berechneZeitInNanosekunden, Teil 5 ")
 		@Test
 		void testCalculateTimeInNanosecondsFive() {
-			Double[] bspZeit = { 0.0000004 };
-			Jungle bspDschungel = new Jungle(3, 4, "asdertg", 1);
-			IModel bspModell = new ProblemModel(bspDschungel, null, bspZeit);
-			bspModell.setUnitOfTime("d");
-			assertEquals(3.456E7, bspModell.calculateTimeToNanoseconds(),
+			Double[] exampleTime = { 0.0000004 };
+			Jungle exampleJungle = new Jungle(3, 4, "asdertg", 1);
+			IModel exampleModel = new ProblemModel(exampleJungle, null, exampleTime);
+			exampleModel.setUnitOfTime("d");
+			assertEquals(3.456E7, exampleModel.calculateTimeToNanoseconds(),
 					"\nDie errechnete Zeit stimmt " + "nicht mit dem zu erwartenden Wert ueberein.");
 		}
 
 		@DisplayName("Einfacher Test von berechneZeitInModellEinheit, Teil 1 ")
 		@Test
 		void testCalculateTimeInUnitOfModelOne() {
-			Double[] bspZeit = { 3.0 };
-			Jungle bspDschungel = new Jungle(3, 4, "asdertg", 1);
-			IModel bspModell = new ProblemModel(bspDschungel, null, bspZeit);
-			assertEquals(23.413434134, bspModell.calculateTimeInUnitGivenByModel((long) 23413434134.0),
+			Double[] exampleTime = { 3.0 };
+			Jungle exampleJungle = new Jungle(3, 4, "asdertg", 1);
+			IModel exampleModel = new ProblemModel(exampleJungle, null, exampleTime);
+			assertEquals(23.413434134, exampleModel.calculateTimeInUnitGivenByModel((long) 23413434134.0),
 					"\nDie errechnete Zeit stimmt " + "nicht mit dem zu erwartenden Wert ueberein.");
 		}
 
 		@DisplayName("Einfacher Test von berechneZeitInModellEinheit, Teil 2 ")
 		@Test
 		void testCalculateTimeInUnitOfModelTwo() {
-			Double[] bspZeit = { 2500.0 };
-			Jungle bspDschungel = new Jungle(3, 4, "asdertg", 1);
-			IModel bspModell = new ProblemModel(bspDschungel, null, bspZeit);
-			bspModell.setUnitOfTime("ms");
-			assertEquals(23413.434134, bspModell.calculateTimeInUnitGivenByModel((long) 23413434134.0),
+			Double[] exampleTime = { 2500.0 };
+			Jungle exampleJungle = new Jungle(3, 4, "asdertg", 1);
+			IModel exampleModel = new ProblemModel(exampleJungle, null, exampleTime);
+			exampleModel.setUnitOfTime("ms");
+			assertEquals(23413.434134, exampleModel.calculateTimeInUnitGivenByModel((long) 23413434134.0),
 					"\nDie errechnete Zeit stimmt " + "nicht mit dem zu erwartenden Wert ueberein.");
 		}
 
 		@DisplayName("Einfacher Test von berechneZeitInModellEinheit, Teil 3 ")
 		@Test
 		void testCalculateTimeInUnitOfModelThree() {
-			Double[] bspZeit = { 0.03 };
-			Jungle bspDschungel = new Jungle(3, 4, "asdertg", 1);
-			IModel bspModell = new ProblemModel(bspDschungel, null, bspZeit);
-			bspModell.setUnitOfTime("min");
-			assertEquals(0.3902239022333333, bspModell.calculateTimeInUnitGivenByModel((long) 23413434134.0),
+			Double[] exampleTime = { 0.03 };
+			Jungle exampleJungle = new Jungle(3, 4, "asdertg", 1);
+			IModel exampleModel = new ProblemModel(exampleJungle, null, exampleTime);
+			exampleModel.setUnitOfTime("min");
+			assertEquals(0.3902239022333333, exampleModel.calculateTimeInUnitGivenByModel((long) 23413434134.0),
 					"\nDie errechnete Zeit stimmt " + "nicht mit dem zu erwartenden Wert ueberein.");
 		}
 
 		@DisplayName("Einfacher Test von berechneZeitInModellEinheit, Teil 4 ")
 		@Test
 		void testCalculateTimeInUnitOfModelFour() {
-			Double[] bspZeit = { 0.00015 };
-			Jungle bspDschungel = new Jungle(3, 4, "asdertg", 1);
-			IModel bspModell = new ProblemModel(bspDschungel, null, bspZeit);
-			bspModell.setUnitOfTime("h");
-			assertEquals(0.006503731703888889, bspModell.calculateTimeInUnitGivenByModel((long) 23413434134.0),
+			Double[] exampleTime = { 0.00015 };
+			Jungle exampleJungle = new Jungle(3, 4, "asdertg", 1);
+			IModel exampleModel = new ProblemModel(exampleJungle, null, exampleTime);
+			exampleModel.setUnitOfTime("h");
+			assertEquals(0.006503731703888889, exampleModel.calculateTimeInUnitGivenByModel((long) 23413434134.0),
 					"\nDie errechnete Zeit stimmt " + "nicht mit dem zu erwartenden Wert ueberein.");
 		}
 
 		@DisplayName("Einfacher Test von berechneZeitInModellEinheit, Teil 5 ")
 		@Test
 		void testCalculateTimeInUnitOfModelFive() {
-			Double[] bspZeit = { 0.0000004 };
-			Jungle bspDschungel = new Jungle(3, 4, "asdertg", 1);
-			IModel bspModell = new ProblemModel(bspDschungel, null, bspZeit);
-			bspModell.setUnitOfTime("d");
-			assertEquals(2.709888209953704E-4, bspModell.calculateTimeInUnitGivenByModel((long) 23413434134.0),
+			Double[] exampleTime = { 0.0000004 };
+			Jungle exampleJungle = new Jungle(3, 4, "asdertg", 1);
+			IModel exampleModel = new ProblemModel(exampleJungle, null, exampleTime);
+			exampleModel.setUnitOfTime("d");
+			assertEquals(2.709888209953704E-4, exampleModel.calculateTimeInUnitGivenByModel((long) 23413434134.0),
 					"\nDie errechnete Zeit stimmt " + "nicht mit dem zu erwartenden Wert ueberein.");
 		}
 
 		@DisplayName("Einfacher Test von setZeiteinheit, Teil 1 ")
 		@Test
 		void testSetTimeUnitOne() {
-			Double[] bspZeit = { 0.0000004 };
-			Jungle bspDschungel = new Jungle(3, 4, "asdertg", 1);
-			IModel bspModell = new ProblemModel(bspDschungel, null, bspZeit);
-			bspModell.setUnitOfTime("d");
-			assertEquals("d", bspModell.getUnitOfTime(), "\nDie Zeiteinheit entspricht nicht dem erwarteten Wert.");
+			Double[] exampleTime = { 0.0000004 };
+			Jungle exampleJungle = new Jungle(3, 4, "asdertg", 1);
+			IModel exampleModel = new ProblemModel(exampleJungle, null, exampleTime);
+			exampleModel.setUnitOfTime("d");
+			assertEquals("d", exampleModel.getUnitOfTime(), "\nDie Zeiteinheit entspricht nicht dem erwarteten Wert.");
 		}
 
 		@DisplayName("Einfacher Test von setZeiteinheit, Teil 2 ")
 		@Test
 		void testSetTimeUnitTwo() {
-			Double[] bspZeit = { 0.0000004 };
-			Jungle bspDschungel = new Jungle(3, 4, "asdertg", 1);
-			IModel bspModell = new ProblemModel(bspDschungel, null, bspZeit);
-			assertThrows(Exception.class, () -> bspModell.setUnitOfTime("falsch"),
+			Double[] exampleTime = { 0.0000004 };
+			Jungle exampleJungle = new Jungle(3, 4, "asdertg", 1);
+			IModel exampleModel = new ProblemModel(exampleJungle, null, exampleTime);
+			assertThrows(Exception.class, () -> exampleModel.setUnitOfTime("falsch"),
 					"\nEs wird eine ungueltige Zeiteinheit gesetzt aber es wird keine Ausnahme ausgeloest.");
 		}
 	}
@@ -272,10 +272,10 @@ class ProblemModelTest {
 		@DisplayName("Parameterisierter positiver Test fuer Konstruktor und getZeit mit einem Eintrag.")
 		@ParameterizedTest
 		@MethodSource("generatePositiveParametervaluesDouble")
-		void testConstructorAndGetTimePositiveOneParameter(Double zeit) {
-			Double[] bspDouble = { zeit };
-			ProblemModel modell = new ProblemModel(exampleJungle, exampleSolution, bspDouble);
-			assertArrayEquals(modell.getTime(), bspDouble,
+		void testConstructorAndGetTimePositiveOneParameter(Double time) {
+			Double[] exampleTime = { time };
+			ProblemModel model = new ProblemModel(exampleJungle, exampleSolution, exampleTime);
+			assertArrayEquals(model.getTime(), exampleTime,
 					"\nEiner oder mehrere der uebergebenen Werte stimmen nicht mit den Werten ueberein, "
 							+ "die mit getZeit() erhalten werden.");
 		}
@@ -283,10 +283,10 @@ class ProblemModelTest {
 		@DisplayName("Parameterisierter positiver Test fuer Konstruktor und getZeit mit zwei Eintraegen.")
 		@ParameterizedTest
 		@MethodSource("generatePositiveParametervaluesDouble")
-		void testConstructorAndGetTimePositiveTwoParameters(Double zeit) {
-			Double[] bspDouble = { zeit, zeit + 3.874 };
-			ProblemModel modell = new ProblemModel(exampleJungle, exampleSolution, bspDouble);
-			assertArrayEquals(modell.getTime(), bspDouble,
+		void testConstructorAndGetTimePositiveTwoParameters(Double time) {
+			Double[] exampleTime = { time, time + 3.874 };
+			ProblemModel model = new ProblemModel(exampleJungle, exampleSolution, exampleTime);
+			assertArrayEquals(model.getTime(), exampleTime,
 					"\nEiner oder mehrere der uebergebenen Werte stimmen nicht mit den Werten ueberein, "
 							+ "die mit getZeit() erhalten werden.");
 		}
@@ -294,62 +294,62 @@ class ProblemModelTest {
 		@DisplayName("Parameterisierter positiver Test fuer Konstruktor und getZeit mit einem Eintrag.")
 		@ParameterizedTest
 		@MethodSource("generateNegativeParametervaluesDouble")
-		void testConstructorAndGetTimeNegativeOneParameter(Double zeit) {
-			Double[] bspDouble = { zeit };
-			assertThrows(IllegalArgumentException.class, () -> new ProblemModel(exampleJungle, exampleSolution, bspDouble),
+		void testConstructorAndGetTimeNegativeOneParameter(Double time) {
+			Double[] exampleTime = { time };
+			assertThrows(IllegalArgumentException.class, () -> new ProblemModel(exampleJungle, exampleSolution, exampleTime),
 					() -> "\nEin oder mehrere Eintraege in 'zeit' sind negativ und es wird keine Ausnahme ausgeloest.");
 		}
 
 		@DisplayName("Parameterisierter positiver Test fuer Konstruktor und getZeit mit zwei Eintraegen.")
 		@ParameterizedTest
 		@MethodSource("generateNegativeParametervaluesDouble")
-		void testConstructorAndGetTimeNegativeTwoParameters(Double zeit) {
-			Double[] bspDouble = { zeit, zeit + 3.874 };
-			assertThrows(IllegalArgumentException.class, () -> new ProblemModel(exampleJungle, exampleSolution, bspDouble),
+		void testConstructorAndGetTimeNegativeTwoParameters(Double time) {
+			Double[] exampleTime = { time, time + 3.874 };
+			assertThrows(IllegalArgumentException.class, () -> new ProblemModel(exampleJungle, exampleSolution, exampleTime),
 					() -> "\nEin oder mehrere Eintraege in 'zeit' sind negativ und es wird keine Ausnahme ausgeloest.");
 		}
 
 		@DisplayName("Parametrisierter positiver Test von setZeit().")
 		@ParameterizedTest
 		@MethodSource("generatePositiveParametervaluesDouble")
-		void testSetTimePositive(Double zeit) {
-			Double[] bspZeit = { zeit };
-			IModel bspModell = new ProblemModel(exampleJungle, exampleSolution, bspZeit);
-			assertEquals(zeit, bspModell.getTime()[0],
-					"\nDer gegebene Wert fuer 'zeit' ('" + zeit
+		void testSetTimePositive(Double time) {
+			Double[] exampleTime = { time };
+			IModel exampleModel = new ProblemModel(exampleJungle, exampleSolution, exampleTime);
+			assertEquals(time, exampleModel.getTime()[0],
+					"\nDer gegebene Wert fuer 'zeit' ('" + time
 							+ "') entspricht nicht dem erhaltenen Wert fuer 'zeit', denn der ist '"
-							+ bspModell.getTime()[0] + "'.");
+							+ exampleModel.getTime()[0] + "'.");
 		}
 
 		@DisplayName("Parametrisierter positiver Test von setZeit() mit zwei Eintraegen.")
 		@ParameterizedTest
 		@MethodSource("generatePositiveParametervaluesDouble")
-		void testSetTimePositiveWithTwoParameters(Double zeit) {
-			Double[] bspZeit = { zeit, zeit + 4.5 };
-			IModel bspModell = new ProblemModel(exampleJungle, exampleSolution, bspZeit);
-			assertArrayEquals(bspZeit, bspModell.getTime(),
+		void testSetTimePositiveWithTwoParameters(Double time) {
+			Double[] exampleTime = { time, time + 4.5 };
+			IModel exampleModel = new ProblemModel(exampleJungle, exampleSolution, exampleTime);
+			assertArrayEquals(exampleTime, exampleModel.getTime(),
 					"\nDer gegebene Wert fuer 'zeit' entspricht nicht dem erhaltenen Wert fuer 'zeit'.");
 		}
 
 		@DisplayName("Parametrisierter negativer Test von setZeit().")
 		@ParameterizedTest
 		@MethodSource("generateNegativeParametervaluesDouble")
-		void testSetTimeNegative(Double zeit) {
-			Double[] initZeit = { 0.0 };
-			Double[] bspZeit = { zeit };
+		void testSetTimeNegative(Double time) {
+			Double[] initTime = { 0.0 };
+			Double[] exampleTime = { time };
 			assertThrows(IllegalArgumentException.class,
-					() -> new ProblemModel(exampleJungle, exampleSolution, initZeit).setTime(bspZeit),
+					() -> new ProblemModel(exampleJungle, exampleSolution, initTime).setTime(exampleTime),
 					() -> "\nFuer einen oder mehrere negative Werte in 'zeit' wird keine Ausnahme erzeugt.");
 		}
 
 		@DisplayName("Parametrisierter negativer Test von setZeit().")
 		@ParameterizedTest
 		@MethodSource("generateNegativeParametervaluesDouble")
-		void testSetTimeNegativeWithTwoParameters(Double zeit) {
-			Double[] initZeit = { 0.0 };
-			Double[] bspZeit = { zeit, zeit - 3.4 };
+		void testSetTimeNegativeWithTwoParameters(Double time) {
+			Double[] initTime = { 0.0 };
+			Double[] exampleTime = { time, time - 3.4 };
 			assertThrows(IllegalArgumentException.class,
-					() -> new ProblemModel(exampleJungle, exampleSolution, initZeit).setTime(bspZeit),
+					() -> new ProblemModel(exampleJungle, exampleSolution, initTime).setTime(exampleTime),
 					() -> "\nFuer einen oder mehrere negative Werte in 'zeit' wird keine Ausnahme erzeugt.");
 		}
 	}

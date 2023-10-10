@@ -16,11 +16,11 @@ public class ViewText implements IView {
 	 * Ein parametrisierter Konstruktor fuer die Klasse DarstellungTextausgabe dem
 	 * direkt das darzustellende Modell uebergeben wird.
 	 * 
-	 * @param darzustellendesModell Das Modell, das dargestellt werden soll.
+	 * @param modelToBeViewed Das Modell, das dargestellt werden soll.
 	 */
-	public ViewText(IModel darzustellendesModell) {
+	public ViewText(IModel modelToBeViewed) {
 		super();
-		this.modelToBeViewed = darzustellendesModell;
+		this.modelToBeViewed = modelToBeViewed;
 	}
 
 	/**
@@ -48,10 +48,10 @@ public class ViewText implements IView {
 	 * parameterlose Konstruktor genutzt wurde. Es ist auch im Allgemeinen moeglich
 	 * das Modell nach Instanziierung der Klasse zu aendern.
 	 * 
-	 * @param darzustellendesModell Das Modell, das uebergeben werden soll.
+	 * @param modelToBeViewed Das Modell, das uebergeben werden soll.
 	 */
-	public void setModelToBeViewed(IModel darzustellendesModell) {
-		this.modelToBeViewed = darzustellendesModell;
+	public void setModelToBeViewed(IModel modelToBeViewed) {
+		this.modelToBeViewed = modelToBeViewed;
 	}
 
 	@Override

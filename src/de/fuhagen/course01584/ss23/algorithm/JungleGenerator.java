@@ -164,12 +164,12 @@ public class JungleGenerator {
 		}
 	}
 
-	private void placeSnakeElement(Field vorherigesFeld, int gliedIndex) {
+	private void placeSnakeElement(Field previousField, int elementIndex) {
 		/*
 		 * Ist die Schlange vollstaendig verteilt, wird versucht die naechste Schlange
 		 * zu verteilen.
 		 */
-		if (gliedIndex == currentType.getSigns().length()) {
+		if (elementIndex == currentType.getSigns().length()) {
 			placeSnake();
 			return;
 		}
@@ -180,11 +180,11 @@ public class JungleGenerator {
 		 * die Felder im Dschungel wieder freigegeben und es wird in 'platziereSchlange'
 		 * zurueckgekehrt.
 		 */
-		List<Field> validNeighborFields = createValidNeighbors(vorherigesFeld);
+		List<Field> validNeighborFields = createValidNeighbors(previousField);
 		for (Field neighborField : validNeighborFields) {
 			jungle.getFields()[neighborField.getRow()][neighborField.getColumn()]
-					.setCharacter(currentType.getSigns().substring(gliedIndex, gliedIndex + 1));
-			placeSnakeElement(neighborField, gliedIndex + 1);
+					.setCharacter(currentType.getSigns().substring(elementIndex, elementIndex + 1));
+			placeSnakeElement(neighborField, elementIndex + 1);
 			if (System.nanoTime() - currentTime > 10000000000.0 || full == true) {
 				if (full == false) {
 					this.failed = true;
@@ -201,17 +201,17 @@ public class JungleGenerator {
 	 * Die leeren Felder eines Dschungel werden mit Zeichen ausgefuellt, die
 	 * zufaellig aus der Zeichenmenge des Dschungels ausgewaehlt werden.
 	 * 
-	 * @param dschungel Der Dschungel, in dem die leeren Felder ausgefuellt werden
+	 * @param jungle Der Dschungel, in dem die leeren Felder ausgefuellt werden
 	 *                  sollen.
 	 */
-	private void fillRestOfJungle(Jungle dschungel) {
-		for (int i = 0; i < dschungel.getRows(); i++) {
-			for (int j = 0; j < dschungel.getColumns(); j++) {
-				if (dschungel.getFields()[i][j].getCharacter() == null) {
-					if (dschungel.getSigns().equals("")) {
+	private void fillRestOfJungle(Jungle jungle) {
+		for (int i = 0; i < jungle.getRows(); i++) {
+			for (int j = 0; j < jungle.getColumns(); j++) {
+				if (jungle.getFields()[i][j].getCharacter() == null) {
+					if (jungle.getSigns().equals("")) {
 					} else {
-						int rand = new Random().nextInt(0, dschungel.getSigns().length());
-						dschungel.getFields()[i][j].setCharacter(dschungel.getSigns().substring(rand, rand + 1));
+						int rand = new Random().nextInt(0, jungle.getSigns().length());
+						jungle.getFields()[i][j].setCharacter(jungle.getSigns().substring(rand, rand + 1));
 					}
 				}
 			}
@@ -235,7 +235,7 @@ public class JungleGenerator {
 		return validSnakeTypes;
 	}
 
-	private List<Field> createValidNeighbors(Field vorherigesFeld) {
+	private List<Field> createValidNeighbors(Field previousField) {
 		/*
 		 * Es werden alle Nachbarn des letzten Feldes bestimmt, wobei die Anordnung der
 		 * Nachbarn im Dschungel immer auf der Nachbarschaftsstruktur der aktuellen
@@ -243,7 +243,7 @@ public class JungleGenerator {
 		 * zufaellige Verteilung zu garantieren.
 		 */
 		List<Field> validNeighborFields = new ArrayList<Field>();
-		for (Field neighborField : currentType.getStructure().getNeighbors(jungle, vorherigesFeld)) {
+		for (Field neighborField : currentType.getStructure().getNeighbors(jungle, previousField)) {
 			if (neighborField.getCharacter() == null) {
 				validNeighborFields.add(neighborField);
 			}

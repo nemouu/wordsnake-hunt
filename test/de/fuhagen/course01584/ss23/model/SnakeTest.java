@@ -25,20 +25,20 @@ class SnakeTest {
 
 	@BeforeAll
 	static void setUp() {
-		SnakeElement glied1 = new SnakeElement(new Field(0, 1, 2));
-		SnakeElement glied2 = new SnakeElement(new Field(0, 3, 1));
-		SnakeElement glied3 = new SnakeElement(new Field(0, 4, 1));
-		SnakeElement glied4 = new SnakeElement(new Field(1, 3, 1));
-		SnakeElement glied5 = new SnakeElement(new Field(0, 6, 1));
-		SnakeElement glied6 = new SnakeElement(new Field(1, 5, 1));
-		List<SnakeElement> glieder = new ArrayList<SnakeElement>();
-		glieder.add(glied1);
-		glieder.add(glied2);
-		glieder.add(glied3);
-		glieder.add(glied4);
-		glieder.add(glied5);
-		glieder.add(glied6);
-		exampleSnake = new Snake(new SnakeType("A0", new DistanceNeighborhood(), "HALLOS", 3, 1), glieder);
+		SnakeElement element1 = new SnakeElement(new Field(0, 1, 2));
+		SnakeElement element2 = new SnakeElement(new Field(0, 3, 1));
+		SnakeElement element3 = new SnakeElement(new Field(0, 4, 1));
+		SnakeElement element4 = new SnakeElement(new Field(1, 3, 1));
+		SnakeElement element5 = new SnakeElement(new Field(0, 6, 1));
+		SnakeElement element6 = new SnakeElement(new Field(1, 5, 1));
+		List<SnakeElement> elements = new ArrayList<SnakeElement>();
+		elements.add(element1);
+		elements.add(element2);
+		elements.add(element3);
+		elements.add(element4);
+		elements.add(element5);
+		elements.add(element6);
+		exampleSnake = new Snake(new SnakeType("A0", new DistanceNeighborhood(), "HALLOS", 3, 1), elements);
 	}
 
 	@DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
@@ -47,76 +47,72 @@ class SnakeTest {
 		@DisplayName("Einfacher Test von naechstesGlied, Teil 1.")
 		@Test
 		void testCharacterOfNextElementOne() {
-			SnakeElement glied1 = new SnakeElement(new Field(0, 1, 2));
-			SnakeElement glied2 = new SnakeElement(new Field(0, 3, 1));
-			SnakeElement glied3 = new SnakeElement(new Field(0, 4, 1));
-			SnakeElement glied4 = new SnakeElement(new Field(1, 3, 1));
-			List<SnakeElement> glieder1 = new ArrayList<SnakeElement>();
-			glieder1.add(glied1);
-			glieder1.add(glied2);
-			glieder1.add(glied3);
-			glieder1.add(glied4);
-			Snake bspSchlange = new Snake(new SnakeType("A0", new DistanceNeighborhood(), "HALLOS", 3, 1),
-					glieder1);
-			assertEquals("O", bspSchlange.characterOfNextElement(),
+			SnakeElement element1 = new SnakeElement(new Field(0, 1, 2));
+			SnakeElement element2 = new SnakeElement(new Field(0, 3, 1));
+			SnakeElement element3 = new SnakeElement(new Field(0, 4, 1));
+			SnakeElement element4 = new SnakeElement(new Field(1, 3, 1));
+			List<SnakeElement> elements = new ArrayList<SnakeElement>();
+			elements.add(element1);
+			elements.add(element2);
+			elements.add(element3);
+			elements.add(element4);
+			Snake exampleSnake = new Snake(new SnakeType("A0", new DistanceNeighborhood(), "HALLOS", 3, 1), elements);
+			assertEquals("O", exampleSnake.characterOfNextElement(),
 					"\nDas ausgegebene naechste Glied stimmt nicht mit dem tatsaechlichen naechsten Glied ueberein.");
 		}
 
 		@DisplayName("Einfacher Test von naechstesGlied, Teil 2.")
 		@Test
 		void testCharacterOfNextElementTwo() {
-			SnakeElement glied1 = new SnakeElement(new Field(0, 1, 2));
-			SnakeElement glied2 = new SnakeElement(new Field(0, 3, 1));
-			SnakeElement glied3 = new SnakeElement(new Field(0, 4, 1));
-			List<SnakeElement> glieder1 = new ArrayList<SnakeElement>();
-			glieder1.add(glied1);
-			glieder1.add(glied2);
-			glieder1.add(glied3);
-			Snake bspSchlange = new Snake(new SnakeType("A0", new DistanceNeighborhood(), "HALLOS", 3, 1),
-					glieder1);
-			assertEquals("L", bspSchlange.characterOfNextElement(),
+			SnakeElement element1 = new SnakeElement(new Field(0, 1, 2));
+			SnakeElement element2 = new SnakeElement(new Field(0, 3, 1));
+			SnakeElement element3 = new SnakeElement(new Field(0, 4, 1));
+			List<SnakeElement> elements = new ArrayList<SnakeElement>();
+			elements.add(element1);
+			elements.add(element2);
+			elements.add(element3);
+			Snake exampleSnake = new Snake(new SnakeType("A0", new DistanceNeighborhood(), "HALLOS", 3, 1), elements);
+			assertEquals("L", exampleSnake.characterOfNextElement(),
 					"\nDas ausgegebene naechste Glied stimmt nicht mit dem tatsaechlichen naechsten Glied ueberein.");
 		}
 
 		@DisplayName("Einfacher Test von naechstesGlied, Teil 3.")
 		@Test
 		void testCharacterOfNextElementThree() {
-			SnakeElement glied1 = new SnakeElement(new Field(0, 1, 2));
-			SnakeElement glied2 = new SnakeElement(new Field(0, 3, 1));
-			SnakeElement glied3 = new SnakeElement(new Field(0, 4, 1));
-			SnakeElement glied4 = new SnakeElement(new Field(1, 3, 1));
-			SnakeElement glied5 = new SnakeElement(new Field(0, 6, 1));
-			List<SnakeElement> glieder1 = new ArrayList<SnakeElement>();
-			glieder1.add(glied1);
-			glieder1.add(glied2);
-			glieder1.add(glied3);
-			glieder1.add(glied4);
-			glieder1.add(glied5);
-			Snake bspSchlange = new Snake(new SnakeType("A0", new DistanceNeighborhood(), "HALLOS", 3, 1),
-					glieder1);
-			assertEquals("S", bspSchlange.characterOfNextElement(),
+			SnakeElement element1 = new SnakeElement(new Field(0, 1, 2));
+			SnakeElement element2 = new SnakeElement(new Field(0, 3, 1));
+			SnakeElement element3 = new SnakeElement(new Field(0, 4, 1));
+			SnakeElement element4 = new SnakeElement(new Field(1, 3, 1));
+			SnakeElement element5 = new SnakeElement(new Field(0, 6, 1));
+			List<SnakeElement> elements = new ArrayList<SnakeElement>();
+			elements.add(element1);
+			elements.add(element2);
+			elements.add(element3);
+			elements.add(element4);
+			elements.add(element5);
+			Snake exampleSnake = new Snake(new SnakeType("A0", new DistanceNeighborhood(), "HALLOS", 3, 1), elements);
+			assertEquals("S", exampleSnake.characterOfNextElement(),
 					"\nDas ausgegebene naechste Glied stimmt nicht mit dem tatsaechlichen naechsten Glied ueberein.");
 		}
 
 		@DisplayName("Einfacher Test von naechstesGlied, Teil 4.")
 		@Test
 		void testCharacterOfNextElementFour() {
-			SnakeElement glied1 = new SnakeElement(new Field(0, 1, 2));
-			SnakeElement glied2 = new SnakeElement(new Field(0, 3, 1));
-			SnakeElement glied3 = new SnakeElement(new Field(0, 4, 1));
-			SnakeElement glied4 = new SnakeElement(new Field(1, 3, 1));
-			SnakeElement glied5 = new SnakeElement(new Field(0, 6, 1));
-			SnakeElement glied6 = new SnakeElement(new Field(1, 5, 1));
-			List<SnakeElement> glieder = new ArrayList<SnakeElement>();
-			glieder.add(glied1);
-			glieder.add(glied2);
-			glieder.add(glied3);
-			glieder.add(glied4);
-			glieder.add(glied5);
-			glieder.add(glied6);
-			Snake bspSchlange = new Snake(new SnakeType("A0", new DistanceNeighborhood(), "HALLOS", 3, 1),
-					glieder);
-			assertEquals("", bspSchlange.characterOfNextElement(),
+			SnakeElement element1 = new SnakeElement(new Field(0, 1, 2));
+			SnakeElement element2 = new SnakeElement(new Field(0, 3, 1));
+			SnakeElement element3 = new SnakeElement(new Field(0, 4, 1));
+			SnakeElement element4 = new SnakeElement(new Field(1, 3, 1));
+			SnakeElement element5 = new SnakeElement(new Field(0, 6, 1));
+			SnakeElement element6 = new SnakeElement(new Field(1, 5, 1));
+			List<SnakeElement> elements = new ArrayList<SnakeElement>();
+			elements.add(element1);
+			elements.add(element2);
+			elements.add(element3);
+			elements.add(element4);
+			elements.add(element5);
+			elements.add(element6);
+			Snake exampleSnake = new Snake(new SnakeType("A0", new DistanceNeighborhood(), "HALLOS", 3, 1), elements);
+			assertEquals("", exampleSnake.characterOfNextElement(),
 					"\nDas ausgegebene naechste Glied stimmt nicht mit dem tatsaechlichen naechsten Glied ueberein.");
 		}
 
@@ -139,9 +135,9 @@ class SnakeTest {
 		@DisplayName("Einfacher Test von entferneLetztesGlied, Teil 2")
 		@Test
 		void testRemoveLastElementTwo() {
-			Snake bspSchlange = new Snake();
-			bspSchlange.removeLastElement();
-			assertEquals(0, bspSchlange.getElements().size(),
+			Snake exampleSnake2 = new Snake();
+			exampleSnake2.removeLastElement();
+			assertEquals(0, exampleSnake2.getElements().size(),
 					"\nDie Schlange hat nicht die gewuenschte Anzahl Glieder. Es sollte ein Glied weniger sein also vorher "
 							+ "(also 5) aber es wurde " + exampleSnake.getElements().size() + " ausgegeben.");
 		}

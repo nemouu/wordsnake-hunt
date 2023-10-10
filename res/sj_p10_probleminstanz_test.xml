@@ -3,7 +3,7 @@
 <Schlangenjagd>
   <Zeit einheit="d">
     <Vorgabe>2.0E-4</Vorgabe>
-    <Abgabe>2.000001092361111E-4</Abgabe>
+    <Abgabe>2.0000013253472222E-4</Abgabe>
   </Zeit>
   <Dschungel zeilen="6" spalten="6" zeichen="BELN">
     <Feld id="F0" zeile="0" spalte="0" verwendbarkeit="1" punkte="5">L</Feld>

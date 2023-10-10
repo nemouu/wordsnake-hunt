@@ -33,11 +33,11 @@ class DistanceNeighborhoodTest {
 		@Test
 		void testSetParameters() {
 			int param = 5;
-			INeighborhood distanzNachb = new DistanceNeighborhood(4);
+			INeighborhood distanceNeighborhood = new DistanceNeighborhood(4);
 			List<Integer> paramList = new ArrayList<Integer>();
 			paramList.add(param);
-			distanzNachb.setParameters(paramList);
-			assertEquals(5, distanzNachb.getParameters().get(0), "\nDer Parameter '" + distanzNachb.getParameters().get(0)
+			distanceNeighborhood.setParameters(paramList);
+			assertEquals(5, distanceNeighborhood.getParameters().get(0), "\nDer Parameter '" + distanceNeighborhood.getParameters().get(0)
 					+ "' entspricht nicht dem vorgegebenen Wert '" + param + "'.");
 		}
 
@@ -90,42 +90,42 @@ class DistanceNeighborhoodTest {
 		@DisplayName("Test fuer getNachbarn mit Parameter 1 in der Mitte.")
 		@Test
 		void testNeighborsWithParameterOneMiddle() {
-			INeighborhood bspNachb = new DistanceNeighborhood(1);
-			Field zuTestendesFeld = exampleJungle.getFields()[4][5];
-			HashSet<Field> nachbarFelder = new HashSet<Field>();
-			nachbarFelder.add(exampleJungle.getFields()[3][4]);
-			nachbarFelder.add(exampleJungle.getFields()[3][5]);
-			nachbarFelder.add(exampleJungle.getFields()[3][6]);
-			nachbarFelder.add(exampleJungle.getFields()[4][4]);
-			nachbarFelder.add(exampleJungle.getFields()[4][6]);
-			nachbarFelder.add(exampleJungle.getFields()[5][4]);
-			nachbarFelder.add(exampleJungle.getFields()[5][5]);
-			nachbarFelder.add(exampleJungle.getFields()[5][6]);
-			assertEquals(nachbarFelder.size(), bspNachb.getNeighbors(exampleJungle, zuTestendesFeld).size(),
+			INeighborhood distanceNeighborhood = new DistanceNeighborhood(1);
+			Field fieldToBeTested = exampleJungle.getFields()[4][5];
+			HashSet<Field> neighborFields = new HashSet<Field>();
+			neighborFields.add(exampleJungle.getFields()[3][4]);
+			neighborFields.add(exampleJungle.getFields()[3][5]);
+			neighborFields.add(exampleJungle.getFields()[3][6]);
+			neighborFields.add(exampleJungle.getFields()[4][4]);
+			neighborFields.add(exampleJungle.getFields()[4][6]);
+			neighborFields.add(exampleJungle.getFields()[5][4]);
+			neighborFields.add(exampleJungle.getFields()[5][5]);
+			neighborFields.add(exampleJungle.getFields()[5][6]);
+			assertEquals(neighborFields.size(), distanceNeighborhood.getNeighbors(exampleJungle, fieldToBeTested).size(),
 					"\nDie erhaltene Liste hat die Groesse "
-							+ bspNachb.getNeighbors(exampleJungle, zuTestendesFeld).size()
-							+ " aber es wurde eine Liste mit Groesse " + nachbarFelder.size() + " erwartet.");
-			assertTrue(nachbarFelder.containsAll(bspNachb.getNeighbors(exampleJungle, zuTestendesFeld)),
+							+ distanceNeighborhood.getNeighbors(exampleJungle, fieldToBeTested).size()
+							+ " aber es wurde eine Liste mit Groesse " + neighborFields.size() + " erwartet.");
+			assertTrue(neighborFields.containsAll(distanceNeighborhood.getNeighbors(exampleJungle, fieldToBeTested)),
 					"\nDie erhaltene Liste enthaelt nicht alle oder keine Elemente der erwarteten Liste.");
-			assertTrue(bspNachb.getNeighbors(exampleJungle, zuTestendesFeld).containsAll(nachbarFelder),
+			assertTrue(distanceNeighborhood.getNeighbors(exampleJungle, fieldToBeTested).containsAll(neighborFields),
 					"\nDie erhaltene Liste enthaelt nicht alle oder keine Elemente der erwarteten Liste.");
 		}
 
 		@DisplayName("Test fuer getNachbarn mit Parameter 1 in der linken oberen Ecke.")
 		@Test
 		void testNeighborsWithParameterOneTopLeftCorner() {
-			Field zuTestendesFeld = exampleJungle.getFields()[0][0];
-			HashSet<Field> nachbarFelder = new HashSet<Field>();
-			nachbarFelder.add(exampleJungle.getFields()[0][1]);
-			nachbarFelder.add(exampleJungle.getFields()[1][0]);
-			nachbarFelder.add(exampleJungle.getFields()[1][1]);
-			assertEquals(nachbarFelder.size(), exampleNeighborhood.getNeighbors(exampleJungle, zuTestendesFeld).size(),
+			Field fieldToBeTested = exampleJungle.getFields()[0][0];
+			HashSet<Field> neighborFields = new HashSet<Field>();
+			neighborFields.add(exampleJungle.getFields()[0][1]);
+			neighborFields.add(exampleJungle.getFields()[1][0]);
+			neighborFields.add(exampleJungle.getFields()[1][1]);
+			assertEquals(neighborFields.size(), exampleNeighborhood.getNeighbors(exampleJungle, fieldToBeTested).size(),
 					"\nDie erhaltene Liste hat die Groesse "
-							+ exampleNeighborhood.getNeighbors(exampleJungle, zuTestendesFeld).size()
-							+ " aber es wurde eine Liste mit Groesse " + nachbarFelder.size() + " erwartet.");
-			assertTrue(nachbarFelder.containsAll(exampleNeighborhood.getNeighbors(exampleJungle, zuTestendesFeld)),
+							+ exampleNeighborhood.getNeighbors(exampleJungle, fieldToBeTested).size()
+							+ " aber es wurde eine Liste mit Groesse " + neighborFields.size() + " erwartet.");
+			assertTrue(neighborFields.containsAll(exampleNeighborhood.getNeighbors(exampleJungle, fieldToBeTested)),
 					"\nDie erhaltene Liste enthaelt nicht alle oder keine Elemente der erwarteten Liste.");
-			assertTrue(exampleNeighborhood.getNeighbors(exampleJungle, zuTestendesFeld).containsAll(nachbarFelder),
+			assertTrue(exampleNeighborhood.getNeighbors(exampleJungle, fieldToBeTested).containsAll(neighborFields),
 					"\nDie erhaltene Liste enthaelt nicht alle oder keine Elemente der erwarteten Liste.");
 		}
 
@@ -133,18 +133,18 @@ class DistanceNeighborhoodTest {
 
 		@Test
 		void testNeighborsWithParameterOneTopRightCorner() {
-			Field zuTestendesFeld = exampleJungle.getFields()[0][7];
-			HashSet<Field> nachbarFelder = new HashSet<Field>();
-			nachbarFelder.add(exampleJungle.getFields()[0][6]);
-			nachbarFelder.add(exampleJungle.getFields()[1][6]);
-			nachbarFelder.add(exampleJungle.getFields()[1][7]);
-			assertEquals(nachbarFelder.size(), exampleNeighborhood.getNeighbors(exampleJungle, zuTestendesFeld).size(),
+			Field fieldToBeTested = exampleJungle.getFields()[0][7];
+			HashSet<Field> neighborFields = new HashSet<Field>();
+			neighborFields.add(exampleJungle.getFields()[0][6]);
+			neighborFields.add(exampleJungle.getFields()[1][6]);
+			neighborFields.add(exampleJungle.getFields()[1][7]);
+			assertEquals(neighborFields.size(), exampleNeighborhood.getNeighbors(exampleJungle, fieldToBeTested).size(),
 					"\nDie erhaltene Liste hat die Groesse "
-							+ exampleNeighborhood.getNeighbors(exampleJungle, zuTestendesFeld).size()
-							+ " aber es wurde eine Liste mit Groesse " + nachbarFelder.size() + " erwartet.");
-			assertTrue(nachbarFelder.containsAll(exampleNeighborhood.getNeighbors(exampleJungle, zuTestendesFeld)),
+							+ exampleNeighborhood.getNeighbors(exampleJungle, fieldToBeTested).size()
+							+ " aber es wurde eine Liste mit Groesse " + neighborFields.size() + " erwartet.");
+			assertTrue(neighborFields.containsAll(exampleNeighborhood.getNeighbors(exampleJungle, fieldToBeTested)),
 					"\nDie erhaltene Liste enthaelt nicht alle oder keine Elemente der erwarteten Liste.");
-			assertTrue(exampleNeighborhood.getNeighbors(exampleJungle, zuTestendesFeld).containsAll(nachbarFelder),
+			assertTrue(exampleNeighborhood.getNeighbors(exampleJungle, fieldToBeTested).containsAll(neighborFields),
 					"\nDie erhaltene Liste enthaelt nicht alle oder keine Elemente der erwarteten Liste.");
 		}
 
@@ -152,18 +152,18 @@ class DistanceNeighborhoodTest {
 
 		@Test
 		void testNeighborsWithParameterOneBottomLeftCorner() {
-			Field zuTestendesFeld = exampleJungle.getFields()[5][0];
-			HashSet<Field> nachbarFelder = new HashSet<Field>();
-			nachbarFelder.add(exampleJungle.getFields()[4][0]);
-			nachbarFelder.add(exampleJungle.getFields()[4][1]);
-			nachbarFelder.add(exampleJungle.getFields()[5][1]);
-			assertEquals(nachbarFelder.size(), exampleNeighborhood.getNeighbors(exampleJungle, zuTestendesFeld).size(),
+			Field fieldToBeTested = exampleJungle.getFields()[5][0];
+			HashSet<Field> neighborFields = new HashSet<Field>();
+			neighborFields.add(exampleJungle.getFields()[4][0]);
+			neighborFields.add(exampleJungle.getFields()[4][1]);
+			neighborFields.add(exampleJungle.getFields()[5][1]);
+			assertEquals(neighborFields.size(), exampleNeighborhood.getNeighbors(exampleJungle, fieldToBeTested).size(),
 					"\nDie erhaltene Liste hat die Groesse "
-							+ exampleNeighborhood.getNeighbors(exampleJungle, zuTestendesFeld).size()
-							+ " aber es wurde eine Liste mit Groesse " + nachbarFelder.size() + " erwartet.");
-			assertTrue(nachbarFelder.containsAll(exampleNeighborhood.getNeighbors(exampleJungle, zuTestendesFeld)),
+							+ exampleNeighborhood.getNeighbors(exampleJungle, fieldToBeTested).size()
+							+ " aber es wurde eine Liste mit Groesse " + neighborFields.size() + " erwartet.");
+			assertTrue(neighborFields.containsAll(exampleNeighborhood.getNeighbors(exampleJungle, fieldToBeTested)),
 					"\nDie erhaltene Liste enthaelt nicht alle oder keine Elemente der erwarteten Liste.");
-			assertTrue(exampleNeighborhood.getNeighbors(exampleJungle, zuTestendesFeld).containsAll(nachbarFelder),
+			assertTrue(exampleNeighborhood.getNeighbors(exampleJungle, fieldToBeTested).containsAll(neighborFields),
 					"\nDie erhaltene Liste enthaelt nicht alle oder keine Elemente der erwarteten Liste.");
 		}
 
@@ -171,18 +171,18 @@ class DistanceNeighborhoodTest {
 
 		@Test
 		void testNeighborsWithParameterOneBottomRightCorner() {
-			Field zuTestendesFeld = exampleJungle.getFields()[5][7];
-			HashSet<Field> nachbarFelder = new HashSet<Field>();
-			nachbarFelder.add(exampleJungle.getFields()[5][6]);
-			nachbarFelder.add(exampleJungle.getFields()[4][6]);
-			nachbarFelder.add(exampleJungle.getFields()[4][7]);
-			assertEquals(nachbarFelder.size(), exampleNeighborhood.getNeighbors(exampleJungle, zuTestendesFeld).size(),
+			Field fieldToBeTested = exampleJungle.getFields()[5][7];
+			HashSet<Field> neighborFields = new HashSet<Field>();
+			neighborFields.add(exampleJungle.getFields()[5][6]);
+			neighborFields.add(exampleJungle.getFields()[4][6]);
+			neighborFields.add(exampleJungle.getFields()[4][7]);
+			assertEquals(neighborFields.size(), exampleNeighborhood.getNeighbors(exampleJungle, fieldToBeTested).size(),
 					"\nDie erhaltene Liste hat die Groesse "
-							+ exampleNeighborhood.getNeighbors(exampleJungle, zuTestendesFeld).size()
-							+ " aber es wurde eine Liste mit Groesse " + nachbarFelder.size() + " erwartet.");
-			assertTrue(nachbarFelder.containsAll(exampleNeighborhood.getNeighbors(exampleJungle, zuTestendesFeld)),
+							+ exampleNeighborhood.getNeighbors(exampleJungle, fieldToBeTested).size()
+							+ " aber es wurde eine Liste mit Groesse " + neighborFields.size() + " erwartet.");
+			assertTrue(neighborFields.containsAll(exampleNeighborhood.getNeighbors(exampleJungle, fieldToBeTested)),
 					"\nDie erhaltene Liste enthaelt nicht alle oder keine Elemente der erwarteten Liste.");
-			assertTrue(exampleNeighborhood.getNeighbors(exampleJungle, zuTestendesFeld).containsAll(nachbarFelder),
+			assertTrue(exampleNeighborhood.getNeighbors(exampleJungle, fieldToBeTested).containsAll(neighborFields),
 					"\nDie erhaltene Liste enthaelt nicht alle oder keine Elemente der erwarteten Liste.");
 		}
 	}
@@ -209,62 +209,62 @@ class DistanceNeighborhoodTest {
 		@DisplayName("Test fuer getNachbarn mit Parameter 2 in der Mitte.")
 		@Test
 		void testNeighborsWithParameterTwoMiddle() {
-			Field zuTestendesFeld = exampleJungle.getFields()[3][3];
-			HashSet<Field> nachbarFelder = new HashSet<Field>();
-			nachbarFelder.add(exampleJungle.getFields()[1][1]);
-			nachbarFelder.add(exampleJungle.getFields()[1][2]);
-			nachbarFelder.add(exampleJungle.getFields()[1][3]);
-			nachbarFelder.add(exampleJungle.getFields()[1][4]);
-			nachbarFelder.add(exampleJungle.getFields()[1][5]);
-			nachbarFelder.add(exampleJungle.getFields()[2][1]);
-			nachbarFelder.add(exampleJungle.getFields()[2][2]);
-			nachbarFelder.add(exampleJungle.getFields()[2][3]);
-			nachbarFelder.add(exampleJungle.getFields()[2][4]);
-			nachbarFelder.add(exampleJungle.getFields()[2][5]);
-			nachbarFelder.add(exampleJungle.getFields()[3][1]);
-			nachbarFelder.add(exampleJungle.getFields()[3][2]);
-			nachbarFelder.add(exampleJungle.getFields()[3][4]);
-			nachbarFelder.add(exampleJungle.getFields()[3][5]);
-			nachbarFelder.add(exampleJungle.getFields()[4][1]);
-			nachbarFelder.add(exampleJungle.getFields()[4][2]);
-			nachbarFelder.add(exampleJungle.getFields()[4][3]);
-			nachbarFelder.add(exampleJungle.getFields()[4][4]);
-			nachbarFelder.add(exampleJungle.getFields()[4][5]);
-			nachbarFelder.add(exampleJungle.getFields()[5][1]);
-			nachbarFelder.add(exampleJungle.getFields()[5][2]);
-			nachbarFelder.add(exampleJungle.getFields()[5][3]);
-			nachbarFelder.add(exampleJungle.getFields()[5][4]);
-			nachbarFelder.add(exampleJungle.getFields()[5][5]);
-			assertEquals(nachbarFelder.size(), exampleNeighborhood.getNeighbors(exampleJungle, zuTestendesFeld).size(),
+			Field fieldToBeTested = exampleJungle.getFields()[3][3];
+			HashSet<Field> neighborFields = new HashSet<Field>();
+			neighborFields.add(exampleJungle.getFields()[1][1]);
+			neighborFields.add(exampleJungle.getFields()[1][2]);
+			neighborFields.add(exampleJungle.getFields()[1][3]);
+			neighborFields.add(exampleJungle.getFields()[1][4]);
+			neighborFields.add(exampleJungle.getFields()[1][5]);
+			neighborFields.add(exampleJungle.getFields()[2][1]);
+			neighborFields.add(exampleJungle.getFields()[2][2]);
+			neighborFields.add(exampleJungle.getFields()[2][3]);
+			neighborFields.add(exampleJungle.getFields()[2][4]);
+			neighborFields.add(exampleJungle.getFields()[2][5]);
+			neighborFields.add(exampleJungle.getFields()[3][1]);
+			neighborFields.add(exampleJungle.getFields()[3][2]);
+			neighborFields.add(exampleJungle.getFields()[3][4]);
+			neighborFields.add(exampleJungle.getFields()[3][5]);
+			neighborFields.add(exampleJungle.getFields()[4][1]);
+			neighborFields.add(exampleJungle.getFields()[4][2]);
+			neighborFields.add(exampleJungle.getFields()[4][3]);
+			neighborFields.add(exampleJungle.getFields()[4][4]);
+			neighborFields.add(exampleJungle.getFields()[4][5]);
+			neighborFields.add(exampleJungle.getFields()[5][1]);
+			neighborFields.add(exampleJungle.getFields()[5][2]);
+			neighborFields.add(exampleJungle.getFields()[5][3]);
+			neighborFields.add(exampleJungle.getFields()[5][4]);
+			neighborFields.add(exampleJungle.getFields()[5][5]);
+			assertEquals(neighborFields.size(), exampleNeighborhood.getNeighbors(exampleJungle, fieldToBeTested).size(),
 					"\nDie erhaltene Liste hat die Groesse "
-							+ exampleNeighborhood.getNeighbors(exampleJungle, zuTestendesFeld).size()
-							+ " aber es wurde eine Liste mit Groesse " + nachbarFelder.size() + " erwartet.");
-			assertTrue(nachbarFelder.containsAll(exampleNeighborhood.getNeighbors(exampleJungle, zuTestendesFeld)),
+							+ exampleNeighborhood.getNeighbors(exampleJungle, fieldToBeTested).size()
+							+ " aber es wurde eine Liste mit Groesse " + neighborFields.size() + " erwartet.");
+			assertTrue(neighborFields.containsAll(exampleNeighborhood.getNeighbors(exampleJungle, fieldToBeTested)),
 					"\nDie erhaltene Liste enthaelt nicht alle oder keine Elemente der erwarteten Liste.");
-			assertTrue(exampleNeighborhood.getNeighbors(exampleJungle, zuTestendesFeld).containsAll(nachbarFelder),
+			assertTrue(exampleNeighborhood.getNeighbors(exampleJungle, fieldToBeTested).containsAll(neighborFields),
 					"\nDie erhaltene Liste enthaelt nicht alle oder keine Elemente der erwarteten Liste.");
 		}
 
 		@DisplayName("Test fuer getNachbarn mit Parameter 2 in der linken oberen Ecke.")
 		@Test
 		void testNeighborsWithParameterTwoTopLeftCorner() {
-			Field zuTestendesFeld = exampleJungle.getFields()[0][0];
-			HashSet<Field> nachbarFelder = new HashSet<Field>();
-			nachbarFelder.add(exampleJungle.getFields()[0][1]);
-			nachbarFelder.add(exampleJungle.getFields()[0][2]);
-			nachbarFelder.add(exampleJungle.getFields()[1][0]);
-			nachbarFelder.add(exampleJungle.getFields()[1][1]);
-			nachbarFelder.add(exampleJungle.getFields()[1][2]);
-			nachbarFelder.add(exampleJungle.getFields()[2][0]);
-			nachbarFelder.add(exampleJungle.getFields()[2][1]);
-			nachbarFelder.add(exampleJungle.getFields()[2][2]);
-			assertEquals(nachbarFelder.size(), exampleNeighborhood.getNeighbors(exampleJungle, zuTestendesFeld).size(),
+			Field fieldToBeTested = exampleJungle.getFields()[0][0];
+			HashSet<Field> neighborFields = new HashSet<Field>();
+			neighborFields.add(exampleJungle.getFields()[0][1]);
+			neighborFields.add(exampleJungle.getFields()[0][2]);
+			neighborFields.add(exampleJungle.getFields()[1][0]);
+			neighborFields.add(exampleJungle.getFields()[1][1]);
+			neighborFields.add(exampleJungle.getFields()[1][2]);
+			neighborFields.add(exampleJungle.getFields()[2][0]);
+			neighborFields.add(exampleJungle.getFields()[2][1]);
+			neighborFields.add(exampleJungle.getFields()[2][2]);
+			assertEquals(neighborFields.size(), exampleNeighborhood.getNeighbors(exampleJungle, fieldToBeTested).size(),
 					"\nDie erhaltene Liste hat die Groesse "
-							+ exampleNeighborhood.getNeighbors(exampleJungle, zuTestendesFeld).size()
-							+ " aber es wurde eine Liste mit Groesse " + nachbarFelder.size() + " erwartet.");
-			assertTrue(nachbarFelder.containsAll(exampleNeighborhood.getNeighbors(exampleJungle, zuTestendesFeld)),
+							+ exampleNeighborhood.getNeighbors(exampleJungle, fieldToBeTested).size()
+							+ " aber es wurde eine Liste mit Groesse " + neighborFields.size() + " erwartet.");
+			assertTrue(neighborFields.containsAll(exampleNeighborhood.getNeighbors(exampleJungle, fieldToBeTested)),
 					"\nDie erhaltene Liste enthaelt nicht alle oder keine Elemente der erwarteten Liste.");
-			assertTrue(exampleNeighborhood.getNeighbors(exampleJungle, zuTestendesFeld).containsAll(nachbarFelder),
+			assertTrue(exampleNeighborhood.getNeighbors(exampleJungle, fieldToBeTested).containsAll(neighborFields),
 					"\nDie erhaltene Liste enthaelt nicht alle oder keine Elemente der erwarteten Liste.");
 		}
 
@@ -272,23 +272,23 @@ class DistanceNeighborhoodTest {
 
 		@Test
 		void testNeighborsWithParameterTwoTopRightCorner() {
-			Field zuTestendesFeld = exampleJungle.getFields()[0][7];
-			HashSet<Field> nachbarFelder = new HashSet<Field>();
-			nachbarFelder.add(exampleJungle.getFields()[0][5]);
-			nachbarFelder.add(exampleJungle.getFields()[0][6]);
-			nachbarFelder.add(exampleJungle.getFields()[1][5]);
-			nachbarFelder.add(exampleJungle.getFields()[1][6]);
-			nachbarFelder.add(exampleJungle.getFields()[1][7]);
-			nachbarFelder.add(exampleJungle.getFields()[2][5]);
-			nachbarFelder.add(exampleJungle.getFields()[2][6]);
-			nachbarFelder.add(exampleJungle.getFields()[2][7]);
-			assertEquals(nachbarFelder.size(), exampleNeighborhood.getNeighbors(exampleJungle, zuTestendesFeld).size(),
+			Field fieldToBeTested = exampleJungle.getFields()[0][7];
+			HashSet<Field> neighborFields = new HashSet<Field>();
+			neighborFields.add(exampleJungle.getFields()[0][5]);
+			neighborFields.add(exampleJungle.getFields()[0][6]);
+			neighborFields.add(exampleJungle.getFields()[1][5]);
+			neighborFields.add(exampleJungle.getFields()[1][6]);
+			neighborFields.add(exampleJungle.getFields()[1][7]);
+			neighborFields.add(exampleJungle.getFields()[2][5]);
+			neighborFields.add(exampleJungle.getFields()[2][6]);
+			neighborFields.add(exampleJungle.getFields()[2][7]);
+			assertEquals(neighborFields.size(), exampleNeighborhood.getNeighbors(exampleJungle, fieldToBeTested).size(),
 					"\nDie erhaltene Liste hat die Groesse "
-							+ exampleNeighborhood.getNeighbors(exampleJungle, zuTestendesFeld).size()
-							+ " aber es wurde eine Liste mit Groesse " + nachbarFelder.size() + " erwartet.");
-			assertTrue(nachbarFelder.containsAll(exampleNeighborhood.getNeighbors(exampleJungle, zuTestendesFeld)),
+							+ exampleNeighborhood.getNeighbors(exampleJungle, fieldToBeTested).size()
+							+ " aber es wurde eine Liste mit Groesse " + neighborFields.size() + " erwartet.");
+			assertTrue(neighborFields.containsAll(exampleNeighborhood.getNeighbors(exampleJungle, fieldToBeTested)),
 					"\nDie erhaltene Liste enthaelt nicht alle oder keine Elemente der erwarteten Liste.");
-			assertTrue(exampleNeighborhood.getNeighbors(exampleJungle, zuTestendesFeld).containsAll(nachbarFelder),
+			assertTrue(exampleNeighborhood.getNeighbors(exampleJungle, fieldToBeTested).containsAll(neighborFields),
 					"\nDie erhaltene Liste enthaelt nicht alle oder keine Elemente der erwarteten Liste.");
 		}
 
@@ -296,23 +296,23 @@ class DistanceNeighborhoodTest {
 
 		@Test
 		void testNeighborsWithParameterTwoBottomLeftCorner() {
-			Field zuTestendesFeld = exampleJungle.getFields()[5][0];
-			HashSet<Field> nachbarFelder = new HashSet<Field>();
-			nachbarFelder.add(exampleJungle.getFields()[3][0]);
-			nachbarFelder.add(exampleJungle.getFields()[3][1]);
-			nachbarFelder.add(exampleJungle.getFields()[3][2]);
-			nachbarFelder.add(exampleJungle.getFields()[4][0]);
-			nachbarFelder.add(exampleJungle.getFields()[4][1]);
-			nachbarFelder.add(exampleJungle.getFields()[4][2]);
-			nachbarFelder.add(exampleJungle.getFields()[5][1]);
-			nachbarFelder.add(exampleJungle.getFields()[5][2]);
-			assertEquals(nachbarFelder.size(), exampleNeighborhood.getNeighbors(exampleJungle, zuTestendesFeld).size(),
+			Field fieldToBeTested = exampleJungle.getFields()[5][0];
+			HashSet<Field> neighborFields = new HashSet<Field>();
+			neighborFields.add(exampleJungle.getFields()[3][0]);
+			neighborFields.add(exampleJungle.getFields()[3][1]);
+			neighborFields.add(exampleJungle.getFields()[3][2]);
+			neighborFields.add(exampleJungle.getFields()[4][0]);
+			neighborFields.add(exampleJungle.getFields()[4][1]);
+			neighborFields.add(exampleJungle.getFields()[4][2]);
+			neighborFields.add(exampleJungle.getFields()[5][1]);
+			neighborFields.add(exampleJungle.getFields()[5][2]);
+			assertEquals(neighborFields.size(), exampleNeighborhood.getNeighbors(exampleJungle, fieldToBeTested).size(),
 					"\nDie erhaltene Liste hat die Groesse "
-							+ exampleNeighborhood.getNeighbors(exampleJungle, zuTestendesFeld).size()
-							+ " aber es wurde eine Liste mit Groesse " + nachbarFelder.size() + " erwartet.");
-			assertTrue(nachbarFelder.containsAll(exampleNeighborhood.getNeighbors(exampleJungle, zuTestendesFeld)),
+							+ exampleNeighborhood.getNeighbors(exampleJungle, fieldToBeTested).size()
+							+ " aber es wurde eine Liste mit Groesse " + neighborFields.size() + " erwartet.");
+			assertTrue(neighborFields.containsAll(exampleNeighborhood.getNeighbors(exampleJungle, fieldToBeTested)),
 					"\nDie erhaltene Liste enthaelt nicht alle oder keine Elemente der erwarteten Liste.");
-			assertTrue(exampleNeighborhood.getNeighbors(exampleJungle, zuTestendesFeld).containsAll(nachbarFelder),
+			assertTrue(exampleNeighborhood.getNeighbors(exampleJungle, fieldToBeTested).containsAll(neighborFields),
 					"\nDie erhaltene Liste enthaelt nicht alle oder keine Elemente der erwarteten Liste.");
 		}
 
@@ -320,23 +320,23 @@ class DistanceNeighborhoodTest {
 
 		@Test
 		void testNeighborsWithParameterTwoBottomRightCorner() {
-			Field zuTestendesFeld = exampleJungle.getFields()[5][7];
-			HashSet<Field> nachbarFelder = new HashSet<Field>();
-			nachbarFelder.add(exampleJungle.getFields()[3][5]);
-			nachbarFelder.add(exampleJungle.getFields()[3][6]);
-			nachbarFelder.add(exampleJungle.getFields()[3][7]);
-			nachbarFelder.add(exampleJungle.getFields()[4][5]);
-			nachbarFelder.add(exampleJungle.getFields()[4][6]);
-			nachbarFelder.add(exampleJungle.getFields()[4][7]);
-			nachbarFelder.add(exampleJungle.getFields()[5][5]);
-			nachbarFelder.add(exampleJungle.getFields()[5][6]);
-			assertEquals(nachbarFelder.size(), exampleNeighborhood.getNeighbors(exampleJungle, zuTestendesFeld).size(),
+			Field fieldToBeTested = exampleJungle.getFields()[5][7];
+			HashSet<Field> neighborFields = new HashSet<Field>();
+			neighborFields.add(exampleJungle.getFields()[3][5]);
+			neighborFields.add(exampleJungle.getFields()[3][6]);
+			neighborFields.add(exampleJungle.getFields()[3][7]);
+			neighborFields.add(exampleJungle.getFields()[4][5]);
+			neighborFields.add(exampleJungle.getFields()[4][6]);
+			neighborFields.add(exampleJungle.getFields()[4][7]);
+			neighborFields.add(exampleJungle.getFields()[5][5]);
+			neighborFields.add(exampleJungle.getFields()[5][6]);
+			assertEquals(neighborFields.size(), exampleNeighborhood.getNeighbors(exampleJungle, fieldToBeTested).size(),
 					"\nDie erhaltene Liste hat die Groesse "
-							+ exampleNeighborhood.getNeighbors(exampleJungle, zuTestendesFeld).size()
-							+ " aber es wurde eine Liste mit Groesse " + nachbarFelder.size() + " erwartet.");
-			assertTrue(nachbarFelder.containsAll(exampleNeighborhood.getNeighbors(exampleJungle, zuTestendesFeld)),
+							+ exampleNeighborhood.getNeighbors(exampleJungle, fieldToBeTested).size()
+							+ " aber es wurde eine Liste mit Groesse " + neighborFields.size() + " erwartet.");
+			assertTrue(neighborFields.containsAll(exampleNeighborhood.getNeighbors(exampleJungle, fieldToBeTested)),
 					"\nDie erhaltene Liste enthaelt nicht alle oder keine Elemente der erwarteten Liste.");
-			assertTrue(exampleNeighborhood.getNeighbors(exampleJungle, zuTestendesFeld).containsAll(nachbarFelder),
+			assertTrue(exampleNeighborhood.getNeighbors(exampleJungle, fieldToBeTested).containsAll(neighborFields),
 					"\nDie erhaltene Liste enthaelt nicht alle oder keine Elemente der erwarteten Liste.");
 		}
 	}
@@ -363,11 +363,11 @@ class DistanceNeighborhoodTest {
 		@ParameterizedTest
 		@MethodSource("generatePositiveParametervalues")
 		void testConstructorAndGetParametersPositive(int param) {
-			INeighborhood distanzNachb = new DistanceNeighborhood(param);
+			INeighborhood distanceNeighborhood = new DistanceNeighborhood(param);
 			List<Integer> paramList = new ArrayList<Integer>();
 			paramList.add(param);
-			assertIterableEquals(distanzNachb.getParameters(), paramList, "\nDer Parameter '"
-					+ distanzNachb.getParameters().get(0) + "' entspricht nicht dem vorgegebenen Wert '" + param + "'.");
+			assertIterableEquals(distanceNeighborhood.getParameters(), paramList, "\nDer Parameter '"
+					+ distanceNeighborhood.getParameters().get(0) + "' entspricht nicht dem vorgegebenen Wert '" + param + "'.");
 		}
 
 		@DisplayName("Parameterisierter Test fuer Konstruktor mit negativem Parameter.")

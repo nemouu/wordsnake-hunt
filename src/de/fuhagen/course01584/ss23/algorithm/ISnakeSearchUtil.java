@@ -46,11 +46,11 @@ public interface ISnakeSearchUtil {
 	 * 
 	 * @param previousElement Das letzte der aktuellen Schlange hinzugefuegte
 	 *                        Schlangenglied.
-	 * @param thisSnake   Die aktuelle Schlange.
+	 * @param currentSnake   Die aktuelle Schlange.
 	 * @return Eine (sortierte) Liste mit Nachbarfeldern fuer die aktuelle Schlange
 	 *         und das aktuelle Schlangenglied.
 	 */
-	List<Field> createValidNeighbors(SnakeElement previousElement, Snake thisSnake);
+	List<Field> createValidNeighbors(SnakeElement previousElement, Snake currentSnake);
 
 	/**
 	 * Es wird das Modell zurueckgegeben, dass sich aktuell in der SchlangesucheUtil

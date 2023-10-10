@@ -25,40 +25,40 @@ class SolutionEvaluatorTest {
 		@DisplayName("Einfacher Test fuer Loesungsbewerter, Teil 1.")
 		@Test
 		void testEvaluateSolutionExampleOne() {
-			SnakeHuntAPI jagd = new SnakeHunt();
-			assertEquals(8, jagd.evaluateSolution("res/sj_p1_loesung.xml"),
+			SnakeHuntAPI hunt = new SnakeHunt();
+			assertEquals(8, hunt.evaluateSolution("res/sj_p1_loesung.xml"),
 					"\nDie Loesungpruefung findet nicht die erwarteten Fehler.");
 		}
 
 		@DisplayName("Einfacher Test fuer Loesungsbewerter, Teil 2.")
 		@Test
 		void testEvaluateSolutionExampleTwo() {
-			SnakeHuntAPI jagd = new SnakeHunt();
-			assertEquals(36, jagd.evaluateSolution("res/sj_p2_loesung.xml"),
+			SnakeHuntAPI hunt = new SnakeHunt();
+			assertEquals(36, hunt.evaluateSolution("res/sj_p2_loesung.xml"),
 					"\nDie Loesungpruefung findet nicht die erwarteten Fehler.");
 		}
 
 		@DisplayName("Einfacher Test fuer Loesungsbewerter, Teil 3.")
 		@Test
 		void testEvaluateSolutionExampleThree() {
-			SnakeHuntAPI jagd = new SnakeHunt();
-			assertEquals(81, jagd.evaluateSolution("res/sj_p3_loesung.xml"),
+			SnakeHuntAPI hunt = new SnakeHunt();
+			assertEquals(81, hunt.evaluateSolution("res/sj_p3_loesung.xml"),
 					"\nDie Loesungpruefung findet nicht die erwarteten Fehler.");
 		}
 
 		@DisplayName("Einfacher Test fuer Loesungsbewerter, Teil 4.")
 		@Test
 		void testEvaluateSolutionExampleFour() {
-			SnakeHuntAPI jagd = new SnakeHunt();
-			assertEquals(41, jagd.evaluateSolution("res/sj_p4_loesung.xml"),
+			SnakeHuntAPI hunt = new SnakeHunt();
+			assertEquals(41, hunt.evaluateSolution("res/sj_p4_loesung.xml"),
 					"\nDie Loesungpruefung findet nicht die erwarteten Fehler.");
 		}
 
 		@DisplayName("Einfacher Test fuer Loesungsbewerter, wenn keine Loesung vorhanden ist.")
 		@Test
 		void testEvaluateSolutionExampleNoErrors() {
-			SnakeHuntAPI jagd = new SnakeHunt();
-			assertEquals(0, jagd.evaluateSolution("res/sj_p4_probleminstanz.xml"),
+			SnakeHuntAPI hunt = new SnakeHunt();
+			assertEquals(0, hunt.evaluateSolution("res/sj_p4_probleminstanz.xml"),
 					"\nDie Loesungpruefung findet nicht die erwarteten Fehler.");
 		}
 	}

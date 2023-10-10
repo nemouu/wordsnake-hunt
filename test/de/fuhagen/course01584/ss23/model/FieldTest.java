@@ -28,83 +28,83 @@ class FieldTest {
 		@DisplayName("Einfacher positiver Test.")
 		@Test
 		void testGetRow() {
-			int zeile = 1;
-			Field feld = new Field(zeile, 0, 1);
-			assertEquals(feld.getRow(), zeile, () -> "\nDer Zeilenwert '" + feld.getRow()
-					+ "' entspricht nicht dem vorgegebenen Wert '" + zeile + "'.");
+			int row = 1;
+			Field field = new Field(row, 0, 1);
+			assertEquals(field.getRow(), row, () -> "\nDer Zeilenwert '" + field.getRow()
+					+ "' entspricht nicht dem vorgegebenen Wert '" + row + "'.");
 		}
 
 		@DisplayName("Einfacher positiver Test bezueglich Attribut 'punkte'.")
 		@Test
 		void testPoints() {
-			int punkte = 1;
-			Field feld = new Field("", 0, 0, 0, punkte, "");
-			assertEquals(feld.getPoints(), punkte, () -> "\nDer Zeilenwert '" + feld.getPoints()
-					+ "' entspricht nicht dem vorgegebenen Wert '" + punkte + "'.");
+			int points = 1;
+			Field field = new Field("", 0, 0, 0, points, "");
+			assertEquals(field.getPoints(), points, () -> "\nDer Zeilenwert '" + field.getPoints()
+					+ "' entspricht nicht dem vorgegebenen Wert '" + points + "'.");
 		}
 
 		@DisplayName("Einfacher negativer Test.")
 		@Test
 		void testGetColumn() {
-			int spalte = -1;
-			assertThrows(IllegalArgumentException.class, () -> new Field(0, spalte, 1),
-					() -> "\nFuer den (negativen) Spaltenwert '" + spalte + "' wird keine Ausnahme erzeugt.");
+			int column = -1;
+			assertThrows(IllegalArgumentException.class, () -> new Field(0, column, 1),
+					() -> "\nFuer den (negativen) Spaltenwert '" + column + "' wird keine Ausnahme erzeugt.");
 		}
 
 		@DisplayName("Einfacher positiver Test bezueglich Attribut 'punkte' mit zu grossen Wert.")
 		@Test
 		void testPointsLarge() {
-			int punkte = Integer.MAX_VALUE;
-			assertThrows(IllegalArgumentException.class, () -> new Field("", 0, 0, 0, punkte, ""),
-					() -> "Fuer den" + "zu grossen Wert von 'punkte '" + punkte + "' wird keine Ausnahme erzeugt.");
+			int points = Integer.MAX_VALUE;
+			assertThrows(IllegalArgumentException.class, () -> new Field("", 0, 0, 0, points, ""),
+					() -> "Fuer den" + "zu grossen Wert von 'punkte '" + points + "' wird keine Ausnahme erzeugt.");
 		}
 
 		@DisplayName("Einfacher negativer Test bezueglich Attribut 'punkte' mit zu kleinem Wert.")
 		@Test
 		void testPointsSmall() {
-			int punkte = Integer.MIN_VALUE;
-			assertThrows(IllegalArgumentException.class, () -> new Field("", 0, 0, 0, punkte, ""),
-					() -> "Fuer den" + "zu kleinen Wert von 'punkte '" + punkte + "' wird keine Ausnahme erzeugt.");
+			int points = Integer.MIN_VALUE;
+			assertThrows(IllegalArgumentException.class, () -> new Field("", 0, 0, 0, points, ""),
+					() -> "Fuer den" + "zu kleinen Wert von 'punkte '" + points + "' wird keine Ausnahme erzeugt.");
 		}
 
 		@DisplayName("Einfacher positiver Test von setPunkte mit zu grossen Wert.")
 		@Test
 		void testSetPointsLarge() {
-			int punkte = Integer.MAX_VALUE;
-			assertThrows(IllegalArgumentException.class, () -> new Field("", 0, 0, 0, 0, "").setPoints(punkte),
-					() -> "Fuer den" + "zu grossen Wert von 'punkte '" + punkte + "' wird keine Ausnahme erzeugt.");
+			int points = Integer.MAX_VALUE;
+			assertThrows(IllegalArgumentException.class, () -> new Field("", 0, 0, 0, 0, "").setPoints(points),
+					() -> "Fuer den" + "zu grossen Wert von 'punkte '" + points + "' wird keine Ausnahme erzeugt.");
 		}
 
 		@DisplayName("Einfacher negativer Test von setPunkte mit zu kleinem Wert.")
 		@Test
 		void testSetPointsSmall() {
-			int punkte = Integer.MIN_VALUE;
-			assertThrows(IllegalArgumentException.class, () -> new Field("", 0, 0, 0, 0, "").setPoints(punkte),
-					() -> "Fuer den" + "zu grossen Wert von 'punkte '" + punkte + "' wird keine Ausnahme erzeugt.");
+			int points = Integer.MIN_VALUE;
+			assertThrows(IllegalArgumentException.class, () -> new Field("", 0, 0, 0, 0, "").setPoints(points),
+					() -> "Fuer den" + "zu grossen Wert von 'punkte '" + points + "' wird keine Ausnahme erzeugt.");
 		}
 
 		@DisplayName("Einfacher positiver Test mit zu grosser Zahl in Zeile.")
 		@Test
 		void testGetRowMax() {
-			int zeile = Integer.MAX_VALUE + 1;
-			assertThrows(IllegalArgumentException.class, () -> new Field(zeile, 0, 1),
-					() -> "\nFuer den zu grossen " + "Zeilenwert '" + zeile + "' wird keine Ausnahme erzeugt.");
+			int row = Integer.MAX_VALUE + 1;
+			assertThrows(IllegalArgumentException.class, () -> new Field(row, 0, 1),
+					() -> "\nFuer den zu grossen " + "Zeilenwert '" + row + "' wird keine Ausnahme erzeugt.");
 		}
 
 		@DisplayName("Einfacher positiver Test mit zu grosser Zahl in Spalte.")
 		@Test
 		void testGetColumnMax() {
-			int spalte = Integer.MAX_VALUE + 1;
-			assertThrows(IllegalArgumentException.class, () -> new Field(0, spalte, 1),
-					() -> "\nFuer den zu grossen " + "Spaltenwert '" + spalte + "' wird keine Ausnahme erzeugt.");
+			int column = Integer.MAX_VALUE + 1;
+			assertThrows(IllegalArgumentException.class, () -> new Field(0, column, 1),
+					() -> "\nFuer den zu grossen " + "Spaltenwert '" + column + "' wird keine Ausnahme erzeugt.");
 		}
 
 		@DisplayName("Einfacher positiver Test mit zu grosser Zahl in Verwendbarkeit.")
 		@Test
 		void testGetUsageMax() {
-			int verw = Integer.MAX_VALUE + 1;
-			assertThrows(IllegalArgumentException.class, () -> new Field("", 0, 0, verw, 0, ""),
-					() -> "\nFuer den zu grossen " + "Verwendbarkeitswert '" + verw + "' wird keine Ausnahme erzeugt.");
+			int usage = Integer.MAX_VALUE + 1;
+			assertThrows(IllegalArgumentException.class, () -> new Field("", 0, 0, usage, 0, ""),
+					() -> "\nFuer den zu grossen " + "Verwendbarkeitswert '" + usage + "' wird keine Ausnahme erzeugt.");
 		}
 	}
 
@@ -121,9 +121,9 @@ class FieldTest {
 		@DisplayName("Wiederholter negativer Test.")
 		@RepeatedTest(10)
 		void testGetColumn(RepetitionInfo repetitionInfo) {
-			int spalte = randomNumberGenerator.nextInt(-100000, -1);
-			assertThrows(IllegalArgumentException.class, () -> new Field(0, spalte, 1),
-					() -> "\nFuer den (negativen) Spaltenwert '" + spalte + "' wird keine Ausnahme erzeugt.");
+			int column = randomNumberGenerator.nextInt(-100000, -1);
+			assertThrows(IllegalArgumentException.class, () -> new Field(0, column, 1),
+					() -> "\nFuer den (negativen) Spaltenwert '" + column + "' wird keine Ausnahme erzeugt.");
 		}
 	}
 
@@ -148,68 +148,68 @@ class FieldTest {
 		@DisplayName("Parameterisierter positiver Test fuer Konstruktor und getSpalte.")
 		@ParameterizedTest
 		@MethodSource("generatePositiveParametervalues")
-		void testConstructorAndGetColumnPositive(int spalte) {
-			Field feld = new Field(0, spalte, 1);
-			assertEquals(feld.getColumn(), spalte, "\nDer Spaltenwert '" + feld.getColumn()
-					+ "' entspricht nicht dem vorgegebenen Wert '" + spalte + "'.");
+		void testConstructorAndGetColumnPositive(int column) {
+			Field field = new Field(0, column, 1);
+			assertEquals(field.getColumn(), column, "\nDer Spaltenwert '" + field.getColumn()
+					+ "' entspricht nicht dem vorgegebenen Wert '" + column + "'.");
 		}
 
 		@DisplayName("Parameterisierter positiver Test fuer Konstruktor und getZeile.")
 		@ParameterizedTest
 		@MethodSource("generatePositiveParametervalues")
-		void testConstructorAndGetRowPositive(int zeile) {
-			Field feld = new Field(zeile, 0, 1);
-			assertEquals(feld.getRow(), zeile, "\nDer Zeilenwert '" + feld.getRow()
-					+ "' entspricht nicht dem vorgegebenen Wert '" + zeile + "'.");
+		void testConstructorAndGetRowPositive(int row) {
+			Field field = new Field(row, 0, 1);
+			assertEquals(field.getRow(), row, "\nDer Zeilenwert '" + field.getRow()
+					+ "' entspricht nicht dem vorgegebenen Wert '" + row + "'.");
 		}
 
 		@DisplayName("Parameterisierter positiver Test fuer Konstruktor und getVerwendbarkeit.")
 		@ParameterizedTest
 		@MethodSource("generatePositiveParametervalues")
-		void testConstructorAndGetUsagePositive(int verw) {
-			Field feld = new Field("", 0, 0, verw, 0, "");
-			assertEquals(feld.getUsage(), verw, "\nDer Verwendungswert '" + feld.getUsage()
-					+ "' entspricht nicht dem vorgegebenen Wert '" + verw + "'.");
+		void testConstructorAndGetUsagePositive(int usage) {
+			Field field = new Field("", 0, 0, usage, 0, "");
+			assertEquals(field.getUsage(), usage, "\nDer Verwendungswert '" + field.getUsage()
+					+ "' entspricht nicht dem vorgegebenen Wert '" + usage + "'.");
 		}
 
 		@DisplayName("Parameterisierter Test fuer Konstruktor mit negativer Zeile.")
 		@ParameterizedTest
 		@MethodSource("generateNegativeParametervalues")
-		void testConstructorRowNegative(int zeile) {
-			assertThrows(IllegalArgumentException.class, () -> new Field(zeile, 0, 1),
-					() -> "\nFuer den (negativen) Zeilenwert '" + zeile + "' wird keine Ausnahme erzeugt.");
+		void testConstructorRowNegative(int row) {
+			assertThrows(IllegalArgumentException.class, () -> new Field(row, 0, 1),
+					() -> "\nFuer den (negativen) Zeilenwert '" + row + "' wird keine Ausnahme erzeugt.");
 		}
 
 		@DisplayName("Parameterisierter Test fuer Konstruktor mit negativer Spalte.")
 		@ParameterizedTest
 		@MethodSource("generateNegativeParametervalues")
-		void testConstructorColumnNegative(int spalte) {
-			assertThrows(IllegalArgumentException.class, () -> new Field(0, spalte, 1),
-					() -> "\nFuer den (negativen) Spaltenwert '" + spalte + "' wird keine Ausnahme erzeugt.");
+		void testConstructorColumnNegative(int column) {
+			assertThrows(IllegalArgumentException.class, () -> new Field(0, column, 1),
+					() -> "\nFuer den (negativen) Spaltenwert '" + column + "' wird keine Ausnahme erzeugt.");
 		}
 
 		@DisplayName("Parameterisierter negativer Test fuer setZeile.")
 		@ParameterizedTest
 		@MethodSource("generateNegativeParametervalues")
-		void testSetRowNegative(int zeile) {
-			assertThrows(IllegalArgumentException.class, () -> new Field("", 0, 0, 0, 0, "").setRow(zeile),
-					() -> "\nBeim Setzen des (negativen) Zeilenwertes '" + zeile + "' wird keine Ausnahme erzeugt.");
+		void testSetRowNegative(int row) {
+			assertThrows(IllegalArgumentException.class, () -> new Field("", 0, 0, 0, 0, "").setRow(row),
+					() -> "\nBeim Setzen des (negativen) Zeilenwertes '" + row + "' wird keine Ausnahme erzeugt.");
 		}
 
 		@DisplayName("Parameterisierter negativer Test fuer setSpalte.")
 		@ParameterizedTest
 		@MethodSource("generateNegativeParametervalues")
-		void testSetColumnNegative(int spalte) {
-			assertThrows(IllegalArgumentException.class, () -> new Field("", 0, 0, 0, 0, "").setColumn(spalte),
-					() -> "\nBeim Setzen des (negativen) Spaltenwertes '" + spalte + "' wird keine Ausnahme erzeugt.");
+		void testSetColumnNegative(int column) {
+			assertThrows(IllegalArgumentException.class, () -> new Field("", 0, 0, 0, 0, "").setColumn(column),
+					() -> "\nBeim Setzen des (negativen) Spaltenwertes '" + column + "' wird keine Ausnahme erzeugt.");
 		}
 
 		@DisplayName("Parameterisierter negativer Test fuer setVerwendbarkeit.")
 		@ParameterizedTest
 		@MethodSource("generateNegativeParametervalues")
-		void testSetUsageNegative(int verw) {
-			assertThrows(IllegalArgumentException.class, () -> new Field("", 0, 0, 0, 0, "").setColumn(verw),
-					() -> "\nBeim Setzen des (negativen) Verwendbarkeitswertes '" + verw
+		void testSetUsageNegative(int usage) {
+			assertThrows(IllegalArgumentException.class, () -> new Field("", 0, 0, 0, 0, "").setColumn(usage),
+					() -> "\nBeim Setzen des (negativen) Verwendbarkeitswertes '" + usage
 							+ "' wird keine Ausnahme erzeugt.");
 		}
 	}

@@ -55,41 +55,41 @@ class WriterXMLTest {
 		@BeforeAll
 		static void setUpBeforeClass() throws Exception {
 			// Erstelle ein Dschungelbeispiel
-			Jungle bspDschungel = new Jungle(2, 3, "asdertg", 1);
-			for (int i = 0; i < bspDschungel.getRows(); i++) {
-				for (int j = 0; j < bspDschungel.getColumns(); j++) {
-					bspDschungel.getFields()[i][j].setCharacter("a" + (i + j + j));
-					bspDschungel.getFields()[i][j].setPoints(1);
-					bspDschungel.getFields()[i][j].setUsage(1);
-					bspDschungel.getFields()[i][j].setRow(i);
-					bspDschungel.getFields()[i][j].setColumn(j);
-					bspDschungel.getFields()[i][j].setId("F" + (bspDschungel.getColumns() * i + j));
+			Jungle exampleJungle = new Jungle(2, 3, "asdertg", 1);
+			for (int i = 0; i < exampleJungle.getRows(); i++) {
+				for (int j = 0; j < exampleJungle.getColumns(); j++) {
+					exampleJungle.getFields()[i][j].setCharacter("a" + (i + j + j));
+					exampleJungle.getFields()[i][j].setPoints(1);
+					exampleJungle.getFields()[i][j].setUsage(1);
+					exampleJungle.getFields()[i][j].setRow(i);
+					exampleJungle.getFields()[i][j].setColumn(j);
+					exampleJungle.getFields()[i][j].setId("F" + (exampleJungle.getColumns() * i + j));
 				}
 			}
 
 			// Erstellte ein Nachbarschaftsbeispiel
-			INeighborhood bspNachbarschaft = new DistanceNeighborhood(2);
+			INeighborhood exampleNeighborhood = new DistanceNeighborhood(2);
 
 			// Erstellte eine Liste von moeglichen Schlangenarten
-			SnakeType[] bspArten = { new SnakeType("A0", bspNachbarschaft, "abcdefghij", 1, 1),
-					new SnakeType("A1", bspNachbarschaft, "hjgzhi", 21, 31) };
+			SnakeType[] exampleTypes = { new SnakeType("A0", exampleNeighborhood, "abcdefghij", 1, 1),
+					new SnakeType("A1", exampleNeighborhood, "hjgzhi", 21, 31) };
 
 			// Erstelle eine Beispielschlange mit zwei Beispielgliedern
-			SnakeElement erstesGlied = new SnakeElement(bspDschungel.getFields()[0][0]);
-			SnakeElement zweitesGlied = new SnakeElement(bspDschungel.getFields()[0][1]);
-			List<SnakeElement> glieder = new ArrayList<SnakeElement>();
-			glieder.add(erstesGlied);
-			glieder.add(zweitesGlied);
+			SnakeElement firstElement = new SnakeElement(exampleJungle.getFields()[0][0]);
+			SnakeElement secondElement = new SnakeElement(exampleJungle.getFields()[0][1]);
+			List<SnakeElement> elements = new ArrayList<SnakeElement>();
+			elements.add(firstElement);
+			elements.add(secondElement);
 
 			// Erstelle eine Beispielloesung und fuege ihr die Daten von oben hinzu
-			Solution bspLoesung = new Solution();
-			bspLoesung.addSnake(new Snake(bspArten[0], glieder));
-			Double[] bspZeit = { 1.0, 2.0 };
+			Solution exampleSolution = new Solution();
+			exampleSolution.addSnake(new Snake(exampleTypes[0], elements));
+			Double[] exampleTime = { 1.0, 2.0 };
 
 			// Fuege dem bspModell alle erstellten Daten hinzu
-			exampleModel = new ProblemModel(bspDschungel, bspLoesung, bspZeit);
-			exampleModel.addSnakeType(new SnakeType("A0", bspNachbarschaft, "abcdefghij", 1, 1));
-			exampleModel.addSnakeType(new SnakeType("A1", bspNachbarschaft, "hjgzhi", 21, 31));
+			exampleModel = new ProblemModel(exampleJungle, exampleSolution, exampleTime);
+			exampleModel.addSnakeType(new SnakeType("A0", exampleNeighborhood, "abcdefghij", 1, 1));
+			exampleModel.addSnakeType(new SnakeType("A1", exampleNeighborhood, "hjgzhi", 21, 31));
 
 			// Schreibe nun diese Daten in ein Document
 			writerXML = new WriterXML(exampleModel);
@@ -298,28 +298,28 @@ class WriterXMLTest {
 		@BeforeAll
 		static void setUpBeforeClass() throws Exception {
 			// Erstelle ein Dschungelbeispiel
-			Jungle bspDschungel = new Jungle(2, 3, "asdertg", 1);
-			for (int i = 0; i < bspDschungel.getRows(); i++) {
-				for (int j = 0; j < bspDschungel.getColumns(); j++) {
-					bspDschungel.getFields()[i][j].setCharacter("a" + (i + j + j));
-					bspDschungel.getFields()[i][j].setPoints(1);
-					bspDschungel.getFields()[i][j].setUsage(1);
-					bspDschungel.getFields()[i][j].setRow(i);
-					bspDschungel.getFields()[i][j].setColumn(j);
-					bspDschungel.getFields()[i][j].setId("F" + (i + j + j));
+			Jungle exampleJungle = new Jungle(2, 3, "asdertg", 1);
+			for (int i = 0; i < exampleJungle.getRows(); i++) {
+				for (int j = 0; j < exampleJungle.getColumns(); j++) {
+					exampleJungle.getFields()[i][j].setCharacter("a" + (i + j + j));
+					exampleJungle.getFields()[i][j].setPoints(1);
+					exampleJungle.getFields()[i][j].setUsage(1);
+					exampleJungle.getFields()[i][j].setRow(i);
+					exampleJungle.getFields()[i][j].setColumn(j);
+					exampleJungle.getFields()[i][j].setId("F" + (i + j + j));
 				}
 			}
 
 			// Erstellte ein Nachbarschaftsbeispiel
-			INeighborhood bspNachbarschaft = new DistanceNeighborhood(2);
+			INeighborhood exampleNeighborhood = new DistanceNeighborhood(2);
 
 			// Erstelle Beispielzeit
-			Double[] bspZeit = { 1.0, 2.0 };
+			Double[] exampleTime = { 1.0, 2.0 };
 
 			// Fuege dem bspModell alle erstellten Daten hinzu
-			exampleModel = new ProblemModel(bspDschungel, null, bspZeit);
-			exampleModel.addSnakeType(new SnakeType("A0", bspNachbarschaft, "abcdefghij", 1, 1));
-			exampleModel.addSnakeType(new SnakeType("A1", bspNachbarschaft, "hjgzhi", 21, 31));
+			exampleModel = new ProblemModel(exampleJungle, null, exampleTime);
+			exampleModel.addSnakeType(new SnakeType("A0", exampleNeighborhood, "abcdefghij", 1, 1));
+			exampleModel.addSnakeType(new SnakeType("A1", exampleNeighborhood, "hjgzhi", 21, 31));
 
 			// Schreibe nun diese Daten in ein Document
 			writerXML = new WriterXML(exampleModel);
@@ -511,18 +511,18 @@ class WriterXMLTest {
 		@BeforeAll
 		static void setUpBeforeClass() throws Exception {
 			// Erstelle ein Dschungelbeispiel
-			Jungle bspDschungel = new Jungle(2, 3, "asdertg", 1);
+			Jungle exampleJungle = new Jungle(2, 3, "asdertg", 1);
 
 			// Erstellte ein Nachbarschaftsbeispiel
-			INeighborhood bspNachbarschaft = new DistanceNeighborhood(2);
+			INeighborhood exampleNeighborhood = new DistanceNeighborhood(2);
 
 			// Erstelle Beispielzeit
-			Double[] bspZeit = { 1.0, 2.0 };
+			Double[] exampleTime = { 1.0, 2.0 };
 
 			// Fuege dem bspModell alle erstellten Daten hinzu
-			exampleModel = new ProblemModel(bspDschungel, null, bspZeit);
-			exampleModel.addSnakeType(new SnakeType("A0", bspNachbarschaft, "abcdefghij", 1, 1));
-			exampleModel.addSnakeType(new SnakeType("A1", bspNachbarschaft, "hjgzhi", 21, 31));
+			exampleModel = new ProblemModel(exampleJungle, null, exampleTime);
+			exampleModel.addSnakeType(new SnakeType("A0", exampleNeighborhood, "abcdefghij", 1, 1));
+			exampleModel.addSnakeType(new SnakeType("A1", exampleNeighborhood, "hjgzhi", 21, 31));
 
 			// Schreibe nun diese Daten in ein Document
 			writerXML = new WriterXML(exampleModel);

@@ -1,12 +1,11 @@
 package de.fuhagen.course01584.ss23.model;
 
 /**
- * Eine Klasse, die Schlangenglieder modelliert. Jede Schlange besteht immer aus
- * einem oder mehreren Schlangengliedern. Schlangenglieder sind also die
- * Bausteine der Schlangen. Jedem Schlangenglied ist ein Feld im Dschungel
- * zugeordnet, das das richtige Zeichen enthaelt. Das richtige Zeichen wird
- * hierbei von der Zeichenkette der Schlangeart der Schlange vorgegeben zu der
- * die Schlangenglieder gehoeren.
+ * A class that models snake elements. Each snake consists of one or more snake
+ * elements. Snake elements are the building blocks of snakes. Each snake
+ * element is associated with a field in the jungle that contains the correct
+ * character. The correct character is provided by the snake type's string to
+ * which the snake elements belong.
  * 
  * @author Philip Redecker
  *
@@ -15,42 +14,40 @@ public class SnakeElement {
 	private Field field;
 
 	/**
-	 * Ein parametrisierter Konstruktor fuer die Klasse Schlangenglied. Bei der
-	 * Instanziierung kann also direkt auf das Feld verwiesen werden, das laut
-	 * Schlangenart zu diesem Schlangenglied gehoert.
+	 * A parameterized constructor for the SnakeElement class. During instantiation,
+	 * a reference to the field belonging to this snake element can be provided,
+	 * according to the snake type.
 	 * 
-	 * @param field Das Feld, das zu diesem Schlangenglied gehoert.
+	 * @param field The field associated with this snake element.
 	 */
 	public SnakeElement(Field field) {
 		super();
 		this.field = field;
-
 	}
 
 	/**
-	 * Ein parameterloser Konstruktor, so, dass es bei zukuenftiger Aanderung des
-	 * Programmes moeglich ist, diese Klasse zum Beispiel zum Testen zu nutzen.
+	 * A parameterless constructor, allowing this class to be used for future
+	 * changes to the program, for example, for testing purposes.
 	 */
 	public SnakeElement() {
 		super();
 	}
 
 	/**
-	 * Diese Methode gibt das Feld zurueck, das zu diesem Schlangenglied gehoert.
+	 * This method returns the field associated with this snake element.
 	 * 
-	 * @return Das Feld, das zu diesem Schlangenglied gehoert.
+	 * @return The field associated with this snake element.
 	 */
 	public Field getField() {
 		return field;
 	}
 
 	/**
-	 * Durch diese Methode ist das Setzen des Feldes des Schlangengliedes auch nach
-	 * Instanziierung moeglich. Diese Methode dient vor allem dem Einlesen von Daten
-	 * aber unter anderem auch dem Testen oder beziehungsweise und der spaeteren
-	 * Programmerweiterung.
+	 * This method allows setting the field of the snake element even after
+	 * instantiation. This method is primarily for reading data but also for testing
+	 * and potential future program extension.
 	 * 
-	 * @param field Das Feld, das dem Schlangenglied uebergeben werden soll.
+	 * @param field The field to be assigned to the snake element.
 	 */
 	public void setField(Field field) {
 		this.field = field;

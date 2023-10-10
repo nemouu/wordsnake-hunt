@@ -52,8 +52,8 @@ class ReaderXMLTest {
 		@DisplayName("Einfacher Test fuer das Attribut 'zeit'.")
 		@Test
 		void testTime() {
-			Double[] zeitInDatei = { 60.0, 0.001205252 };
-			assertArrayEquals(zeitInDatei, readerXML.getTransferredModel().getTime(),
+			Double[] timeInFile = { 60.0, 0.001205252 };
+			assertArrayEquals(timeInFile, readerXML.getTransferredModel().getTime(),
 					"\nDie eingelesene Zeit entspricht nicht der Zeit aus der XML-Datei.");
 		}
 
@@ -249,8 +249,8 @@ class ReaderXMLTest {
 		@DisplayName("Einfacher Test fuer das Attribut 'zeit'.")
 		@Test
 		void testTime() {
-			Double[] zeitInDatei = { 60.0, 0.0 };
-			assertArrayEquals(zeitInDatei, readerXML.getTransferredModel().getTime(),
+			Double[] timeInFile = { 60.0, 0.0 };
+			assertArrayEquals(timeInFile, readerXML.getTransferredModel().getTime(),
 					"\nDie eingelesene Zeit entspricht nicht der Zeit aus der XML-Datei.");
 		}
 
@@ -413,8 +413,8 @@ class ReaderXMLTest {
 		@DisplayName("Einfacher Test fuer das Attribut 'zeit'.")
 		@Test
 		void testTime() {
-			Double[] zeitInDatei = { 60.0, 0.0 };
-			assertArrayEquals(zeitInDatei, readerXML.getTransferredModel().getTime(),
+			Double[] timeInFile = { 60.0, 0.0 };
+			assertArrayEquals(timeInFile, readerXML.getTransferredModel().getTime(),
 					"\nDie eingelesene Zeit entspricht nicht der Zeit aus der XML-Datei.");
 		}
 
