@@ -48,7 +48,7 @@ public class DistanceNeighborhood implements INeighborhood {
 	}
 
 	@Override
-	public List<Field> getNeighbors(Jungle dschungel, Field feld) {
+	public List<Field> getNeighbors(Jungle jungle, Field field) {
 		/*
 		 * In dieser Methode werden die Nachbarn eines Feldes in einem Dschungel
 		 * gefunden. Dabei werden alle Felder, die in der Entfernung des Parameters vom
@@ -58,37 +58,37 @@ public class DistanceNeighborhood implements INeighborhood {
 		 * wird immer gerpueft, ob sich ein bestimmtes Feld schon in der Liste mit
 		 * Nachbarn befindet.
 		 */
-		List<Field> listeMitNachbarn = new ArrayList<Field>();
+		List<Field> listOfNeighbors = new ArrayList<Field>();
 		int param = parameter.get(0);
-		Field[][] felder = dschungel.getFields();
+		Field[][] jungleFields = jungle.getFields();
 		for (int i = 0; i < param + 1; i++) {
 			for (int j = 0; j < param + 1; j++) {
 				if (i == 0 && j == 0) {
 				} else {
-					if (feld.getRow() + i < felder.length && feld.getColumn() + j < felder[0].length) {
-						if (listeMitNachbarn.contains(felder[feld.getRow() + i][feld.getColumn() + j]) == false) {
-							listeMitNachbarn.add(felder[feld.getRow() + i][feld.getColumn() + j]);
+					if (field.getRow() + i < jungleFields.length && field.getColumn() + j < jungleFields[0].length) {
+						if (listOfNeighbors.contains(jungleFields[field.getRow() + i][field.getColumn() + j]) == false) {
+							listOfNeighbors.add(jungleFields[field.getRow() + i][field.getColumn() + j]);
 						}
 					}
-					if (feld.getRow() - i >= 0 && feld.getColumn() - j >= 0) {
-						if (listeMitNachbarn.contains(felder[feld.getRow() - i][feld.getColumn() - j]) == false) {
-							listeMitNachbarn.add(felder[feld.getRow() - i][feld.getColumn() - j]);
+					if (field.getRow() - i >= 0 && field.getColumn() - j >= 0) {
+						if (listOfNeighbors.contains(jungleFields[field.getRow() - i][field.getColumn() - j]) == false) {
+							listOfNeighbors.add(jungleFields[field.getRow() - i][field.getColumn() - j]);
 						}
 					}
-					if (feld.getRow() + i < felder.length && feld.getColumn() - j >= 0) {
-						if (listeMitNachbarn.contains(felder[feld.getRow() + i][feld.getColumn() - j]) == false) {
-							listeMitNachbarn.add(felder[feld.getRow() + i][feld.getColumn() - j]);
+					if (field.getRow() + i < jungleFields.length && field.getColumn() - j >= 0) {
+						if (listOfNeighbors.contains(jungleFields[field.getRow() + i][field.getColumn() - j]) == false) {
+							listOfNeighbors.add(jungleFields[field.getRow() + i][field.getColumn() - j]);
 						}
 					}
-					if (feld.getRow() - i >= 0 && feld.getColumn() + j < felder[0].length) {
-						if (listeMitNachbarn.contains(felder[feld.getRow() - i][feld.getColumn() + j]) == false) {
-							listeMitNachbarn.add(felder[feld.getRow() - i][feld.getColumn() + j]);
+					if (field.getRow() - i >= 0 && field.getColumn() + j < jungleFields[0].length) {
+						if (listOfNeighbors.contains(jungleFields[field.getRow() - i][field.getColumn() + j]) == false) {
+							listOfNeighbors.add(jungleFields[field.getRow() - i][field.getColumn() + j]);
 						}
 					}
 				}
 			}
 		}
-		return listeMitNachbarn;
+		return listOfNeighbors;
 	}
 
 	@Override

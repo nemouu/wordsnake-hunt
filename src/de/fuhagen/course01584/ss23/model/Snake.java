@@ -21,14 +21,14 @@ public class Snake {
 	 * werden. In diesem Fall ist die Schlange also moeglicherweise nach der
 	 * Instanziierung vollstaendig.
 	 * 
-	 * @param art     Die Schlangenart, die die Schlange haben soll.
-	 * @param glieder Eine Liste mit Schlangengliedern, gemaess der in diesem Paket
+	 * @param type     Die Schlangenart, die die Schlange haben soll.
+	 * @param elements Eine Liste mit Schlangengliedern, gemaess der in diesem Paket
 	 *                definierten Datenstruktur Schlangenglied.
 	 */
-	public Snake(SnakeType art, List<SnakeElement> glieder) {
+	public Snake(SnakeType type, List<SnakeElement> elements) {
 		super();
-		this.type = art;
-		this.elements = glieder;
+		this.type = type;
+		this.elements = elements;
 	}
 
 	/**
@@ -38,11 +38,11 @@ public class Snake {
 	 * Schlangenglied erzeugt, sodass der Schlange jederzeit Schlangenglieder
 	 * hinzugefuegt werden koennen.
 	 * 
-	 * @param art Die Schlangenart, die die Schlange haben soll.
+	 * @param type Die Schlangenart, die die Schlange haben soll.
 	 */
-	public Snake(SnakeType art) {
+	public Snake(SnakeType type) {
 		super();
-		this.type = art;
+		this.type = type;
 		this.elements = new ArrayList<SnakeElement>();
 	}
 
@@ -62,10 +62,10 @@ public class Snake {
 	 * Eine Methode, die der Schlange ein Schlangenglied (am Ende der Schlange)
 	 * hinzufuegt.
 	 * 
-	 * @param inGlied Das Schlangenglied, das hinzugefuegt werden soll.
+	 * @param inElement Das Schlangenglied, das hinzugefuegt werden soll.
 	 */
-	public void addElement(SnakeElement inGlied) {
-		this.elements.add(inGlied);
+	public void addElement(SnakeElement inElement) {
+		this.elements.add(inElement);
 	}
 
 	/**
@@ -119,10 +119,10 @@ public class Snake {
 	 * aber unter anderem auch dem Testen oder beziehungsweise und der spaeteren
 	 * Programmerweiterung.
 	 * 
-	 * @param art Eine Schlangenart, die der Schlange uebergeben werden soll.
+	 * @param type Eine Schlangenart, die der Schlange uebergeben werden soll.
 	 */
-	public void setType(SnakeType art) {
-		this.type = art;
+	public void setType(SnakeType type) {
+		this.type = type;
 	}
 
 	/**
@@ -141,10 +141,10 @@ public class Snake {
 	 * Daten aber unter anderem auch dem Testen oder beziehungsweise und der
 	 * spaeteren Programmerweiterung.
 	 * 
-	 * @param glieder Eine Liste mit Schlangengliedern, die der Schlange uebergeben
+	 * @param elements Eine Liste mit Schlangengliedern, die der Schlange uebergeben
 	 *                werden soll.
 	 */
-	public void setElements(List<SnakeElement> glieder) {
-		this.elements = glieder;
+	public void setElements(List<SnakeElement> elements) {
+		this.elements = elements;
 	}
 }

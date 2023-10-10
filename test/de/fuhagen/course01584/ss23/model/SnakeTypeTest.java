@@ -154,7 +154,7 @@ class SnakeTypeTest {
 
 		@DisplayName("Parameterisierter positiver Test fuer Konstruktor und getPunkte.")
 		@ParameterizedTest
-		@MethodSource("erzeugePositiveParameterwerte")
+		@MethodSource("generatePositiveParametervalues")
 		void testConstructorAndGetPointsPositive(int punkte) {
 			SnakeType art = new SnakeType("a", exampleNeighborhood, "a", punkte, 1);
 			assertEquals(art.getPoints(), punkte, "\nDer Wert fuer Punkte '" + art.getPoints()
@@ -163,7 +163,7 @@ class SnakeTypeTest {
 
 		@DisplayName("Parameterisierter negativer Test fuer Konstruktor und getPunkte.")
 		@ParameterizedTest
-		@MethodSource("erzeugeNegativeParameterwerte")
+		@MethodSource("generateNegativeParametervalues")
 		void testConstructorAndGetPointsNegative(int punkte) {
 			assertThrows(IllegalArgumentException.class, () -> new SnakeType("a", exampleNeighborhood, "a", punkte, 1),
 					"\nEs wurde keine Ausnahme ausgeloest, obwohl der Wert fuer Punkte negativ ist.");
@@ -171,7 +171,7 @@ class SnakeTypeTest {
 
 		@DisplayName("Parameterisierter positiver Test fuer Konstruktor und getAnzahl.")
 		@ParameterizedTest
-		@MethodSource("erzeugePositiveParameterwerte")
+		@MethodSource("generatePositiveParametervalues")
 		void testConstructorAndGetAmountPositive(int anzahl) {
 			SnakeType art = new SnakeType("a", exampleNeighborhood, "a", 1, anzahl);
 			assertEquals(art.getAmount(), anzahl, "\nDer Wert fuer Anzahl '" + art.getAmount()
@@ -180,7 +180,7 @@ class SnakeTypeTest {
 
 		@DisplayName("Parameterisierter negativer Test fuer Konstruktor und getAnzahl.")
 		@ParameterizedTest
-		@MethodSource("erzeugeNegativeParameterwerte")
+		@MethodSource("generateNegativeParametervalues")
 		void testConstructorAndGetAmountNegative(int anzahl) {
 			assertThrows(IllegalArgumentException.class, () -> new SnakeType("a", exampleNeighborhood, "a", 1, anzahl),
 					"\nFuer den (negativen) Wert fuer Anzahl '" + anzahl + "' wird keine Ausnahme erzeugt.");
@@ -188,7 +188,7 @@ class SnakeTypeTest {
 
 		@DisplayName("Parameterisierter positiver Test fuer setPunkte und getPunkte.")
 		@ParameterizedTest
-		@MethodSource("erzeugePositiveParameterwerte")
+		@MethodSource("generatePositiveParametervalues")
 		void testSetPointsPositive(int punkte) {
 			SnakeType art = new SnakeType("a", exampleNeighborhood, "a", 1, 1);
 			art.setPoints(punkte);
@@ -198,7 +198,7 @@ class SnakeTypeTest {
 
 		@DisplayName("Parameterisierter negativer Test fuer setPunkte und getPunkte.")
 		@ParameterizedTest
-		@MethodSource("erzeugeNegativeParameterwerte")
+		@MethodSource("generateNegativeParametervalues")
 		void testSetPointsNegative(int punkte) {
 			SnakeType art = new SnakeType("a", exampleNeighborhood, "a", 1, 1);
 			assertThrows(IllegalArgumentException.class, () -> art.setPoints(punkte),
@@ -207,7 +207,7 @@ class SnakeTypeTest {
 
 		@DisplayName("Parameterisierter positiver Test fuer setAnzahl und getAnzahl.")
 		@ParameterizedTest
-		@MethodSource("erzeugePositiveParameterwerte")
+		@MethodSource("generatePositiveParametervalues")
 		void testSetAmountPositive(int anzahl) {
 			SnakeType art = new SnakeType("a", exampleNeighborhood, "a", 1, 1);
 			art.setAmount(anzahl);
@@ -217,7 +217,7 @@ class SnakeTypeTest {
 
 		@DisplayName("Parameterisierter negativer Test fuer setAnzahl.")
 		@ParameterizedTest
-		@MethodSource("erzeugeNegativeParameterwerte")
+		@MethodSource("generateNegativeParametervalues")
 		void testSetAmountNegative(int anzahl) {
 			assertThrows(IllegalArgumentException.class,
 					() -> new SnakeType("a", exampleNeighborhood, "a", 1, 1).setAmount(anzahl),

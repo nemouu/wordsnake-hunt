@@ -22,32 +22,32 @@ public class Jungle {
 	 * auch ein 2 dimensionales Array fuer die Felder uebergeben wird. Es wird also
 	 * bei Instanziierung direkt ein vollstaendiger Dschungel erzeugt.
 	 * 
-	 * @param zeilen       Eine Zahl, die der Anzahl der gewuenschten Zeilen
+	 * @param rows       Eine Zahl, die der Anzahl der gewuenschten Zeilen
 	 *                     entspricht.
-	 * @param spalten      Eine Zahl, die der Anzahl der gewuenschten Spalten
+	 * @param columns      Eine Zahl, die der Anzahl der gewuenschten Spalten
 	 *                     entspricht.
-	 * @param felder       Ein 2 dimensionales Array von Feldern. Dies sind die
+	 * @param fields       Ein 2 dimensionales Array von Feldern. Dies sind die
 	 *                     Dschungelfelder.
-	 * @param zeichenmenge Ein String, der die verwendeten Zeichen des Dschungels
+	 * @param signs Ein String, der die verwendeten Zeichen des Dschungels
 	 *                     enthaelt.
 	 * @throws IllegalArgumentException Falls ungueltige Argumente fuer Zeilen und
 	 *                                  Spalten uebergeben werden, wird eine
 	 *                                  Ausnahme geworfen.
 	 */
-	public Jungle(int zeilen, int spalten, Field[][] felder, String zeichenmenge) throws IllegalArgumentException {
+	public Jungle(int rows, int columns, Field[][] fields, String signs) throws IllegalArgumentException {
 		super();
-		if (zeilen < 0 || spalten < 0) {
+		if (rows < 0 || columns < 0) {
 			throw new IllegalArgumentException(
 					"Fuer die Klasse 'Dschungel' duerfen die Attribute 'zeilen' und 'spalten' keine negativen Werte annehmen.");
 		}
-		if (Integer.MAX_VALUE - 1 < zeilen || Integer.MAX_VALUE - 1 < spalten) {
+		if (Integer.MAX_VALUE - 1 < rows || Integer.MAX_VALUE - 1 < columns) {
 			throw new IllegalArgumentException(
 					"Fuer die Klasse 'Dschungel' duerfen die Attribute 'zeilen' und 'spalten' nicht groesser als der groesste Integerwert sein");
 		}
-		this.rows = zeilen;
-		this.columns = spalten;
-		this.fields = felder;
-		this.signs = zeichenmenge;
+		this.rows = rows;
+		this.columns = columns;
+		this.fields = fields;
+		this.signs = signs;
 	}
 
 	/**
@@ -59,11 +59,11 @@ public class Jungle {
 	 * Parameter <code>parameter</code> dient hierbei dazu die einzelnen Felder zu
 	 * instanziieren (siehe Konstruktoren fuer Klasse Feld).
 	 * 
-	 * @param zeilen       Eine Zahl, die der Anzahl der gewuenschten Zeilen
+	 * @param rows       Eine Zahl, die der Anzahl der gewuenschten Zeilen
 	 *                     entspricht.
-	 * @param spalten      Eine Zahl, die der Anzahl der gewuenschten Spalten
+	 * @param columns      Eine Zahl, die der Anzahl der gewuenschten Spalten
 	 *                     entspricht.
-	 * @param zeichenmenge Ein String, der die verwendeten Zeichen des Dschungels
+	 * @param signs Ein String, der die verwendeten Zeichen des Dschungels
 	 *                     enthaelt.
 	 * @param parameter    Eine Zahl, die an den Konstruktor der einzelnen Felder
 	 *                     weitergegeben wird. Sie bestimmt die Verwendbarkeit und
@@ -73,25 +73,25 @@ public class Jungle {
 	 *                                  Spalten uebergeben werden, wird eine
 	 *                                  Ausnahme geworfen.
 	 */
-	public Jungle(int zeilen, int spalten, String zeichenmenge, int parameter) throws IllegalArgumentException {
+	public Jungle(int rows, int columns, String signs, int parameter) throws IllegalArgumentException {
 		super();
-		if (zeilen < 0 || spalten < 0) {
+		if (rows < 0 || columns < 0) {
 			throw new IllegalArgumentException(
 					"Fuer die Klasse 'Dschungel' duerfen die Attribute 'zeilen' und 'spalten' keine negativen Werte annehmen.");
 		}
-		if (Integer.MAX_VALUE - 1 < zeilen || Integer.MAX_VALUE - 1 < spalten) {
+		if (Integer.MAX_VALUE - 1 < rows || Integer.MAX_VALUE - 1 < columns) {
 			throw new IllegalArgumentException(
 					"Fuer die Klasse 'Dschungel' duerfen die Attribute 'zeilen' und 'spalten' nicht groesser als der groesste Integerwert sein");
 		}
-		this.rows = zeilen;
-		this.columns = spalten;
-		this.signs = zeichenmenge;
-		this.fields = new Field[zeilen][spalten];
-		for (int i = 0; i < zeilen; i++) {
-			for (int j = 0; j < spalten; j++) {
+		this.rows = rows;
+		this.columns = columns;
+		this.signs = signs;
+		this.fields = new Field[rows][columns];
+		for (int i = 0; i < rows; i++) {
+			for (int j = 0; j < columns; j++) {
 				fields[i][j] = new Field(i, j, parameter);
-				int idNummer = spalten * i + j;
-				fields[i][j].setId("F" + idNummer);
+				int idNumber = columns * i + j;
+				fields[i][j].setId("F" + idNumber);
 			}
 		}
 	}
@@ -112,18 +112,18 @@ public class Jungle {
 	 * @return Die Anzahl, der mit einem Zeichen belegten Felder.
 	 */
 	public int numberOfTakenFields() {
-		int anzahl = 0;
+		int amount = 0;
 		if (fields == null) {
-			return anzahl;
+			return amount;
 		}
 		for (int i = 0; i < fields.length; i++) {
 			for (int j = 0; j < fields[0].length; j++) {
 				if (fields[i][j].getCharacter() != null) {
-					anzahl++;
+					amount++;
 				}
 			}
 		}
-		return anzahl;
+		return amount;
 	}
 
 	/**
@@ -174,22 +174,22 @@ public class Jungle {
 	 * Instanziierung moeglich. Dies dient vor allem dem Testen oder beziehungsweise
 	 * und der spaeteren Programmerweiterung.
 	 * 
-	 * @param zeilen Die Anzahl der Zeilen, die dem Dschungel uebergeben werden
+	 * @param rows Die Anzahl der Zeilen, die dem Dschungel uebergeben werden
 	 *               soll.
 	 * @throws IllegalArgumentException Falls ein ungueltiges Argument fuer Zeilen
 	 *                                  uebergeben wird, wird eine Ausnahme
 	 *                                  geworfen.
 	 */
-	public void setRows(int zeilen) throws IllegalArgumentException {
-		if (zeilen < 0) {
+	public void setRows(int rows) throws IllegalArgumentException {
+		if (rows < 0) {
 			throw new IllegalArgumentException(
 					"Fuer die Klasse 'Dschungel' darf das Attribut 'zeilen' keine negativen Werte annehmen.");
 		}
-		if (Integer.MAX_VALUE < zeilen) {
+		if (Integer.MAX_VALUE < rows) {
 			throw new IllegalArgumentException(
 					"Fuer die Klasse 'Dschungel' darf das Attribut 'zeilen' nicht groesser als der groesste Integerwert sein");
 		}
-		this.rows = zeilen;
+		this.rows = rows;
 	}
 
 	/**
@@ -208,22 +208,22 @@ public class Jungle {
 	 * Instanziierung moeglich. Dies dient vor allem dem Testen oder beziehungsweise
 	 * und der spaeteren Programmerweiterung.
 	 * 
-	 * @param spalten Die Anzahl der Spalten, die dem Dschungel uebergeben werden
+	 * @param columns Die Anzahl der Spalten, die dem Dschungel uebergeben werden
 	 *                soll.
 	 * @throws IllegalArgumentException Falls ein ungueltiges Argument fuer Spalten
 	 *                                  uebergeben wird, wird eine Ausnahme
 	 *                                  geworfen.
 	 */
-	public void setColumns(int spalten) throws IllegalArgumentException {
-		if (spalten < 0) {
+	public void setColumns(int columns) throws IllegalArgumentException {
+		if (columns < 0) {
 			throw new IllegalArgumentException(
 					"Fuer die Klasse 'Dschungel' darf das Attribut 'spalten' keine negativen Werte annehmen.");
 		}
-		if (Integer.MAX_VALUE - 1 < spalten) {
+		if (Integer.MAX_VALUE - 1 < columns) {
 			throw new IllegalArgumentException(
 					"Fuer die Klasse 'Dschungel' darf das Attribut 'spalten' nicht groesser als der groesste Integerwert sein");
 		}
-		this.columns = spalten;
+		this.columns = columns;
 	}
 
 	/**
@@ -231,10 +231,10 @@ public class Jungle {
 	 * Informationen darueber enthalten, wo genau sie im Dschungel sind (siehe
 	 * Klasse Feld), ist nicht mehr als eine einfache Zuweiseung noetig.
 	 * 
-	 * @param inFeld Das Feld, das im Dschungel platziert werden soll.
+	 * @param inField Das Feld, das im Dschungel platziert werden soll.
 	 */
-	public void setField(Field inFeld) {
-		this.fields[inFeld.getRow()][inFeld.getColumn()] = inFeld;
+	public void setField(Field inField) {
+		this.fields[inField.getRow()][inField.getColumn()] = inField;
 	}
 
 	/**
@@ -255,10 +255,10 @@ public class Jungle {
 	 * Instanziierung moeglich. Dies dient vor allem dem Testen oder beziehungsweise
 	 * und der spaeteren Programmerweiterung.
 	 * 
-	 * @param felder Ein 2D Array aus Feldern, das dem Dschungel uebergeben wird.
+	 * @param fields Ein 2D Array aus Feldern, das dem Dschungel uebergeben wird.
 	 */
-	public void setFields(Field[][] felder) {
-		this.fields = felder;
+	public void setFields(Field[][] fields) {
+		this.fields = fields;
 	}
 
 	/**
@@ -279,10 +279,10 @@ public class Jungle {
 	 * Instanziierung moeglich. Dies dient vor allem dem Testen oder beziehungsweise
 	 * und der spaeteren Programmerweiterung.
 	 * 
-	 * @param zeichenmenge Die Zeichenmenge, die dem Dschungel uebergeben werden
+	 * @param signs Die Zeichenmenge, die dem Dschungel uebergeben werden
 	 *                     soll.
 	 */
-	public void setSigns(String zeichenmenge) {
-		this.signs = zeichenmenge;
+	public void setSigns(String signs) {
+		this.signs = signs;
 	}
 }

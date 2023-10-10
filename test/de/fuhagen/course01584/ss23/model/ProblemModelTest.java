@@ -128,7 +128,7 @@ class ProblemModelTest {
 			Double[] bspZeit = { 3.0 };
 			Jungle bspDschungel = new Jungle(3, 4, "asdertg", 1);
 			IModel bspModell = new ProblemModel(bspDschungel, null, bspZeit);
-			assertEquals(3.0E9, bspModell.calculateTimeToNanoseconds(bspZeit[0]),
+			assertEquals(3.0E9, bspModell.calculateTimeToNanoseconds(),
 					"\nDie errechnete Zeit stimmt " + "nicht mit dem zu erwartenden Wert ueberein.");
 		}
 
@@ -139,7 +139,7 @@ class ProblemModelTest {
 			Jungle bspDschungel = new Jungle(3, 4, "asdertg", 1);
 			IModel bspModell = new ProblemModel(bspDschungel, null, bspZeit);
 			bspModell.setUnitOfTime("ms");
-			assertEquals(2.5E9, bspModell.calculateTimeToNanoseconds(bspZeit[0]),
+			assertEquals(2.5E9, bspModell.calculateTimeToNanoseconds(),
 					"\nDie errechnete Zeit stimmt " + "nicht mit dem zu erwartenden Wert ueberein.");
 		}
 
@@ -150,7 +150,7 @@ class ProblemModelTest {
 			Jungle bspDschungel = new Jungle(3, 4, "asdertg", 1);
 			IModel bspModell = new ProblemModel(bspDschungel, null, bspZeit);
 			bspModell.setUnitOfTime("min");
-			assertEquals(1.8E9, bspModell.calculateTimeToNanoseconds(bspZeit[0]),
+			assertEquals(1.8E9, bspModell.calculateTimeToNanoseconds(),
 					"\nDie errechnete Zeit stimmt " + "nicht mit dem zu erwartenden Wert ueberein.");
 		}
 
@@ -161,7 +161,7 @@ class ProblemModelTest {
 			Jungle bspDschungel = new Jungle(3, 4, "asdertg", 1);
 			IModel bspModell = new ProblemModel(bspDschungel, null, bspZeit);
 			bspModell.setUnitOfTime("h");
-			assertEquals(5.4E8, bspModell.calculateTimeToNanoseconds(bspZeit[0]),
+			assertEquals(5.4E8, bspModell.calculateTimeToNanoseconds(),
 					"\nDie errechnete Zeit stimmt " + "nicht mit dem zu erwartenden Wert ueberein.");
 		}
 
@@ -172,7 +172,7 @@ class ProblemModelTest {
 			Jungle bspDschungel = new Jungle(3, 4, "asdertg", 1);
 			IModel bspModell = new ProblemModel(bspDschungel, null, bspZeit);
 			bspModell.setUnitOfTime("d");
-			assertEquals(3.456E7, bspModell.calculateTimeToNanoseconds(bspZeit[0]),
+			assertEquals(3.456E7, bspModell.calculateTimeToNanoseconds(),
 					"\nDie errechnete Zeit stimmt " + "nicht mit dem zu erwartenden Wert ueberein.");
 		}
 
@@ -271,7 +271,7 @@ class ProblemModelTest {
 
 		@DisplayName("Parameterisierter positiver Test fuer Konstruktor und getZeit mit einem Eintrag.")
 		@ParameterizedTest
-		@MethodSource("erzeugePositiveParameterwerteDouble")
+		@MethodSource("generatePositiveParametervaluesDouble")
 		void testConstructorAndGetTimePositiveOneParameter(Double zeit) {
 			Double[] bspDouble = { zeit };
 			ProblemModel modell = new ProblemModel(exampleJungle, exampleSolution, bspDouble);
@@ -282,7 +282,7 @@ class ProblemModelTest {
 
 		@DisplayName("Parameterisierter positiver Test fuer Konstruktor und getZeit mit zwei Eintraegen.")
 		@ParameterizedTest
-		@MethodSource("erzeugePositiveParameterwerteDouble")
+		@MethodSource("generatePositiveParametervaluesDouble")
 		void testConstructorAndGetTimePositiveTwoParameters(Double zeit) {
 			Double[] bspDouble = { zeit, zeit + 3.874 };
 			ProblemModel modell = new ProblemModel(exampleJungle, exampleSolution, bspDouble);
@@ -293,7 +293,7 @@ class ProblemModelTest {
 
 		@DisplayName("Parameterisierter positiver Test fuer Konstruktor und getZeit mit einem Eintrag.")
 		@ParameterizedTest
-		@MethodSource("erzeugeNegativeParameterwerteDouble")
+		@MethodSource("generateNegativeParametervaluesDouble")
 		void testConstructorAndGetTimeNegativeOneParameter(Double zeit) {
 			Double[] bspDouble = { zeit };
 			assertThrows(IllegalArgumentException.class, () -> new ProblemModel(exampleJungle, exampleSolution, bspDouble),
@@ -302,7 +302,7 @@ class ProblemModelTest {
 
 		@DisplayName("Parameterisierter positiver Test fuer Konstruktor und getZeit mit zwei Eintraegen.")
 		@ParameterizedTest
-		@MethodSource("erzeugeNegativeParameterwerteDouble")
+		@MethodSource("generateNegativeParametervaluesDouble")
 		void testConstructorAndGetTimeNegativeTwoParameters(Double zeit) {
 			Double[] bspDouble = { zeit, zeit + 3.874 };
 			assertThrows(IllegalArgumentException.class, () -> new ProblemModel(exampleJungle, exampleSolution, bspDouble),
@@ -311,7 +311,7 @@ class ProblemModelTest {
 
 		@DisplayName("Parametrisierter positiver Test von setZeit().")
 		@ParameterizedTest
-		@MethodSource("erzeugePositiveParameterwerteDouble")
+		@MethodSource("generatePositiveParametervaluesDouble")
 		void testSetTimePositive(Double zeit) {
 			Double[] bspZeit = { zeit };
 			IModel bspModell = new ProblemModel(exampleJungle, exampleSolution, bspZeit);
@@ -323,7 +323,7 @@ class ProblemModelTest {
 
 		@DisplayName("Parametrisierter positiver Test von setZeit() mit zwei Eintraegen.")
 		@ParameterizedTest
-		@MethodSource("erzeugePositiveParameterwerteDouble")
+		@MethodSource("generatePositiveParametervaluesDouble")
 		void testSetTimePositiveWithTwoParameters(Double zeit) {
 			Double[] bspZeit = { zeit, zeit + 4.5 };
 			IModel bspModell = new ProblemModel(exampleJungle, exampleSolution, bspZeit);
@@ -333,7 +333,7 @@ class ProblemModelTest {
 
 		@DisplayName("Parametrisierter negativer Test von setZeit().")
 		@ParameterizedTest
-		@MethodSource("erzeugeNegativeParameterwerteDouble")
+		@MethodSource("generateNegativeParametervaluesDouble")
 		void testSetTimeNegative(Double zeit) {
 			Double[] initZeit = { 0.0 };
 			Double[] bspZeit = { zeit };
@@ -344,7 +344,7 @@ class ProblemModelTest {
 
 		@DisplayName("Parametrisierter negativer Test von setZeit().")
 		@ParameterizedTest
-		@MethodSource("erzeugeNegativeParameterwerteDouble")
+		@MethodSource("generateNegativeParametervaluesDouble")
 		void testSetTimeNegativeWithTwoParameters(Double zeit) {
 			Double[] initZeit = { 0.0 };
 			Double[] bspZeit = { zeit, zeit - 3.4 };

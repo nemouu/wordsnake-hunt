@@ -19,11 +19,11 @@ public class SnakeElement {
 	 * Instanziierung kann also direkt auf das Feld verwiesen werden, das laut
 	 * Schlangenart zu diesem Schlangenglied gehoert.
 	 * 
-	 * @param feld Das Feld, das zu diesem Schlangenglied gehoert.
+	 * @param field Das Feld, das zu diesem Schlangenglied gehoert.
 	 */
-	public SnakeElement(Field feld) {
+	public SnakeElement(Field field) {
 		super();
-		this.field = feld;
+		this.field = field;
 
 	}
 
@@ -50,9 +50,9 @@ public class SnakeElement {
 	 * aber unter anderem auch dem Testen oder beziehungsweise und der spaeteren
 	 * Programmerweiterung.
 	 * 
-	 * @param feld Das Feld, das dem Schlangenglied uebergeben werden soll.
+	 * @param field Das Feld, das dem Schlangenglied uebergeben werden soll.
 	 */
-	public void setField(Field feld) {
-		this.field = feld;
+	public void setField(Field field) {
+		this.field = field;
 	}
 }

@@ -25,42 +25,42 @@ public class Field {
 	 * Testen und beziehungsweise oder der spaeteren Programmerweiterung.
 	 * 
 	 * @param id             Ein String, der die ID des Feldes enthaelt.
-	 * @param zeile          Die Zahl der Zeile in der das Feld zu finden sein soll.
-	 * @param spalte         Die Zahl der Spalte in der das Feld zu finden sein
+	 * @param row          Die Zahl der Zeile in der das Feld zu finden sein soll.
+	 * @param column         Die Zahl der Spalte in der das Feld zu finden sein
 	 *                       soll.
-	 * @param verwendbarkeit Die Verwendbarkeit, die das Feld haben soll.
-	 * @param punkte         Die Punkte, die das Feld haben soll.
-	 * @param zeichen        Ein String, der das Zeichen des Feldes enthaelt.
+	 * @param usage Die Verwendbarkeit, die das Feld haben soll.
+	 * @param points         Die Punkte, die das Feld haben soll.
+	 * @param character        Ein String, der das Zeichen des Feldes enthaelt.
 	 * @throws IllegalArgumentException Falls ein ungueltges Argument fuer Zeile,
 	 *                                  Spalte, Verwendbarkeit oder Punkte
 	 *                                  uebergeben wird, wird eine Ausnahme
 	 *                                  ausgeloest.
 	 */
-	public Field(String id, int zeile, int spalte, int verwendbarkeit, int punkte, String zeichen)
+	public Field(String id, int row, int column, int usage, int points, String character)
 			throws IllegalArgumentException {
 		super();
-		if (zeile < 0 || spalte < 0) {
+		if (row < 0 || column < 0) {
 			throw new IllegalArgumentException(
 					"Fuer die Klasse 'Feld' duerfen die Attribute 'zeile' und 'spalte' keine negativen Werte annehmen.");
 		}
-		if (Integer.MAX_VALUE < zeile || Integer.MAX_VALUE < spalte || Integer.MAX_VALUE < verwendbarkeit) {
+		if (Integer.MAX_VALUE < row || Integer.MAX_VALUE < column || Integer.MAX_VALUE < usage) {
 			throw new IllegalArgumentException(
 					"Fuer die Klasse 'Feld' duerfen die Attribute 'zeile', 'spalte' und 'verwendbarkeit' nicht groesser als der groesste Integerwert sein");
 		}
-		if (punkte > Integer.MAX_VALUE - 1 || punkte < 0) {
+		if (points > Integer.MAX_VALUE - 1 || points < 0) {
 			throw new IllegalArgumentException(
 					"Fuer die Klasse 'Feld' darf das Attribut 'punkte' nicht zu gross oder zu klein sein.");
 		}
-		if (verwendbarkeit > Integer.MAX_VALUE - 1 || verwendbarkeit < Integer.MIN_VALUE + 1) {
+		if (usage > Integer.MAX_VALUE - 1 || usage < Integer.MIN_VALUE + 1) {
 			throw new IllegalArgumentException(
 					"Fuer die Klasse 'Feld' darf das Attribut 'verwendbarkeit' nicht zu gross oder zu klein sein.");
 		}
 		this.id = id;
-		this.row = zeile;
-		this.column = spalte;
-		this.usage = verwendbarkeit;
-		this.points = punkte;
-		this.character = zeichen;
+		this.row = row;
+		this.column = column;
+		this.usage = usage;
+		this.points = points;
+		this.character = character;
 	}
 
 	/**
@@ -70,20 +70,20 @@ public class Field {
 	 * Einlesen aus einer Datei, hier werden die Daten der Felder dann spaeter
 	 * ueberschrieben oder zum Beispiel auch im Dschungelgenerator.
 	 * 
-	 * @param zeile     Die Zahl der Zeile in der das Feld zu finden sein soll.
-	 * @param spalte    Die Zahl der Spalte in der das Feld zu finden sein soll.
+	 * @param row     Die Zahl der Zeile in der das Feld zu finden sein soll.
+	 * @param column    Die Zahl der Spalte in der das Feld zu finden sein soll.
 	 * @param parameter Die Zahl fuer Punkte und Verwendbarkeit des Feldes.
 	 * @throws IllegalArgumentException Falls ein ungueltges Argument fuer Zeile,
 	 *                                  Spalte oder Parameter uebergeben wird, wird
 	 *                                  eine Ausnahme ausgeloest.
 	 */
-	public Field(int zeile, int spalte, int parameter) throws IllegalArgumentException {
+	public Field(int row, int column, int parameter) throws IllegalArgumentException {
 		super();
-		if (zeile < 0 || spalte < 0) {
+		if (row < 0 || column < 0) {
 			throw new IllegalArgumentException(
 					"Fuer die Klasse 'Feld' duerfen die Attribute 'zeile' und 'spalte' keine negativen Werte annehmen.");
 		}
-		if (zeile > Integer.MAX_VALUE - 1 || zeile > Integer.MAX_VALUE - 1) {
+		if (row > Integer.MAX_VALUE - 1 || row > Integer.MAX_VALUE - 1) {
 			throw new IllegalArgumentException(
 					"Fuer die Klasse 'Feld' duerfen die Attribute 'zeile' und 'spalte' nicht groesser als der groesste Integerwert sein");
 		}
@@ -92,8 +92,8 @@ public class Field {
 					"Fuer die Klasse 'Feld' duerfen die Attribute 'verwendbarkeit' und 'punkte' nicht groesser als der groesste "
 							+ "Integerwert und nicht kleiner als der kleinste Integerwert sein");
 		}
-		this.row = zeile;
-		this.column = spalte;
+		this.row = row;
+		this.column = column;
 		this.usage = parameter;
 		this.points = parameter;
 	}
@@ -141,21 +141,21 @@ public class Field {
 	 * Instanziierung moeglich. Dies dient vor allem dem Testen oder beziehungsweise
 	 * und der spaeteren Programmerweiterung.
 	 * 
-	 * @param zeile Die Zahl der Zeile, die dem Feld uebergeben werden soll.
+	 * @param row Die Zahl der Zeile, die dem Feld uebergeben werden soll.
 	 * @throws IllegalArgumentException Falls ein ungueltiges Argument fuer Zeile
 	 *                                  uebergeben wird, wird eine Ausnahme
 	 *                                  geworfen.
 	 */
-	public void setRow(int zeile) throws IllegalArgumentException {
-		if (zeile < 0) {
+	public void setRow(int row) throws IllegalArgumentException {
+		if (row < 0) {
 			throw new IllegalArgumentException(
 					"Fuer die Klasse Feld darf das Attribut 'zeile' keine negativen Werte annehmen.");
 		}
-		if (zeile > Integer.MAX_VALUE - 1) {
+		if (row > Integer.MAX_VALUE - 1) {
 			throw new IllegalArgumentException(
 					"Fuer die Klasse 'Feld' darf das Attribut 'zeile' nicht groesser als der groesste Integerwert sein");
 		}
-		this.row = zeile;
+		this.row = row;
 	}
 
 	/**
@@ -172,21 +172,21 @@ public class Field {
 	 * Instanziierung moeglich. Dies dient vor allem dem Testen oder beziehungsweise
 	 * und der spaeteren Programmerweiterung.
 	 * 
-	 * @param spalte Die Zahl der Spalte, die dem Feld uebergeben werden soll.
+	 * @param column Die Zahl der Spalte, die dem Feld uebergeben werden soll.
 	 * @throws IllegalArgumentException Falls ein ungueltiges Argument fuer Spalte
 	 *                                  uebergeben wird, wird eine Ausnahme
 	 *                                  geworfen.
 	 */
-	public void setColumn(int spalte) throws IllegalArgumentException {
-		if (spalte < 0) {
+	public void setColumn(int column) throws IllegalArgumentException {
+		if (column < 0) {
 			throw new IllegalArgumentException(
 					"Fuer die Klasse Feld darf das Attribut 'spalte' keine negativen Werte annehmen.");
 		}
-		if (spalte > Integer.MAX_VALUE - 1) {
+		if (column > Integer.MAX_VALUE - 1) {
 			throw new IllegalArgumentException(
 					"Fuer die Klasse 'Feld' darf das Attribut 'spalte' nicht groesser als der groesste Integerwert sein");
 		}
-		this.column = spalte;
+		this.column = column;
 	}
 
 	/**
@@ -204,18 +204,18 @@ public class Field {
 	 * Instanziierung moeglich. Dies dient vor allem dem Testen oder beziehungsweise
 	 * und der spaeteren Programmerweiterung.
 	 * 
-	 * @param verwendbarkeit Die Verwendbarkeit, die dem Feld uebergeben werden
+	 * @param usage Die Verwendbarkeit, die dem Feld uebergeben werden
 	 *                       soll.
 	 * @throws IllegalArgumentException Falls ein ungueltiges Argument fuer
 	 *                                  Verwendbarkeit uebergeben wird, wird eine
 	 *                                  Ausnahme geworfen.
 	 */
-	public void setUsage(int verwendbarkeit) throws IllegalArgumentException {
-		if (verwendbarkeit > Integer.MAX_VALUE - 1) {
+	public void setUsage(int usage) throws IllegalArgumentException {
+		if (usage > Integer.MAX_VALUE - 1) {
 			throw new IllegalArgumentException(
 					"Fuer die Klasse 'Feld' darf das Attribut 'verwendbarkeit' nicht groesser als der groesste Integerwert sein");
 		}
-		this.usage = verwendbarkeit;
+		this.usage = usage;
 	}
 
 	/**
@@ -233,17 +233,17 @@ public class Field {
 	 * Instanziierung moeglich. Dies dient vor allem dem Testen oder beziehungsweise
 	 * und der spaeteren Programmerweiterung.
 	 * 
-	 * @param punkte Die Punkte, die dem Feld uebergeben werden sollen.
+	 * @param points Die Punkte, die dem Feld uebergeben werden sollen.
 	 * @throws IllegalArgumentException Falls ein ungueltiges Argument fuer Punkte
 	 *                                  uebergeben wird, wird eine Ausnahme
 	 *                                  geworfen.
 	 */
-	public void setPoints(int punkte) throws IllegalArgumentException {
-		if (punkte > Integer.MAX_VALUE - 1 || punkte < 0) {
+	public void setPoints(int points) throws IllegalArgumentException {
+		if (points > Integer.MAX_VALUE - 1 || points < 0) {
 			throw new IllegalArgumentException(
 					"Fuer die Klasse 'Feld' darf das Attribut 'punkte' nicht zu gross oder zu klein sein.");
 		}
-		this.points = punkte;
+		this.points = points;
 	}
 
 	/**
@@ -260,10 +260,10 @@ public class Field {
 	 * Instanziierung moeglich. Dies dient vor allem dem Testen oder beziehungsweise
 	 * und der spaeteren Programmerweiterung.
 	 * 
-	 * @param zeichen Ein String, das das Zeichen enthaelt, das dem Feld uebergeben
+	 * @param character Ein String, das das Zeichen enthaelt, das dem Feld uebergeben
 	 *                werden soll.
 	 */
-	public void setCharacter(String zeichen) {
-		this.character = zeichen;
+	public void setCharacter(String character) {
+		this.character = character;
 	}
 }

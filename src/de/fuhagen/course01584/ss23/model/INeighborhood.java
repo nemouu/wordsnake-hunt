@@ -51,11 +51,11 @@ public interface INeighborhood {
 	 * Dschungel. Um zu suchen werden im Allgemeinen die Parameter genutzt, die der
 	 * implementierenden Klasse vorher uebergeben worden sind.
 	 * 
-	 * @param dschungel Der Dschungel, in dem nach den Nachbarn gesucht wird.
-	 * @param feld      Das Feld, dessen Nachbarn bestimmt werden sollen.
+	 * @param jungle Der Dschungel, in dem nach den Nachbarn gesucht wird.
+	 * @param field      Das Feld, dessen Nachbarn bestimmt werden sollen.
 	 * @return Eine Liste mit Nachbarn des eingegebenen Feldes, die im eingegebenen
 	 *         Dschungel liegen.
 	 */
-	List<Field> getNeighbors(Jungle dschungel, Field feld);
+	List<Field> getNeighbors(Jungle jungle, Field field);
 
 }

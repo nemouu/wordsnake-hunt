@@ -31,14 +31,14 @@ public interface IModel {
 	 * unter anderem auch dem Testen oder beziehungsweise und der spaeteren
 	 * Programmerweiterung.
 	 * 
-	 * @param zeit Ein Array aus Double, in dem entweder ein oder zwei Eintraege
+	 * @param time Ein Array aus Double, in dem entweder ein oder zwei Eintraege
 	 *             stehen. Ein Eintrag fuer die Zeitvorgabe und einer fuer die
 	 *             Zeitabgabe.
 	 * @throws IllegalArgumentException Falls ein ungueltiges Argument fuer Zeit
 	 *                                  uebergeben wird, wird eine Ausnahme
 	 *                                  geworfen.
 	 */
-	void setTime(Double[] zeit) throws IllegalArgumentException;
+	void setTime(Double[] time) throws IllegalArgumentException;
 
 	/**
 	 * Es wird die Zeiteinheit der Zeitangaben des Modelles zurueckgegeben.
@@ -56,13 +56,13 @@ public interface IModel {
 	 * Daten aber unter anderem auch dem Testen oder beziehungsweise und der
 	 * spaeteren Programmerweiterung.
 	 * 
-	 * @param zeiteinheit Ein String, der die Zeiteinheit enthaelt, die dem Modell
+	 * @param unitOfTime Ein String, der die Zeiteinheit enthaelt, die dem Modell
 	 *                    uebergeben werden soll.
 	 * @throws IllegalArgumentException Falls ein ungueltiges Argument fuer
 	 *                                  Zeiteinheit uebergeben wird, wird eine
 	 *                                  Ausnahme geworfen.
 	 */
-	void setUnitOfTime(String zeiteinheit) throws IllegalArgumentException;
+	void setUnitOfTime(String unitOfTime) throws IllegalArgumentException;
 
 	/**
 	 * Es wird der Dschungel des Modelles mit Zeilen, Spalten, Zeichenmenge und
@@ -78,10 +78,10 @@ public interface IModel {
 	 * aber unter anderem auch dem Testen oder beziehungsweise und der spaeteren
 	 * Programmerweiterung.
 	 * 
-	 * @param dschungel Ein Dschungel gemaess der in diesem Paket definierten
+	 * @param jungle Ein Dschungel gemaess der in diesem Paket definierten
 	 *                  Datenstruktur Dschungel.
 	 */
-	void setJungle(Jungle dschungel);
+	void setJungle(Jungle jungle);
 
 	/**
 	 * Es werden die Schlangenarten des Modelles zurueckgegeben.
@@ -97,19 +97,19 @@ public interface IModel {
 	 * aber unter anderem auch dem Testen oder beziehungsweise und der spaeteren
 	 * Programmerweiterung.
 	 * 
-	 * @param schlangenarten Eine Liste mit Schlangenarten, die dem Dschungel
+	 * @param snakeTypes Eine Liste mit Schlangenarten, die dem Dschungel
 	 *                       uebergeben werden soll.
 	 */
-	void setSnakeTypes(List<SnakeType> schlangenarten);
+	void setSnakeTypes(List<SnakeType> snakeTypes);
 
 	/**
 	 * Eine Methode, die es ermoeglicht dem Modell eine einzelne Schlangenart,
 	 * gemaess der in diesem Paket definierten Datenstruktur Schlangenart,
 	 * hinzuzufuegen.
 	 * 
-	 * @param inArt Die Schlangenart, die hinzugefuegt werden soll.
+	 * @param inType Die Schlangenart, die hinzugefuegt werden soll.
 	 */
-	void addSnakeType(SnakeType inArt);
+	void addSnakeType(SnakeType inType);
 
 	/**
 	 * Es wird der Loesung des Modelles mit den dazugehoerigen Schlangenarten
@@ -126,31 +126,31 @@ public interface IModel {
 	 * aber unter anderem auch dem Testen oder beziehungsweise und der spaeteren
 	 * Programmerweiterung.
 	 * 
-	 * @param loesung Eine Loesung gemaess der in diesem Paket definierten
+	 * @param solution Eine Loesung gemaess der in diesem Paket definierten
 	 *                Datenstruktur Loesung.
 	 */
-	void setSolution(Solution loesung);
+	void setSolution(Solution solution);
 
 	/**
 	 * Mit dieser Hilfsmethode wird die im Modell stehende Zeit in Nanosekunden
 	 * umgerechnet, da die Zeitmessung in diesem Programm in Nanosekunden erfolgt.
 	 * Dazu wird die Zeiteinheit mit einbezogen.
 	 * 
-	 * @param vorgabeAusModell Die Zeitvorgabe aus dem Modell.
+	 * @param modelSpecification Die Zeitvorgabe aus dem Modell.
 	 * @return Eine Zahl, die der Zeitvorgabe in Nanosekunden entspricht.
 	 * @throws IllegalArgumentException Wurden im Modell falsche Angaben zur
 	 *                                  Zeiteinheit gemacht oder wurden falsche
 	 *                                  Parameter uebergeben, wird eine Ausnahme
 	 *                                  ausgeloest.
 	 */
-	Double calculateTimeToNanoseconds(Double vorgabeAusModell) throws IllegalArgumentException;
+	Double calculateTimeToNanoseconds() throws IllegalArgumentException;
 
 	/**
 	 * Mit dieser Hilfsmethode wird die gemessene Zeit bei der Schlangensuche in die
 	 * urspruengliche Zeiteinheit des Modelles umgerechnet. Schliesslich kann dann
 	 * die genutzte Zeit ins Modell geschrieben werden.
 	 * 
-	 * @param genutzteZeitInNanosekunden Die gemessene Zeit aus der Schlangensuche.
+	 * @param usedTimeInNanoseconds Die gemessene Zeit aus der Schlangensuche.
 	 * @return Eine Zahl, die der gemessenen Zeit in der Zeiteinheit des Modelles
 	 *         entspricht.
 	 * @throws IllegalArgumentException Wurden im Modell falsche Angaben zur
@@ -158,6 +158,6 @@ public interface IModel {
 	 *                                  Parameter uebergeben, wird eine Ausnahme
 	 *                                  ausgeloest.
 	 */
-	Double calculateTimeInUnitGivenByModel(Long genutzteZeitInNanosekunden) throws IllegalArgumentException;
+	Double calculateTimeInUnitGivenByModel(Long usedTimeInNanoseconds) throws IllegalArgumentException;
 
 }

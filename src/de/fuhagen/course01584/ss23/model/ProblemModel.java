@@ -25,53 +25,53 @@ public class ProblemModel implements IModel {
 	 * nicht leere Liste von Schlangenarten im Modell enthalten ist. Diese wird hier
 	 * naemlich als Konstruktor uebergeben.
 	 * 
-	 * @param dschungel      Ein Dschungel gemaess der in diesem Paket definierten
-	 *                       Datenstruktur Dschungel.
-	 * @param schlangenarten Eine Liste von Schlangenarten gemaess der in diesem
-	 *                       Paket definierten Datenstruktur Schlangenart.
-	 * @param loesung        Eine Loesung gemaess der in diesem Paket definierten
-	 *                       Datenstruktur Loesung.
-	 * @param zeit           Eine Array von Doubles fuer die Zeitvorgabe und
-	 *                       beziehungsweise oder die Zeitabgabe.
+	 * @param jungle     Ein Dschungel gemaess der in diesem Paket definierten
+	 *                   Datenstruktur Dschungel.
+	 * @param snakeTypes Eine Liste von Schlangenarten gemaess der in diesem Paket
+	 *                   definierten Datenstruktur Schlangenart.
+	 * @param solution   Eine Loesung gemaess der in diesem Paket definierten
+	 *                   Datenstruktur Loesung.
+	 * @param time       Eine Array von Doubles fuer die Zeitvorgabe und
+	 *                   beziehungsweise oder die Zeitabgabe.
 	 * @throws IllegalArgumentException Wird fuer das Attribut Zeit ein ungueltiges
 	 *                                  Argument uebergeben, wird eine Ausnahme
 	 *                                  ausgeloest.
 	 */
-	public ProblemModel(Jungle dschungel, List<SnakeType> schlangenarten, Solution loesung, Double[] zeit)
+	public ProblemModel(Jungle jungle, List<SnakeType> snakeTypes, Solution solution, Double[] time)
 			throws IllegalArgumentException {
 		super();
-		if (zeit.length == 1) {
-			if (zeit[0] == 0.0) {
+		if (time.length == 1) {
+			if (time[0] == 0.0) {
 				throw new IllegalArgumentException(
 						"Das Attribut 'zeit' darf in der Klasse 'ProblemModell' nicht gleich 0 sein.");
 			}
-			if (zeit[0] < 0.0) {
+			if (time[0] < 0.0) {
 				throw new IllegalArgumentException(
 						"Das Attribut 'zeit' darf in der Klasse 'ProblemModell' nicht kleiner 0 sein.");
 			}
-			if (zeit[0] > Double.MAX_VALUE - 2E292) {
+			if (time[0] > Double.MAX_VALUE - 2E292) {
 				throw new IllegalArgumentException(
 						"Das Attribut 'zeit' darf in der Klasse 'ProblemModell' nicht zu gross sein.");
 			}
 		}
-		if (zeit.length == 2) {
-			if (zeit[0] == 0.0 || zeit[1] == 0.0) {
+		if (time.length == 2) {
+			if (time[0] == 0.0 || time[1] == 0.0) {
 				throw new IllegalArgumentException(
 						"Das Attribut 'zeit' darf in der Klasse 'ProblemModell' nicht gleich 0 sein.");
 			}
-			if (zeit[0] < 0.0 || zeit[1] < 0.0) {
+			if (time[0] < 0.0 || time[1] < 0.0) {
 				throw new IllegalArgumentException(
 						"Das Attribut 'zeit' darf in der Klasse 'ProblemModell' nicht kleiner 0 sein.");
 			}
-			if (zeit[0] > Double.MAX_VALUE - 2E292 || zeit[1] > Double.MAX_VALUE - 2E292) {
+			if (time[0] > Double.MAX_VALUE - 2E292 || time[1] > Double.MAX_VALUE - 2E292) {
 				throw new IllegalArgumentException(
 						"Das Attribut 'zeit' darf in der Klasse 'ProblemModell' nicht zu gross sein.");
 			}
 		}
-		this.jungle = dschungel;
-		this.snakeTypes = schlangenarten;
-		this.solution = loesung;
-		this.time = zeit;
+		this.jungle = jungle;
+		this.snakeTypes = snakeTypes;
+		this.solution = solution;
+		this.time = time;
 	}
 
 	/**
@@ -80,50 +80,50 @@ public class ProblemModel implements IModel {
 	 * dann im Konstruktor eine leere Liste mit Schlangenarten erzeugt, damit dort
 	 * spaeter Schlangenarten hinzugefuegt werden koennen.
 	 * 
-	 * @param dschungel Ein Dschungel gemaess der in diesem Paket definierten
-	 *                  Datenstruktur Dschungel.
-	 * @param loesung   Eine Loesung gemaess der in diesem Paket definierten
-	 *                  Datenstruktur Loesung.
-	 * @param zeit      Eine Array von Doubles fuer die Zeitvorgabe und
-	 *                  beziehungsweise oder die Zeitabgabe.
+	 * @param jungle   Ein Dschungel gemaess der in diesem Paket definierten
+	 *                 Datenstruktur Dschungel.
+	 * @param solution Eine Loesung gemaess der in diesem Paket definierten
+	 *                 Datenstruktur Loesung.
+	 * @param time     Eine Array von Doubles fuer die Zeitvorgabe und
+	 *                 beziehungsweise oder die Zeitabgabe.
 	 * @throws IllegalArgumentException Wird fuer das Attribut Zeit ein ungueltiges
 	 *                                  Argument uebergeben, wird eine Ausnahme
 	 *                                  ausgeloest.
 	 */
-	public ProblemModel(Jungle dschungel, Solution loesung, Double[] zeit) throws IllegalArgumentException {
+	public ProblemModel(Jungle jungle, Solution solution, Double[] time) throws IllegalArgumentException {
 		super();
-		if (zeit.length == 1) {
-			if (zeit[0] == 0.0) {
+		if (time.length == 1) {
+			if (time[0] == 0.0) {
 				throw new IllegalArgumentException(
 						"Das Attribut 'zeit' darf in der Klasse 'ProblemModell' nicht gleich 0 sein.");
 			}
-			if (zeit[0] < 0.0) {
+			if (time[0] < 0.0) {
 				throw new IllegalArgumentException(
 						"Das Attribut 'zeit' darf in der Klasse 'ProblemModell' nicht kleiner 0 sein.");
 			}
-			if (zeit[0] > Double.MAX_VALUE - 2E292) {
+			if (time[0] > Double.MAX_VALUE - 2E292) {
 				throw new IllegalArgumentException(
 						"Das Attribut 'zeit' darf in der Klasse 'ProblemModell' nicht zu gross sein.");
 			}
 		}
-		if (zeit.length == 2) {
-			if (zeit[0] == 0.0) {
+		if (time.length == 2) {
+			if (time[0] == 0.0) {
 				throw new IllegalArgumentException(
 						"Das Attribut 'zeit' darf in der Klasse 'ProblemModell' nicht gleich 0 sein.");
 			}
-			if (zeit[0] < 0.0 || zeit[1] < 0.0) {
+			if (time[0] < 0.0 || time[1] < 0.0) {
 				throw new IllegalArgumentException(
 						"Das Attribut 'zeit' darf in der Klasse 'ProblemModell' nicht kleiner 0 sein.");
 			}
-			if (zeit[0] > Double.MAX_VALUE - 2E292 || zeit[1] > Double.MAX_VALUE - 2E292) {
+			if (time[0] > Double.MAX_VALUE - 2E292 || time[1] > Double.MAX_VALUE - 2E292) {
 				throw new IllegalArgumentException(
 						"Das Attribut 'zeit' darf in der Klasse 'ProblemModell' nicht zu gross sein.");
 			}
 		}
-		this.jungle = dschungel;
+		this.jungle = jungle;
 		this.snakeTypes = new ArrayList<SnakeType>();
-		this.solution = loesung;
-		this.time = zeit;
+		this.solution = solution;
+		this.time = time;
 		if (unitOfTime == null) {
 			unitOfTime = "s";
 		}
@@ -141,7 +141,7 @@ public class ProblemModel implements IModel {
 	}
 
 	@Override
-	public Double calculateTimeToNanoseconds(Double vorgabeAusModell) throws IllegalArgumentException {
+	public Double calculateTimeToNanoseconds() throws IllegalArgumentException {
 		switch (getUnitOfTime()) {
 		case "ms": {
 			return getTime()[0] * 1000000;
@@ -164,22 +164,22 @@ public class ProblemModel implements IModel {
 	}
 
 	@Override
-	public Double calculateTimeInUnitGivenByModel(Long genutzteZeitInNanosekunden) throws IllegalArgumentException {
+	public Double calculateTimeInUnitGivenByModel(Long usedTimeInNanoseconds) throws IllegalArgumentException {
 		switch (getUnitOfTime()) {
 		case "ms": {
-			return (double) (genutzteZeitInNanosekunden / 1000000.0);
+			return (double) (usedTimeInNanoseconds / 1000000.0);
 		}
 		case "s": {
-			return (double) (genutzteZeitInNanosekunden / 1000000000.0);
+			return (double) (usedTimeInNanoseconds / 1000000000.0);
 		}
 		case "min": {
-			return (double) (genutzteZeitInNanosekunden / (6.0 * (Math.pow(10, 10))));
+			return (double) (usedTimeInNanoseconds / (6.0 * (Math.pow(10, 10))));
 		}
 		case "h": {
-			return (double) (genutzteZeitInNanosekunden / (3.6 * (Math.pow(10, 12))));
+			return (double) (usedTimeInNanoseconds / (3.6 * (Math.pow(10, 12))));
 		}
 		case "d": {
-			return (double) (genutzteZeitInNanosekunden / (8.64 * (Math.pow(10, 13))));
+			return (double) (usedTimeInNanoseconds / (8.64 * (Math.pow(10, 13))));
 		}
 		default:
 			throw new IllegalArgumentException("Die Zeitangabe des Modelles kann nicht umgerechnet werden.");
@@ -188,48 +188,43 @@ public class ProblemModel implements IModel {
 
 	@Override
 	public String toString() {
-		String schlangenartenToString = "";
-		for (SnakeType schlangenart : snakeTypes) {
-			schlangenartenToString += " (" + schlangenart.toString() + ")\n";
+		String snakeTypesToString = "";
+		for (SnakeType snakeType : snakeTypes) {
+			snakeTypesToString += " (" + snakeType.toString() + ")\n";
 		}
 		try {
 			if (jungle.numberOfTakenFields() == 0) {
-				return "Der Dschungel dieses Problemes hat " + jungle.getRows() + " Zeilen, "
-						+ jungle.getColumns() + " Spalten und die Zeichenmenge '" + jungle.getSigns()
+				return "Der Dschungel dieses Problemes hat " + jungle.getRows() + " Zeilen, " + jungle.getColumns()
+						+ " Spalten und die Zeichenmenge '" + jungle.getSigns()
 						+ "' \naber keine Felder und es kann nach Schlangen der Schlangenart/en \n\n"
-						+ schlangenartenToString
+						+ snakeTypesToString
 						+ "\ngesucht werden. Die Felder koennen mit dem Befehl 'e' erzeugt werden. Die Loesung hierzu ist "
 						+ "nicht \nvorhanden und kann mit dem Befehl 'l' gesucht werden.";
 			} else if (solution == null && jungle.numberOfTakenFields() < jungle.numberOfFields()) {
-				return "Der Dschungel dieses Problemes hat " + jungle.getRows() + " Zeilen, "
-						+ jungle.getColumns() + " Spalten und die Zeichenmenge '" + jungle.getSigns()
-						+ "'. "
+				return "Der Dschungel dieses Problemes hat " + jungle.getRows() + " Zeilen, " + jungle.getColumns()
+						+ " Spalten und die Zeichenmenge '" + jungle.getSigns() + "'. "
 						+ "Die Felder werden\nimmer in dem Format '(Zeichen, Verwendbarkeit, Punkte)' angegeben und leere Felder "
 						+ " werden durch '(Ø, 0, 0)'\ngekennzeichnet. Die Felder sind wie folgt angeordnet: \n\n\n"
-						+ jungle.toString() + "\nEs kann nach Schlangen der Schlangenart/en \n\n"
-						+ schlangenartenToString
+						+ jungle.toString() + "\nEs kann nach Schlangen der Schlangenart/en \n\n" + snakeTypesToString
 						+ "\ngesucht werden und im Modell ist aktuell keine Loesung enthalten. Dabei ist jedoch zu beachten, dass"
 						+ " der eingelesene\nDschungel leere Felder enthaelt. Es wurden " + jungle.numberOfFields()
 						+ " Felder erwartet aber nur " + jungle.numberOfTakenFields()
 						+ " wurden eingelesen. Die uebrigen\n"
 						+ "Felder sind leer. Mit dem Befehl 'e' kann ein vollstaendiger Dschungel erzeugt werden.";
 			} else if (solution == null || solution.getSnakes().size() == 0) {
-				return "Der Dschungel dieses Problemes hat " + jungle.getRows() + " Zeilen, "
-						+ jungle.getColumns() + " Spalten und die Zeichenmenge '" + jungle.getSigns()
-						+ "'. "
+				return "Der Dschungel dieses Problemes hat " + jungle.getRows() + " Zeilen, " + jungle.getColumns()
+						+ " Spalten und die Zeichenmenge '" + jungle.getSigns() + "'. "
 						+ "Die Felder werden\nimmer in dem Format '(Zeichen, Verwendbarkeit, Punkte)' angegeben und"
 						+ " sind wie folgt angeordnet: \n\n\n" + jungle.toString() + "\nEs kann nach Schlangen"
-						+ " der Schlangenart/en \n\n" + schlangenartenToString
+						+ " der Schlangenart/en \n\n" + snakeTypesToString
 						+ "\ngesucht werden und im Modell ist aktuell keine Loesung vorhanden. Es kann mit dem Befehl 'l' nach einer"
 						+ " Loesung\ngesucht werden.";
 			} else if (jungle.numberOfTakenFields() < jungle.numberOfFields()) {
-				return "Der Dschungel dieses Problemes hat " + jungle.getRows() + " Zeilen, "
-						+ jungle.getColumns() + " Spalten und die Zeichenmenge '" + jungle.getSigns()
-						+ "'. "
+				return "Der Dschungel dieses Problemes hat " + jungle.getRows() + " Zeilen, " + jungle.getColumns()
+						+ " Spalten und die Zeichenmenge '" + jungle.getSigns() + "'. "
 						+ "Die\nFelder werden immer in dem Format '(Zeichen, Verwendbarkeit, Punkte)' angegeben und leere Felder "
 						+ " werden durch '(Ø, 0, 0)'\ngekennzeichnet. Die Felder sind wie folgt angeordnet: \n\n\n"
-						+ jungle.toString() + "\nEs kann nach Schlangen der Schlangenart/en \n\n"
-						+ schlangenartenToString
+						+ jungle.toString() + "\nEs kann nach Schlangen der Schlangenart/en \n\n" + snakeTypesToString
 						+ "\ngesucht werden. Zu jeder gefundenen Schlange werden einige Informationen ausgegeben. "
 						+ "Dann wird die Reihenfolge der\nGlieder der jeweiligen Schlange in dem Format '(Zeichen, Zeile, Spalte)' "
 						+ "angegeben und schließlich wird ein\nDschungel ausgegeben, der die Schlange hervorhebt. Hierbei "
@@ -239,12 +234,11 @@ public class ProblemModel implements IModel {
 						+ " wurden eingelesen. Die uebrigen Felder sind leer. Mit dem Befehl 'e' kann ein vollstaendiger Dschungel "
 						+ "erzeugt\nwerden.\n\n" + toStringSolution();
 			} else {
-				return "Der Dschungel dieses Problemes hat " + jungle.getRows() + " Zeilen, "
-						+ jungle.getColumns() + " Spalten und die Zeichenmenge '" + jungle.getSigns()
-						+ "'. "
+				return "Der Dschungel dieses Problemes hat " + jungle.getRows() + " Zeilen, " + jungle.getColumns()
+						+ " Spalten und die Zeichenmenge '" + jungle.getSigns() + "'. "
 						+ "Die\nFelder werden immer in dem Format '(Zeichen, Verwendbarkeit, Punkte)' angegeben und"
 						+ " sind wie folgt angeordnet: \n\n\n" + jungle.toString() + "\nEs kann nach Schlangen"
-						+ " der Schlangenart/en \n\n" + schlangenartenToString
+						+ " der Schlangenart/en \n\n" + snakeTypesToString
 						+ "\ngesucht werden. Zu jeder gefundenen Schlange werden einige Informationen ausgegeben. "
 						+ "Dann wird die Reihenfolge der\nGlieder der jeweiligen Schlange in dem Format '(Zeichen, Zeile, Spalte)' "
 						+ "angegeben und schließlich wird ein\nDschungel ausgegeben, der die Schlange hervorhebt. Hierbei "
@@ -257,15 +251,14 @@ public class ProblemModel implements IModel {
 
 	private String toStringSolution() {
 		String output = "";
-		int zeilenumbruch = 1;
+		int newLine = 1;
 		for (int i = 0; i < solution.getSnakes().size(); i++) {
-			List<Field> loesungsFelder = new ArrayList<Field>();
+			List<Field> solutionFields = new ArrayList<Field>();
 			output += " (" + (i + 1) + ") Information: (ID=" + solution.getSnakes().get(i).getType().getId()
-					+ ", Zeichenkette=" + solution.getSnakes().get(i).getType().getSigns()
-					+ ", Nachbarschaftsstruktur=" + solution.getSnakes().get(i).getType().getStructure().toString()
-					+ ")\n\n     Verlauf: ";
+					+ ", Zeichenkette=" + solution.getSnakes().get(i).getType().getSigns() + ", Nachbarschaftsstruktur="
+					+ solution.getSnakes().get(i).getType().getStructure().toString() + ")\n\n     Verlauf: ";
 			for (int l = 0; l < solution.getSnakes().get(i).getElements().size(); l++) {
-				loesungsFelder.add(solution.getSnakes().get(i).getElements().get(l).getField());
+				solutionFields.add(solution.getSnakes().get(i).getElements().get(l).getField());
 				output += "(" + solution.getSnakes().get(i).getElements().get(l).getField().getCharacter() + ", "
 						+ solution.getSnakes().get(i).getElements().get(l).getField().getRow() + ", "
 						+ solution.getSnakes().get(i).getElements().get(l).getField().getColumn() + ")";
@@ -274,10 +267,10 @@ public class ProblemModel implements IModel {
 				}
 				if (l == 13) {
 					output += "\n              ";
-					zeilenumbruch++;
-				} else if (l > zeilenumbruch * 13) {
+					newLine++;
+				} else if (l > newLine * 13) {
 					output += "\n              ";
-					zeilenumbruch++;
+					newLine++;
 				}
 			}
 			output += " \n\n     Dschungel: ";
@@ -286,7 +279,7 @@ public class ProblemModel implements IModel {
 					output += "                ";
 				}
 				for (int k = 0; k < jungle.getColumns(); k++) {
-					if (loesungsFelder.contains(jungle.getFields()[j][k])) {
+					if (solutionFields.contains(jungle.getFields()[j][k])) {
 						output += " (" + jungle.getFields()[j][k].getCharacter() + ")";
 					} else {
 						output += " ( )";
@@ -307,36 +300,36 @@ public class ProblemModel implements IModel {
 	}
 
 	@Override
-	public void setTime(Double[] zeit) throws IllegalArgumentException {
-		if (zeit.length == 1) {
-			if (zeit[0] == 0.0) {
+	public void setTime(Double[] time) throws IllegalArgumentException {
+		if (time.length == 1) {
+			if (time[0] == 0.0) {
 				throw new IllegalArgumentException(
 						"Das Attribut 'zeit' darf in der Klasse 'ProblemModell' nicht gleich 0 sein.");
 			}
-			if (zeit[0] < 0.0) {
+			if (time[0] < 0.0) {
 				throw new IllegalArgumentException(
 						"Das Attribut 'zeit' darf in der Klasse 'ProblemModell' nicht kleiner 0 sein.");
 			}
-			if (zeit[0] > Double.MAX_VALUE - 2E292) {
+			if (time[0] > Double.MAX_VALUE - 2E292) {
 				throw new IllegalArgumentException(
 						"Das Attribut 'zeit' darf in der Klasse 'ProblemModell' nicht zu gross sein.");
 			}
 		}
-		if (zeit.length == 2) {
-			if (zeit[0] == 0.0) {
+		if (time.length == 2) {
+			if (time[0] == 0.0) {
 				throw new IllegalArgumentException(
 						"Das Attribut 'zeit' darf in der Klasse 'ProblemModell' nicht gleich 0 sein.");
 			}
-			if (zeit[0] < 0.0 || zeit[1] < 0.0) {
+			if (time[0] < 0.0 || time[1] < 0.0) {
 				throw new IllegalArgumentException(
 						"Das Attribut 'zeit' darf in der Klasse 'ProblemModell' nicht kleiner 0 sein.");
 			}
-			if (zeit[0] > Double.MAX_VALUE - 2E292 || zeit[1] > Double.MAX_VALUE - 2E292) {
+			if (time[0] > Double.MAX_VALUE - 2E292 || time[1] > Double.MAX_VALUE - 2E292) {
 				throw new IllegalArgumentException(
 						"Das Attribut 'zeit' darf in der Klasse 'ProblemModell' nicht zu gross sein.");
 			}
 		}
-		this.time = zeit;
+		this.time = time;
 	}
 
 	@Override
@@ -345,10 +338,10 @@ public class ProblemModel implements IModel {
 	}
 
 	@Override
-	public void setUnitOfTime(String zeiteinheit) throws IllegalArgumentException {
-		if (zeiteinheit.equals("ms") || zeiteinheit.equals("s") || zeiteinheit.equals("min") || zeiteinheit.equals("h")
-				|| zeiteinheit.equals("d")) {
-			this.unitOfTime = zeiteinheit;
+	public void setUnitOfTime(String unitOfTime) throws IllegalArgumentException {
+		if (unitOfTime.equals("ms") || unitOfTime.equals("s") || unitOfTime.equals("min") || unitOfTime.equals("h")
+				|| unitOfTime.equals("d")) {
+			this.unitOfTime = unitOfTime;
 		} else {
 			throw new IllegalArgumentException(
 					"Es wurde eine ungueltige Zeiteinheit uebergeben. Gueltige Zeiteinheiten sind "
@@ -362,8 +355,8 @@ public class ProblemModel implements IModel {
 	}
 
 	@Override
-	public void setJungle(Jungle dschungel) {
-		this.jungle = dschungel;
+	public void setJungle(Jungle jungle) {
+		this.jungle = jungle;
 	}
 
 	@Override
@@ -372,13 +365,13 @@ public class ProblemModel implements IModel {
 	}
 
 	@Override
-	public void setSnakeTypes(List<SnakeType> schlangenarten) {
-		this.snakeTypes = schlangenarten;
+	public void setSnakeTypes(List<SnakeType> snakeTypes) {
+		this.snakeTypes = snakeTypes;
 	}
 
 	@Override
-	public void addSnakeType(SnakeType inArt) {
-		this.snakeTypes.add(inArt);
+	public void addSnakeType(SnakeType inTypes) {
+		this.snakeTypes.add(inTypes);
 	}
 
 	@Override
@@ -387,8 +380,8 @@ public class ProblemModel implements IModel {
 	}
 
 	@Override
-	public void setSolution(Solution loesung) {
-		this.solution = loesung;
+	public void setSolution(Solution solution) {
+		this.solution = solution;
 
 	}
 }

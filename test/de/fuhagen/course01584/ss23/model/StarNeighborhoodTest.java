@@ -352,7 +352,7 @@ class StarNeighborhoodTest {
 
 		@DisplayName("Parameterisierter positiver Test fuer Konstruktor und getParameters.")
 		@ParameterizedTest
-		@MethodSource("erzeugePositiveParameterwerte")
+		@MethodSource("generatePositiveParametervalues")
 		void testConstructorAndGetParametersPositive(int param) {
 			List<Integer> paramList = new ArrayList<Integer>();
 			paramList.add(param);
@@ -366,7 +366,7 @@ class StarNeighborhoodTest {
 
 		@DisplayName("Parameterisierter Test fuer Konstruktor mit negativem Parameter.")
 		@ParameterizedTest
-		@MethodSource("erzeugeNegativeParameterwerte")
+		@MethodSource("generateNegativeParametervalues")
 		void testConstructorNegativeParameters(int param) {
 			List<Integer> paramList = new ArrayList<Integer>();
 			paramList.add(param);
@@ -378,7 +378,7 @@ class StarNeighborhoodTest {
 
 		@DisplayName("Parameterisierter Test fuer Konstruktor mit zu langer Eingabe.")
 		@ParameterizedTest
-		@MethodSource("erzeugePositiveParameterwerte")
+		@MethodSource("generatePositiveParametervalues")
 		void testConstructorParameterlistTooLong(int param) {
 			List<Integer> paramList = new ArrayList<Integer>();
 			paramList.add(param);
@@ -390,7 +390,7 @@ class StarNeighborhoodTest {
 
 		@DisplayName("Parameterisierter negativer Test fuer setParameters.")
 		@ParameterizedTest
-		@MethodSource("erzeugeNegativeParameterwerte")
+		@MethodSource("generateNegativeParametervalues")
 		void testSetParametersNegative(int param) {
 			List<Integer> paramListInit = new ArrayList<Integer>();
 			paramListInit.add(11);
@@ -406,7 +406,7 @@ class StarNeighborhoodTest {
 
 		@DisplayName("Parameterisierter Test fuer setParameters mit zu grosser Liste.")
 		@ParameterizedTest
-		@MethodSource("erzeugePositiveParameterwerte")
+		@MethodSource("generatePositiveParametervalues")
 		void testSetParametersLargeList(int param) {
 			List<Integer> paramList = new ArrayList<Integer>();
 			paramList.add(param);

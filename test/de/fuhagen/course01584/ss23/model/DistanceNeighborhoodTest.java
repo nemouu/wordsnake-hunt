@@ -361,7 +361,7 @@ class DistanceNeighborhoodTest {
 
 		@DisplayName("Parameterisierter positiver Test fuer Konstruktor und getParameters.")
 		@ParameterizedTest
-		@MethodSource("erzeugePositiveParameterwerte")
+		@MethodSource("generatePositiveParametervalues")
 		void testConstructorAndGetParametersPositive(int param) {
 			INeighborhood distanzNachb = new DistanceNeighborhood(param);
 			List<Integer> paramList = new ArrayList<Integer>();
@@ -372,7 +372,7 @@ class DistanceNeighborhoodTest {
 
 		@DisplayName("Parameterisierter Test fuer Konstruktor mit negativem Parameter.")
 		@ParameterizedTest
-		@MethodSource("erzeugeNegativeParameterwerte")
+		@MethodSource("generateNegativeParametervalues")
 		void testConstructorAndGetColumnPositive(int param) {
 			assertThrows(IllegalArgumentException.class, () -> new DistanceNeighborhood(param),
 					() -> "Fuer den (negativen) " + "Parameterwert '" + param + "' wird keine Ausnahme erzeugt.");
@@ -380,7 +380,7 @@ class DistanceNeighborhoodTest {
 
 		@DisplayName("Parameterisierter negativer Test fuer setParameters.")
 		@ParameterizedTest
-		@MethodSource("erzeugeNegativeParameterwerte")
+		@MethodSource("generateNegativeParametervalues")
 		void testSetParametersNegative(int param) {
 			List<Integer> paramList = new ArrayList<Integer>();
 			paramList.add(param);
@@ -390,7 +390,7 @@ class DistanceNeighborhoodTest {
 
 		@DisplayName("Parameterisierter Test fuer setParameters mit zu grosser Liste.")
 		@ParameterizedTest
-		@MethodSource("erzeugePositiveParameterwerte")
+		@MethodSource("generatePositiveParametervalues")
 		void testSetParametersLargeList(int param) {
 			List<Integer> paramList = new ArrayList<Integer>();
 			paramList.add(param);
@@ -401,7 +401,7 @@ class DistanceNeighborhoodTest {
 
 		@DisplayName("Parameterisierter negativer Test fuer setParameter.")
 		@ParameterizedTest
-		@MethodSource("erzeugeNegativeParameterwerte")
+		@MethodSource("generateNegativeParametervalues")
 		void testSetParameterNegative(int param) {
 			assertThrows(IllegalArgumentException.class, () -> new DistanceNeighborhood(1).setParameter(param),
 					() -> "\nBeim Setzen des (negativen) Parameterwertes '" + param + "' wird keine Ausnahme erzeugt.");

@@ -164,7 +164,7 @@ class JungleTest {
 
 		@DisplayName("Parameterisierter positiver Test fuer Konstruktor und getSpalten.")
 		@ParameterizedTest
-		@MethodSource("erzeugePositiveParameterwerte")
+		@MethodSource("generatePositiveParametervalues")
 		void testConstructorAndGetColumnPositive(int spalten) {
 			Jungle dschungel = new Jungle(0, spalten, null, "");
 			assertEquals(dschungel.getColumns(), spalten, "\nDie Spaltenanzahl '" + dschungel.getColumns()
@@ -173,7 +173,7 @@ class JungleTest {
 
 		@DisplayName("Parameterisierter positiver Test fuer Konstruktor und getZeilen.")
 		@ParameterizedTest
-		@MethodSource("erzeugePositiveParameterwerte")
+		@MethodSource("generatePositiveParametervalues")
 		void testConstructorAndGetRowPositive(int zeilen) {
 			Jungle dschungel = new Jungle(zeilen, 0, null, "");
 			assertEquals(dschungel.getRows(), zeilen, "\nDie Zeilenanzahl '" + dschungel.getRows()
@@ -182,7 +182,7 @@ class JungleTest {
 
 		@DisplayName("Parameterisierter Test fuer Konstruktor mit negativer Zeilen.")
 		@ParameterizedTest
-		@MethodSource("erzeugeNegativeParameterwerte")
+		@MethodSource("generateNegativeParametervalues")
 		void testConstructorRowNegative(int zeilen) {
 			assertThrows(IllegalArgumentException.class, () -> new Jungle(zeilen, 0, null, ""),
 					() -> "\nFuer die (negative) Zeilenanzahl '" + zeilen + "' wird keine Ausnahme erzeugt.");
@@ -190,7 +190,7 @@ class JungleTest {
 
 		@DisplayName("Parameterisierter Test fuer Konstruktor mit negativer Spalten.")
 		@ParameterizedTest
-		@MethodSource("erzeugeNegativeParameterwerte")
+		@MethodSource("generateNegativeParametervalues")
 		void testConstructorColumnNegative(int spalten) {
 			assertThrows(IllegalArgumentException.class, () -> new Jungle(0, spalten, null, ""),
 					() -> "\nFuer die (negative) Spaltenanzahl '" + spalten + "' wird keine Ausnahme erzeugt.");
@@ -198,7 +198,7 @@ class JungleTest {
 
 		@DisplayName("Parameterisierter negativer Test fuer setZeilen.")
 		@ParameterizedTest
-		@MethodSource("erzeugeNegativeParameterwerte")
+		@MethodSource("generateNegativeParametervalues")
 		void testSetRowNegative(int zeilen) {
 			assertThrows(IllegalArgumentException.class, () -> new Jungle(0, 0, null, "").setRows(zeilen),
 					() -> "\nFuer die (negative) Zeilenanzahl '" + zeilen + "' wird keine Ausnahme erzeugt.");
@@ -206,7 +206,7 @@ class JungleTest {
 
 		@DisplayName("Parameterisierter negativer Test fuer setSpalten.")
 		@ParameterizedTest
-		@MethodSource("erzeugeNegativeParameterwerte")
+		@MethodSource("generateNegativeParametervalues")
 		void testSetColumnNegative(int spalten) {
 			assertThrows(IllegalArgumentException.class, () -> new Jungle(0, 0, null, "").setColumns(spalten),
 					() -> "\nFuer die (negative) Spaltenanzahl '" + spalten + "' wird keine Ausnahme erzeugt.");

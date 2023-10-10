@@ -20,12 +20,12 @@ public class Solution {
 	 * wird. Eine Instanz einer Loesungsklasse hat in diesem Fall also eine Liste
 	 * mit (Loesungs-) Schlangen.
 	 * 
-	 * @param schlangen Eine Liste mit Schlangen, gemaess der in diesem Paket
-	 *                  definierten Datenstruktur Schlange.
+	 * @param snakes Eine Liste mit Schlangen, gemaess der in diesem Paket
+	 *               definierten Datenstruktur Schlange.
 	 */
-	public Solution(List<Snake> schlangen) {
+	public Solution(List<Snake> snakes) {
 		super();
-		this.snakes = schlangen;
+		this.snakes = snakes;
 	}
 
 	/**
@@ -49,13 +49,13 @@ public class Solution {
 	 * @return Die Anzahl der verschiedenen Schlangenarten in der Loesung.
 	 */
 	public int getNumberOfDifferentSnakeTypes() {
-		List<SnakeType> verschiedeneArten = new ArrayList<SnakeType>();
+		List<SnakeType> differentSnakeTypes = new ArrayList<SnakeType>();
 		for (Snake schlange : snakes) {
-			if (verschiedeneArten.contains(schlange.getType()) == false) {
-				verschiedeneArten.add(schlange.getType());
+			if (differentSnakeTypes.contains(schlange.getType()) == false) {
+				differentSnakeTypes.add(schlange.getType());
 			}
 		}
-		return verschiedeneArten.size();
+		return differentSnakeTypes.size();
 	}
 
 	/**
@@ -64,13 +64,13 @@ public class Solution {
 	 * 
 	 * @param id Ein String, der die ID der Schlangenart enthaelt, nach der gesucht
 	 *           wird.
-	 * @return <code>null</code>, wenn keine Schlange gefunden wurde, ansonsten wird die
-	 *         Schlange zurueckgegeben.
+	 * @return <code>null</code>, wenn keine Schlange gefunden wurde, ansonsten wird
+	 *         die Schlange zurueckgegeben.
 	 */
 	public Snake getSnakeWithSnakeTypeID(String id) {
-		for (Snake schlange : snakes) {
-			if (schlange.getType().getId().equals(id)) {
-				return schlange;
+		for (Snake snake : snakes) {
+			if (snake.getType().getId().equals(id)) {
+				return snake;
 			}
 		}
 		return null;
@@ -79,11 +79,11 @@ public class Solution {
 	/**
 	 * Eine Methode die der Loesung eine Schlange hinzufuegen kann.
 	 * 
-	 * @param inSchlange Eine Schlange, gemaess der in diesem Paket definierten
-	 *                   Datenstruktur Schlange.
+	 * @param inSnake Eine Schlange, gemaess der in diesem Paket definierten
+	 *                Datenstruktur Schlange.
 	 */
-	public void addSnake(Snake inSchlange) {
-		this.snakes.add(inSchlange);
+	public void addSnake(Snake inSnake) {
+		this.snakes.add(inSnake);
 	}
 
 	/**
@@ -113,10 +113,10 @@ public class Solution {
 	 * aber unter anderem auch dem Testen oder beziehungsweise und der spaeteren
 	 * Programmerweiterung.
 	 * 
-	 * @param schlangen Eine Liste mit Schlangen, die der Loesung uebergeben werden
-	 *                  soll.
+	 * @param snakes Eine Liste mit Schlangen, die der Loesung uebergeben werden
+	 *               soll.
 	 */
-	public void setSnakes(List<Snake> schlangen) {
-		this.snakes = schlangen;
+	public void setSnakes(List<Snake> snakes) {
+		this.snakes = snakes;
 	}
 }

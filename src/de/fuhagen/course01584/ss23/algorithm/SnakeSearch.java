@@ -48,7 +48,7 @@ public class SnakeSearch implements ISnakeSearch {
 		this.solution = new Solution();
 		this.evaluator = new SolutionEvaluator();
 		this.functions = new SnakeSearchUtil(model);
-		this.modelTime = model.calculateTimeToNanoseconds(model.getTime()[0]);
+		this.modelTime = model.calculateTimeToNanoseconds();
 	}
 
 	/**

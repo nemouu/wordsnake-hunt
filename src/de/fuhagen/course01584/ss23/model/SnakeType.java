@@ -30,43 +30,43 @@ public class SnakeType {
 	 * 
 	 * @param id           Ein String, der die ID enthaelt, die diese Schlangenart
 	 *                     haben soll.
-	 * @param struktur     Die Nachbarschaftsstruktur, der diese Schlangenart folgen
+	 * @param structure     Die Nachbarschaftsstruktur, der diese Schlangenart folgen
 	 *                     soll.
-	 * @param zeichenkette Die Zeichen, die Schlangen dieser Schlangenart haben
+	 * @param signs Die Zeichen, die Schlangen dieser Schlangenart haben
 	 *                     muessen.
-	 * @param punkte       Die Punkte, die das Finden von Schlangen dieser
+	 * @param points       Die Punkte, die das Finden von Schlangen dieser
 	 *                     Schlangenart erzielt.
-	 * @param anzahl       Die Anzahl der Schlangen dieser Art, die im
+	 * @param amount       Die Anzahl der Schlangen dieser Art, die im
 	 *                     Dschungelgenerator im Dschungel verteilt werden sollen.
 	 * @throws IllegalArgumentException Wird ein ungueltiges Argument fuer die
 	 *                                  Parameter Anzahl, Punkte und beziehungsweise
 	 *                                  oder Zeichenkette verwendet, so wird eine
 	 *                                  Ausnahme ausgeloest.
 	 */
-	public SnakeType(String id, INeighborhood struktur, String zeichenkette, int punkte, int anzahl)
+	public SnakeType(String id, INeighborhood structure, String signs, int points, int amount)
 			throws IllegalArgumentException {
 		super();
-		if (anzahl < 1) {
+		if (amount < 1) {
 			throw new IllegalArgumentException(
 					"Fuer die Klasse 'Schlangenart' darf das Attribut 'anzahl' nicht kleiner als 1 sein.");
 		}
-		if (anzahl > Integer.MAX_VALUE - 1) {
+		if (amount > Integer.MAX_VALUE - 1) {
 			throw new IllegalArgumentException(
 					"Fuer die Klasse 'Schlangenart' darf das Attribut 'anzahl' nicht zu gross sein.");
 		}
-		if (punkte < 0 || punkte > Integer.MAX_VALUE - 1) {
+		if (points < 0 || points > Integer.MAX_VALUE - 1) {
 			throw new IllegalArgumentException(
 					"Fuer die Klasse 'Schlangenart' darf das Attribut 'punkte' nicht zu klein oder zu gross sein.");
 		}
-		if (zeichenkette.length() < 1) {
+		if (signs.length() < 1) {
 			throw new IllegalArgumentException("Die Schlangenart braucht mindestens ein Zeichen, "
 					+ "damit ueberhaupt nach ihr gesucht werden kann.");
 		}
 		this.id = id;
-		this.structure = struktur;
-		this.signs = zeichenkette;
-		this.points = punkte;
-		this.amount = anzahl;
+		this.structure = structure;
+		this.signs = signs;
+		this.points = points;
+		this.amount = amount;
 	}
 
 	/**
@@ -124,11 +124,11 @@ public class SnakeType {
 	 * dem Einlesen von Daten aber unter anderem auch dem Testen oder
 	 * beziehungsweise und der spaeteren Programmerweiterung.
 	 * 
-	 * @param struktur Die Nachbarschaftsstruktur, die dieser Schlangenart
+	 * @param structure Die Nachbarschaftsstruktur, die dieser Schlangenart
 	 *                 uebergeben werden soll.
 	 */
-	public void setStructure(INeighborhood struktur) {
-		this.structure = struktur;
+	public void setStructure(INeighborhood structure) {
+		this.structure = structure;
 	}
 
 	/**
@@ -148,18 +148,18 @@ public class SnakeType {
 	 * Daten aber unter anderem auch dem Testen oder beziehungsweise und der
 	 * spaeteren Programmerweiterung.
 	 * 
-	 * @param zeichenkette Die Zeichenkette, die dieser Schlangenart uebergeben
+	 * @param signs Die Zeichenkette, die dieser Schlangenart uebergeben
 	 *                     werden soll.
 	 * @throws IllegalArgumentException Falls ein ungueltiges Argument fuer die
 	 *                                  Zeichenkette uebergeben wird, wird eine
 	 *                                  Ausnahme geworfen.
 	 */
-	public void setSigns(String zeichenkette) throws IllegalArgumentException {
-		if (zeichenkette.length() < 1) {
+	public void setSigns(String signs) throws IllegalArgumentException {
+		if (signs.length() < 1) {
 			throw new IllegalArgumentException("Die Schlangenart braucht mindestens ein Zeichen, "
 					+ "damit ueberhaupt nach ihr gesucht werden kann.");
 		}
-		this.signs = zeichenkette;
+		this.signs = signs;
 	}
 
 	/**
@@ -179,17 +179,17 @@ public class SnakeType {
 	 * Daten aber unter anderem auch dem Testen oder beziehungsweise und der
 	 * spaeteren Programmerweiterung.
 	 * 
-	 * @param punkte Die Punkte, die dieser Schlangenart uebergeben werden soll.
+	 * @param points Die Punkte, die dieser Schlangenart uebergeben werden soll.
 	 * @throws IllegalArgumentException Falls ein ungueltiges Argument fuer die
 	 *                                  Punkte uebergeben wird, wird eine Ausnahme
 	 *                                  geworfen.
 	 */
-	public void setPoints(int punkte) throws IllegalArgumentException {
-		if (punkte < 0 || punkte > Integer.MAX_VALUE - 1) {
+	public void setPoints(int points) throws IllegalArgumentException {
+		if (points < 0 || points > Integer.MAX_VALUE - 1) {
 			throw new IllegalArgumentException(
 					"Fuer die Klasse 'Schlangenart' darf das Attribut 'punkte' nicht zu klein oder zu gross sein.");
 		}
-		this.points = punkte;
+		this.points = points;
 	}
 
 	/**
@@ -209,21 +209,21 @@ public class SnakeType {
 	 * Einlesen von Daten aber unter anderem auch dem Testen oder beziehungsweise
 	 * und der spaeteren Programmerweiterung.
 	 * 
-	 * @param anzahl Die Anzahl der Schlangen dieser Schlangenart, die im Dschungel
+	 * @param amount Die Anzahl der Schlangen dieser Schlangenart, die im Dschungel
 	 *               verteilt werden soll.
 	 * @throws IllegalArgumentException Falls ein ungueltiges Argument fuer die
 	 *                                  Anzahl uebergeben wird, wird eine Ausnahme
 	 *                                  geworfen.
 	 */
-	public void setAmount(int anzahl) throws IllegalArgumentException {
-		if (anzahl < 0) {
+	public void setAmount(int amount) throws IllegalArgumentException {
+		if (amount < 0) {
 			throw new IllegalArgumentException(
 					"Fuer die Klasse 'Schlangenart' darf das Attribut 'anzahl' nicht kleiner als 0 sein.");
 		}
-		if (anzahl > Integer.MAX_VALUE - 1) {
+		if (amount > Integer.MAX_VALUE - 1) {
 			throw new IllegalArgumentException(
 					"Fuer die Klasse 'Schlangenart' darf das Attribut 'anzahl' nicht zu gross sein.");
 		}
-		this.amount = anzahl;
+		this.amount = amount;
 	}
 }

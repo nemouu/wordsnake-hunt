@@ -54,40 +54,40 @@ public class StarNeighborhood implements INeighborhood {
 	}
 
 	@Override
-	public List<Field> getNeighbors(Jungle dschungel, Field feld) {
-		List<Field> listeMitNachbarn = new ArrayList<Field>();
+	public List<Field> getNeighbors(Jungle jungle, Field field) {
+		List<Field> listOfNeighbors = new ArrayList<Field>();
 		int param1 = parameters.get(0);
 		int param2 = parameters.get(1);
-		Field[][] felder = dschungel.getFields();
+		Field[][] jungleFields = jungle.getFields();
 		for (int i = 1; i <= param1; i++) {
-			if (feld.getRow() - i >= 0) {
-				listeMitNachbarn.add(felder[feld.getRow() - i][feld.getColumn()]);
+			if (field.getRow() - i >= 0) {
+				listOfNeighbors.add(jungleFields[field.getRow() - i][field.getColumn()]);
 			}
-			if (feld.getRow() + i < felder.length) {
-				listeMitNachbarn.add(felder[feld.getRow() + i][feld.getColumn()]);
+			if (field.getRow() + i < jungleFields.length) {
+				listOfNeighbors.add(jungleFields[field.getRow() + i][field.getColumn()]);
 			}
-			if (feld.getColumn() - i >= 0) {
-				listeMitNachbarn.add(felder[feld.getRow()][feld.getColumn() - i]);
+			if (field.getColumn() - i >= 0) {
+				listOfNeighbors.add(jungleFields[field.getRow()][field.getColumn() - i]);
 			}
-			if (feld.getColumn() + i < felder[0].length) {
-				listeMitNachbarn.add(felder[feld.getRow()][feld.getColumn() + i]);
+			if (field.getColumn() + i < jungleFields[0].length) {
+				listOfNeighbors.add(jungleFields[field.getRow()][field.getColumn() + i]);
 			}
 		}
 		for (int i = 1; i <= param2; i++) {
-			if (feld.getRow() - i >= 0 && feld.getColumn() - i >= 0) {
-				listeMitNachbarn.add(felder[feld.getRow() - i][feld.getColumn() - i]);
+			if (field.getRow() - i >= 0 && field.getColumn() - i >= 0) {
+				listOfNeighbors.add(jungleFields[field.getRow() - i][field.getColumn() - i]);
 			}
-			if (feld.getRow() - i >= 0 && feld.getColumn() + i < felder[0].length) {
-				listeMitNachbarn.add(felder[feld.getRow() - i][feld.getColumn() + i]);
+			if (field.getRow() - i >= 0 && field.getColumn() + i < jungleFields[0].length) {
+				listOfNeighbors.add(jungleFields[field.getRow() - i][field.getColumn() + i]);
 			}
-			if (feld.getRow() + i < felder.length && feld.getColumn() - i >= 0) {
-				listeMitNachbarn.add(felder[feld.getRow() + i][feld.getColumn() - i]);
+			if (field.getRow() + i < jungleFields.length && field.getColumn() - i >= 0) {
+				listOfNeighbors.add(jungleFields[field.getRow() + i][field.getColumn() - i]);
 			}
-			if (feld.getRow() + i < felder.length && feld.getColumn() + i < felder[0].length) {
-				listeMitNachbarn.add(felder[feld.getRow() + i][feld.getColumn() + i]);
+			if (field.getRow() + i < jungleFields.length && field.getColumn() + i < jungleFields[0].length) {
+				listOfNeighbors.add(jungleFields[field.getRow() + i][field.getColumn() + i]);
 			}
 		}
-		return listeMitNachbarn;
+		return listOfNeighbors;
 	}
 
 	@Override
