@@ -25,10 +25,10 @@ class JungleTest {
 
 	@DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 	@Nested
-	class Einfache_Tests {
+	class Simple_Tests {
 		@DisplayName("Einfacher positiver Test.")
 		@Test
-		void testeGetZeilen() {
+		void testGetRows() {
 			int zeilen = 1;
 			Jungle dschungel = new Jungle(zeilen, 0, null, "");
 			assertEquals(dschungel.getRows(), zeilen, () -> "\nDer Zeilenanzahl '" + dschungel.getRows()
@@ -37,7 +37,7 @@ class JungleTest {
 
 		@DisplayName("Einfacher negativer Test.")
 		@Test
-		void testeGetSpalten() {
+		void testGetColumns() {
 			int spalten = -1;
 			assertThrows(IllegalArgumentException.class, () -> new Jungle(0, spalten, null, ""),
 					() -> "\nFuer die (negative) Spaltenanzahl '" + spalten + "' wird keine Ausnahme erzeugt.");
@@ -45,7 +45,7 @@ class JungleTest {
 
 		@DisplayName("Einfacher positiver Test mit zu grosser Zahl in Zeilen.")
 		@Test
-		void testeGetZeileMax() {
+		void testGetRowMax() {
 			int zeilen = Integer.MAX_VALUE;
 			assertThrows(IllegalArgumentException.class, () -> new Jungle(zeilen, 0, null, ""),
 					() -> "\nFuer den zu grossen " + "Zeilenwert '" + zeilen + "' wird keine Ausnahme erzeugt.");
@@ -53,7 +53,7 @@ class JungleTest {
 
 		@DisplayName("Einfacher positiver Test mit zu grosser Zahl in Spalten.")
 		@Test
-		void testeGetSpalteMax() {
+		void testGetColumnMax() {
 			int spalten = Integer.MAX_VALUE;
 			assertThrows(IllegalArgumentException.class, () -> new Jungle(0, spalten, null, ""),
 					() -> "\nFuer den zu grossen " + "Spaltenwert '" + spalten + "' wird keine Ausnahme erzeugt.");
@@ -61,14 +61,14 @@ class JungleTest {
 
 		@DisplayName("Einfacher Test fuer toString Methode mit leerem Dschungel.")
 		@Test
-		void testeToStringLeer() {
+		void testToStringEmpty() {
 			Jungle dschungel = new Jungle(0, 0, null, "");
 			assertEquals("", dschungel.toString(), () -> "Es wird nicht der leere String erzeugt.");
 		}
 
 		@DisplayName("Einfacher Test fuer toString Methode mit normalem Dschungel.")
 		@Test
-		void testeToStringNormal() {
+		void testToStringNormal() {
 			Jungle dschungel = new Jungle(3, 4, "", 1);
 			for (int i = 0; i < 3; i++) {
 				for (int j = 0; j < 4; j++) {
@@ -82,7 +82,7 @@ class JungleTest {
 
 		@DisplayName("Einfacher Test fuer toString Methode mit grossem Dschungel.")
 		@Test
-		void testeToStringGross() {
+		void testToStringLarge() {
 			Jungle dschungel = new Jungle(13, 14, "", 1);
 			for (int i = 0; i < 13; i++) {
 				for (int j = 0; j < 14; j++) {
@@ -108,7 +108,7 @@ class JungleTest {
 
 		@DisplayName("Einfacher Test fuer die Methode anzahlFelder.")
 		@Test
-		void testeAnzahlFelder() {
+		void testNumberOfFields() {
 			Jungle dschungel = new Jungle(13, 14, "", 1);
 			for (int i = 0; i < 13; i++) {
 				for (int j = 0; j < 14; j++) {
@@ -123,7 +123,7 @@ class JungleTest {
 
 		@DisplayName("Einfacher Test fuer die Methode anzahlFelder.")
 		@Test
-		void testeAnzahlBelegterFelder() {
+		void testNumberOfUsedFields() {
 			Jungle dschungel = new Jungle(13, 14, "", 1);
 			for (int i = 0; i < 13; i++) {
 				for (int j = 0; j < 14; j++) {
@@ -146,26 +146,26 @@ class JungleTest {
 
 	@DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 	@Nested
-	class Parametrisierte_Tests {
-		static Random zufallszahlenGenerator;
+	class Parameterized_Tests {
+		static Random randomNumberGenerator;
 
 		@BeforeAll
 		static void initAll() {
-			zufallszahlenGenerator = new Random(1);
+			randomNumberGenerator = new Random(1);
 		}
 
-		static IntStream erzeugeNegativeParameterwerte() {
-			return IntStream.iterate(zufallszahlenGenerator.nextInt(-20, -1), i -> i - 10).limit(20);
+		static IntStream generateNegativeParametervalues() {
+			return IntStream.iterate(randomNumberGenerator.nextInt(-20, -1), i -> i - 10).limit(20);
 		}
 
-		static IntStream erzeugePositiveParameterwerte() {
-			return IntStream.iterate(zufallszahlenGenerator.nextInt(1, 20), i -> i + 10).limit(20);
+		static IntStream generatePositiveParametervalues() {
+			return IntStream.iterate(randomNumberGenerator.nextInt(1, 20), i -> i + 10).limit(20);
 		}
 
 		@DisplayName("Parameterisierter positiver Test fuer Konstruktor und getSpalten.")
 		@ParameterizedTest
 		@MethodSource("erzeugePositiveParameterwerte")
-		void testeKonstruktorUndGetSpaltePositiv(int spalten) {
+		void testConstructorAndGetColumnPositive(int spalten) {
 			Jungle dschungel = new Jungle(0, spalten, null, "");
 			assertEquals(dschungel.getColumns(), spalten, "\nDie Spaltenanzahl '" + dschungel.getColumns()
 					+ "' entspricht nicht dem vorgegebenen Wert '" + spalten + "'.");
@@ -174,7 +174,7 @@ class JungleTest {
 		@DisplayName("Parameterisierter positiver Test fuer Konstruktor und getZeilen.")
 		@ParameterizedTest
 		@MethodSource("erzeugePositiveParameterwerte")
-		void testeKonstruktorUndGetZeilePositiv(int zeilen) {
+		void testConstructorAndGetRowPositive(int zeilen) {
 			Jungle dschungel = new Jungle(zeilen, 0, null, "");
 			assertEquals(dschungel.getRows(), zeilen, "\nDie Zeilenanzahl '" + dschungel.getRows()
 					+ "' entspricht nicht dem vorgegebenen Wert '" + zeilen + "'.");
@@ -183,7 +183,7 @@ class JungleTest {
 		@DisplayName("Parameterisierter Test fuer Konstruktor mit negativer Zeilen.")
 		@ParameterizedTest
 		@MethodSource("erzeugeNegativeParameterwerte")
-		void testeKonstruktorZeileNegativ(int zeilen) {
+		void testConstructorRowNegative(int zeilen) {
 			assertThrows(IllegalArgumentException.class, () -> new Jungle(zeilen, 0, null, ""),
 					() -> "\nFuer die (negative) Zeilenanzahl '" + zeilen + "' wird keine Ausnahme erzeugt.");
 		}
@@ -191,7 +191,7 @@ class JungleTest {
 		@DisplayName("Parameterisierter Test fuer Konstruktor mit negativer Spalten.")
 		@ParameterizedTest
 		@MethodSource("erzeugeNegativeParameterwerte")
-		void testeKonstruktorSpalteNegativ(int spalten) {
+		void testConstructorColumnNegative(int spalten) {
 			assertThrows(IllegalArgumentException.class, () -> new Jungle(0, spalten, null, ""),
 					() -> "\nFuer die (negative) Spaltenanzahl '" + spalten + "' wird keine Ausnahme erzeugt.");
 		}
@@ -199,7 +199,7 @@ class JungleTest {
 		@DisplayName("Parameterisierter negativer Test fuer setZeilen.")
 		@ParameterizedTest
 		@MethodSource("erzeugeNegativeParameterwerte")
-		void testeSetZeileNegativ(int zeilen) {
+		void testSetRowNegative(int zeilen) {
 			assertThrows(IllegalArgumentException.class, () -> new Jungle(0, 0, null, "").setRows(zeilen),
 					() -> "\nFuer die (negative) Zeilenanzahl '" + zeilen + "' wird keine Ausnahme erzeugt.");
 		}
@@ -207,7 +207,7 @@ class JungleTest {
 		@DisplayName("Parameterisierter negativer Test fuer setSpalten.")
 		@ParameterizedTest
 		@MethodSource("erzeugeNegativeParameterwerte")
-		void testeSetSpalteNegativ(int spalten) {
+		void testSetColumnNegative(int spalten) {
 			assertThrows(IllegalArgumentException.class, () -> new Jungle(0, 0, null, "").setColumns(spalten),
 					() -> "\nFuer die (negative) Spaltenanzahl '" + spalten + "' wird keine Ausnahme erzeugt.");
 		}

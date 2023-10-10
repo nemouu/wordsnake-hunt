@@ -13,8 +13,8 @@ import java.util.*;
  *
  */
 public class StarNeighborhood implements INeighborhood {
-	private String art = "Stern";
-	private List<Integer> parameter = new ArrayList<Integer>();
+	private String type = "Stern";
+	private List<Integer> parameters = new ArrayList<Integer>();
 
 	/**
 	 * Ein Konstruktor, dem die in der Klasse genutzten Parameter direkt uebergeben
@@ -42,7 +42,7 @@ public class StarNeighborhood implements INeighborhood {
 			throw new IllegalArgumentException("Fuer die Klasse 'SternNachbarschaft' kann keine"
 					+ "Liste uebergeben werden, deren Eintraege beide gleich 0 sind.");
 		}
-		this.parameter = parameters;
+		this.parameters = parameters;
 	}
 
 	/**
@@ -56,8 +56,8 @@ public class StarNeighborhood implements INeighborhood {
 	@Override
 	public List<Field> getNeighbors(Jungle dschungel, Field feld) {
 		List<Field> listeMitNachbarn = new ArrayList<Field>();
-		int param1 = parameter.get(0);
-		int param2 = parameter.get(1);
+		int param1 = parameters.get(0);
+		int param2 = parameters.get(1);
 		Field[][] felder = dschungel.getFields();
 		for (int i = 1; i <= param1; i++) {
 			if (feld.getRow() - i >= 0) {
@@ -92,17 +92,17 @@ public class StarNeighborhood implements INeighborhood {
 
 	@Override
 	public String toString() {
-		return art + ", Parameter=(" + parameter.get(0) + ", " + parameter.get(1) + ")";
+		return type + ", Parameter=(" + parameters.get(0) + ", " + parameters.get(1) + ")";
 	}
 
 	@Override
 	public String getType() {
-		return art;
+		return type;
 	}
 
 	@Override
 	public List<Integer> getParameters() {
-		return parameter;
+		return parameters;
 	}
 
 	@Override
@@ -119,6 +119,6 @@ public class StarNeighborhood implements INeighborhood {
 			throw new IllegalArgumentException("Fuer die Klasse 'SternNachbarschaft' kann nur eine"
 					+ "Liste uebergeben werden, derem Eintraege nicht groesser als der groesste Integerwert sind.");
 		}
-		this.parameter = parameters;
+		this.parameters = parameters;
 	}
 }

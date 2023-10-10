@@ -20,8 +20,8 @@ import org.junit.jupiter.api.Test;
  * 
  * @author Philip Redecker
  */
-class SchlangeTest {
-	private static Snake schlange;
+class SnakeTest {
+	private static Snake exampleSnake;
 
 	@BeforeAll
 	static void setUp() {
@@ -38,15 +38,15 @@ class SchlangeTest {
 		glieder.add(glied4);
 		glieder.add(glied5);
 		glieder.add(glied6);
-		schlange = new Snake(new SnakeType("A0", new DistanceNeighborhood(), "HALLOS", 3, 1), glieder);
+		exampleSnake = new Snake(new SnakeType("A0", new DistanceNeighborhood(), "HALLOS", 3, 1), glieder);
 	}
 
 	@DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 	@Nested
-	class Einfache_Tests {
+	class Simple_Tests {
 		@DisplayName("Einfacher Test von naechstesGlied, Teil 1.")
 		@Test
-		void testeNaechstesGliedEins() {
+		void testCharacterOfNextElementOne() {
 			SnakeElement glied1 = new SnakeElement(new Field(0, 1, 2));
 			SnakeElement glied2 = new SnakeElement(new Field(0, 3, 1));
 			SnakeElement glied3 = new SnakeElement(new Field(0, 4, 1));
@@ -64,7 +64,7 @@ class SchlangeTest {
 
 		@DisplayName("Einfacher Test von naechstesGlied, Teil 2.")
 		@Test
-		void testeNaechstesGliedZwei() {
+		void testCharacterOfNextElementTwo() {
 			SnakeElement glied1 = new SnakeElement(new Field(0, 1, 2));
 			SnakeElement glied2 = new SnakeElement(new Field(0, 3, 1));
 			SnakeElement glied3 = new SnakeElement(new Field(0, 4, 1));
@@ -80,7 +80,7 @@ class SchlangeTest {
 
 		@DisplayName("Einfacher Test von naechstesGlied, Teil 3.")
 		@Test
-		void testeNaechstesGliedDrei() {
+		void testCharacterOfNextElementThree() {
 			SnakeElement glied1 = new SnakeElement(new Field(0, 1, 2));
 			SnakeElement glied2 = new SnakeElement(new Field(0, 3, 1));
 			SnakeElement glied3 = new SnakeElement(new Field(0, 4, 1));
@@ -100,7 +100,7 @@ class SchlangeTest {
 
 		@DisplayName("Einfacher Test von naechstesGlied, Teil 4.")
 		@Test
-		void testeNaechstesGliedVier() {
+		void testCharacterOfNextElementFour() {
 			SnakeElement glied1 = new SnakeElement(new Field(0, 1, 2));
 			SnakeElement glied2 = new SnakeElement(new Field(0, 3, 1));
 			SnakeElement glied3 = new SnakeElement(new Field(0, 4, 1));
@@ -122,28 +122,28 @@ class SchlangeTest {
 
 		@DisplayName("Einfacher Test von lastGlied")
 		@Test
-		void testeLastGlied() {
-			assertEquals("S", schlange.characterOfLastElement(),
+		void testCharacterOfLastElement() {
+			assertEquals("S", exampleSnake.characterOfLastElement(),
 					"\nDas ausgegebene naechste Glied stimmt nicht mit dem tatsaechlichen naechsten Glied ueberein.");
 		}
 
 		@DisplayName("Einfacher Test von entferneLetztesGlied, Teil 1")
 		@Test
-		void testeEntferneLetztesGliedEins() {
-			schlange.removeLastElement();
-			assertEquals(5, schlange.getElements().size(),
+		void testRemoveLastElementOne() {
+			exampleSnake.removeLastElement();
+			assertEquals(5, exampleSnake.getElements().size(),
 					"\nDie Schlange hat nicht die gewuenschte Anzahl Glieder. Es sollte ein Glied weniger sein also vorher "
-							+ "(also 5) aber es wurde " + schlange.getElements().size() + " ausgegeben.");
+							+ "(also 5) aber es wurde " + exampleSnake.getElements().size() + " ausgegeben.");
 		}
 
 		@DisplayName("Einfacher Test von entferneLetztesGlied, Teil 2")
 		@Test
-		void testeEntferneLetztesGliedZwei() {
+		void testRemoveLastElementTwo() {
 			Snake bspSchlange = new Snake();
 			bspSchlange.removeLastElement();
 			assertEquals(0, bspSchlange.getElements().size(),
 					"\nDie Schlange hat nicht die gewuenschte Anzahl Glieder. Es sollte ein Glied weniger sein also vorher "
-							+ "(also 5) aber es wurde " + schlange.getElements().size() + " ausgegeben.");
+							+ "(also 5) aber es wurde " + exampleSnake.getElements().size() + " ausgegeben.");
 		}
 	}
 }

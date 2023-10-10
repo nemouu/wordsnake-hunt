@@ -19,15 +19,15 @@ public interface SnakeHuntAPI {
 	 * und startet das Loesungverfahren fuer die Schlangensuche. Die gefundene
 	 * Loesung wird zusammen mit der Probleminstanz in der Ausgabedatei gespeichert.
 	 * 
-	 * @param xmlEingabeDatei Dateipfad zu einer XML-Datei mit der Probleminstanz,
+	 * @param xmlInputFile Dateipfad zu einer XML-Datei mit der Probleminstanz,
 	 *                        die geloest werden soll.
-	 * @param xmlAusgabeDatei Dateipfad zu einer XML-Datei fuer die Probleminstanz
+	 * @param xmlOutputFile Dateipfad zu einer XML-Datei fuer die Probleminstanz
 	 *                        und die erzeugte Loesung.
 	 * @return <code>true</code>, wenn mindestens eine Schlange gefunden wurde,
 	 *         ansonsten <code>false</code>. Beim Auftreten eines Fehlers wird
 	 *         ebenfalls <code>false</code> zurückgegeben.
 	 */
-	public boolean solveProblem(String xmlEingabeDatei, String xmlAusgabeDatei);
+	public boolean solveProblem(String xmlInputFile, String xmlOutputFile);
 
 	/**
 	 * Liest die Vorgegebene Eingabedatei mit einer (moeglicherweise
@@ -35,15 +35,15 @@ public interface SnakeHuntAPI {
 	 * Basis der gegebenen Parameter. Die erzeugte Probleminstanz wird in der
 	 * vorgegebenen Ausgabedatei gespeichert.
 	 * 
-	 * @param xmlEingabeDatei Dateipfad zu einer XML-Datei mit Parametern fuer eine
+	 * @param xmlInputFile Dateipfad zu einer XML-Datei mit Parametern fuer eine
 	 *                        Probleminstanz, die erzeugt werden soll.
-	 * @param xmlAusgabeDatei Dateipfad zu einer XML-Datei fuer die erzeugte
+	 * @param xmlOutputFile Dateipfad zu einer XML-Datei fuer die erzeugte
 	 *                        Probleminstanz.
 	 * @return <code>true</code>, bei Erfolg, ansonsten <code>false</code>. Beim
 	 *         Auftreten eines Fehlers wird ebenfalls <code>false</code>
 	 *         zurückgegeben.
 	 */
-	public boolean generateProblem(String xmlEingabeDatei, String xmlAusgabeDatei);
+	public boolean generateProblem(String xmlInputFile, String xmlOutputFile);
 
 	/**
 	 * Moegliche Fehlertypen fuer eine Loesung einer Probleminstanz.
@@ -62,20 +62,20 @@ public interface SnakeHuntAPI {
 		/**
 		 * Eine Schlange besteht nicht aus der richtigen Anzahl von Schlangengliedern.
 		 */
-		GLIEDER,
+		ELEMENTS,
 		/**
 		 * Ein Schlangenglied ist einem Feld mit falschem Zeichen zugeordnet.
 		 */
-		ZUORDNUNG,
+		ASSIGNMENT,
 		/**
 		 * Ein Schlangenglied ist einem bereits maximal verwendeten Feld zugeordnet.
 		 */
-		VERWENDUNG,
+		USAGE,
 		/**
 		 * Ein Schlangenglied befindet sich nicht in der Nachbarschaft des jeweils
 		 * vorherigen Schlangengliedes.
 		 */
-		NACHBARSCHAFT
+		NEIGHBORHOOD
 	}
 
 	/**
@@ -83,12 +83,12 @@ public interface SnakeHuntAPI {
 	 * ueberprueft die Loesung auf Zulaessingkeit. Dabei werden sowohl die Art als
 	 * auch die Haeufigkeit der verletzten Bedingungen ermittelt.
 	 * 
-	 * @param xmlEingabeDatei Dateipfad zu einer XML-Datei mit einer Probleminstanz
+	 * @param xmlInputFile Dateipfad zu einer XML-Datei mit einer Probleminstanz
 	 *                        und der zugehoerigen Loesung.
 	 * @return Liste der gefundenen Einzelfehler. Beim Auftreten eines Fehlers wird
 	 *         eine leere Liste zurueckgegeben.
 	 */
-	public List<ErrorType> examineSolution(String xmlEingabeDatei);
+	public List<ErrorType> examineSolution(String xmlInputFile);
 
 	/**
 	 * Liest die Probleminstanz und Loesung aus der gegebenen Datei ein und
@@ -97,10 +97,10 @@ public interface SnakeHuntAPI {
 	 * Schlangenart und fuer jedes von einem Schlangenglied verwendete Feld (fuer
 	 * jede Verwendung) vergeben.
 	 * 
-	 * @param xmlEingabeDatei Dateipfad zu einer XML-Datei mit einer Probleminstanz
+	 * @param xmlInputFile Dateipfad zu einer XML-Datei mit einer Probleminstanz
 	 *                        und Loesung.
 	 * @return Erreichte Gesamtpunktzahl. Beim Auftreten eines Fehlers wird der Wert
 	 *         <code>0</code> zurueckgegeben.
 	 */
-	public int evaluateSolution(String xmlEingabeDatei);
+	public int evaluateSolution(String xmlInputFile);
 }

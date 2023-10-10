@@ -29,11 +29,11 @@ public class SnakeHunt implements SnakeHuntAPI {
 	}
 
 	@Override
-	public boolean solveProblem(String xmlEingabeDatei, String xmlAusgabeDatei) {
+	public boolean solveProblem(String xmlInputFile, String xmlOutputFile) {
 		try {
-			readInAndTransferModel(xmlEingabeDatei);
+			readInAndTransferModel(xmlInputFile);
 			searchSnakesInCurrentModel();
-			writeCurrentModelInFile(xmlAusgabeDatei);
+			writeCurrentModelInFile(xmlOutputFile);
 			return true;
 		} catch (Exception e) {
 			System.out.println("Es ist zu einem Fehler gekommen. Die Schlangensuche wird abgebrochen.");
@@ -43,11 +43,11 @@ public class SnakeHunt implements SnakeHuntAPI {
 	}
 
 	@Override
-	public boolean generateProblem(String xmlEingabeDatei, String xmlAusgabeDatei) {
+	public boolean generateProblem(String xmlInputFile, String xmlOutputFile) {
 		try {
-			readInAndTransferModel(xmlEingabeDatei);
+			readInAndTransferModel(xmlInputFile);
 			generateJungleWithCurrentModel();
-			writeCurrentModelInFile(xmlAusgabeDatei);
+			writeCurrentModelInFile(xmlOutputFile);
 			return true;
 		} catch (Exception e) {
 			System.out.println("Es ist zu einem Fehler gekommen. Der Dschungelgenerator wird abgebrochen.");
@@ -57,32 +57,32 @@ public class SnakeHunt implements SnakeHuntAPI {
 	}
 
 	@Override
-	public List<ErrorType> examineSolution(String xmlEingabeDatei) {
-		List<ErrorType> fehlerliste = new ArrayList<ErrorType>();
+	public List<ErrorType> examineSolution(String xmlInputFile) {
+		List<ErrorType> errorList = new ArrayList<ErrorType>();
 		try {
-			readInAndTransferModel(xmlEingabeDatei);
-			SolutionExaminer pruefer = new SolutionExaminer(model);
-			fehlerliste = pruefer.examineSolution();
-			return fehlerliste;
+			readInAndTransferModel(xmlInputFile);
+			SolutionExaminer examiner = new SolutionExaminer(model);
+			errorList = examiner.examineSolution();
+			return errorList;
 		} catch (Exception e) {
 			System.out.println("Es ist zu einem Fehler gekommen und das Programm wird "
 					+ "abbgebrochen. Es wird eine leere Fehlerliste zurueckgegeben.");
 			System.out.println();
-			return fehlerliste;
+			return errorList;
 		}
 	}
 
 	@Override
-	public int evaluateSolution(String xmlEingabeDatei) {
+	public int evaluateSolution(String xmlInputFile) {
 		try {
-			readInAndTransferModel(xmlEingabeDatei);
+			readInAndTransferModel(xmlInputFile);
 			if (model.getSolution() == null) {
 				System.out.println("Es ist keine Loesung vorhanden und deswegen kann"
 						+ " nichts bewertet werden. Es wird die 0 zurueckgegeben.");
 				System.out.println();
 			}
-			SolutionEvaluator bewerter = new SolutionEvaluator();
-			return bewerter.evaluateSolution(model.getSolution());
+			SolutionEvaluator evaluator = new SolutionEvaluator();
+			return evaluator.evaluateSolution(model.getSolution());
 		} catch (Exception e) {
 			System.out.println("Es ist zu einem Fehler gekommen und das Programm wird "
 					+ "abbgebrochen. Es wird die 0 zurueckgegeben.");
@@ -91,14 +91,14 @@ public class SnakeHunt implements SnakeHuntAPI {
 		}
 	}
 
-	private void readInAndTransferModel(String eingabeDatei) throws Exception {
+	private void readInAndTransferModel(String inputFile) throws Exception {
 		/*
 		 * Es wird die unter 'xmlEingabeDatei' zu findene XML-Datei eingelesen und die
 		 * Daten der XML-Datei werden ins Modell des Programmes uebertragen.
 		 */
-		IReader xmlLeser = new ReaderXML();
-		xmlLeser.readFile(eingabeDatei);
-		model = xmlLeser.getTransferredModel();
+		IReader readerXML = new ReaderXML();
+		readerXML.readFile(inputFile);
+		model = readerXML.getTransferredModel();
 	}
 
 	private void searchSnakesInCurrentModel() {
@@ -106,12 +106,12 @@ public class SnakeHunt implements SnakeHuntAPI {
 		 * Eine Methode, die als Einstieg in die Suche von Schlangen dient. Dabei wird
 		 * davon ausgegangen, dass das Modell des Programmes nicht leer ist.
 		 */
-		ISnakeSearch suche = new SnakeSearch(model);
-		suche.searchSnakes();
-		Double[] zeit = { model.getTime()[0],
-				model.calculateTimeInUnitGivenByModel(System.nanoTime() - suche.getCurrTime()) };
-		model.setTime(zeit);
-		model.setSolution(suche.getSolution());
+		ISnakeSearch search = new SnakeSearch(model);
+		search.searchSnakes();
+		Double[] time = { model.getTime()[0],
+				model.calculateTimeInUnitGivenByModel(System.nanoTime() - search.getCurrTime()) };
+		model.setTime(time);
+		model.setSolution(search.getSolution());
 	}
 
 	private void generateJungleWithCurrentModel() throws Exception {
@@ -123,69 +123,69 @@ public class SnakeHunt implements SnakeHuntAPI {
 		generator.generateJungle();
 		model.setJungle(generator.getNewJungle());
 		model.setSolution(null);
-		Double[] zeit = { model.getTime()[0], 0.0 };
-		model.setTime(zeit);
+		Double[] time = { model.getTime()[0], 0.0 };
+		model.setTime(time);
 	}
 
-	private void viewOfCurrentModel(String xmlEingabeDatei) throws Exception {
+	private void viewOfCurrentModel(String xmlInputFile) throws Exception {
 		/*
 		 * Eine Methode, die es ermoeglicht ein Modell in einer Konsole oder einem
 		 * Terminal in Textform darzustellen. Es wird hierbei entweder das aktuelle
 		 * Modell des Programmes oder das eingelesene Modell dargestellt.
 		 */
 		if (model == null) {
-			readInAndTransferModel(xmlEingabeDatei);
+			readInAndTransferModel(xmlInputFile);
 		}
 		if (model != null) {
-			IView darstellung = new ViewText(model);
-			darstellung.view();
+			IView view = new ViewText(model);
+			view.view();
 		} else {
 			System.out.println("Es ist kein Modell vorhanden, dass dargestellt werden koennte.");
 			System.out.println();
 		}
 	}
 
-	private void writeCurrentModelInFile(String ausgabeDatei) throws Exception {
+	private void writeCurrentModelInFile(String outputFile) throws Exception {
 		/*
 		 * Das Modell des Programmes wird unter 'ausgabeDatei' in eine XML-Datei
 		 * gespeichert.
 		 */
-		IWriter xmlSchreiber = new WriterXML(model);
-		xmlSchreiber.writeInFile(ausgabeDatei);
+		IWriter writerXML = new WriterXML(model);
+		writerXML.writeInFile(outputFile);
 	}
 
-	private void printErrorList(List<ErrorType> fehlerliste) {
+	private void printErrorList(List<ErrorType> errorList) {
 		/*
 		 * Eine Hilfsmethode, um die Anzahl und Art der Fehlertypen in einer Fehlerliste
 		 * darstellen zu koennen.
 		 */
-		if (fehlerliste.size() == 0) {
+		if (errorList.size() == 0) {
 			System.out.println("Die Fehlerpruefung hat keine Fehler gefunden!");
 		} else {
-			int glieder = 0;
-			int zuordnung = 0;
-			int verwendung = 0;
-			int nachbarschaft = 0;
-			for (ErrorType fehlertyp : fehlerliste) {
-				if (fehlertyp == ErrorType.GLIEDER) {
-					glieder++;
+			int elements = 0;
+			int assignment = 0;
+			int usage = 0;
+			int neighborhood = 0;
+			for (ErrorType fehlertyp : errorList) {
+				if (fehlertyp == ErrorType.ELEMENTS) {
+					elements++;
 				}
-				if (fehlertyp == ErrorType.ZUORDNUNG) {
-					zuordnung++;
+				if (fehlertyp == ErrorType.ASSIGNMENT) {
+					assignment++;
 				}
-				if (fehlertyp == ErrorType.VERWENDUNG) {
-					verwendung++;
+				if (fehlertyp == ErrorType.USAGE) {
+					usage++;
 				}
-				if (fehlertyp == ErrorType.NACHBARSCHAFT) {
-					nachbarschaft++;
+				if (fehlertyp == ErrorType.NEIGHBORHOOD) {
+					neighborhood++;
 				}
 			}
 			System.out.println("Die gegebene Loesung enthaelt die folgenden Fehler:");
 			System.out.println();
-			System.out.println(glieder + " Fehler vom Typ GLIEDER,");
-			System.out.println(zuordnung + " Fehler vom Typ ZUORDNUNG,");
-			System.out.println(verwendung + " Fehler vom Typ VERWENDUNG und");
-			System.out.println(nachbarschaft + " Fehler vom Typ NACHBARSCHAFT.");
+			System.out.println(elements + " Fehler vom Typ GLIEDER,");
+			System.out.println(assignment + " Fehler vom Typ ZUORDNUNG,");
+			System.out.println(usage + " Fehler vom Typ VERWENDUNG und");
+			System.out.println(neighborhood + " Fehler vom Typ NACHBARSCHAFT.");
 		}
 	}
 
@@ -232,9 +232,9 @@ public class SnakeHunt implements SnakeHuntAPI {
 	 *                   ausgegeben, die beschreibt, wo der Fehler passiert ist.
 	 */
 	public static void main(String[] args) throws Exception {
-		String ablauf = "";
-		String eingabe = "";
-		String ausgabe = "";
+		String course = "";
+		String input = "";
+		String output = "";
 
 		/*
 		 * Zu Beginn wird die Eingabe, die der Nutzer im Terminal gemacht hat
@@ -265,13 +265,13 @@ public class SnakeHunt implements SnakeHuntAPI {
 				return;
 			}
 			if (args.length == 2) {
-				ablauf = args[0].split("=")[1];
-				eingabe = args[1].split("=")[1];
+				course = args[0].split("=")[1];
+				input = args[1].split("=")[1];
 			}
 			if (args.length == 3) {
-				ablauf = args[0].split("=")[1];
-				eingabe = args[1].split("=")[1];
-				ausgabe = args[2].split("=")[1];
+				course = args[0].split("=")[1];
+				input = args[1].split("=")[1];
+				output = args[2].split("=")[1];
 			}
 		} catch (Exception e) {
 			System.out.println();
@@ -294,9 +294,9 @@ public class SnakeHunt implements SnakeHuntAPI {
 			System.out.println("Programm wird abgebrochen.\n");
 			return;
 		}
-		SnakeHunt jagd = new SnakeHunt();
+		SnakeHunt hunt = new SnakeHunt();
 		System.out.println();
-		System.out.println("Lade Daten der unter '" + eingabe + "' zu findenden Datei in das Modell des Programmes...");
+		System.out.println("Lade Daten der unter '" + input + "' zu findenden Datei in das Modell des Programmes...");
 		System.out.println();
 
 		/*
@@ -309,20 +309,20 @@ public class SnakeHunt implements SnakeHuntAPI {
 		int p = 0;
 		int b = 0;
 		int d = 0;
-		for (char befehl : ablauf.toCharArray()) {
-			if (befehl == 'l') {
+		for (char command : course.toCharArray()) {
+			if (command == 'l') {
 				l++;
 			}
-			if (befehl == 'e') {
+			if (command == 'e') {
 				e++;
 			}
-			if (befehl == 'p') {
+			if (command == 'p') {
 				p++;
 			}
-			if (befehl == 'b') {
+			if (command == 'b') {
 				b++;
 			}
-			if (befehl == 'd') {
+			if (command == 'd') {
 				d++;
 			}
 			if (l > 1 || e > 1 || b > 1 || d > 1 || p > 1) {
@@ -348,89 +348,89 @@ public class SnakeHunt implements SnakeHuntAPI {
 		 * fuehrt aber nicht zum Programmabbruch.
 		 */
 		try {
-			char[] ablaufArray = ablauf.toCharArray();
-			for (char befehl : ablaufArray) {
-				if (befehl == 'l') {
+			char[] courseArray = course.toCharArray();
+			for (char commmand : courseArray) {
+				if (commmand == 'l') {
 					try {
 						System.out.println("Loese Probleminstanz...");
 						System.out.println();
 
-						if (jagd.model == null) {
-							jagd.readInAndTransferModel(eingabe);
+						if (hunt.model == null) {
+							hunt.readInAndTransferModel(input);
 						}
-						jagd.searchSnakesInCurrentModel();
+						hunt.searchSnakesInCurrentModel();
 						System.out.println("Die im Modell gefundene Probleminstanz wurde geloest.");
 						System.out.println();
-						if (!ablauf.contains("d") && jagd.model.getJungle().numberOfFields() != jagd.model
+						if (!course.contains("d") && hunt.model.getJungle().numberOfFields() != hunt.model
 								.getJungle().numberOfTakenFields()) {
 							System.out.println("Es ist hierbei zu beachten, dass "
 									+ " der eingelesene Dschungel leere Felder enthaelt. Es wurden\n"
-									+ jagd.model.getJungle().numberOfFields() + " Felder erwartet aber nur "
-									+ jagd.model.getJungle().numberOfTakenFields() + " wurden eingelesen. "
+									+ hunt.model.getJungle().numberOfFields() + " Felder erwartet aber nur "
+									+ hunt.model.getJungle().numberOfTakenFields() + " wurden eingelesen. "
 									+ " Die uebrigen Felder sind leer. Mit dem\nBefehl 'e' kann ein vollstaendiger "
 									+ " Dschungel erzeugt werden.");
 							System.out.println();
 						}
-					} catch (IllegalArgumentException modellZuLeer) {
-						if (!(befehl == ablaufArray[ablaufArray.length - 1])) {
+					} catch (IllegalArgumentException modelTooEmpty) {
+						if (!(commmand == courseArray[courseArray.length - 1])) {
 							System.out.println("Es wird versucht mit den uebrigen Befehlen fortzufahren...");
 							System.out.println();
 						}
 					}
 				}
-				if (befehl == 'e') {
+				if (commmand == 'e') {
 					System.out.println("Erzeuge Dschungel...");
 					System.out.println();
-					if (jagd.model == null) {
-						jagd.readInAndTransferModel(eingabe);
+					if (hunt.model == null) {
+						hunt.readInAndTransferModel(input);
 					}
-					jagd.generateJungleWithCurrentModel();
+					hunt.generateJungleWithCurrentModel();
 					System.out.println(
 							"Der im Modell zu findenden Probleminstanz wurde ein (neuer) Dschungel hinzugefuegt.");
 					System.out.println();
 				}
-				if (befehl == 'p') {
+				if (commmand == 'p') {
 					try {
-						if (jagd.model == null) {
-							jagd.readInAndTransferModel(eingabe);
+						if (hunt.model == null) {
+							hunt.readInAndTransferModel(input);
 						}
-						SolutionExaminer pruefer = new SolutionExaminer(jagd.model);
-						List<ErrorType> fehlerliste = pruefer.examineSolution();
-						if (jagd.model != null && jagd.model.getSolution() != null) {
-							jagd.printErrorList(fehlerliste);
+						SolutionExaminer examiner = new SolutionExaminer(hunt.model);
+						List<ErrorType> errorList = examiner.examineSolution();
+						if (hunt.model != null && hunt.model.getSolution() != null) {
+							hunt.printErrorList(errorList);
 							System.out.println();
 						}
-					} catch (IllegalArgumentException modellZuLeer) {
-						if (!(befehl == ablaufArray[ablaufArray.length - 1])) {
+					} catch (IllegalArgumentException modelTooEmpty) {
+						if (!(commmand == courseArray[courseArray.length - 1])) {
 							System.out.println("Es wird versucht mit den uebrigen Befehlen fortzufahren...");
 							System.out.println();
 						}
 					}
 				}
-				if (befehl == 'b') {
-					if (jagd.model == null) {
-						jagd.readInAndTransferModel(eingabe);
+				if (commmand == 'b') {
+					if (hunt.model == null) {
+						hunt.readInAndTransferModel(input);
 					}
-					int bewertung;
-					if (jagd.model.getSolution() == null) {
+					int evaluation;
+					if (hunt.model.getSolution() == null) {
 						System.out.println("Es ist keine Loesung vorhanden und deswegen kann"
 								+ " nichts bewertet werden. Es wird 0 zurueckgegeben.");
 						System.out.println();
-						bewertung = 0;
+						evaluation = 0;
 					} else {
-						SolutionEvaluator bewerter = new SolutionEvaluator();
-						bewertung = bewerter.evaluateSolution(jagd.model.getSolution());
+						SolutionEvaluator evaluator = new SolutionEvaluator();
+						evaluation = evaluator.evaluateSolution(hunt.model.getSolution());
 					}
-					if (jagd.model != null && jagd.model.getSolution() != null) {
-						System.out.println("Die gegebene Loesung hat " + bewertung + " Punkte erzielt.");
+					if (hunt.model != null && hunt.model.getSolution() != null) {
+						System.out.println("Die gegebene Loesung hat " + evaluation + " Punkte erzielt.");
 						System.out.println();
 					}
 				}
-				if (befehl == 'd') {
-					jagd.viewOfCurrentModel(eingabe);
+				if (commmand == 'd') {
+					hunt.viewOfCurrentModel(input);
 				}
-				if ((befehl != 'l') && (befehl != 'e') && (befehl != 'p') && (befehl != 'b') && (befehl != 'd')) {
-					System.out.println("Achtung! Der uebergebene Parameter " + befehl
+				if ((commmand != 'l') && (commmand != 'e') && (commmand != 'p') && (commmand != 'b') && (commmand != 'd')) {
+					System.out.println("Achtung! Der uebergebene Parameter " + commmand
 							+ " hat keine Funktion im Programm. Der Parameter wird uebersprungen.");
 					System.out.println();
 				}
@@ -440,16 +440,16 @@ public class SnakeHunt implements SnakeHuntAPI {
 			 * Bei Angabe einer Ausgabedatei wird in diesem Teil des Programmes schliesslich
 			 * das Modell in eine Datei mit dem angegebenen Namen geschrieben.
 			 */
-			if (!ausgabe.equals("")) {
-				jagd.writeCurrentModelInFile(ausgabe);
+			if (!output.equals("")) {
+				hunt.writeCurrentModelInFile(output);
 				System.out.println("Nach Bearbeitung der angegebenen Ablaufparameter wurde der Inhalt "
-						+ "des Modelles unter\n'" + ausgabe + "' gespeichert.");
+						+ "des Modelles unter\n'" + output + "' gespeichert.");
 				System.out.println();
 			} else {
 				System.out.println("Es wird nichts gespeichert, da keine Ausgabedatei angegeben wurde.");
 				System.out.println();
 			}
-		} catch (Exception fehler) {
+		} catch (Exception error) {
 			System.out.println("Programm wird abbgebrochen.");
 			System.out.println();
 
@@ -460,7 +460,7 @@ public class SnakeHunt implements SnakeHuntAPI {
 			 * und den Ort der Ausnahme ausgegeben, die den Programmabbruch verursacht hat.
 			 */
 
-			// fehler.printStackTrace();
+			// error.printStackTrace();
 		}
 	}
 }

@@ -38,10 +38,10 @@ public interface ISnakeSearch {
 	 * Getter und Setter angeboten werden. Dies ist fuer zukuenftige
 	 * Programmerweiterung und beziehungsweise oder Tests gedacht.
 	 * 
-	 * @param funktionen Eine Instanz einer Klasse, die das Interface
+	 * @param functions Eine Instanz einer Klasse, die das Interface
 	 *                   <code>ISchlangenSucheUtil</code> implementiert.
 	 */
-	void setFunctions(ISnakeSearchUtil funktionen);
+	void setFunctions(ISnakeSearchUtil functions);
 
 	/**
 	 * Es wird das Modell zurueckgegeben, dass sich aktuell in der Schlangesuche
@@ -58,11 +58,11 @@ public interface ISnakeSearch {
 	 * Konstruktor genutzt wurde. Es ist auch im Allgemeinen moeglich das Modell
 	 * nach Instanziierung der Klasse zu aendern.
 	 * 
-	 * @param modell Das Modell, das uebergeben werden soll.
+	 * @param model Das Modell, das uebergeben werden soll.
 	 * @throws IllegalArgumentException Eine Ausnahme wird geworfen, wenn ein
 	 *                                  unpassendes Modell uebergeben wird.
 	 */
-	void setModel(IModel modell) throws IllegalArgumentException;
+	void setModel(IModel model) throws IllegalArgumentException;
 
 	/**
 	 * Es wird die Loesung zurueckgegeben, die die Schlangensuche gefunden hat.

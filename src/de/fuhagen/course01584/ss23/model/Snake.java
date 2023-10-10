@@ -87,8 +87,8 @@ public class Snake {
 	 *         zurueckgegeben.
 	 */
 	public String characterOfNextElement() {
-		if (elements.size() < type.getZeichenkette().length()) {
-			return type.getZeichenkette().substring(elements.size(), elements.size() + 1);
+		if (elements.size() < type.getSigns().length()) {
+			return type.getSigns().substring(elements.size(), elements.size() + 1);
 		}
 		return "";
 	}
@@ -100,7 +100,7 @@ public class Snake {
 	 * @return Ein String, der das Zeichen des letzten Schlangengliedes enthaelt.
 	 */
 	public String characterOfLastElement() {
-		return type.getZeichenkette().substring(type.getZeichenkette().length() - 1, type.getZeichenkette().length());
+		return type.getSigns().substring(type.getSigns().length() - 1, type.getSigns().length());
 	}
 
 	/**

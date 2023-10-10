@@ -23,112 +23,112 @@ import org.junit.jupiter.params.provider.MethodSource;
  */
 class SnakeTypeTest {
 
-	private static INeighborhood nachbarS;
+	private static INeighborhood exampleNeighborhood;
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
-		nachbarS = new DistanceNeighborhood(5);
+		exampleNeighborhood = new DistanceNeighborhood(5);
 	}
 
 	@DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 	@Nested
-	class Einfache_Tests {
+	class Simple_Tests {
 		@DisplayName("Einfacher positiver Test bezueglich Attribut 'punkte' mit zu grossen Wert.")
 		@Test
-		void testePunkteGross() {
+		void testPointsLarge() {
 			int punkte = Integer.MAX_VALUE;
-			assertThrows(IllegalArgumentException.class, () -> new SnakeType("", nachbarS, "", punkte, 1),
+			assertThrows(IllegalArgumentException.class, () -> new SnakeType("", exampleNeighborhood, "", punkte, 1),
 					() -> "Fuer den" + "zu grossen Wert von 'punkte '" + punkte + "' wird keine Ausnahme erzeugt.");
 		}
 
 		@DisplayName("Einfacher negativer Test bezueglich Attribut 'punkte' mit zu kleinem Wert.")
 		@Test
-		void testePunkteKlein() {
+		void testPointsSmall() {
 			int punkte = Integer.MIN_VALUE;
-			assertThrows(IllegalArgumentException.class, () -> new SnakeType("", nachbarS, "", punkte, 1),
+			assertThrows(IllegalArgumentException.class, () -> new SnakeType("", exampleNeighborhood, "", punkte, 1),
 					() -> "Fuer den" + "zu kleinen Wert von 'punkte '" + punkte + "' wird keine Ausnahme erzeugt.");
 		}
 
 		@DisplayName("Einfacher positiver Test von setPunkte mit zu grossen Wert.")
 		@Test
-		void testeSetPunkteGross() {
+		void testSetPointsLarge() {
 			int punkte = Integer.MAX_VALUE;
 			assertThrows(IllegalArgumentException.class,
-					() -> new SnakeType("", nachbarS, "", 0, 1).setPunkte(punkte),
+					() -> new SnakeType("", exampleNeighborhood, "", 0, 1).setPoints(punkte),
 					() -> "Fuer den" + "zu grossen Wert von 'punkte '" + punkte + "' wird keine Ausnahme erzeugt.");
 		}
 
 		@DisplayName("Einfacher negativer Test von setPunkte mit zu kleinem Wert.")
 		@Test
-		void testeSetPunkteKlein() {
+		void testSetPointsSmall() {
 			int punkte = Integer.MIN_VALUE;
 			assertThrows(IllegalArgumentException.class,
-					() -> new SnakeType("", nachbarS, "", 0, 1).setPunkte(punkte),
+					() -> new SnakeType("", exampleNeighborhood, "", 0, 1).setPoints(punkte),
 					() -> "Fuer den" + "zu kleinen Wert von 'punkte '" + punkte + "' wird keine Ausnahme erzeugt.");
 		}
 
 		@DisplayName("Einfacher positiver Test bezueglich Attribut 'anzahl' mit zu grossen Wert.")
 		@Test
-		void testeAnzahlGross() {
+		void testAmountLarge() {
 			int anzahl = Integer.MAX_VALUE;
-			assertThrows(IllegalArgumentException.class, () -> new SnakeType("", nachbarS, "", 1, anzahl),
+			assertThrows(IllegalArgumentException.class, () -> new SnakeType("", exampleNeighborhood, "", 1, anzahl),
 					() -> "Fuer den zu grossen Wert von 'anzahl '" + anzahl + "' wird keine Ausnahme erzeugt.");
 		}
 
 		@DisplayName("Einfacher positiver Test bezueglich Attribut 'anzahl' mit zu kleinem Wert.")
 		@Test
-		void testeAnzahlKlein() {
+		void testAmountSmall() {
 			int anzahl = Integer.MIN_VALUE;
-			assertThrows(IllegalArgumentException.class, () -> new SnakeType("", nachbarS, "", 1, anzahl),
+			assertThrows(IllegalArgumentException.class, () -> new SnakeType("", exampleNeighborhood, "", 1, anzahl),
 					() -> "Fuer den zu kleinen Wert von 'anzahl '" + anzahl + "' wird keine Ausnahme erzeugt.");
 		}
 
 		@DisplayName("Einfacher positiver Test bezueglich Attribut 'anzahl' mit Wert 0.")
 		@Test
-		void testeAnzahlNull() {
+		void testAmountZero() {
 			int anzahl = 0;
-			assertThrows(IllegalArgumentException.class, () -> new SnakeType("", nachbarS, "", 1, anzahl),
+			assertThrows(IllegalArgumentException.class, () -> new SnakeType("", exampleNeighborhood, "", 1, anzahl),
 					() -> "Fuer den zu kleinen Wert von 'anzahl '" + anzahl + "' wird keine Ausnahme erzeugt.");
 		}
 
 		@DisplayName("Einfacher positiver Test von setAnzahl mit zu grossen Wert.")
 		@Test
-		void testeSetAnzahlGross() {
+		void testSetAmountLarge() {
 			int anzahl = Integer.MAX_VALUE;
 			assertThrows(IllegalArgumentException.class,
-					() -> new SnakeType("", nachbarS, "", 0, 1).setAnzahl(anzahl),
+					() -> new SnakeType("", exampleNeighborhood, "", 0, 1).setAmount(anzahl),
 					() -> "Fuer den zu grossen Wert von 'anzahl '" + anzahl + "' wird keine Ausnahme erzeugt.");
 		}
 
 		@DisplayName("Einfacher positiver Test von setAnzahl mit zu kleinem Wert.")
 		@Test
-		void testeSetAnzahlKlein() {
+		void testSetAmountSmall() {
 			int anzahl = Integer.MAX_VALUE;
 			assertThrows(IllegalArgumentException.class,
-					() -> new SnakeType("", nachbarS, "", 0, 1).setAnzahl(anzahl),
+					() -> new SnakeType("", exampleNeighborhood, "", 0, 1).setAmount(anzahl),
 					() -> "Fuer den zu kleinen Wert von 'anzahl '" + anzahl + "' wird keine Ausnahme erzeugt.");
 		}
 
 		@DisplayName("Einfacher positiver Test von setAnzahl mit Wert 0.")
 		@Test
-		void testeSetAnzahlNull() {
+		void testSetAmountZero() {
 			int anzahl = -1;
 			assertThrows(IllegalArgumentException.class,
-					() -> new SnakeType("", nachbarS, "", 0, 1).setAnzahl(anzahl),
+					() -> new SnakeType("", exampleNeighborhood, "", 0, 1).setAmount(anzahl),
 					() -> "Fuer den zu kleinen Wert von 'anzahl '" + anzahl + "' wird keine Ausnahme erzeugt.");
 		}
 
 		@DisplayName("Test toString Methode, wenn moeglichst viel leer ist")
 		@Test
-		void testeToStringLeer() {
+		void testToStringEmpty() {
 			assertThrows(NullPointerException.class, () -> new SnakeType(null, null, null, 0, 1),
 					"\nEs wird nicht der leere String zurueckgegeben, obwohl das Modell leer ist.");
 		}
 
 		@DisplayName("Test toString Methode mit normalem Inhalt")
 		@Test
-		void testeToStringNormal() {
-			SnakeType art = new SnakeType("A0", nachbarS, "FERNUNI", 2, 3);
+		void testToStringNormal() {
+			SnakeType art = new SnakeType("A0", exampleNeighborhood, "FERNUNI", 2, 3);
 			assertEquals("ID=A0, Nachbarschaftsstruktur=Distanz, Zeichenkette=FERNUNI, Punkte=2, Anzahl=3",
 					art.toString(), "\nEs wird nicht der richtige String zurueckgegeben.");
 		}
@@ -136,91 +136,91 @@ class SnakeTypeTest {
 
 	@DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 	@Nested
-	class Parametrisierte_Tests {
-		static Random zufallszahlenGenerator;
+	class Parameterized_Tests {
+		static Random randomNumberGenerator;
 
 		@BeforeAll
 		static void initAll() {
-			zufallszahlenGenerator = new Random(1);
+			randomNumberGenerator = new Random(1);
 		}
 
-		static IntStream erzeugeNegativeParameterwerte() {
-			return IntStream.iterate(zufallszahlenGenerator.nextInt(-20, -1), i -> i - 10).limit(20);
+		static IntStream generateNegativeParametervalues() {
+			return IntStream.iterate(randomNumberGenerator.nextInt(-20, -1), i -> i - 10).limit(20);
 		}
 
-		static IntStream erzeugePositiveParameterwerte() {
-			return IntStream.iterate(zufallszahlenGenerator.nextInt(1, 20), i -> i + 10).limit(20);
+		static IntStream generatePositiveParametervalues() {
+			return IntStream.iterate(randomNumberGenerator.nextInt(1, 20), i -> i + 10).limit(20);
 		}
 
 		@DisplayName("Parameterisierter positiver Test fuer Konstruktor und getPunkte.")
 		@ParameterizedTest
 		@MethodSource("erzeugePositiveParameterwerte")
-		void testeKonstruktorUndGetPunktePositiv(int punkte) {
-			SnakeType art = new SnakeType("a", nachbarS, "a", punkte, 1);
-			assertEquals(art.getPunkte(), punkte, "\nDer Wert fuer Punkte '" + art.getPunkte()
+		void testConstructorAndGetPointsPositive(int punkte) {
+			SnakeType art = new SnakeType("a", exampleNeighborhood, "a", punkte, 1);
+			assertEquals(art.getPoints(), punkte, "\nDer Wert fuer Punkte '" + art.getPoints()
 					+ "' entspricht nicht dem vorgegebenen Wert '" + punkte + "'.");
 		}
 
 		@DisplayName("Parameterisierter negativer Test fuer Konstruktor und getPunkte.")
 		@ParameterizedTest
 		@MethodSource("erzeugeNegativeParameterwerte")
-		void testeKonstruktorUndGetPunkteNegativ(int punkte) {
-			assertThrows(IllegalArgumentException.class, () -> new SnakeType("a", nachbarS, "a", punkte, 1),
+		void testConstructorAndGetPointsNegative(int punkte) {
+			assertThrows(IllegalArgumentException.class, () -> new SnakeType("a", exampleNeighborhood, "a", punkte, 1),
 					"\nEs wurde keine Ausnahme ausgeloest, obwohl der Wert fuer Punkte negativ ist.");
 		}
 
 		@DisplayName("Parameterisierter positiver Test fuer Konstruktor und getAnzahl.")
 		@ParameterizedTest
 		@MethodSource("erzeugePositiveParameterwerte")
-		void testeKonstruktorUndGetAnzahlPositiv(int anzahl) {
-			SnakeType art = new SnakeType("a", nachbarS, "a", 1, anzahl);
-			assertEquals(art.getAnzahl(), anzahl, "\nDer Wert fuer Anzahl '" + art.getAnzahl()
+		void testConstructorAndGetAmountPositive(int anzahl) {
+			SnakeType art = new SnakeType("a", exampleNeighborhood, "a", 1, anzahl);
+			assertEquals(art.getAmount(), anzahl, "\nDer Wert fuer Anzahl '" + art.getAmount()
 					+ "' entspricht nicht dem vorgegebenen Wert '" + anzahl + "'.");
 		}
 
 		@DisplayName("Parameterisierter negativer Test fuer Konstruktor und getAnzahl.")
 		@ParameterizedTest
 		@MethodSource("erzeugeNegativeParameterwerte")
-		void testeKonstruktorUndGetAnzahlNegativ(int anzahl) {
-			assertThrows(IllegalArgumentException.class, () -> new SnakeType("a", nachbarS, "a", 1, anzahl),
+		void testConstructorAndGetAmountNegative(int anzahl) {
+			assertThrows(IllegalArgumentException.class, () -> new SnakeType("a", exampleNeighborhood, "a", 1, anzahl),
 					"\nFuer den (negativen) Wert fuer Anzahl '" + anzahl + "' wird keine Ausnahme erzeugt.");
 		}
 
 		@DisplayName("Parameterisierter positiver Test fuer setPunkte und getPunkte.")
 		@ParameterizedTest
 		@MethodSource("erzeugePositiveParameterwerte")
-		void testeSetPunktePositiv(int punkte) {
-			SnakeType art = new SnakeType("a", nachbarS, "a", 1, 1);
-			art.setPunkte(punkte);
-			assertEquals(art.getPunkte(), punkte, "\nDer Wert fuer Punkte '" + art.getPunkte()
+		void testSetPointsPositive(int punkte) {
+			SnakeType art = new SnakeType("a", exampleNeighborhood, "a", 1, 1);
+			art.setPoints(punkte);
+			assertEquals(art.getPoints(), punkte, "\nDer Wert fuer Punkte '" + art.getPoints()
 					+ "' entspricht nicht dem vorgegebenen Wert '" + punkte + "'.");
 		}
 
 		@DisplayName("Parameterisierter negativer Test fuer setPunkte und getPunkte.")
 		@ParameterizedTest
 		@MethodSource("erzeugeNegativeParameterwerte")
-		void testeSetPunkteNegativ(int punkte) {
-			SnakeType art = new SnakeType("a", nachbarS, "a", 1, 1);
-			assertThrows(IllegalArgumentException.class, () -> art.setPunkte(punkte),
+		void testSetPointsNegative(int punkte) {
+			SnakeType art = new SnakeType("a", exampleNeighborhood, "a", 1, 1);
+			assertThrows(IllegalArgumentException.class, () -> art.setPoints(punkte),
 					"\nEs wurde keine Ausnahme ausgeloest, obwohl der Wert fuer Punkte negativ ist.");
 		}
 
 		@DisplayName("Parameterisierter positiver Test fuer setAnzahl und getAnzahl.")
 		@ParameterizedTest
 		@MethodSource("erzeugePositiveParameterwerte")
-		void testeSetAnzahlPositiv(int anzahl) {
-			SnakeType art = new SnakeType("a", nachbarS, "a", 1, 1);
-			art.setAnzahl(anzahl);
-			assertEquals(art.getAnzahl(), anzahl, "\nDer Wert fuer Anzahl '" + art.getAnzahl()
+		void testSetAmountPositive(int anzahl) {
+			SnakeType art = new SnakeType("a", exampleNeighborhood, "a", 1, 1);
+			art.setAmount(anzahl);
+			assertEquals(art.getAmount(), anzahl, "\nDer Wert fuer Anzahl '" + art.getAmount()
 					+ "' entspricht nicht dem vorgegebenen Wert '" + anzahl + "'.");
 		}
 
 		@DisplayName("Parameterisierter negativer Test fuer setAnzahl.")
 		@ParameterizedTest
 		@MethodSource("erzeugeNegativeParameterwerte")
-		void testeSetAnzahlNegativ(int anzahl) {
+		void testSetAmountNegative(int anzahl) {
 			assertThrows(IllegalArgumentException.class,
-					() -> new SnakeType("a", nachbarS, "a", 1, 1).setAnzahl(anzahl),
+					() -> new SnakeType("a", exampleNeighborhood, "a", 1, 1).setAmount(anzahl),
 					"\nFuer den (negativen) Wert fuer Anzahl '" + anzahl + "' wird keine Ausnahme erzeugt.");
 		}
 	}

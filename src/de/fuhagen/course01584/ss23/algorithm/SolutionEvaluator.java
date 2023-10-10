@@ -27,19 +27,19 @@ public class SolutionEvaluator {
 	 * Loesung uebergeben werden. Ist diese Loesung leer, so wird eine
 	 * <code>0</code> zurueckgegeben.
 	 * 
-	 * @param loesung Die Loesung deren Bewertung berechnet werden soll.
+	 * @param solution Die Loesung deren Bewertung berechnet werden soll.
 	 * @return Die Punkte der zuvor uebergebenen Loesung.
 	 */
-	public int evaluateSolution(Solution loesung) {
-		int punkte = 0;
-		for (Snake schlange : loesung.getSchlangen()) {
-			punkte += schlange.getType().getPunkte();
-			for (SnakeElement glied : schlange.getElements()) {
-				punkte += glied.getField().getPoints();
+	public int evaluateSolution(Solution solution) {
+		int points = 0;
+		for (Snake snake : solution.getSnakes()) {
+			points += snake.getType().getPoints();
+			for (SnakeElement glied : snake.getElements()) {
+				points += glied.getField().getPoints();
 			}
 		}
-		evaluation = punkte;
-		return punkte;
+		evaluation = points;
+		return points;
 	}
 
 	/**

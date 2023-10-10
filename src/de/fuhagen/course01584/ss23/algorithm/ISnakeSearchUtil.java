@@ -32,10 +32,10 @@ public interface ISnakeSearchUtil {
 	 * hinzugefuegt und diese Liste wird anschliessend einer bestimmten Heuristik
 	 * folgend sortiert.
 	 * 
-	 * @param art Die Schlangenart fuer die, die Startfelder bestimmt werden sollen.
+	 * @param type Die Schlangenart fuer die, die Startfelder bestimmt werden sollen.
 	 * @return Eine (sortierte) Liste mit Startfeldern fuer eine Schlangenart.
 	 */
-	List<Field> createValidStartingFields(SnakeType art);
+	List<Field> createValidStartingFields(SnakeType type);
 
 	/**
 	 * Eine Methode, die fuer eine gegebene (noch nicht fertige) Schlange und einen
@@ -44,13 +44,13 @@ public interface ISnakeSearchUtil {
 	 * werden einer Liste hinzugefuegt und diese Liste wird anschliessend einer
 	 * bestimmten Heuristik folgend sortiert.
 	 * 
-	 * @param vorherigesGlied Das letzte der aktuellen Schlange hinzugefuegte
+	 * @param previousElement Das letzte der aktuellen Schlange hinzugefuegte
 	 *                        Schlangenglied.
-	 * @param dieseSchlange   Die aktuelle Schlange.
+	 * @param thisSnake   Die aktuelle Schlange.
 	 * @return Eine (sortierte) Liste mit Nachbarfeldern fuer die aktuelle Schlange
 	 *         und das aktuelle Schlangenglied.
 	 */
-	List<Field> createValidNeighbors(SnakeElement vorherigesGlied, Snake dieseSchlange);
+	List<Field> createValidNeighbors(SnakeElement previousElement, Snake thisSnake);
 
 	/**
 	 * Es wird das Modell zurueckgegeben, dass sich aktuell in der SchlangesucheUtil
@@ -67,8 +67,8 @@ public interface ISnakeSearchUtil {
 	 * parameterlose Konstruktor genutzt wurde. Es ist auch im Allgemeinen moeglich
 	 * das Modell nach Instanziierung der Klasse zu aendern.
 	 * 
-	 * @param modell Das Modell, das uebergeben werden soll.
+	 * @param model Das Modell, das uebergeben werden soll.
 	 */
-	void setModel(IModel modell);
+	void setModel(IModel model);
 
 }

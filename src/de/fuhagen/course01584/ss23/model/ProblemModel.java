@@ -213,7 +213,7 @@ public class ProblemModel implements IModel {
 						+ " Felder erwartet aber nur " + jungle.numberOfTakenFields()
 						+ " wurden eingelesen. Die uebrigen\n"
 						+ "Felder sind leer. Mit dem Befehl 'e' kann ein vollstaendiger Dschungel erzeugt werden.";
-			} else if (solution == null || solution.getSchlangen().size() == 0) {
+			} else if (solution == null || solution.getSnakes().size() == 0) {
 				return "Der Dschungel dieses Problemes hat " + jungle.getRows() + " Zeilen, "
 						+ jungle.getColumns() + " Spalten und die Zeichenmenge '" + jungle.getSigns()
 						+ "'. "
@@ -258,18 +258,18 @@ public class ProblemModel implements IModel {
 	private String toStringSolution() {
 		String output = "";
 		int zeilenumbruch = 1;
-		for (int i = 0; i < solution.getSchlangen().size(); i++) {
+		for (int i = 0; i < solution.getSnakes().size(); i++) {
 			List<Field> loesungsFelder = new ArrayList<Field>();
-			output += " (" + (i + 1) + ") Information: (ID=" + solution.getSchlangen().get(i).getType().getId()
-					+ ", Zeichenkette=" + solution.getSchlangen().get(i).getType().getZeichenkette()
-					+ ", Nachbarschaftsstruktur=" + solution.getSchlangen().get(i).getType().getStruktur().toString()
+			output += " (" + (i + 1) + ") Information: (ID=" + solution.getSnakes().get(i).getType().getId()
+					+ ", Zeichenkette=" + solution.getSnakes().get(i).getType().getSigns()
+					+ ", Nachbarschaftsstruktur=" + solution.getSnakes().get(i).getType().getStructure().toString()
 					+ ")\n\n     Verlauf: ";
-			for (int l = 0; l < solution.getSchlangen().get(i).getElements().size(); l++) {
-				loesungsFelder.add(solution.getSchlangen().get(i).getElements().get(l).getField());
-				output += "(" + solution.getSchlangen().get(i).getElements().get(l).getField().getCharacter() + ", "
-						+ solution.getSchlangen().get(i).getElements().get(l).getField().getRow() + ", "
-						+ solution.getSchlangen().get(i).getElements().get(l).getField().getColumn() + ")";
-				if (l < solution.getSchlangen().get(i).getElements().size() - 1) {
+			for (int l = 0; l < solution.getSnakes().get(i).getElements().size(); l++) {
+				loesungsFelder.add(solution.getSnakes().get(i).getElements().get(l).getField());
+				output += "(" + solution.getSnakes().get(i).getElements().get(l).getField().getCharacter() + ", "
+						+ solution.getSnakes().get(i).getElements().get(l).getField().getRow() + ", "
+						+ solution.getSnakes().get(i).getElements().get(l).getField().getColumn() + ")";
+				if (l < solution.getSnakes().get(i).getElements().size() - 1) {
 					output += " -> ";
 				}
 				if (l == 13) {

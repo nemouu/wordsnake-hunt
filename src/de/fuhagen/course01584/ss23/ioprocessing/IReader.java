@@ -19,11 +19,11 @@ public interface IReader {
 	 * gefunden, wird geprueft, ob sie das richtige Format hat und anschliessend
 	 * werden die Daten, die in der Datei stehen in das Datenmodell geschrieben.
 	 * 
-	 * @param dateiPfad Der Pfad zu der einzulesenden Datei.
+	 * @param filePath Der Pfad zu der einzulesenden Datei.
 	 * @throws Exception Eine Ausnahme wird geworfen, wenn keine Datei gefunden wird
 	 *                   oder wenn sie das falsche Format hat.
 	 */
-	void readFile(String dateiPfad) throws Exception;
+	void readFile(String filePath) throws Exception;
 
 	/**
 	 * Es wird das Modell zurueckgegeben, dass sich aktuell in der Leserklasse

@@ -23,11 +23,11 @@ class WriterXMLTest {
 
 	@DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 	@Nested
-	class Einfacher_Test_fuer_das_Schreiben_eines_leeren_Modelles {
+	class Simple_test_for_writing_in_an_empty_model {
 
 		@DisplayName("Einfacher Test fuer die Situation in der eine das uebergebene Modell leer ist.")
 		@Test
-		void testeModellLeer() {
+		void testModelEmpty() {
 			assertThrows(Exception.class,
 					() -> new WriterXML(new ProblemModel())
 							.writeInFile("res/das_modell_ist_unvollstaendig.xml"),
@@ -37,10 +37,10 @@ class WriterXMLTest {
 
 	@DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 	@Nested
-	class Einfache_Tests_fuer_das_Schreiben_einer_Loesungsdatei {
-		private static IModel bspModell;
-		private static WriterXML schreiberXML;
-		private static List<Element> listeFuerTest;
+	class Simple_tests_for_writing_in_a_solution_file {
+		private static IModel exampleModel;
+		private static WriterXML writerXML;
+		private static List<Element> listForTests;
 
 		/*
 		 * Hier wird zunaechst ein Modell 'von Hand' befuellt, sodass dann getestet
@@ -83,31 +83,31 @@ class WriterXMLTest {
 
 			// Erstelle eine Beispielloesung und fuege ihr die Daten von oben hinzu
 			Solution bspLoesung = new Solution();
-			bspLoesung.addSchlange(new Snake(bspArten[0], glieder));
+			bspLoesung.addSnake(new Snake(bspArten[0], glieder));
 			Double[] bspZeit = { 1.0, 2.0 };
 
 			// Fuege dem bspModell alle erstellten Daten hinzu
-			bspModell = new ProblemModel(bspDschungel, bspLoesung, bspZeit);
-			bspModell.addSnakeType(new SnakeType("A0", bspNachbarschaft, "abcdefghij", 1, 1));
-			bspModell.addSnakeType(new SnakeType("A1", bspNachbarschaft, "hjgzhi", 21, 31));
+			exampleModel = new ProblemModel(bspDschungel, bspLoesung, bspZeit);
+			exampleModel.addSnakeType(new SnakeType("A0", bspNachbarschaft, "abcdefghij", 1, 1));
+			exampleModel.addSnakeType(new SnakeType("A1", bspNachbarschaft, "hjgzhi", 21, 31));
 
 			// Schreibe nun diese Daten in ein Document
-			schreiberXML = new WriterXML(bspModell);
-			schreiberXML.writeInFile("res/test_fuer_schreiben_in_loesungsdatei.xml");
-			listeFuerTest = schreiberXML.getDocument().getRootElement().getChildren();
+			writerXML = new WriterXML(exampleModel);
+			writerXML.writeInFile("res/test_fuer_schreiben_in_loesungsdatei.xml");
+			listForTests = writerXML.getDocument().getRootElement().getChildren();
 		}
 
 		@DisplayName("Einfacher Test fuer das Wurzelelement.")
 		@Test
-		void testeWurzel() {
-			assertEquals("Schlangenjagd", schreiberXML.getDocument().getRootElement().getName(),
+		void testRoot() {
+			assertEquals("Schlangenjagd", writerXML.getDocument().getRootElement().getName(),
 					"\nDas eingelesene Wurzelelement entspricht nicht dem Inhalt des Modelles");
 		}
 
 		@DisplayName("Einfacher Test fuer das Element 'zeit'.")
 		@Test
-		void testeZeit() {
-			for (Element element : listeFuerTest) {
+		void testTime() {
+			for (Element element : listForTests) {
 				if (element.getName() == "Zeit") {
 					assertEquals(1.0, Double.parseDouble(element.getChildText("Vorgabe")),
 							"\nDer eingaelesene Wert fuer das Attribut 'zeit'(Vorgabe) stimmt nicht mit dem aus dem Modell ueberein.");
@@ -119,8 +119,8 @@ class WriterXMLTest {
 
 		@DisplayName("Einfacher Test fuer das Element 'dschungel'.")
 		@Test
-		void testeDschungel() {
-			for (Element element : listeFuerTest) {
+		void testJungle() {
+			for (Element element : listForTests) {
 				if (element.getName() == "Dschungel") {
 
 					// Ueberpruefe die Art des Dschungels im Modell
@@ -220,8 +220,8 @@ class WriterXMLTest {
 
 		@DisplayName("Einfacher Test fuer das Element 'schlangenarten'.")
 		@Test
-		void testeSchlangenarten() {
-			for (Element element : listeFuerTest) {
+		void testSnakeTypes() {
+			for (Element element : listForTests) {
 				if (element.getName() == "Schlangenart") {
 
 					// Ueberpruefe erste Schlangenart des Modelles
@@ -264,8 +264,8 @@ class WriterXMLTest {
 
 		@DisplayName("Einfacher Test fuer das Element 'schlangen'.")
 		@Test
-		void testeSchlangen() {
-			for (Element element : listeFuerTest) {
+		void testSnakes() {
+			for (Element element : listForTests) {
 				if (element.getName() == "Schlangen") {
 
 					// Ueberpruefe die gefundenen Schlangen des Dschungels im Modell
@@ -282,10 +282,10 @@ class WriterXMLTest {
 
 	@DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 	@Nested
-	class Einfache_Tests_fuer_das_Schreiben_einer_Probleminstanzdatei {
-		private static IModel bspModell;
-		private static WriterXML schreiberXML;
-		private static List<Element> listeFuerTest;
+	class Simple_tests_for_writing_in_a_problem_file {
+		private static IModel exampleModel;
+		private static WriterXML writerXML;
+		private static List<Element> listForTests;
 
 		/*
 		 * Hier wird zunaechst ein Modell 'von Hand' befuellt, sodass dann getestet
@@ -317,27 +317,27 @@ class WriterXMLTest {
 			Double[] bspZeit = { 1.0, 2.0 };
 
 			// Fuege dem bspModell alle erstellten Daten hinzu
-			bspModell = new ProblemModel(bspDschungel, null, bspZeit);
-			bspModell.addSnakeType(new SnakeType("A0", bspNachbarschaft, "abcdefghij", 1, 1));
-			bspModell.addSnakeType(new SnakeType("A1", bspNachbarschaft, "hjgzhi", 21, 31));
+			exampleModel = new ProblemModel(bspDschungel, null, bspZeit);
+			exampleModel.addSnakeType(new SnakeType("A0", bspNachbarschaft, "abcdefghij", 1, 1));
+			exampleModel.addSnakeType(new SnakeType("A1", bspNachbarschaft, "hjgzhi", 21, 31));
 
 			// Schreibe nun diese Daten in ein Document
-			schreiberXML = new WriterXML(bspModell);
-			schreiberXML.writeInFile("res/test_fuer_schreiben_in_loesungsdatei.xml");
-			listeFuerTest = schreiberXML.getDocument().getRootElement().getChildren();
+			writerXML = new WriterXML(exampleModel);
+			writerXML.writeInFile("res/test_fuer_schreiben_in_loesungsdatei.xml");
+			listForTests = writerXML.getDocument().getRootElement().getChildren();
 		}
 
 		@DisplayName("Einfacher Test fuer das Wurzelelement.")
 		@Test
-		void testeWurzel() {
-			assertEquals("Schlangenjagd", schreiberXML.getDocument().getRootElement().getName(),
+		void testRoot() {
+			assertEquals("Schlangenjagd", writerXML.getDocument().getRootElement().getName(),
 					"\nDas eingelesene Wurzelelement entspricht nicht dem Inhalt des Modelles");
 		}
 
 		@DisplayName("Einfacher Test fuer das Element 'zeit'.")
 		@Test
-		void testeZeit() {
-			for (Element element : listeFuerTest) {
+		void testTime() {
+			for (Element element : listForTests) {
 				if (element.getName() == "Zeit") {
 					assertEquals(1.0, Double.parseDouble(element.getChildText("Vorgabe")),
 							"\nDer eingaelesene Wert fuer das Attribut 'zeit'(Vorgabe) stimmt nicht mit dem aus dem Modell ueberein.");
@@ -349,8 +349,8 @@ class WriterXMLTest {
 
 		@DisplayName("Einfacher Test fuer das Element 'dschungel'.")
 		@Test
-		void testeDschungel() {
-			for (Element element : listeFuerTest) {
+		void testJungle() {
+			for (Element element : listForTests) {
 				if (element.getName() == "Dschungel") {
 
 					// Ueberpruefe die Art des Dschungels im Modell
@@ -450,8 +450,8 @@ class WriterXMLTest {
 
 		@DisplayName("Einfacher Test fuer das Element 'schlangenarten'.")
 		@Test
-		void testeSchlangenarten() {
-			for (Element element : listeFuerTest) {
+		void testSnakeTypes() {
+			for (Element element : listForTests) {
 				if (element.getName() == "Schlangenart") {
 
 					// Ueberpruefe erste Schlangenart des Modelles
@@ -495,10 +495,10 @@ class WriterXMLTest {
 
 	@DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 	@Nested
-	class Einfache_Tests_fuer_das_Schreiben_einer_unvollstaendigen_Datei {
-		private static IModel bspModell;
-		private static WriterXML schreiberXML;
-		private static List<Element> listeFuerTest;
+	class Simple_tests_for_writing_in_an_incomplete_file {
+		private static IModel exampleModel;
+		private static WriterXML writerXML;
+		private static List<Element> listForTests;
 
 		/*
 		 * Hier wird zunaechst ein Modell 'von Hand' befuellt, sodass dann getestet
@@ -520,27 +520,27 @@ class WriterXMLTest {
 			Double[] bspZeit = { 1.0, 2.0 };
 
 			// Fuege dem bspModell alle erstellten Daten hinzu
-			bspModell = new ProblemModel(bspDschungel, null, bspZeit);
-			bspModell.addSnakeType(new SnakeType("A0", bspNachbarschaft, "abcdefghij", 1, 1));
-			bspModell.addSnakeType(new SnakeType("A1", bspNachbarschaft, "hjgzhi", 21, 31));
+			exampleModel = new ProblemModel(bspDschungel, null, bspZeit);
+			exampleModel.addSnakeType(new SnakeType("A0", bspNachbarschaft, "abcdefghij", 1, 1));
+			exampleModel.addSnakeType(new SnakeType("A1", bspNachbarschaft, "hjgzhi", 21, 31));
 
 			// Schreibe nun diese Daten in ein Document
-			schreiberXML = new WriterXML(bspModell);
-			schreiberXML.writeInFile("res/test_fuer_schreiben_in_loesungsdatei.xml");
-			listeFuerTest = schreiberXML.getDocument().getRootElement().getChildren();
+			writerXML = new WriterXML(exampleModel);
+			writerXML.writeInFile("res/test_fuer_schreiben_in_loesungsdatei.xml");
+			listForTests = writerXML.getDocument().getRootElement().getChildren();
 		}
 
 		@DisplayName("Einfacher Test fuer das Wurzelelement.")
 		@Test
-		void testeWurzel() {
-			assertEquals("Schlangenjagd", schreiberXML.getDocument().getRootElement().getName(),
+		void testRoot() {
+			assertEquals("Schlangenjagd", writerXML.getDocument().getRootElement().getName(),
 					"\nDas eingelesene Wurzelelement entspricht nicht dem Inhalt des Modelles");
 		}
 
 		@DisplayName("Einfacher Test fuer das Element 'zeit'.")
 		@Test
-		void testeZeit() {
-			for (Element element : listeFuerTest) {
+		void testTime() {
+			for (Element element : listForTests) {
 				if (element.getName() == "Zeit") {
 
 					// Ueberpruefe die Zeit im Modell
@@ -554,8 +554,8 @@ class WriterXMLTest {
 
 		@DisplayName("Einfacher Test fuer das Element 'dschungel'.")
 		@Test
-		void testeDschungel() {
-			for (Element element : listeFuerTest) {
+		void testJungle() {
+			for (Element element : listForTests) {
 				if (element.getName() == "Dschungel") {
 
 					// Ueberpruefe die Art des Dschungels im Modell
@@ -571,8 +571,8 @@ class WriterXMLTest {
 
 		@DisplayName("Einfacher Test fuer das Element 'schlangenarten'.")
 		@Test
-		void testeSchlangenarten() {
-			for (Element element : listeFuerTest) {
+		void testSnakeTypes() {
+			for (Element element : listForTests) {
 				if (element.getName() == "Schlangenart") {
 
 					// Ueberpruefe erste Schlangenart des Modelles

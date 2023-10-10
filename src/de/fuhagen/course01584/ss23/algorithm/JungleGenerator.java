@@ -32,7 +32,7 @@ public class JungleGenerator {
 	 * Basis der Daten des Modelles. Fehlen die Daten oder Teile der Daten, so wird
 	 * eine Fehlermeldung ausgegeben.
 	 * 
-	 * @param modell Das Modell auf Basis dessen der Dschungelgenerator den
+	 * @param model Das Modell auf Basis dessen der Dschungelgenerator den
 	 *               Dschungel generiert. Es ist darauf zu achten ein Modell zu
 	 *               uebergeben, dass genug Daten hat, so, dass ein Dschungel
 	 *               erzeugt werden kann. Ist dies nicht der Fall wird eine
@@ -42,10 +42,10 @@ public class JungleGenerator {
 	 *                                  Konstruktor ein unpassendes Modell
 	 *                                  uebergeben wird.
 	 */
-	public JungleGenerator(IModel modell) throws IllegalArgumentException {
+	public JungleGenerator(IModel model) throws IllegalArgumentException {
 		super();
-		this.snakeTypes = modell.getSnakeTypes();
-		if (modell.getJungle().getRows() * modell.getJungle().getColumns() < minimumNumberUsedFields()) {
+		this.snakeTypes = model.getSnakeTypes();
+		if (model.getJungle().getRows() * model.getJungle().getColumns() < minimumNumberUsedFields()) {
 			System.out
 					.println("Das Modell, dass dem Dschungelgenerator uebergeben werden soll enthaelt mehr\nSchlangen "
 							+ "als in den Dschungel passen. Es kann kein Dschungel generiert werden.");
@@ -54,12 +54,12 @@ public class JungleGenerator {
 					"Dem Konstruktor des Dschungelgenerators kann kein Modell uebergeben werden, dass"
 							+ " mehr Schlangen hat, als in den Dschungel passen.");
 		}
-		this.model = modell;
+		this.model = model;
 		this.minimumSnakes = minimumNumberUsedFields();
-		this.jungle = new Jungle(modell.getJungle().getRows(), modell.getJungle().getColumns(),
-				modell.getJungle().getSigns(), 1);
-		this.newJungle = new Jungle(modell.getJungle().getRows(), modell.getJungle().getColumns(),
-				modell.getJungle().getSigns(), 1);
+		this.jungle = new Jungle(model.getJungle().getRows(), model.getJungle().getColumns(),
+				model.getJungle().getSigns(), 1);
+		this.newJungle = new Jungle(model.getJungle().getRows(), model.getJungle().getColumns(),
+				model.getJungle().getSigns(), 1);
 		this.currentTime = System.nanoTime();
 		this.failed = false;
 		this.full = false;
@@ -139,11 +139,11 @@ public class JungleGenerator {
 		}
 
 		// Es werden alle Schlangenarten, deren Anzahl noch groesser 0 ist aufgelistet.
-		List<SnakeType> zulaessigeSchlangenarten = createValidSnakeTypes();
-		for (SnakeType schlangenart : zulaessigeSchlangenarten) {
-			schlangenart.setAnzahl(schlangenart.getAnzahl() - 1);
-			SnakeType vorherigeArt = currentType;
-			currentType = schlangenart;
+		List<SnakeType> validSnakeTypes = createValidSnakeTypes();
+		for (SnakeType snakeType : validSnakeTypes) {
+			snakeType.setAmount(snakeType.getAmount() - 1);
+			SnakeType previousSnakeType = currentType;
+			currentType = snakeType;
 
 			/*
 			 * Es werden alle Startfelder fuer die aktuelle Schlangenart aufgelistet und
@@ -152,15 +152,15 @@ public class JungleGenerator {
 			 * Anzahl der Art wieder erhoeht, damit das Platzieren nochmal mit einem anderen
 			 * Startfeld versucht werden kann.
 			 */
-			List<Field> zulaessigeStartfelder = createValidStartingFields();
-			for (Field startfeld : zulaessigeStartfelder) {
-				jungle.getFields()[startfeld.getRow()][startfeld.getColumn()]
-						.setCharacter(currentType.getZeichenkette().substring(0, 1));
-				placeSnakeElement(startfeld, 1);
-				jungle.getFields()[startfeld.getRow()][startfeld.getColumn()].setCharacter(null);
+			List<Field> validStartingFields = createValidStartingFields();
+			for (Field startingField : validStartingFields) {
+				jungle.getFields()[startingField.getRow()][startingField.getColumn()]
+						.setCharacter(currentType.getSigns().substring(0, 1));
+				placeSnakeElement(startingField, 1);
+				jungle.getFields()[startingField.getRow()][startingField.getColumn()].setCharacter(null);
 			}
-			schlangenart.setAnzahl(schlangenart.getAnzahl() + 1);
-			currentType = vorherigeArt;
+			snakeType.setAmount(snakeType.getAmount() + 1);
+			currentType = previousSnakeType;
 		}
 	}
 
@@ -169,7 +169,7 @@ public class JungleGenerator {
 		 * Ist die Schlange vollstaendig verteilt, wird versucht die naechste Schlange
 		 * zu verteilen.
 		 */
-		if (gliedIndex == currentType.getZeichenkette().length()) {
+		if (gliedIndex == currentType.getSigns().length()) {
 			placeSnake();
 			return;
 		}
@@ -180,11 +180,11 @@ public class JungleGenerator {
 		 * die Felder im Dschungel wieder freigegeben und es wird in 'platziereSchlange'
 		 * zurueckgekehrt.
 		 */
-		List<Field> zulaessigeNachbarfelder = createValidNeighbors(vorherigesFeld);
-		for (Field nachbar : zulaessigeNachbarfelder) {
-			jungle.getFields()[nachbar.getRow()][nachbar.getColumn()]
-					.setCharacter(currentType.getZeichenkette().substring(gliedIndex, gliedIndex + 1));
-			placeSnakeElement(nachbar, gliedIndex + 1);
+		List<Field> validNeighborFields = createValidNeighbors(vorherigesFeld);
+		for (Field neighborField : validNeighborFields) {
+			jungle.getFields()[neighborField.getRow()][neighborField.getColumn()]
+					.setCharacter(currentType.getSigns().substring(gliedIndex, gliedIndex + 1));
+			placeSnakeElement(neighborField, gliedIndex + 1);
 			if (System.nanoTime() - currentTime > 10000000000.0 || full == true) {
 				if (full == false) {
 					this.failed = true;
@@ -193,7 +193,7 @@ public class JungleGenerator {
 					return;
 				}
 			}
-			jungle.getFields()[nachbar.getRow()][nachbar.getColumn()].setCharacter(null);
+			jungle.getFields()[neighborField.getRow()][neighborField.getColumn()].setCharacter(null);
 		}
 	}
 
@@ -225,14 +225,14 @@ public class JungleGenerator {
 		 * Schliesslich werden die Schlangenarten durchgemischt, um eine zufaellige
 		 * Verteilung zu garantieren.
 		 */
-		List<SnakeType> zulArten = new ArrayList<SnakeType>();
-		for (SnakeType schlangenart : model.getSnakeTypes()) {
-			if (schlangenart.getAnzahl() > 0) {
-				zulArten.add(schlangenart);
+		List<SnakeType> validSnakeTypes = new ArrayList<SnakeType>();
+		for (SnakeType snakeType : model.getSnakeTypes()) {
+			if (snakeType.getAmount() > 0) {
+				validSnakeTypes.add(snakeType);
 			}
 		}
-		Collections.shuffle(zulArten);
-		return zulArten;
+		Collections.shuffle(validSnakeTypes);
+		return validSnakeTypes;
 	}
 
 	private List<Field> createValidNeighbors(Field vorherigesFeld) {
@@ -242,14 +242,14 @@ public class JungleGenerator {
 		 * Schlangenart basiert. Schliesslich werden die Felder durchgemischt, um eine
 		 * zufaellige Verteilung zu garantieren.
 		 */
-		List<Field> zulNachbarn = new ArrayList<Field>();
-		for (Field nachbar : currentType.getStruktur().getNeighbors(jungle, vorherigesFeld)) {
-			if (nachbar.getCharacter() == null) {
-				zulNachbarn.add(nachbar);
+		List<Field> validNeighborFields = new ArrayList<Field>();
+		for (Field neighborField : currentType.getStructure().getNeighbors(jungle, vorherigesFeld)) {
+			if (neighborField.getCharacter() == null) {
+				validNeighborFields.add(neighborField);
 			}
 		}
-		Collections.shuffle(zulNachbarn);
-		return zulNachbarn;
+		Collections.shuffle(validNeighborFields);
+		return validNeighborFields;
 	}
 
 	private List<Field> createValidStartingFields() {
@@ -258,32 +258,32 @@ public class JungleGenerator {
 		 * Zeichen haben, aufgelistet und durchgemischt, um eine zufaellige Verteilung
 		 * zu garantieren.
 		 */
-		List<Field> zulStartfelder = new ArrayList<Field>();
+		List<Field> validStartingFields = new ArrayList<Field>();
 		for (int i = 0; i < jungle.getFields().length; i++) {
 			for (int j = 0; j < jungle.getFields()[0].length; j++) {
 				if (jungle.getFields()[i][j].getCharacter() == null) {
-					zulStartfelder.add(jungle.getFields()[i][j]);
+					validStartingFields.add(jungle.getFields()[i][j]);
 				}
 			}
 		}
-		Collections.shuffle(zulStartfelder);
-		return zulStartfelder;
+		Collections.shuffle(validStartingFields);
+		return validStartingFields;
 	}
 
 	private int minimumNumberUsedFields() {
-		int anzahl = 0;
-		for (SnakeType schlangenart : snakeTypes) {
-			anzahl += schlangenart.getAnzahl() * schlangenart.getZeichenkette().length();
+		int amount = 0;
+		for (SnakeType snakeType : snakeTypes) {
+			amount += snakeType.getAmount() * snakeType.getSigns().length();
 		}
-		return anzahl;
+		return amount;
 	}
 
 	private int numberOfTypesTotal() {
-		int anzahl = 0;
-		for (SnakeType schlangenart : snakeTypes) {
-			anzahl += schlangenart.getAnzahl();
+		int amount = 0;
+		for (SnakeType snakeType : snakeTypes) {
+			amount += snakeType.getAmount();
 		}
-		return anzahl;
+		return amount;
 	}
 
 	/**
@@ -317,12 +317,12 @@ public class JungleGenerator {
 	 * parameterlose Konstruktor genutzt wurde. Es ist auch im Allgemeinen moeglich
 	 * das Modell nach Instanziierung der Klasse zu aendern.
 	 * 
-	 * @param modell Das Modell, das uebergeben werden soll.
+	 * @param model Das Modell, das uebergeben werden soll.
 	 * @throws IllegalArgumentException Eine Ausnahme wird geworfen, wenn ein
 	 *                                  unpassendes Modell uebergeben wird.
 	 */
-	public void setModel(IModel modell) throws IllegalArgumentException {
-		if (modell.getJungle().getRows() * modell.getJungle().getColumns() < minimumNumberUsedFields()) {
+	public void setModel(IModel model) throws IllegalArgumentException {
+		if (model.getJungle().getRows() * model.getJungle().getColumns() < minimumNumberUsedFields()) {
 			System.out
 					.println("Das Modell, dass dem Dschungelgenerator uebergeben werden soll enthaelt mehr\nSchlangen "
 							+ "als in den Dschungel passen. Es kann kein Dschungel generiert werden.");
@@ -330,7 +330,7 @@ public class JungleGenerator {
 			throw new IllegalArgumentException("Dem Dschungelgenerator kann kein Modell uebergeben werden, dass"
 					+ " mehr Schlangen hat, als in den Dschungel passen.");
 		}
-		this.model = modell;
+		this.model = model;
 	}
 
 	/**
@@ -350,11 +350,11 @@ public class JungleGenerator {
 	 * sein. Dies ist fuer zukuenftige Programmerweiterung und beziehungsweise oder
 	 * Tests gedacht
 	 * 
-	 * @param Dschungel Der Dschungel, der dem Modell des Dschungelgenerators
+	 * @param jungle Der Dschungel, der dem Modell des Dschungelgenerators
 	 *                  uebergeben werden soll.
 	 */
-	public void setJungle(Jungle Dschungel) {
-		this.jungle = Dschungel;
+	public void setJungle(Jungle jungle) {
+		this.jungle = jungle;
 	}
 
 	/**
@@ -397,10 +397,10 @@ public class JungleGenerator {
 	 * Schlangenarten zu aendern und beziehungsweise oder zu erweitern. Dies ist
 	 * fuer zukuenftige Programmerweiterung und beziehungsweise oder Tests gedacht.
 	 * 
-	 * @param schlangenarten Die Liste mit Schlangenarten, die dem Modell des
+	 * @param snakeTypes Die Liste mit Schlangenarten, die dem Modell des
 	 *                       Dschungelgenerators uebergeben werden soll.
 	 */
-	public void setSnakeTypes(List<SnakeType> schlangenarten) {
-		this.snakeTypes = schlangenarten;
+	public void setSnakeTypes(List<SnakeType> snakeTypes) {
+		this.snakeTypes = snakeTypes;
 	}
 }

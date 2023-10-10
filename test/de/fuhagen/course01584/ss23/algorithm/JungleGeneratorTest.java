@@ -23,10 +23,10 @@ class JungleGeneratorTest {
 
 	@DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 	@Nested
-	class Einfache_Tests {
+	class Simple_Tests {
 		@DisplayName("Einfacher Test fuer Dschungelgenerator ohne Schlangen")
 		@Test
-		void testeDschungelGeneratorZuVieleSchlangeEingelesen() throws Exception {
+		void testJungleGeneratorTooManyReadInSnakes() throws Exception {
 			IReader xmlLeser = new ReaderXML();
 			xmlLeser.readFile("res/sj_p11_unvollstaendig.xml");
 			assertThrows(IllegalArgumentException.class, () -> new JungleGenerator(xmlLeser.getTransferredModel()),
@@ -36,7 +36,7 @@ class JungleGeneratorTest {
 
 		@DisplayName("Einfacher Test fuer Dschungelgenerator ohne Schlangen")
 		@Test
-		void testeDschungelGenerator() throws Exception {
+		void testJungleGenerator() throws Exception {
 			Jungle bspDschungel = new Jungle(5, 5, "ABCDEFG", 1);
 			IModel modell = new ProblemModel();
 			modell.setJungle(bspDschungel);
@@ -58,7 +58,7 @@ class JungleGeneratorTest {
 
 		@DisplayName("Einfacher Test fuer Dschungelgenerator mit Schlangen")
 		@Test
-		void testeDschungelGeneratorMitSchlangen() throws Exception {
+		void testJungleGeneratorWithSnakes() throws Exception {
 			Jungle bspDschungel = new Jungle(5, 5, "X", 1);
 			SnakeType art = new SnakeType("A0", new DistanceNeighborhood(1), "FERNUNI", 1, 1);
 			IModel modell = new ProblemModel();
@@ -82,7 +82,7 @@ class JungleGeneratorTest {
 
 		@DisplayName("Einfacher Test fuer Dschungelgenerator mit eingelesenen Daten, Teil 1.")
 		@Test
-		void testeDschungelGeneratorMitEingelesenenDatenEins() throws Exception {
+		void testJungleGeneratorWithReadInDataOne() throws Exception {
 			IReader xmlLeser = new ReaderXML();
 			xmlLeser.readFile("res/sj_p2_unvollstaendig.xml");
 			JungleGenerator generator = new JungleGenerator(xmlLeser.getTransferredModel());
@@ -104,7 +104,7 @@ class JungleGeneratorTest {
 
 		@DisplayName("Einfacher Test fuer Dschungelgenerator mit eingelesenen Daten, Teil 2.")
 		@Test
-		void testeDschungelGeneratorMitEingelesenenDatenZwei() throws Exception {
+		void testJungleGeneratorWithReadInDataTwo() throws Exception {
 			IReader xmlLeser = new ReaderXML();
 			xmlLeser.readFile("res/sj_p4_unvollstaendig.xml");
 			JungleGenerator generator = new JungleGenerator(xmlLeser.getTransferredModel());
@@ -126,7 +126,7 @@ class JungleGeneratorTest {
 
 		@DisplayName("Einfacher Test fuer Dschungelgenerator mit eingelesenen Daten, Teil 3.")
 		@Test
-		void testeDschungelGeneratorMitEingelesenenDatenDrei() throws Exception {
+		void testJungleGeneratorWithReadInDataThree() throws Exception {
 			IReader xmlLeser = new ReaderXML();
 			xmlLeser.readFile("res/sj_p2_loesung.xml");
 			JungleGenerator generator = new JungleGenerator(xmlLeser.getTransferredModel());
@@ -148,7 +148,7 @@ class JungleGeneratorTest {
 
 		@DisplayName("Einfacher Test fuer Dschungelgenerator mit Schlangen und Loesung durch SchlangenSuche.")
 		@Test
-		void testeDschungelGeneratorMitSchlangenUndSchlangensucheEins() throws Exception {
+		void testJungleGeneratorWithSnakesAndSnakeSearchOne() throws Exception {
 			Double[] zeit = { 10.0 };
 			String einheit = "s";
 			Jungle bspDschungel = new Jungle(5, 5, "X", 1);
@@ -164,7 +164,7 @@ class JungleGeneratorTest {
 			SnakeSearch suche = new SnakeSearch(modell);
 			suche.searchSnakes();
 			String loesung = "";
-			for (SnakeElement glied : suche.getSolution().getSchlangen().get(0).getElements()) {
+			for (SnakeElement glied : suche.getSolution().getSnakes().get(0).getElements()) {
 				loesung += glied.getField().getCharacter();
 			}
 			assertEquals("FERNUNI", loesung,
@@ -173,7 +173,7 @@ class JungleGeneratorTest {
 
 		@DisplayName("Einfacher Test fuer Dschungelgenerator mit Schlangen und Loesung durch SchlangenSuche.")
 		@Test
-		void testeDschungelGeneratorMitSchlangenUndSchlangensucheZwei() throws Exception {
+		void testJungleGeneratorWithSnakesAndSnakeSearchTwo() throws Exception {
 			IReader xmlLeser = new ReaderXML();
 			xmlLeser.readFile("res/sj_p4_unvollstaendig.xml");
 			IModel modell = xmlLeser.getTransferredModel();
@@ -183,19 +183,19 @@ class JungleGeneratorTest {
 			SnakeSearch suche = new SnakeSearch(modell);
 			suche.searchSnakes();
 			String loesung = "";
-			for (SnakeElement glied : suche.getSolution().getSchlangen().get(0).getElements()) {
+			for (SnakeElement glied : suche.getSolution().getSnakes().get(0).getElements()) {
 				loesung += glied.getField().getCharacter();
 			}
 			assertEquals("ÄSKULAPNATTER", loesung,
 					"\nDie Schlangensuche findet nicht diesselbe Schlange, die der Dschungelgenerator vorher verteilt hatte.");
 			loesung = "";
-			for (SnakeElement glied : suche.getSolution().getSchlangen().get(1).getElements()) {
+			for (SnakeElement glied : suche.getSolution().getSnakes().get(1).getElements()) {
 				loesung += glied.getField().getCharacter();
 			}
 			assertEquals("SCHLINGNATTER", loesung,
 					"\nDie Schlangensuche findet nicht diesselbe Schlange, die der Dschungelgenerator vorher verteilt hatte.");
 			loesung = "";
-			for (SnakeElement glied : suche.getSolution().getSchlangen().get(2).getElements()) {
+			for (SnakeElement glied : suche.getSolution().getSnakes().get(2).getElements()) {
 				loesung += glied.getField().getCharacter();
 			}
 			assertEquals("RINGELNATTER", loesung,
@@ -204,7 +204,7 @@ class JungleGeneratorTest {
 
 		@DisplayName("Einfacher Test fuer Dschungelgenerator mit zu leerem Modell.")
 		@Test
-		void testeDschungelGeneratorMitZuLeeremModell() throws Exception {
+		void testJungleGeneratorWithTooEmptyModel() throws Exception {
 			Jungle bspDschungel = new Jungle();
 			IModel modell = new ProblemModel();
 			modell.setJungle(bspDschungel);

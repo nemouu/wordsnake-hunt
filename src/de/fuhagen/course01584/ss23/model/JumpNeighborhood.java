@@ -15,7 +15,7 @@ import java.util.*;
  */
 public class JumpNeighborhood implements INeighborhood {
 	private String type = "Sprung";
-	private List<Integer> parameter = new ArrayList<Integer>();
+	private List<Integer> parameters = new ArrayList<Integer>();
 
 	/**
 	 * Ein Konstruktor, dem die in der Klasse genutzten Parameter direkt uebergeben
@@ -43,7 +43,7 @@ public class JumpNeighborhood implements INeighborhood {
 			throw new IllegalArgumentException("Fuer die Klasse 'SprungNachbarschaft' kann keine"
 					+ "Liste uebergeben werden, deren Eintraege beide gleich 0 sind.");
 		}
-		this.parameter = parameters;
+		this.parameters = parameters;
 	}
 
 	/**
@@ -66,8 +66,8 @@ public class JumpNeighborhood implements INeighborhood {
 		 * sich das Feld schon in der Liste mit Nachbarn befindet.
 		 */
 		List<Field> listeMitNachbarn = new ArrayList<Field>();
-		int param1 = parameter.get(0);
-		int param2 = parameter.get(1);
+		int param1 = parameters.get(0);
+		int param2 = parameters.get(1);
 		Field[][] felder = dschungel.getFields();
 		if (feld.getRow() + param1 < felder.length && feld.getColumn() + param2 < felder[0].length) {
 			if (listeMitNachbarn.contains(felder[feld.getRow() + param1][feld.getColumn() + param2]) == false) {
@@ -114,7 +114,7 @@ public class JumpNeighborhood implements INeighborhood {
 
 	@Override
 	public String toString() {
-		return type + ", Parameter=(" + parameter.get(0) + ", " + parameter.get(1) + ")";
+		return type + ", Parameter=(" + parameters.get(0) + ", " + parameters.get(1) + ")";
 	}
 
 	@Override
@@ -124,7 +124,7 @@ public class JumpNeighborhood implements INeighborhood {
 
 	@Override
 	public List<Integer> getParameters() {
-		return parameter;
+		return parameters;
 	}
 
 	@Override
@@ -141,6 +141,6 @@ public class JumpNeighborhood implements INeighborhood {
 			throw new IllegalArgumentException("Fuer die Klasse 'SprungNachbarschaft' kann nur eine"
 					+ "Liste uebergeben werden, derem Eintraege nicht groesser als der groesste Integerwert sind.");
 		}
-		this.parameter = parameters;
+		this.parameters = parameters;
 	}
 }

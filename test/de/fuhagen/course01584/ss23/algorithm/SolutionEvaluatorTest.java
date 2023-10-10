@@ -21,10 +21,10 @@ class SolutionEvaluatorTest {
 
 	@DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 	@Nested
-	class Einfache_Tests {
+	class Simple_Tests {
 		@DisplayName("Einfacher Test fuer Loesungsbewerter, Teil 1.")
 		@Test
-		void testeBewerteLoesungBeispielEins() {
+		void testEvaluateSolutionExampleOne() {
 			SnakeHuntAPI jagd = new SnakeHunt();
 			assertEquals(8, jagd.evaluateSolution("res/sj_p1_loesung.xml"),
 					"\nDie Loesungpruefung findet nicht die erwarteten Fehler.");
@@ -32,7 +32,7 @@ class SolutionEvaluatorTest {
 
 		@DisplayName("Einfacher Test fuer Loesungsbewerter, Teil 2.")
 		@Test
-		void testeBewerteLoesungBeispielZwei() {
+		void testEvaluateSolutionExampleTwo() {
 			SnakeHuntAPI jagd = new SnakeHunt();
 			assertEquals(36, jagd.evaluateSolution("res/sj_p2_loesung.xml"),
 					"\nDie Loesungpruefung findet nicht die erwarteten Fehler.");
@@ -40,7 +40,7 @@ class SolutionEvaluatorTest {
 
 		@DisplayName("Einfacher Test fuer Loesungsbewerter, Teil 3.")
 		@Test
-		void testeBewerteLoesungBeispielDrei() {
+		void testEvaluateSolutionExampleThree() {
 			SnakeHuntAPI jagd = new SnakeHunt();
 			assertEquals(81, jagd.evaluateSolution("res/sj_p3_loesung.xml"),
 					"\nDie Loesungpruefung findet nicht die erwarteten Fehler.");
@@ -48,7 +48,7 @@ class SolutionEvaluatorTest {
 
 		@DisplayName("Einfacher Test fuer Loesungsbewerter, Teil 4.")
 		@Test
-		void testeBewerteLoesungBeispielVier() {
+		void testEvaluateSolutionExampleFour() {
 			SnakeHuntAPI jagd = new SnakeHunt();
 			assertEquals(41, jagd.evaluateSolution("res/sj_p4_loesung.xml"),
 					"\nDie Loesungpruefung findet nicht die erwarteten Fehler.");
@@ -56,7 +56,7 @@ class SolutionEvaluatorTest {
 
 		@DisplayName("Einfacher Test fuer Loesungsbewerter, wenn keine Loesung vorhanden ist.")
 		@Test
-		void testeBewerteLoesungBeispielKeineFehler() {
+		void testEvaluateSolutionExampleNoErrors() {
 			SnakeHuntAPI jagd = new SnakeHunt();
 			assertEquals(0, jagd.evaluateSolution("res/sj_p4_probleminstanz.xml"),
 					"\nDie Loesungpruefung findet nicht die erwarteten Fehler.");

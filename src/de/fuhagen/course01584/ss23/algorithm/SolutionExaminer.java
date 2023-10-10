@@ -26,14 +26,14 @@ public class SolutionExaminer {
 	 * Modell uebergeben wird. Wird ein (zu) leeres Modell uebergeben, so wird eine
 	 * Ausnahme geworfen.
 	 * 
-	 * @param modell Das Modell, dessen Loesung der Loesungspruefer pruefen soll.
+	 * @param model Das Modell, dessen Loesung der Loesungspruefer pruefen soll.
 	 * @throws IllegalArgumentException Eine Ausnahme wird geworfen, wenn dem
 	 *                                  Konstruktor ein unpassendes Modell
 	 *                                  uebergeben wird.
 	 */
-	public SolutionExaminer(IModel modell) throws IllegalArgumentException {
+	public SolutionExaminer(IModel model) throws IllegalArgumentException {
 		super();
-		if (modell.getSolution() == null || modell.getSolution().getSchlangen().size() == 0) {
+		if (model.getSolution() == null || model.getSolution().getSnakes().size() == 0) {
 			System.out.println("Das Modell, dass dem Loesungspruefer uebergeben werden soll, hat keine Loesung. Um "
 					+ "eine Loesung zu\npruefen, muss ein Modell uebergeben werden, dass eine Loesung besitzt. Ist "
 					+ "keine Loesung vorhanden,\nso kann diese mit der Schlangensuche gefunden werden. Es wird eine "
@@ -42,9 +42,9 @@ public class SolutionExaminer {
 			throw new IllegalArgumentException("Dem Konstruktor von LoesungsPruefer muss ein Modell uebergeben werden, "
 					+ "dass eine Loesung enthaelt.");
 		}
-		this.model = modell;
-		this.jungle = modell.getJungle();
-		this.snakes = modell.getSolution().getSchlangen();
+		this.model = model;
+		this.jungle = model.getJungle();
+		this.snakes = model.getSolution().getSnakes();
 	}
 
 	/**
@@ -78,26 +78,26 @@ public class SolutionExaminer {
 		 * ueberrpueft. Kommt ein solcher Fehler vor, wird fuer jeden dieser Fehler ein
 		 * Element des entsprechenden Fehlertyps der Fehlerliste hinzugefuegt.
 		 */
-		for (Snake schlange : snakes) {
-			if (schlange.getElements().size() != schlange.getType().getZeichenkette().length()) {
-				fehlerliste.add(ErrorType.GLIEDER);
+		for (Snake snake : snakes) {
+			if (snake.getElements().size() != snake.getType().getSigns().length()) {
+				fehlerliste.add(ErrorType.ELEMENTS);
 			}
 		}
 	}
 
-	private void examineAssignment(List<ErrorType> fehlerliste) {
+	private void examineAssignment(List<ErrorType> errorList) {
 		/*
 		 * Die im Modell enthaltene Loesung wird auf Fehler des Typs
 		 * 'Fehlertyp.ZUORDNUNG' ueberrpueft. Kommt ein solcher Fehler vor, wird fuer
 		 * jeden dieser Fehler ein Element des entsprechenden Fehlertyps der Fehlerliste
 		 * hinzugefuegt.
 		 */
-		for (Snake schlange : snakes) {
-			if (schlange.getElements().size() == schlange.getType().getZeichenkette().length()) {
-				for (int i = 0; i < schlange.getElements().size(); i++) {
-					if (schlange.getElements().get(i).getField().getCharacter()
-							.equals(schlange.getType().getZeichenkette().substring(i, i + 1)) == false) {
-						fehlerliste.add(ErrorType.ZUORDNUNG);
+		for (Snake snake : snakes) {
+			if (snake.getElements().size() == snake.getType().getSigns().length()) {
+				for (int i = 0; i < snake.getElements().size(); i++) {
+					if (snake.getElements().get(i).getField().getCharacter()
+							.equals(snake.getType().getSigns().substring(i, i + 1)) == false) {
+						errorList.add(ErrorType.ASSIGNMENT);
 					}
 
 				}
@@ -105,7 +105,7 @@ public class SolutionExaminer {
 		}
 	}
 
-	private void examineUsage(List<ErrorType> fehlerliste) {
+	private void examineUsage(List<ErrorType> errorList) {
 		/*
 		 * Die im Modell enthaltene Loesung wird auf Fehler des Typs
 		 * 'Fehlertyp.VERWENDUNG' ueberrpueft. Kommt ein solcher Fehler vor, wird fuer
@@ -114,37 +114,37 @@ public class SolutionExaminer {
 		 * Verwendbarkeit der Felder zu speichern. So kann die Loesung auf
 		 * Verwendbarkeitsfehler untersucht werden ohne das Modell an sich zu aendern.
 		 */
-		int[][] verwendungsArr = new int[jungle.getRows()][jungle.getColumns()];
-		for (int i = 0; i < verwendungsArr.length; i++) {
-			for (int j = 0; j < verwendungsArr[0].length; j++) {
-				verwendungsArr[i][j] = jungle.getFields()[i][j].getUsage();
+		int[][] usageMatrix = new int[jungle.getRows()][jungle.getColumns()];
+		for (int i = 0; i < usageMatrix.length; i++) {
+			for (int j = 0; j < usageMatrix[0].length; j++) {
+				usageMatrix[i][j] = jungle.getFields()[i][j].getUsage();
 			}
 		}
-		for (Snake schlange : snakes) {
-			for (SnakeElement schlangenglied : schlange.getElements()) {
-				if (verwendungsArr[schlangenglied.getField().getRow()][schlangenglied.getField().getColumn()] < 1) {
-					fehlerliste.add(ErrorType.VERWENDUNG);
+		for (Snake snake : snakes) {
+			for (SnakeElement element : snake.getElements()) {
+				if (usageMatrix[element.getField().getRow()][element.getField().getColumn()] < 1) {
+					errorList.add(ErrorType.USAGE);
 				}
-				verwendungsArr[schlangenglied.getField().getRow()][schlangenglied.getField()
-						.getColumn()] = verwendungsArr[schlangenglied.getField().getRow()][schlangenglied.getField()
+				usageMatrix[element.getField().getRow()][element.getField()
+						.getColumn()] = usageMatrix[element.getField().getRow()][element.getField()
 								.getColumn()] - 1;
 			}
 		}
 	}
 
-	private void examineNeighborhood(List<ErrorType> fehlerliste) {
+	private void examineNeighborhood(List<ErrorType> errorList) {
 		/*
 		 * Die im Modell enthaltene Loesung wird auf Fehler des Typs
 		 * 'Fehlertyp.NACHBARSCHAFT' ueberrpueft. Kommt ein solcher Fehler vor, wird
 		 * fuer jeden dieser Fehler ein Element des entsprechenden Fehlertyps der
 		 * Fehlerliste hinzugefuegt.
 		 */
-		for (Snake schlange : snakes) {
-			for (int i = 0; i < schlange.getElements().size() - 1; i++) {
-				schlange.getType().getStruktur().getNeighbors(jungle, schlange.getElements().get(i).getField());
-				if (schlange.getType().getStruktur().getNeighbors(jungle, schlange.getElements().get(i).getField())
-						.contains(schlange.getElements().get(i + 1).getField()) == false) {
-					fehlerliste.add(ErrorType.NACHBARSCHAFT);
+		for (Snake snake : snakes) {
+			for (int i = 0; i < snake.getElements().size() - 1; i++) {
+				snake.getType().getStructure().getNeighbors(jungle, snake.getElements().get(i).getField());
+				if (snake.getType().getStructure().getNeighbors(jungle, snake.getElements().get(i).getField())
+						.contains(snake.getElements().get(i + 1).getField()) == false) {
+					errorList.add(ErrorType.NEIGHBORHOOD);
 				}
 			}
 		}
@@ -167,12 +167,12 @@ public class SolutionExaminer {
 	 * parameterlose Konstruktor genutzt wurde. Es ist auch im Allgemeinen moeglich
 	 * das Modell nach Instanziierung der Klasse zu aendern.
 	 * 
-	 * @param modell Das Modell, das uebergeben werden soll.
+	 * @param model Das Modell, das uebergeben werden soll.
 	 * @throws IllegalArgumentException Eine Ausnahme wird geworfen, wenn ein
 	 *                                  unpassendes Modell uebergeben wird.
 	 */
-	public void setModel(IModel modell) throws IllegalArgumentException {
-		if (modell.getSolution() == null || modell.getSolution().getSchlangen().size() == 0) {
+	public void setModel(IModel model) throws IllegalArgumentException {
+		if (model.getSolution() == null || model.getSolution().getSnakes().size() == 0) {
 			System.out.println("Das Modell, dass dem Loesungspruefer uebergeben werden soll, hat keine Loesung. Um "
 					+ "eine Loesung zu\npruefen, muss ein Modell uebergeben werden, dass eine Loesung besitzt. Ist "
 					+ "keine Loesung vorhanden,\nso kann diese mit der Schlangensuche gefunden werden. Es wird eine "
@@ -181,7 +181,7 @@ public class SolutionExaminer {
 			throw new IllegalArgumentException(
 					"Dem LoesungsPruefer muss ein Modell uebergeben werden, dass eine Loesung enthaelt.");
 		}
-		this.model = modell;
+		this.model = model;
 	}
 
 	/**

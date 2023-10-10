@@ -12,10 +12,10 @@ package de.fuhagen.course01584.ss23.model;
  */
 public class SnakeType {
 	private String id;
-	private INeighborhood struktur;
-	private String zeichenkette;
-	private int punkte;
-	private int anzahl;
+	private INeighborhood structure;
+	private String signs;
+	private int points;
+	private int amount;
 
 	/**
 	 * Ein parametrisierter Konstruktor, der es ermoeglicht bei Instanziierung
@@ -63,10 +63,10 @@ public class SnakeType {
 					+ "damit ueberhaupt nach ihr gesucht werden kann.");
 		}
 		this.id = id;
-		this.struktur = struktur;
-		this.zeichenkette = zeichenkette;
-		this.punkte = punkte;
-		this.anzahl = anzahl;
+		this.structure = struktur;
+		this.signs = zeichenkette;
+		this.points = punkte;
+		this.amount = anzahl;
 	}
 
 	/**
@@ -79,11 +79,11 @@ public class SnakeType {
 
 	@Override
 	public String toString() {
-		if (id == null || struktur == null || zeichenkette == null) {
+		if (id == null || structure == null || signs == null) {
 			return "";
 		}
-		return "ID=" + id + ", Nachbarschaftsstruktur=" + struktur.getType() + ", Zeichenkette=" + zeichenkette
-				+ ", Punkte=" + punkte + ", Anzahl=" + anzahl;
+		return "ID=" + id + ", Nachbarschaftsstruktur=" + structure.getType() + ", Zeichenkette=" + signs
+				+ ", Punkte=" + points + ", Anzahl=" + amount;
 	}
 
 	/**
@@ -114,8 +114,8 @@ public class SnakeType {
 	 * 
 	 * @return Die Nachbarschaftsstruktur der Schlangenart.
 	 */
-	public INeighborhood getStruktur() {
-		return struktur;
+	public INeighborhood getStructure() {
+		return structure;
 	}
 
 	/**
@@ -127,8 +127,8 @@ public class SnakeType {
 	 * @param struktur Die Nachbarschaftsstruktur, die dieser Schlangenart
 	 *                 uebergeben werden soll.
 	 */
-	public void setStruktur(INeighborhood struktur) {
-		this.struktur = struktur;
+	public void setStructure(INeighborhood struktur) {
+		this.structure = struktur;
 	}
 
 	/**
@@ -137,8 +137,8 @@ public class SnakeType {
 	 * 
 	 * @return Ein String, der die Zeichenkette der Schlangenart enthaelt.
 	 */
-	public String getZeichenkette() {
-		return zeichenkette;
+	public String getSigns() {
+		return signs;
 	}
 
 	/**
@@ -154,12 +154,12 @@ public class SnakeType {
 	 *                                  Zeichenkette uebergeben wird, wird eine
 	 *                                  Ausnahme geworfen.
 	 */
-	public void setZeichenkette(String zeichenkette) throws IllegalArgumentException {
+	public void setSigns(String zeichenkette) throws IllegalArgumentException {
 		if (zeichenkette.length() < 1) {
 			throw new IllegalArgumentException("Die Schlangenart braucht mindestens ein Zeichen, "
 					+ "damit ueberhaupt nach ihr gesucht werden kann.");
 		}
-		this.zeichenkette = zeichenkette;
+		this.signs = zeichenkette;
 	}
 
 	/**
@@ -168,8 +168,8 @@ public class SnakeType {
 	 * 
 	 * @return Die Punkte der Schlangenart, eine ganze Zahl.
 	 */
-	public int getPunkte() {
-		return punkte;
+	public int getPoints() {
+		return points;
 	}
 
 	/**
@@ -184,12 +184,12 @@ public class SnakeType {
 	 *                                  Punkte uebergeben wird, wird eine Ausnahme
 	 *                                  geworfen.
 	 */
-	public void setPunkte(int punkte) throws IllegalArgumentException {
+	public void setPoints(int punkte) throws IllegalArgumentException {
 		if (punkte < 0 || punkte > Integer.MAX_VALUE - 1) {
 			throw new IllegalArgumentException(
 					"Fuer die Klasse 'Schlangenart' darf das Attribut 'punkte' nicht zu klein oder zu gross sein.");
 		}
-		this.punkte = punkte;
+		this.points = punkte;
 	}
 
 	/**
@@ -198,8 +198,8 @@ public class SnakeType {
 	 * 
 	 * @return Die Anzahl der Schlangen einer Schlangenart.
 	 */
-	public int getAnzahl() {
-		return anzahl;
+	public int getAmount() {
+		return amount;
 	}
 
 	/**
@@ -215,7 +215,7 @@ public class SnakeType {
 	 *                                  Anzahl uebergeben wird, wird eine Ausnahme
 	 *                                  geworfen.
 	 */
-	public void setAnzahl(int anzahl) throws IllegalArgumentException {
+	public void setAmount(int anzahl) throws IllegalArgumentException {
 		if (anzahl < 0) {
 			throw new IllegalArgumentException(
 					"Fuer die Klasse 'Schlangenart' darf das Attribut 'anzahl' nicht kleiner als 0 sein.");
@@ -224,6 +224,6 @@ public class SnakeType {
 			throw new IllegalArgumentException(
 					"Fuer die Klasse 'Schlangenart' darf das Attribut 'anzahl' nicht zu gross sein.");
 		}
-		this.anzahl = anzahl;
+		this.amount = anzahl;
 	}
 }

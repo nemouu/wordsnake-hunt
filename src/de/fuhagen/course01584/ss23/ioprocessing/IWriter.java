@@ -18,12 +18,12 @@ public interface IWriter {
 	 * zu schreiben. Hierbei wird der Pfad an dem die Datei gespeichert werden soll
 	 * unter <code>dateiName</code> angegeben.
 	 * 
-	 * @param dateiName Der Name, den die erzeugte Datei haben soll.
+	 * @param fileName Der Name, den die erzeugte Datei haben soll.
 	 * @throws Exception Eine Ausnahme wird geworfen, wenn beim Schreiben ein Fehler
 	 *                   passiert oder der <code>dateiName</code> das falsche Format
 	 *                   hat.
 	 */
-	void writeInFile(String dateiName) throws Exception;
+	void writeInFile(String fileName) throws Exception;
 
 	/**
 	 * Es wird das Modell zurueckgegeben, dass sich aktuell in der Schreiberklasse
@@ -40,8 +40,8 @@ public interface IWriter {
 	 * Konstruktor uebergeben wurde. Es ist auch im Allgemeinen moeglich das Modell
 	 * nach Instanziierung der Klasse zu aendern.
 	 * 
-	 * @param zuUebergebendesModell Das Modell, das uebergeben werden soll.
+	 * @param toBeTransferredModel Das Modell, das uebergeben werden soll.
 	 */
-	void setToBeTransferredModel(IModel zuUebergebendesModell);
+	void setToBeTransferredModel(IModel toBeTransferredModel);
 
 }

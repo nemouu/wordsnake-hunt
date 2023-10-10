@@ -27,10 +27,10 @@ class SnakeSearchUtilTest {
 
 	@DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 	@Nested
-	class Einfache_Tests {
+	class Simple_Tests {
 		@DisplayName("Einfacher Test fuer erzeugeZulaessigeStartfelder mit Schlange, die Glieder im Dschungel hat.")
 		@Test
-		void testeErzeugeZulaessigeStartfelder() {
+		void testCreateValidStartingFields() {
 			Snake schlange1 = new Snake(new SnakeType("A0", new DistanceNeighborhood(1), "FERNUNI", 2, 3));
 			Jungle bspDschungel = new Jungle(4, 5, "asdertg", 1);
 			for (int i = 0; i < bspDschungel.getRows(); i++) {
@@ -57,7 +57,7 @@ class SnakeSearchUtilTest {
 
 		@DisplayName("Einfacher Test fuer erzeugeZulaessigeStartfelder mit Schlange, die keine Glieder im Dschungel hat.")
 		@Test
-		void testeErzeugeZulaessigeStartfelderLeer() {
+		void testCreateValidStartingFieldsEmpty() {
 			Snake schlange1 = new Snake(new SnakeType("A0", new DistanceNeighborhood(1), "FERNUNI", 2, 3));
 			Jungle bspDschungel = new Jungle(3, 4, "asdertg", 1);
 			for (int i = 0; i < bspDschungel.getRows(); i++) {
@@ -76,7 +76,7 @@ class SnakeSearchUtilTest {
 
 		@DisplayName("Einfacher Test fuer erzeugeZulaessigeStartfelder mit Schlange, die Glieder im Dschungel hat aber unter diesen sind welche mit Verwendbarkeit 0.")
 		@Test
-		void testeErzeugeZulaessigeStartfelderVerwendbarkeit() {
+		void testCreateValidStartingFieldsUsage() {
 			Snake schlange1 = new Snake(new SnakeType("A0", new DistanceNeighborhood(1), "FERNUNI", 2, 3));
 			Jungle bspDschungel = new Jungle(4, 5, "asdertg", 1);
 			for (int i = 0; i < bspDschungel.getRows(); i++) {
@@ -103,7 +103,7 @@ class SnakeSearchUtilTest {
 
 		@DisplayName("Einfacher Test fuer erzeugeZulaessigeNachbarfelder mit Schlange, die Glieder im Dschungel hat.")
 		@Test
-		void testeErzeugeZulaessigeNachbarfelder() {
+		void testCreateValidNeighborFields() {
 			Snake schlange1 = new Snake(new SnakeType("A0", new DistanceNeighborhood(1), "FERNUNI", 2, 3));
 			Jungle bspDschungel = new Jungle(4, 5, "asdertg", 1);
 			for (int i = 0; i < bspDschungel.getRows(); i++) {
@@ -131,7 +131,7 @@ class SnakeSearchUtilTest {
 
 		@DisplayName("Einfacher Test fuer erzeugeZulaessigeNachbarfelder mit Schlange, die keine weiteren Glieder im Dschungel hat.")
 		@Test
-		void testeErzeugeZulaessigeNachbarfelderLeer() {
+		void testCreateValidNeighborFieldsEmpty() {
 			Snake schlange1 = new Snake(new SnakeType("A0", new DistanceNeighborhood(1), "FERNUNI", 2, 3));
 			Jungle bspDschungel = new Jungle(4, 5, "asdertg", 1);
 			for (int i = 0; i < bspDschungel.getRows(); i++) {
@@ -153,7 +153,7 @@ class SnakeSearchUtilTest {
 
 		@DisplayName("Einfacher Test fuer erzeugeZulaessigeNachbarfelder mit Schlange, die weitere Glieder im Dschungel hat aber unter diesen sind welche mit Verwendbarkeit 0.")
 		@Test
-		void testeErzeugeZulaessigeNachbarfelderVerwendbarkeit() {
+		void testCreateValidNeighborFieldsUsage() {
 			Snake schlange1 = new Snake(new SnakeType("A0", new DistanceNeighborhood(1), "FERNUNI", 2, 3));
 			Jungle bspDschungel = new Jungle(4, 5, "asdertg", 1);
 			for (int i = 0; i < bspDschungel.getRows(); i++) {
@@ -181,7 +181,7 @@ class SnakeSearchUtilTest {
 
 		@DisplayName("Einfacher Test fuer erzeugeZulaessigeSchlangenarten.")
 		@Test
-		void testeErzeugeZulaessigeSchlangenarten() {
+		void testCreateValidSnakeTypes() {
 			Jungle bspDschungel = new Jungle(4, 5, "asdertg", 1);
 			for (int i = 0; i < bspDschungel.getRows(); i++) {
 				for (int j = 0; j < bspDschungel.getColumns(); j++) {
@@ -212,7 +212,7 @@ class SnakeSearchUtilTest {
 
 		@DisplayName("Einfacher Test fuer erzeugeZulaessigeSchlangenarten mit leeren Schlangearten.")
 		@Test
-		void testeErzeugeZulaessigeSchlangenartenLeer() {
+		void testCreateValidSnakeTypesEmpty() {
 			Jungle bspDschungel = new Jungle(4, 5, "asdertg", 1);
 			for (int i = 0; i < bspDschungel.getRows(); i++) {
 				for (int j = 0; j < bspDschungel.getColumns(); j++) {
@@ -230,7 +230,7 @@ class SnakeSearchUtilTest {
 
 		@DisplayName("Einfacher Test fuer erzeugeZulaessigeSchlangenarten mit Sortierung.")
 		@Test
-		void testeErzeugeZulaessigeSchlangenartenSort() {
+		void testCreateValidSnakeTypesSort() {
 			Jungle bspDschungel = new Jungle(4, 5, "asdertg", 1);
 			for (int i = 0; i < bspDschungel.getRows(); i++) {
 				for (int j = 0; j < bspDschungel.getColumns(); j++) {
@@ -267,7 +267,7 @@ class SnakeSearchUtilTest {
 
 		@DisplayName("Einfacher Test fuer erzeugeZulaessigeNachbarfelder mit Schlange, die Glieder im Dschungel hat, die Sortierung wird beachtet.")
 		@Test
-		void testeErzeugeZulaessigeNachbarfelderSort() {
+		void testCreateValidNeighborFieldsSort() {
 			Snake schlange1 = new Snake(new SnakeType("A0", new DistanceNeighborhood(1), "FERNUNI", 2, 3));
 			Jungle bspDschungel = new Jungle(4, 5, "asdertg", 1);
 			for (int i = 0; i < bspDschungel.getRows(); i++) {
@@ -295,7 +295,7 @@ class SnakeSearchUtilTest {
 
 		@DisplayName("Einfacher Test fuer erzeugeZulaessigeStartfelder mit Schlange, die Glieder im Dschungel hat, die Sortierung wird beachtet.")
 		@Test
-		void testeErzeugeZulaessigeStartfelderSort() {
+		void testCreateValidStartingFieldsSort() {
 			Snake schlange1 = new Snake(new SnakeType("A0", new DistanceNeighborhood(1), "FERNUNI", 2, 3));
 			Jungle bspDschungel = new Jungle(4, 5, "asdertg", 1);
 			for (int i = 0; i < bspDschungel.getRows(); i++) {
@@ -321,7 +321,7 @@ class SnakeSearchUtilTest {
 
 		@DisplayName("Einfacher Test fuer erzeugeZulaessigeStartfelder mit Schlange, die hohe Punkte hat. Die Glieder im Dschungel hat, die Sortierung wird beachtet.")
 		@Test
-		void testeErzeugeZulaessigeStartfelderSortHohePunkte() {
+		void testCreateValidStartingFieldsSortHighPoints() {
 			SnakeType art1 = new SnakeType("A0", new DistanceNeighborhood(1), "FERNUNI", 100, 3);
 			SnakeType art2 = new SnakeType("A1", new DistanceNeighborhood(1), "HAGEN", 2, 3);
 			SnakeType art3 = new SnakeType("A2", new DistanceNeighborhood(1), "JUNIT", 2, 3);

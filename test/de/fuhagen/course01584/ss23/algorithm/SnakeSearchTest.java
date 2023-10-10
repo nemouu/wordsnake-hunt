@@ -28,10 +28,10 @@ class SnakeSearchTest {
 
 	@DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 	@Nested
-	class Einfache_Tests {
+	class Simple_Tests {
 		@DisplayName("Einfacher Test mit selbst erstellter Probleminstanz.")
 		@Test
-		void testeSchlangenSucheMitEigenerProbleminstanz() {
+		void testSnakeSearchWithCustomProblem() {
 			Double[] zeit = { 30.0 };
 			String zeiteinheit = "s";
 			Jungle bspDschungel = new Jungle(4, 5, "ABCDEFG", 1);
@@ -65,14 +65,14 @@ class SnakeSearchTest {
 			suche.searchSnakes();
 			for (int i = 0; i < 5; i++) {
 				assertEquals("JUNIT".substring(i, i + 1),
-						suche.getSolution().getSchlangen().get(0).getElements().get(i).getField().getCharacter(),
+						suche.getSolution().getSnakes().get(0).getElements().get(i).getField().getCharacter(),
 						"\nDie Zeichen der Felder an der Stelle " + i + " stimmen nicht ueberein.");
 			}
 		}
 
 		@DisplayName("Einfacher Test mit selbst erstellter Probleminstanz und zwei Loesungsschlangen.")
 		@Test
-		void testeSchlangenSucheMitEigenerProbleminstanzZweiSchlangen() {
+		void testSnakeSearchWithCustomProblemAndTwoSnakes() {
 			Double[] zeit = { 30.0 };
 			String zeiteinheit = "s";
 			Jungle bspDschungel = new Jungle(4, 5, "ABCDEFG", 1);
@@ -108,19 +108,19 @@ class SnakeSearchTest {
 			suche.searchSnakes();
 			for (int i = 0; i < 5; i++) {
 				assertEquals("JUNIT".substring(i, i + 1),
-						suche.getSolution().getSchlangen().get(0).getElements().get(i).getField().getCharacter(),
+						suche.getSolution().getSnakes().get(0).getElements().get(i).getField().getCharacter(),
 						"\nDie Zeichen der Felder an der Stelle " + i + " stimmen nicht ueberein.");
 			}
 			for (int i = 0; i < 5; i++) {
 				assertEquals("HAGEN".substring(i, i + 1),
-						suche.getSolution().getSchlangen().get(1).getElements().get(i).getField().getCharacter(),
+						suche.getSolution().getSnakes().get(1).getElements().get(i).getField().getCharacter(),
 						"\nDie Zeichen der Felder an der Stelle " + i + " stimmen nicht ueberein.");
 			}
 		}
 
 		@DisplayName("Einfacher Test mit eingelesener Probleminstanz.")
 		@Test
-		void testeSchlangenSucheMitEingelesenerProbleminstanz() throws Exception {
+		void testSnakeSearchWithReadInProblem() throws Exception {
 			IReader xmlLeser = new ReaderXML();
 			xmlLeser.readFile("res/sj_p1_probleminstanz.xml");
 			IModel modell = xmlLeser.getTransferredModel();
@@ -144,14 +144,14 @@ class SnakeSearchTest {
 			suche.searchSnakes();
 			for (int i = 0; i < 7; i++) {
 				assertEquals(schlange1.getElements().get(i).getField().getCharacter(),
-						suche.getSolution().getSchlangen().get(0).getElements().get(i).getField().getCharacter(),
+						suche.getSolution().getSnakes().get(0).getElements().get(i).getField().getCharacter(),
 						"\nDie Zeichen der Felder an der Stelle " + i + " stimmen nicht ueberein.");
 			}
 		}
 
 		@DisplayName("Einfacher Test mit eingelesener Probleminstanz mit mehreren Loesungsschlangen.")
 		@Test
-		void testeSchlangenSucheMitEingelesenerProbleminstanzMehrerenSchlangen() throws Exception {
+		void testSnakeSearchWithReadInProblemMultipleSnakes() throws Exception {
 			IReader xmlLeser = new ReaderXML();
 			xmlLeser.readFile("res/sj_p2_probleminstanz.xml");
 			IModel modell = xmlLeser.getTransferredModel();
@@ -159,36 +159,36 @@ class SnakeSearchTest {
 			suche.searchSnakes();
 			for (int i = 0; i < 6; i++) {
 				assertEquals("DIESES".substring(i, i + 1),
-						suche.getSolution().getSchlangen().get(0).getElements().get(i).getField().getCharacter(),
+						suche.getSolution().getSnakes().get(0).getElements().get(i).getField().getCharacter(),
 						"\nDie Zeichen der Felder der ersten Schlange an der Stelle " + i + " stimmen nicht ueberein.");
 			}
 			for (int i = 0; i < 6; i++) {
 				assertEquals("DIESEN".substring(i, i + 1),
-						suche.getSolution().getSchlangen().get(1).getElements().get(i).getField().getCharacter(),
+						suche.getSolution().getSnakes().get(1).getElements().get(i).getField().getCharacter(),
 						"\nDie Zeichen der Felder der zweiten Schlange an der Stelle " + i
 								+ " stimmen nicht ueberein.");
 			}
 			for (int i = 0; i < 6; i++) {
 				assertEquals("DIESER".substring(i, i + 1),
-						suche.getSolution().getSchlangen().get(2).getElements().get(i).getField().getCharacter(),
+						suche.getSolution().getSnakes().get(2).getElements().get(i).getField().getCharacter(),
 						"\nDie Zeichen der Felder der dritten Schlange an der Stelle " + i
 								+ " stimmen nicht ueberein.");
 			}
 			for (int i = 0; i < 5; i++) {
 				assertEquals("DIESE".substring(i, i + 1),
-						suche.getSolution().getSchlangen().get(3).getElements().get(i).getField().getCharacter(),
+						suche.getSolution().getSnakes().get(3).getElements().get(i).getField().getCharacter(),
 						"\nDie Zeichen der Felder der vierten Schlange an der Stelle " + i
 								+ " stimmen nicht ueberein.");
 			}
 			for (int i = 0; i < 4; i++) {
 				assertEquals("DIES".substring(i, i + 1),
-						suche.getSolution().getSchlangen().get(4).getElements().get(i).getField().getCharacter(),
+						suche.getSolution().getSnakes().get(4).getElements().get(i).getField().getCharacter(),
 						"\nDie Zeichen der Felder der fuenften Schlange an der Stelle " + i
 								+ " stimmen nicht ueberein.");
 			}
 			for (int i = 0; i < 3; i++) {
 				assertEquals("DIE".substring(i, i + 1),
-						suche.getSolution().getSchlangen().get(5).getElements().get(i).getField().getCharacter(),
+						suche.getSolution().getSnakes().get(5).getElements().get(i).getField().getCharacter(),
 						"\nDie Zeichen der Felder der sechsten Schlange an der Stelle " + i
 								+ " stimmen nicht ueberein.");
 			}
@@ -196,7 +196,7 @@ class SnakeSearchTest {
 
 		@DisplayName("Einfacher Test mit leerer Probleminstanz.")
 		@Test
-		void testeSchlangenSucheMitLeererProbleminstanz() {
+		void testSnakeSearchWithEmptyProblem() {
 			IModel modell = new ProblemModel();
 			Jungle bspDschungel = new Jungle(3, 3, "ABC", 1);
 			modell.setJungle(bspDschungel);
@@ -206,7 +206,7 @@ class SnakeSearchTest {
 
 		@DisplayName("Einfacher Test mit leerer eingelesener Probleminstanz.")
 		@Test
-		void testeSchlangenSucheMitEingelesenerLeererProbleminstanz() throws Exception {
+		void testSnakeSearchWithReadInEmptyProblem() throws Exception {
 			IReader xmlLeser = new ReaderXML();
 			xmlLeser.readFile("res/sj_p1_unvollstaendig.xml");
 			assertThrows(IllegalArgumentException.class, () -> new SnakeSearch(xmlLeser.getTransferredModel()),

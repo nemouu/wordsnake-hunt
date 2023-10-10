@@ -12,7 +12,7 @@ import java.util.*;
  *
  */
 public class Solution {
-	private List<Snake> schlangen;
+	private List<Snake> snakes;
 
 	/**
 	 * Ein parametrisierter Konstruktor in dem direkt eine Liste von Schlangen,
@@ -25,7 +25,7 @@ public class Solution {
 	 */
 	public Solution(List<Snake> schlangen) {
 		super();
-		this.schlangen = schlangen;
+		this.snakes = schlangen;
 	}
 
 	/**
@@ -36,7 +36,7 @@ public class Solution {
 	 */
 	public Solution() {
 		super();
-		this.schlangen = new ArrayList<Snake>();
+		this.snakes = new ArrayList<Snake>();
 	}
 
 	/**
@@ -48,9 +48,9 @@ public class Solution {
 	 * 
 	 * @return Die Anzahl der verschiedenen Schlangenarten in der Loesung.
 	 */
-	public int getAnzahlSchlangenarten() {
+	public int getNumberOfDifferentSnakeTypes() {
 		List<SnakeType> verschiedeneArten = new ArrayList<SnakeType>();
-		for (Snake schlange : schlangen) {
+		for (Snake schlange : snakes) {
 			if (verschiedeneArten.contains(schlange.getType()) == false) {
 				verschiedeneArten.add(schlange.getType());
 			}
@@ -67,8 +67,8 @@ public class Solution {
 	 * @return <code>null</code>, wenn keine Schlange gefunden wurde, ansonsten wird die
 	 *         Schlange zurueckgegeben.
 	 */
-	public Snake getSchlangeMitSchlangenartID(String id) {
-		for (Snake schlange : schlangen) {
+	public Snake getSnakeWithSnakeTypeID(String id) {
+		for (Snake schlange : snakes) {
 			if (schlange.getType().getId().equals(id)) {
 				return schlange;
 			}
@@ -82,17 +82,17 @@ public class Solution {
 	 * @param inSchlange Eine Schlange, gemaess der in diesem Paket definierten
 	 *                   Datenstruktur Schlange.
 	 */
-	public void addSchlange(Snake inSchlange) {
-		this.schlangen.add(inSchlange);
+	public void addSnake(Snake inSchlange) {
+		this.snakes.add(inSchlange);
 	}
 
 	/**
 	 * Eine Methode, die die letzte Schlange in der Loesung entfernt.
 	 */
-	public void entferneLetzteSchlange() {
-		if (this.schlangen != null) {
-			if (this.schlangen.size() > 0) {
-				this.schlangen.remove(schlangen.size() - 1);
+	public void removeLastSnake() {
+		if (this.snakes != null) {
+			if (this.snakes.size() > 0) {
+				this.snakes.remove(snakes.size() - 1);
 			}
 		}
 	}
@@ -103,8 +103,8 @@ public class Solution {
 	 * @return Eine Liste von Schlangen gemaess der in diesem Paket definierten
 	 *         Datenstruktur Schlangen.
 	 */
-	public List<Snake> getSchlangen() {
-		return schlangen;
+	public List<Snake> getSnakes() {
+		return snakes;
 	}
 
 	/**
@@ -116,7 +116,7 @@ public class Solution {
 	 * @param schlangen Eine Liste mit Schlangen, die der Loesung uebergeben werden
 	 *                  soll.
 	 */
-	public void setSchlangen(List<Snake> schlangen) {
-		this.schlangen = schlangen;
+	public void setSnakes(List<Snake> schlangen) {
+		this.snakes = schlangen;
 	}
 }
