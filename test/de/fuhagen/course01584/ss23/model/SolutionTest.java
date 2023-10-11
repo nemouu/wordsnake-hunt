@@ -28,7 +28,7 @@ class SolutionTest {
 			exampleSolution.addSnake(snake1);
 			exampleSolution.addSnake(snake2);
 			assertEquals(exampleSolution.getSnakeWithSnakeTypeID("A0").getType().toString(),
-					"ID=A0, Nachbarschaftsstruktur=Distanz, Zeichenkette=FERNUNI, Punkte=1, Anzahl=1",
+					"ID=A0, Neighborhood Structure=Distanz, String=FERNUNI, Points=1, Amount=1",
 					"\nEs wird nicht das erwartete Ergebnis geliefert.");
 		}
 
@@ -41,7 +41,7 @@ class SolutionTest {
 			exampleSolution.addSnake(snake1);
 			exampleSolution.addSnake(snake2);
 			assertEquals(exampleSolution.getSnakeWithSnakeTypeID("A1").getType().toString(),
-					"ID=A1, Nachbarschaftsstruktur=Distanz, Zeichenkette=JUNITTEST, Punkte=2, Anzahl=4",
+					"ID=A1, Neighborhood Structure=Distanz, String=JUNITTEST, Points=2, Amount=4",
 					"\nEs wird nicht das erwartete Ergebnis geliefert.");
 		}
 

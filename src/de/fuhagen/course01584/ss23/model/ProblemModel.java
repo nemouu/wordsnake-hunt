@@ -3,11 +3,10 @@ package de.fuhagen.course01584.ss23.model;
 import java.util.*;
 
 /**
- * Eine Implementierung der Schnittstelle IModell, um die Daten, die bei der
- * Schlangensuche gebraucht werden aufnehmen und bearbeiten zu koennen. Es
- * werden die Methoden aus der Schnittstelle implementiert und zusaetzlich
- * einige private Methoden zum Ausgeben des Modelles auf die Konsole
- * bereitgestellt.
+ * An implementation of the IModel interface to handle and process the data
+ * needed for snake searching. The methods from the interface are implemented,
+ * and additionally, some private methods are provided to output the model to
+ * the console.
  * 
  * @author Philip Redecker
  *
@@ -20,22 +19,21 @@ public class ProblemModel implements IModel {
 	private Solution solution;
 
 	/**
-	 * Ein parametrisierter Konstruktor, der eine Instanz des Modelles erstellen
-	 * kann. Hierbei werden Parameter so uebergeben, dass direkt eine eventuell
-	 * nicht leere Liste von Schlangenarten im Modell enthalten ist. Diese wird hier
-	 * naemlich als Konstruktor uebergeben.
+	 * A parameterized constructor that can create an instance of the model.
+	 * Parameters are passed in such a way that a possibly non-empty list of snake
+	 * types is directly included in the model. This is passed as a constructor
+	 * here.
 	 * 
-	 * @param jungle     Ein Dschungel gemaess der in diesem Paket definierten
-	 *                   Datenstruktur Dschungel.
-	 * @param snakeTypes Eine Liste von Schlangenarten gemaess der in diesem Paket
-	 *                   definierten Datenstruktur Schlangenart.
-	 * @param solution   Eine Loesung gemaess der in diesem Paket definierten
-	 *                   Datenstruktur Loesung.
-	 * @param time       Eine Array von Doubles fuer die Zeitvorgabe und
-	 *                   beziehungsweise oder die Zeitabgabe.
-	 * @throws IllegalArgumentException Wird fuer das Attribut Zeit ein ungueltiges
-	 *                                  Argument uebergeben, wird eine Ausnahme
-	 *                                  ausgeloest.
+	 * @param jungle     A jungle according to the data structure defined in this
+	 *                   package.
+	 * @param snakeTypes A list of snake types according to the data structure
+	 *                   defined in this package.
+	 * @param solution   A solution according to the data structure defined in this
+	 *                   package.
+	 * @param time       An array of Doubles for time specification and/or time
+	 *                   assignment.
+	 * @throws IllegalArgumentException If an invalid argument is passed for the
+	 *                                  'time' attribute, an exception is thrown.
 	 */
 	public ProblemModel(Jungle jungle, List<SnakeType> snakeTypes, Solution solution, Double[] time)
 			throws IllegalArgumentException {
@@ -43,29 +41,29 @@ public class ProblemModel implements IModel {
 		if (time.length == 1) {
 			if (time[0] == 0.0) {
 				throw new IllegalArgumentException(
-						"Das Attribut 'zeit' darf in der Klasse 'ProblemModell' nicht gleich 0 sein.");
+						"The 'time' attribute in the 'ProblemModel' class cannot be equal to 0.");
 			}
 			if (time[0] < 0.0) {
 				throw new IllegalArgumentException(
-						"Das Attribut 'zeit' darf in der Klasse 'ProblemModell' nicht kleiner 0 sein.");
+						"The 'time' attribute in the 'ProblemModel' class cannot be less than 0.");
 			}
 			if (time[0] > Double.MAX_VALUE - 2E292) {
 				throw new IllegalArgumentException(
-						"Das Attribut 'zeit' darf in der Klasse 'ProblemModell' nicht zu gross sein.");
+						"The 'time' attribute in the 'ProblemModel' class cannot be too large.");
 			}
 		}
 		if (time.length == 2) {
 			if (time[0] == 0.0 || time[1] == 0.0) {
 				throw new IllegalArgumentException(
-						"Das Attribut 'zeit' darf in der Klasse 'ProblemModell' nicht gleich 0 sein.");
+						"The 'time' attribute in the 'ProblemModel' class cannot be equal to 0.");
 			}
 			if (time[0] < 0.0 || time[1] < 0.0) {
 				throw new IllegalArgumentException(
-						"Das Attribut 'zeit' darf in der Klasse 'ProblemModell' nicht kleiner 0 sein.");
+						"The 'time' attribute in the 'ProblemModel' class cannot be less than 0.");
 			}
 			if (time[0] > Double.MAX_VALUE - 2E292 || time[1] > Double.MAX_VALUE - 2E292) {
 				throw new IllegalArgumentException(
-						"Das Attribut 'zeit' darf in der Klasse 'ProblemModell' nicht zu gross sein.");
+						"The 'time' attribute in the 'ProblemModel' class cannot be too large.");
 			}
 		}
 		this.jungle = jungle;
@@ -75,49 +73,47 @@ public class ProblemModel implements IModel {
 	}
 
 	/**
-	 * Ein alternativer parametrisierter Konstruktor, der es erlaubt ein Modell zu
-	 * instanziieren ohne eine Liste von Schlangenarten zu uebergeben. Hierbei wird
-	 * dann im Konstruktor eine leere Liste mit Schlangenarten erzeugt, damit dort
-	 * spaeter Schlangenarten hinzugefuegt werden koennen.
+	 * An alternative parameterized constructor that allows instantiating a model
+	 * without passing a list of snake types. In this case, an empty list of snake
+	 * types is created in the constructor so that snake types can be added later.
 	 * 
-	 * @param jungle   Ein Dschungel gemaess der in diesem Paket definierten
-	 *                 Datenstruktur Dschungel.
-	 * @param solution Eine Loesung gemaess der in diesem Paket definierten
-	 *                 Datenstruktur Loesung.
-	 * @param time     Eine Array von Doubles fuer die Zeitvorgabe und
-	 *                 beziehungsweise oder die Zeitabgabe.
-	 * @throws IllegalArgumentException Wird fuer das Attribut Zeit ein ungueltiges
-	 *                                  Argument uebergeben, wird eine Ausnahme
-	 *                                  ausgeloest.
+	 * @param jungle   A jungle according to the data structure defined in this
+	 *                 package.
+	 * @param solution A solution according to the data structure defined in this
+	 *                 package.
+	 * @param time     An array of Doubles for time specification and/or time
+	 *                 assignment.
+	 * @throws IllegalArgumentException If an invalid argument is passed for the
+	 *                                  'time' attribute, an exception is thrown.
 	 */
 	public ProblemModel(Jungle jungle, Solution solution, Double[] time) throws IllegalArgumentException {
 		super();
 		if (time.length == 1) {
 			if (time[0] == 0.0) {
 				throw new IllegalArgumentException(
-						"Das Attribut 'zeit' darf in der Klasse 'ProblemModell' nicht gleich 0 sein.");
+						"The 'time' attribute in the 'ProblemModel' class cannot be equal to 0.");
 			}
 			if (time[0] < 0.0) {
 				throw new IllegalArgumentException(
-						"Das Attribut 'zeit' darf in der Klasse 'ProblemModell' nicht kleiner 0 sein.");
+						"The 'time' attribute in the 'ProblemModel' class cannot be less than 0.");
 			}
 			if (time[0] > Double.MAX_VALUE - 2E292) {
 				throw new IllegalArgumentException(
-						"Das Attribut 'zeit' darf in der Klasse 'ProblemModell' nicht zu gross sein.");
+						"The 'time' attribute in the 'ProblemModel' class cannot be too large.");
 			}
 		}
 		if (time.length == 2) {
 			if (time[0] == 0.0) {
 				throw new IllegalArgumentException(
-						"Das Attribut 'zeit' darf in der Klasse 'ProblemModell' nicht gleich 0 sein.");
+						"The 'time' attribute in the 'ProblemModel' class cannot be equal to 0.");
 			}
 			if (time[0] < 0.0 || time[1] < 0.0) {
 				throw new IllegalArgumentException(
-						"Das Attribut 'zeit' darf in der Klasse 'ProblemModell' nicht kleiner 0 sein.");
+						"The 'time' attribute in the 'ProblemModel' class cannot be less than 0.");
 			}
 			if (time[0] > Double.MAX_VALUE - 2E292 || time[1] > Double.MAX_VALUE - 2E292) {
 				throw new IllegalArgumentException(
-						"Das Attribut 'zeit' darf in der Klasse 'ProblemModell' nicht zu gross sein.");
+						"The 'time' attribute in the 'ProblemModel' class cannot be too large.");
 			}
 		}
 		this.jungle = jungle;
@@ -130,10 +126,8 @@ public class ProblemModel implements IModel {
 	}
 
 	/**
-	 * Ein parameterloser Konstruktor, so, dass es bei zukuenftiger Aanderung des
-	 * Programmes moeglich ist, diese Klasse zum Beispiel zum Testen zu nutzen. Es
-	 * wird zusaetzlich eine leere Liste von Schlangenarten instanziiert, so dass
-	 * diese befuellt werden kann.
+	 * A default constructor to allow future changes to the program and facilitate
+	 * testing by instantiating an empty list of snake types.
 	 */
 	public ProblemModel() {
 		super();
@@ -159,7 +153,7 @@ public class ProblemModel implements IModel {
 			return getTime()[0] * 8.64 * (Math.pow(10, 13));
 		}
 		default:
-			throw new IllegalArgumentException("Die Zeitangabe des Modelles kann nicht umgerechnet werden.");
+			throw new IllegalArgumentException("The time unit of the model cannot be converted.");
 		}
 	}
 
@@ -182,7 +176,7 @@ public class ProblemModel implements IModel {
 			return (double) (usedTimeInNanoseconds / (8.64 * (Math.pow(10, 13))));
 		}
 		default:
-			throw new IllegalArgumentException("Die Zeitangabe des Modelles kann nicht umgerechnet werden.");
+			throw new IllegalArgumentException("The time unit of the model cannot be converted.");
 		}
 	}
 
@@ -194,58 +188,55 @@ public class ProblemModel implements IModel {
 		}
 		try {
 			if (jungle.numberOfTakenFields() == 0) {
-				return "Der Dschungel dieses Problemes hat " + jungle.getRows() + " Zeilen, " + jungle.getColumns()
-						+ " Spalten und die Zeichenmenge '" + jungle.getSigns()
-						+ "' \naber keine Felder und es kann nach Schlangen der Schlangenart/en \n\n"
-						+ snakeTypesToString
-						+ "\ngesucht werden. Die Felder koennen mit dem Befehl 'e' erzeugt werden. Die Loesung hierzu ist "
-						+ "nicht \nvorhanden und kann mit dem Befehl 'l' gesucht werden.";
+				return "The jungle of this problem has " + jungle.getRows() + " rows, " + jungle.getColumns()
+						+ " columns and the character set '" + jungle.getSigns()
+						+ "' \nbut no fields, and snakes of snake type/s\n\n" + snakeTypesToString
+						+ "\ncan be searched. Fields can be generated with the 'e' command. The solution to this is "
+						+ "not \npresent and can be searched for using the 'l' command.";
 			} else if (solution == null && jungle.numberOfTakenFields() < jungle.numberOfFields()) {
-				return "Der Dschungel dieses Problemes hat " + jungle.getRows() + " Zeilen, " + jungle.getColumns()
-						+ " Spalten und die Zeichenmenge '" + jungle.getSigns() + "'. "
-						+ "Die Felder werden\nimmer in dem Format '(Zeichen, Verwendbarkeit, Punkte)' angegeben und leere Felder "
-						+ " werden durch '(Ø, 0, 0)'\ngekennzeichnet. Die Felder sind wie folgt angeordnet: \n\n\n"
-						+ jungle.toString() + "\nEs kann nach Schlangen der Schlangenart/en \n\n" + snakeTypesToString
-						+ "\ngesucht werden und im Modell ist aktuell keine Loesung enthalten. Dabei ist jedoch zu beachten, dass"
-						+ " der eingelesene\nDschungel leere Felder enthaelt. Es wurden " + jungle.numberOfFields()
-						+ " Felder erwartet aber nur " + jungle.numberOfTakenFields()
-						+ " wurden eingelesen. Die uebrigen\n"
-						+ "Felder sind leer. Mit dem Befehl 'e' kann ein vollstaendiger Dschungel erzeugt werden.";
+				return "The jungle of this problem has " + jungle.getRows() + " rows, " + jungle.getColumns()
+						+ " columns and the character set '" + jungle.getSigns() + "'. "
+						+ "The fields are\nalways given in the format '(character, usability, points)' and empty fields "
+						+ " are marked by '(Ø, 0, 0)'\n. The fields are arranged as follows: \n\n\n" + jungle.toString()
+						+ "\nSnakes of snake type/s can be searched for \n\n" + snakeTypesToString
+						+ "\nand there is currently no solution in the model. However, it should be noted that"
+						+ " the parsed\njungle contains empty fields. " + jungle.numberOfFields()
+						+ " fields were expected but only " + jungle.numberOfTakenFields()
+						+ " were read. The remaining\n"
+						+ "fields are empty. A complete jungle can be generated using the 'e' command.";
 			} else if (solution == null || solution.getSnakes().size() == 0) {
-				return "Der Dschungel dieses Problemes hat " + jungle.getRows() + " Zeilen, " + jungle.getColumns()
-						+ " Spalten und die Zeichenmenge '" + jungle.getSigns() + "'. "
-						+ "Die Felder werden\nimmer in dem Format '(Zeichen, Verwendbarkeit, Punkte)' angegeben und"
-						+ " sind wie folgt angeordnet: \n\n\n" + jungle.toString() + "\nEs kann nach Schlangen"
-						+ " der Schlangenart/en \n\n" + snakeTypesToString
-						+ "\ngesucht werden und im Modell ist aktuell keine Loesung vorhanden. Es kann mit dem Befehl 'l' nach einer"
-						+ " Loesung\ngesucht werden.";
+				return "The jungle of this problem has " + jungle.getRows() + " rows, " + jungle.getColumns()
+						+ " columns and the character set '" + jungle.getSigns() + "'. "
+						+ "The fields are\ngiven in the format '(character, usability, points)' and"
+						+ " are arranged as follows: \n\n\n" + jungle.toString() + "\nSnakes can be searched for "
+						+ "of the snake type/s \n\n" + snakeTypesToString
+						+ "\nand there is currently no solution in the model. A solution can be searched for with the 'l' command.";
 			} else if (jungle.numberOfTakenFields() < jungle.numberOfFields()) {
-				return "Der Dschungel dieses Problemes hat " + jungle.getRows() + " Zeilen, " + jungle.getColumns()
-						+ " Spalten und die Zeichenmenge '" + jungle.getSigns() + "'. "
-						+ "Die\nFelder werden immer in dem Format '(Zeichen, Verwendbarkeit, Punkte)' angegeben und leere Felder "
-						+ " werden durch '(Ø, 0, 0)'\ngekennzeichnet. Die Felder sind wie folgt angeordnet: \n\n\n"
-						+ jungle.toString() + "\nEs kann nach Schlangen der Schlangenart/en \n\n" + snakeTypesToString
-						+ "\ngesucht werden. Zu jeder gefundenen Schlange werden einige Informationen ausgegeben. "
-						+ "Dann wird die Reihenfolge der\nGlieder der jeweiligen Schlange in dem Format '(Zeichen, Zeile, Spalte)' "
-						+ "angegeben und schließlich wird ein\nDschungel ausgegeben, der die Schlange hervorhebt. Hierbei "
-						+ "werden die nicht genutzten Felder mit ( ) gekennzeichnet.\nEs ist hierbei zu beachten, dass "
-						+ " der eingelesene Dschungel leere Felder enthaelt. Es wurden " + jungle.numberOfFields()
-						+ " Felder erwartet aber\nnur " + jungle.numberOfTakenFields()
-						+ " wurden eingelesen. Die uebrigen Felder sind leer. Mit dem Befehl 'e' kann ein vollstaendiger Dschungel "
-						+ "erzeugt\nwerden.\n\n" + toStringSolution();
+				return "The jungle of this problem has " + jungle.getRows() + " rows, " + jungle.getColumns()
+						+ " columns and the character set '" + jungle.getSigns() + "'. "
+						+ "The\nfields are always given in the format '(character, usability, points)' and empty fields "
+						+ " are marked by '(Ø, 0, 0)'\n. The fields are arranged as follows: \n\n\n" + jungle.toString()
+						+ "\nSnakes can be searched for of the snake type/s \n\n" + snakeTypesToString
+						+ "\n. Some information is given for each found snake. "
+						+ "Then the order of the\nelements of the respective snake is given in the format '(character, row, column)' "
+						+ "and finally a\njungle is given that highlights the snake. Unused fields are marked with ( ).\nIt is to be noted here that "
+						+ " the parsed jungle contains empty fields. " + jungle.numberOfFields()
+						+ " fields were expected but\nonly " + jungle.numberOfTakenFields()
+						+ " were read. The remaining fields are empty. A complete jungle can be generated\nusing the 'e' command.\n\n"
+						+ toStringSolution();
 			} else {
-				return "Der Dschungel dieses Problemes hat " + jungle.getRows() + " Zeilen, " + jungle.getColumns()
-						+ " Spalten und die Zeichenmenge '" + jungle.getSigns() + "'. "
-						+ "Die\nFelder werden immer in dem Format '(Zeichen, Verwendbarkeit, Punkte)' angegeben und"
-						+ " sind wie folgt angeordnet: \n\n\n" + jungle.toString() + "\nEs kann nach Schlangen"
-						+ " der Schlangenart/en \n\n" + snakeTypesToString
-						+ "\ngesucht werden. Zu jeder gefundenen Schlange werden einige Informationen ausgegeben. "
-						+ "Dann wird die Reihenfolge der\nGlieder der jeweiligen Schlange in dem Format '(Zeichen, Zeile, Spalte)' "
-						+ "angegeben und schließlich wird ein\nDschungel ausgegeben, der die Schlange hervorhebt. Hierbei "
-						+ "werden die nicht genutzten Felder mit ( ) gekennzeichnet.\n\n" + toStringSolution();
+				return "The jungle of this problem has " + jungle.getRows() + " rows, " + jungle.getColumns()
+						+ " columns and the character set '" + jungle.getSigns() + "'. "
+						+ "The\nfields are always given in the format '(character, usability, points)' and"
+						+ " are arranged as follows: \n\n\n" + jungle.toString() + "\nSnakes can be searched for "
+						+ "of the snake type/s \n\n" + snakeTypesToString
+						+ "\n. Some information is given for each found snake. "
+						+ "Then the order of the\nelements of the respective snake is given in the format '(character, row, column)' "
+						+ "and finally a\njungle is given that highlights the snake. Unused fields are marked with ( ).\n\n"
+						+ toStringSolution();
 			}
 		} catch (Exception e) {
-			return "Beim Ausgeben des Modelles in einer Textausgabe ist ein Fehler aufgetreten.";
+			return "An error occurred while outputting the model in a text format.";
 		}
 	}
 
@@ -255,8 +246,8 @@ public class ProblemModel implements IModel {
 		for (int i = 0; i < solution.getSnakes().size(); i++) {
 			List<Field> solutionFields = new ArrayList<Field>();
 			output += " (" + (i + 1) + ") Information: (ID=" + solution.getSnakes().get(i).getType().getId()
-					+ ", Zeichenkette=" + solution.getSnakes().get(i).getType().getSigns() + ", Nachbarschaftsstruktur="
-					+ solution.getSnakes().get(i).getType().getStructure().toString() + ")\n\n     Verlauf: ";
+					+ ", string=" + solution.getSnakes().get(i).getType().getSigns() + ", neighborhood structure="
+					+ solution.getSnakes().get(i).getType().getStructure().toString() + ")\n\n     Path: ";
 			for (int l = 0; l < solution.getSnakes().get(i).getElements().size(); l++) {
 				solutionFields.add(solution.getSnakes().get(i).getElements().get(l).getField());
 				output += "(" + solution.getSnakes().get(i).getElements().get(l).getField().getCharacter() + ", "
@@ -273,7 +264,7 @@ public class ProblemModel implements IModel {
 					newLine++;
 				}
 			}
-			output += " \n\n     Dschungel: ";
+			output += " \n\n     Jungle: ";
 			for (int j = 0; j < jungle.getRows(); j++) {
 				if (j > 0) {
 					output += "                ";
@@ -303,30 +294,28 @@ public class ProblemModel implements IModel {
 	public void setTime(Double[] time) throws IllegalArgumentException {
 		if (time.length == 1) {
 			if (time[0] == 0.0) {
-				throw new IllegalArgumentException(
-						"Das Attribut 'zeit' darf in der Klasse 'ProblemModell' nicht gleich 0 sein.");
+				throw new IllegalArgumentException("The 'time' attribute cannot be zero in the 'ProblemModel' class.");
 			}
 			if (time[0] < 0.0) {
 				throw new IllegalArgumentException(
-						"Das Attribut 'zeit' darf in der Klasse 'ProblemModell' nicht kleiner 0 sein.");
+						"The 'time' attribute cannot be less than 0 in the 'ProblemModel' class.");
 			}
 			if (time[0] > Double.MAX_VALUE - 2E292) {
 				throw new IllegalArgumentException(
-						"Das Attribut 'zeit' darf in der Klasse 'ProblemModell' nicht zu gross sein.");
+						"The 'time' attribute cannot be too large in the 'ProblemModel' class.");
 			}
 		}
 		if (time.length == 2) {
 			if (time[0] == 0.0) {
-				throw new IllegalArgumentException(
-						"Das Attribut 'zeit' darf in der Klasse 'ProblemModell' nicht gleich 0 sein.");
+				throw new IllegalArgumentException("The 'time' attribute cannot be zero in the 'ProblemModel' class.");
 			}
 			if (time[0] < 0.0 || time[1] < 0.0) {
 				throw new IllegalArgumentException(
-						"Das Attribut 'zeit' darf in der Klasse 'ProblemModell' nicht kleiner 0 sein.");
+						"The 'time' attribute cannot be less than 0 in the 'ProblemModel' class.");
 			}
 			if (time[0] > Double.MAX_VALUE - 2E292 || time[1] > Double.MAX_VALUE - 2E292) {
 				throw new IllegalArgumentException(
-						"Das Attribut 'zeit' darf in der Klasse 'ProblemModell' nicht zu gross sein.");
+						"The 'time' attribute cannot be too large in the 'ProblemModel' class.");
 			}
 		}
 		this.time = time;
@@ -343,9 +332,8 @@ public class ProblemModel implements IModel {
 				|| unitOfTime.equals("d")) {
 			this.unitOfTime = unitOfTime;
 		} else {
-			throw new IllegalArgumentException(
-					"Es wurde eine ungueltige Zeiteinheit uebergeben. Gueltige Zeiteinheiten sind "
-							+ "'ms' (Millisekunden), 's' (Sekunden), 'min' (Minuten), 'h' (Stunden) und 'd' (Tage).");
+			throw new IllegalArgumentException("An invalid time unit was passed. Valid time units are "
+					+ "'ms' (milliseconds), 's' (seconds), 'min' (minutes), 'h' (hours), and 'd' (days).");
 		}
 	}
 
@@ -382,6 +370,5 @@ public class ProblemModel implements IModel {
 	@Override
 	public void setSolution(Solution solution) {
 		this.solution = solution;
-
 	}
 }

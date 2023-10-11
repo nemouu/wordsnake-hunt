@@ -3,8 +3,8 @@ package de.fuhagen.course01584.ss23.view;
 import de.fuhagen.course01584.ss23.model.IModel;
 
 /**
- * In dieser Klasse werden Konstruktoren und Methoden bereitgestellt, um die
- * Darstellung in Form von einer Textausgabe auf der Konsole zu ermoeglichen.
+ * This class provides constructors and methods to enable the representation in
+ * the form of text output on the console.
  * 
  * @author Philip Redecker
  *
@@ -13,10 +13,10 @@ public class ViewText implements IView {
 	private IModel modelToBeViewed;
 
 	/**
-	 * Ein parametrisierter Konstruktor fuer die Klasse DarstellungTextausgabe dem
-	 * direkt das darzustellende Modell uebergeben wird.
+	 * A parameterized constructor for the ViewText class that directly passes the
+	 * model to be displayed.
 	 * 
-	 * @param modelToBeViewed Das Modell, das dargestellt werden soll.
+	 * @param modelToBeViewed The model to be displayed.
 	 */
 	public ViewText(IModel modelToBeViewed) {
 		super();
@@ -24,31 +24,29 @@ public class ViewText implements IView {
 	}
 
 	/**
-	 * Ein parameterloser Konstruktor, so, dass es bei zukuenftiger Aanderung des
-	 * Programmes moeglich ist, diese Klasse zum Beispiel zum Testen zu nutzen.
+	 * A parameterless constructor, allowing this class to be used for testing, for
+	 * example, when the program is changed in the future.
 	 */
 	public ViewText() {
 		super();
 	}
 
 	/**
-	 * Es wird das Modell zurueckgegeben, dass sich aktuell in der
-	 * DarstellungTextausgabe befindet. Dies ist vor allem fuer kuenftige
-	 * Aenderungen und auch fuer damit einhergehende Tests gedacht.
+	 * It returns the model that is currently in the ViewText representation. This
+	 * is primarily intended for future changes and associated tests.
 	 * 
-	 * @return Der Wert der Variablen <code>darzustellendesModell</code>.
+	 * @return The value of the variable <code>modelToBeViewed</code>.
 	 */
 	public IModel getModelToBeViewed() {
 		return modelToBeViewed;
 	}
 
 	/**
-	 * Es kann das Modell der Klasse DarstellungTextausgabe gesetzt werden. So ist
-	 * es zum Beispiel moeglich ein Modell zu uebergeben, auch wenn zunaechst der
-	 * parameterlose Konstruktor genutzt wurde. Es ist auch im Allgemeinen moeglich
-	 * das Modell nach Instanziierung der Klasse zu aendern.
+	 * The model of the ViewText class can be set. For example, it is possible to
+	 * pass a model, even if the parameterless constructor was initially used. It is
+	 * generally possible to change the model after instantiating the class.
 	 * 
-	 * @param modelToBeViewed Das Modell, das uebergeben werden soll.
+	 * @param modelToBeViewed The model to be passed.
 	 */
 	public void setModelToBeViewed(IModel modelToBeViewed) {
 		this.modelToBeViewed = modelToBeViewed;

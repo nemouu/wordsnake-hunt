@@ -3,10 +3,10 @@ package de.fuhagen.course01584.ss23.ioprocessing;
 import de.fuhagen.course01584.ss23.model.IModel;
 
 /**
- * Ein Interface zur Herstellung einer Schnittstelle zwischen Datenmodell und
- * Datenausgabe. Dadurch ist es moeglich in Zukunft das Programm so
- * umzuschreiben, dass es Daten auf eine gewuenschte Art ausgibt. Es ist zum
- * Beispiel moeglich Daten in verschiedenen Dateiformaten auszugeben.
+ * An interface to establish an interface between the data model and data
+ * output. This allows the program to be rewritten in the future to output data
+ * in a desired way. For example, it is possible to output data in various file
+ * formats.
  * 
  * @author Philip Redecker
  *
@@ -14,33 +14,29 @@ import de.fuhagen.course01584.ss23.model.IModel;
 public interface IWriter {
 
 	/**
-	 * Eine Methode, um die Daten, die aktuell im Modell stehen in eine Ausgabedatei
-	 * zu schreiben. Hierbei wird der Pfad an dem die Datei gespeichert werden soll
-	 * unter <code>dateiName</code> angegeben.
+	 * A method to write the data currently in the model to an output file. The path
+	 * where the file should be saved is specified by <code>fileName</code>.
 	 * 
-	 * @param fileName Der Name, den die erzeugte Datei haben soll.
-	 * @throws Exception Eine Ausnahme wird geworfen, wenn beim Schreiben ein Fehler
-	 *                   passiert oder der <code>dateiName</code> das falsche Format
-	 *                   hat.
+	 * @param fileName The name the generated file should have.
+	 * @throws Exception An exception is thrown if an error occurs during writing or
+	 *                   the <code>fileName</code> has the wrong format.
 	 */
 	void writeInFile(String fileName) throws Exception;
 
 	/**
-	 * Es wird das Modell zurueckgegeben, dass sich aktuell in der Schreiberklasse
-	 * befindet, die das Interface ISchreiber implementiert. Dies ist vor allem fuer
-	 * kuenftige Aenderungen und auch fuer damit einhergehende Tests gedacht.
+	 * Returns the model that is currently in the writer class implementing the
+	 * IWriter interface. This is primarily intended for future changes and testing.
 	 * 
-	 * @return Wert der Variablen <code>ZuUebergebendesModell</code>.
+	 * @return Value of the variable <code>toBeTransferredModel</code>.
 	 */
 	IModel getToBeTransferredModel();
 
 	/**
-	 * Es kann das Modell der Schreiberklasse gesetzt werden. So ist es zum Beispiel
-	 * moeglich ein Modell zu uebergeben, auch wenn zunaechst der parameterlose
-	 * Konstruktor uebergeben wurde. Es ist auch im Allgemeinen moeglich das Modell
-	 * nach Instanziierung der Klasse zu aendern.
+	 * Sets the model of the writer class. This makes it possible to pass a model,
+	 * even if the parameterless constructor was initially used. It is also possible
+	 * in general to change the model after the class has been instantiated.
 	 * 
-	 * @param toBeTransferredModel Das Modell, das uebergeben werden soll.
+	 * @param toBeTransferredModel The model to be passed.
 	 */
 	void setToBeTransferredModel(IModel toBeTransferredModel);
 

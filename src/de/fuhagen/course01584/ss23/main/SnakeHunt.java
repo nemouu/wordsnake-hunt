@@ -9,11 +9,10 @@ import de.fuhagen.course01584.ss23.view.ViewText;
 import de.fuhagen.course01584.ss23.view.IView;
 
 /**
- * Eine Klasse, die die Schnittstelle SchlangenjagdAPI implementiert. Es wird
- * durch die implementierten Methoden des Interfaces moeglich das Programm im
- * API zu benutzen. Ausserdem werden einige private Methoden bereitgestellt, die
- * eine Nutzung des Programmes ueber die <code>Main</code> Methode und damit
- * ueber eine Konsole oder ein Terminal moeglich machen.
+ * A class that implements the SnakeHuntAPI interface. It makes it possible to
+ * use the program through the implemented methods of the interface. In
+ * addition, some private methods are provided that enable the use of the
+ * program via the Main method and thus through a console or terminal.
  * 
  * @author Philip Redecker
  *
@@ -22,7 +21,7 @@ public class SnakeHunt implements SnakeHuntAPI {
 	private IModel model;
 
 	/**
-	 * Der parameterlose Konstruktor der Klasse Schlangenjagd.
+	 * Parameterless constructor of the SnakeHunt class.
 	 */
 	public SnakeHunt() {
 		super();
@@ -36,7 +35,7 @@ public class SnakeHunt implements SnakeHuntAPI {
 			writeCurrentModelInFile(xmlOutputFile);
 			return true;
 		} catch (Exception e) {
-			System.out.println("Es ist zu einem Fehler gekommen. Die Schlangensuche wird abgebrochen.");
+			System.out.println("An error occurred. The snake hunt is aborted.");
 			System.out.println();
 			return false;
 		}
@@ -50,7 +49,7 @@ public class SnakeHunt implements SnakeHuntAPI {
 			writeCurrentModelInFile(xmlOutputFile);
 			return true;
 		} catch (Exception e) {
-			System.out.println("Es ist zu einem Fehler gekommen. Der Dschungelgenerator wird abgebrochen.");
+			System.out.println("An error occurred. The jungle generator is aborted.");
 			System.out.println();
 			return false;
 		}
@@ -65,8 +64,7 @@ public class SnakeHunt implements SnakeHuntAPI {
 			errorList = examiner.examineSolution();
 			return errorList;
 		} catch (Exception e) {
-			System.out.println("Es ist zu einem Fehler gekommen und das Programm wird "
-					+ "abbgebrochen. Es wird eine leere Fehlerliste zurueckgegeben.");
+			System.out.println("An error occurred, and the program is " + "aborted. An empty error list is returned.");
 			System.out.println();
 			return errorList;
 		}
@@ -77,15 +75,14 @@ public class SnakeHunt implements SnakeHuntAPI {
 		try {
 			readInAndTransferModel(xmlInputFile);
 			if (model.getSolution() == null) {
-				System.out.println("Es ist keine Loesung vorhanden und deswegen kann"
-						+ " nichts bewertet werden. Es wird die 0 zurueckgegeben.");
+				System.out
+						.println("No solution is present, and therefore, " + "nothing can be evaluated. Returning 0.");
 				System.out.println();
 			}
 			SolutionEvaluator evaluator = new SolutionEvaluator();
 			return evaluator.evaluateSolution(model.getSolution());
 		} catch (Exception e) {
-			System.out.println("Es ist zu einem Fehler gekommen und das Programm wird "
-					+ "abbgebrochen. Es wird die 0 zurueckgegeben.");
+			System.out.println("An error occurred, and the program is " + "aborted. Returning 0.");
 			System.out.println();
 			return 0;
 		}
@@ -93,8 +90,8 @@ public class SnakeHunt implements SnakeHuntAPI {
 
 	private void readInAndTransferModel(String inputFile) throws Exception {
 		/*
-		 * Es wird die unter 'xmlEingabeDatei' zu findene XML-Datei eingelesen und die
-		 * Daten der XML-Datei werden ins Modell des Programmes uebertragen.
+		 * Reads the XML file specified under 'xmlInputFile' and transfers the data from
+		 * the XML file to the program's model.
 		 */
 		IReader readerXML = new ReaderXML();
 		readerXML.readFile(inputFile);
@@ -103,8 +100,8 @@ public class SnakeHunt implements SnakeHuntAPI {
 
 	private void searchSnakesInCurrentModel() {
 		/*
-		 * Eine Methode, die als Einstieg in die Suche von Schlangen dient. Dabei wird
-		 * davon ausgegangen, dass das Modell des Programmes nicht leer ist.
+		 * A method that serves as an entry point for snake search. It is assumed that
+		 * the program's model is not empty.
 		 */
 		ISnakeSearch search = new SnakeSearch(model);
 		search.searchSnakes();
@@ -116,8 +113,8 @@ public class SnakeHunt implements SnakeHuntAPI {
 
 	private void generateJungleWithCurrentModel() throws Exception {
 		/*
-		 * Eine Methode, die als Einstieg in das Generieren eines Dschungel dient. Dabei
-		 * wird davon ausgegangen, dass das Modell des Programmes nicht leer ist.
+		 * A method that serves as an entry point for generating a jungle. It is assumed
+		 * that the program's model is not empty.
 		 */
 		JungleGenerator generator = new JungleGenerator(model);
 		generator.generateJungle();
@@ -129,9 +126,8 @@ public class SnakeHunt implements SnakeHuntAPI {
 
 	private void viewOfCurrentModel(String xmlInputFile) throws Exception {
 		/*
-		 * Eine Methode, die es ermoeglicht ein Modell in einer Konsole oder einem
-		 * Terminal in Textform darzustellen. Es wird hierbei entweder das aktuelle
-		 * Modell des Programmes oder das eingelesene Modell dargestellt.
+		 * A method that allows displaying a model in a console or terminal in text
+		 * form. Either the current model of the program or the read model is displayed.
 		 */
 		if (model == null) {
 			readInAndTransferModel(xmlInputFile);
@@ -140,15 +136,14 @@ public class SnakeHunt implements SnakeHuntAPI {
 			IView view = new ViewText(model);
 			view.view();
 		} else {
-			System.out.println("Es ist kein Modell vorhanden, dass dargestellt werden koennte.");
+			System.out.println("No model available to display.");
 			System.out.println();
 		}
 	}
 
 	private void writeCurrentModelInFile(String outputFile) throws Exception {
 		/*
-		 * Das Modell des Programmes wird unter 'ausgabeDatei' in eine XML-Datei
-		 * gespeichert.
+		 * Saves the model of the program in an XML file under 'outputFile'.
 		 */
 		IWriter writerXML = new WriterXML(model);
 		writerXML.writeInFile(outputFile);
@@ -156,160 +151,148 @@ public class SnakeHunt implements SnakeHuntAPI {
 
 	private void printErrorList(List<ErrorType> errorList) {
 		/*
-		 * Eine Hilfsmethode, um die Anzahl und Art der Fehlertypen in einer Fehlerliste
-		 * darstellen zu koennen.
+		 * A helper method to display the number and type of error types in an error
+		 * list.
 		 */
 		if (errorList.size() == 0) {
-			System.out.println("Die Fehlerpruefung hat keine Fehler gefunden!");
+			System.out.println("Error check found no errors!");
 		} else {
 			int elements = 0;
 			int assignment = 0;
 			int usage = 0;
 			int neighborhood = 0;
-			for (ErrorType fehlertyp : errorList) {
-				if (fehlertyp == ErrorType.ELEMENTS) {
+			for (ErrorType errorType : errorList) {
+				if (errorType == ErrorType.ELEMENTS) {
 					elements++;
 				}
-				if (fehlertyp == ErrorType.ASSIGNMENT) {
+				if (errorType == ErrorType.ASSIGNMENT) {
 					assignment++;
 				}
-				if (fehlertyp == ErrorType.USAGE) {
+				if (errorType == ErrorType.USAGE) {
 					usage++;
 				}
-				if (fehlertyp == ErrorType.NEIGHBORHOOD) {
+				if (errorType == ErrorType.NEIGHBORHOOD) {
 					neighborhood++;
 				}
 			}
-			System.out.println("Die gegebene Loesung enthaelt die folgenden Fehler:");
+			System.out.println("The given solution contains the following errors:");
 			System.out.println();
-			System.out.println(elements + " Fehler vom Typ GLIEDER,");
-			System.out.println(assignment + " Fehler vom Typ ZUORDNUNG,");
-			System.out.println(usage + " Fehler vom Typ VERWENDUNG und");
-			System.out.println(neighborhood + " Fehler vom Typ NACHBARSCHAFT.");
+			System.out.println(elements + " errors of type ELEMENTS,");
+			System.out.println(assignment + " errors of type ASSIGNMENT,");
+			System.out.println(usage + " errors of type USAGE, and");
+			System.out.println(neighborhood + " errors of type NEIGHBORHOOD.");
 		}
 	}
 
 	/**
-	 * Die Main Methode dieser Klasse bietet den Einstieg in die Nutzung des
-	 * Programmes mit einer Konsole oder einem Terminal. Es koennen <code>2</code>
-	 * oder <code>3</code> Parameter uebergeben werden. Die Parameter muessen in dem
-	 * folgenden Format uebergeben werden:
+	 * The main method of this class provides the entry point to use the program
+	 * through a console or terminal. You can pass either <code>2</code> or
+	 * <code>3</code> parameters. The parameters must be passed in the following
+	 * format:
 	 * <p>
-	 * java -jar ProPra.jar ablauf=&lt;Parameter&gt;
-	 * eingabe=&lt;BeispielEingabe.xml&gt; ausgabe=&lt;BeispielAusgabe.xml&gt;
+	 * java -jar ProPra.jar process=&lt;Parameter&gt; input=&lt;ExampleInput.xml&gt;
+	 * output=&lt;ExampleOutput.xml&gt;
 	 * <p>
-	 * Eine Ausgabedatei anzugeben ist optional und die Parameter sind miteinander
-	 * kombinierbar. Hierbei muss auf eine sinnvolle Reihenfolge geachtet werden,
-	 * denn sonst wird moeglicherweise eine Fehlermeldung ausgegeben. Fuer die
-	 * Parameter gibt es folgende Moeglichkeiten:
+	 * Specifying an output file is optional, and the parameters can be combined. It
+	 * is important to observe a meaningful order; otherwise, an error message might
+	 * be displayed. For the parameters, the following possibilities exist:
 	 * <p>
-	 * <code>l</code>: Fuer eine gegebene Probleminstanz wird nach einer neuen
-	 * Loesung gesucht und bei Angabe einer Ausgabedatei unter dem angegebenen Pfad
-	 * gespeichert.
+	 * <code>l</code>: For a given problem instance, a new solution is searched, and
+	 * when specifying an output file, it is saved at the specified path.
 	 * <p>
-	 * <code>e</code>: Eine neue Probleminstanz wird auf Basis der gegebenen
-	 * Parameter erzeugt und bei Angabe einer Ausgabedatei unter dem angegebenen
-	 * Pfad gespeichert.
+	 * <code>e</code>: A new problem instance is generated based on the given
+	 * parameters, and when specifying an output file, it is saved at the specified
+	 * path.
 	 * <p>
-	 * <code>p</code>: Die Zulaessigkeit der gegebenen Loesung wird ueberprueft. Bei
-	 * Unzulaessigkeit werden die Art und Anzahl der verletzten Bedingungen in der
-	 * Konsole ausgegeben.
+	 * <code>p</code>: The admissibility of the given solution is checked. In case
+	 * of inadmissibility, the type and number of violated conditions are output in
+	 * the console.
 	 * <p>
-	 * <code>b</code>: Die Gesamtpunktzahl der Loesung wird unabhaengig von der
-	 * Zulaessigkeit berechnet und in der Konsole ausgegeben.
+	 * <code>b</code>: The total score of the solution is calculated and output in
+	 * the console, regardless of admissibility.
 	 * <p>
-	 * <code>d</code>: Die Probleminstanz und die zugehoerige Loesung werden in der
-	 * Konsole dargestellt.
+	 * <code>d</code>: The problem instance and the corresponding solution are
+	 * displayed in the console.
 	 * 
-	 * @param args Die Parameter der Konsoleneingabe. Es ist darauf zu achten, dass
-	 *             mindestens <code>2</code> und hoechstens <code>3</code> Parameter
-	 *             uebergeben werden und dass diese die angegebene Form haben.
-	 * @throws Exception Wenn ein Fehler im Ablauf des Progammes passiert wird eine
-	 *                   Ausnahme ausgeloest und das Programm wird beendet. Hierbei
-	 *                   ist zu beachten, dass Ausnahmen auch aus anderen Teilen des
-	 *                   Programmes durchgereicht werden und dann hier abgefangen
-	 *                   werden. Es wird im Zweifel immer eine Fehlermeldung
-	 *                   ausgegeben, die beschreibt, wo der Fehler passiert ist.
+	 * @param args The parameters from the console input. It is important to ensure
+	 *             that at least <code>2</code> and at most <code>3</code>
+	 *             parameters are passed and that they have the specified format.
+	 * @throws Exception If an error occurs in the program's flow, an exception is
+	 *                   thrown, and the program terminates. It is important to note
+	 *                   that exceptions are also passed from other parts of the
+	 *                   program and caught here. An error message is always
+	 *                   displayed describing where the error occurred.
 	 */
+
 	public static void main(String[] args) throws Exception {
-		String course = "";
+		String process = "";
 		String input = "";
 		String output = "";
 
 		/*
-		 * Zu Beginn wird die Eingabe, die der Nutzer im Terminal gemacht hat
-		 * ueberprueft und auf entsprechend nutzbare Stringvariablen verteilt. Danach
-		 * wird fuer den weiteren Programmverlauf eine Instanz der Klasse Schlangenjagd
-		 * erstellt.
+		 * At the beginning, the input provided by the user in the terminal is checked
+		 * and distributed into usable string variables accordingly for the further
+		 * program flow. Then, an instance of the SnakeHunt class is created for the
+		 * program's further execution.
 		 */
 		try {
 			if (args.length < 2 || args.length > 3) {
 				System.out.println();
-				System.out.println("Es wurde die falsche Anzahl an Parametern uebergeben. Es "
-						+ "muessen mindestens 2 und es duerfen hoechstens\n3 Parameter uebergeben "
-						+ "werden. Die Parameter muessen in dem folgenden Format uebergeben werden:\n\n"
-						+ "java -jar ProPra.jar ablauf=<Parameter> eingabe=<BeispielEingabe.xml> ausgabe=<BeispielAusgabe.xml>\n\n"
-						+ "Eine Ausgabedatei anzugeben ist optional und die Parameter sind miteinander kombinierbar. Hierbei "
-						+ "muss\nauf eine sinnvolle Reihenfolge geachtet werden, denn sonst wird moeglicherweise eine Fehlermeldung"
-						+ "\nausgegeben. Fuer die Parameter gibt es folgende Moeglichkeiten:\n\n"
-						+ "'l': Fuer eine gegebene Probleminstanz wird nach einer neuen Loesung gesucht und bei Angabe einer\n     "
-						+ "Ausgabedatei unter dem angegebenen Pfad gespeichert.\n"
-						+ "'e': Eine neue Probleminstanz wird auf Basis der gegebenen Parameter erzeugt und bei Angabe einer\n     "
-						+ "Ausgabedatei unter dem angegebenen Pfad gespeichert.\n"
-						+ "'p': Die Zulaessigkeit der gegebenen Loesung wird ueberprueft. Bei Unzulaessigkeit werden die Art\n     "
-						+ "und Anzahl der verletzten Bedingungen in der Konsole ausgegeben.\n"
-						+ "'b': Die Gesamtpunktzahl der Loesung wird unabhaengig von der Zulaessigkeit berechnet und in der\n     "
-						+ "Konsole ausgegeben.\n"
-						+ "'d': Die Probleminstanz und die zugehoerige Loesung werden in der Konsole dargestellt.\n");
-				System.out.println("Programm wird abgebrochen.\n");
+				System.out.println("Incorrect number of parameters provided. "
+						+ "At least 2 and at most 3 parameters must be passed. Parameters should be passed in the following format:\n\n"
+						+ "java -jar ProPra.jar process=<Parameter> input=<ExampleInput.xml> output=<ExampleOutput.xml>\n\n"
+						+ "Specifying an output file is optional, and the parameters can be combined. It is important "
+						+ "to observe a meaningful order; otherwise, an error message may be displayed. For the parameters, "
+						+ "the following options are available:\n\n"
+						+ "'l': Search for a new solution for a given problem instance and save it at the specified path if an output file is specified.\n"
+						+ "'e': Generate a new problem instance based on the given parameters and save it at the specified path if an output file is specified.\n"
+						+ "'p': Check the admissibility of the given solution. In case of inadmissibility, the type and number of violated conditions are displayed in the console.\n"
+						+ "'b': Calculate and display the total score of the solution, regardless of admissibility.\n"
+						+ "'d': Display the problem instance and its corresponding solution in the console.\n");
+				System.out.println("Program will be aborted.\n");
 				return;
 			}
 			if (args.length == 2) {
-				course = args[0].split("=")[1];
+				process = args[0].split("=")[1];
 				input = args[1].split("=")[1];
 			}
 			if (args.length == 3) {
-				course = args[0].split("=")[1];
+				process = args[0].split("=")[1];
 				input = args[1].split("=")[1];
 				output = args[2].split("=")[1];
 			}
 		} catch (Exception e) {
 			System.out.println();
 			System.out.println(
-					"Beim Programmstart ist es zu einem Fehler gekommen. Moeglicherweise sind die Parameter in "
-							+ "einem falschen\nFormat uebergeben worden. Die Parameter muessen in dem folgenden Format uebergeben werden:\n\n"
-							+ "java -jar ProPra.jar ablauf=<Parameter> eingabe=<BeispielEingabe.xml> ausgabe=<BeispielAusgabe.xml>\n\n"
-							+ "Eine Ausgabedatei anzugeben ist optional und die Parameter sind miteinander kombinierbar. Hierbei "
-							+ "muss\nauf eine sinnvolle Reihenfolge geachtet werden, denn sonst wird moeglicherweise eine Fehlermeldung"
-							+ "\nausgegeben. Fuer die Parameter gibt es folgende Moeglichkeiten:\n\n"
-							+ "'l': Fuer eine gegebene Probleminstanz wird nach einer neuen Loesung gesucht und bei Angabe einer\n     "
-							+ "Ausgabedatei unter dem angegebenen Pfad gespeichert.\n"
-							+ "'e': Eine neue Probleminstanz wird auf Basis der gegebenen Parameter erzeugt und bei Angabe einer\n     "
-							+ "Ausgabedatei unter dem angegebenen Pfad gespeichert.\n"
-							+ "'p': Die Zulaessigkeit der gegebenen Loesung wird ueberprueft. Bei Unzulaessigkeit werden die Art\n     "
-							+ "und Anzahl der verletzten Bedingungen in der Konsole ausgegeben.\n"
-							+ "'b': Die Gesamtpunktzahl der Loesung wird unabhaengig von der Zulaessigkeit berechnet und in der\n     "
-							+ "Konsole ausgegeben.\n"
-							+ "'d': Die Probleminstanz und die zugehoerige Loesung werden in der Konsole dargestellt.\n");
-			System.out.println("Programm wird abgebrochen.\n");
+					"An error occurred at the start of the program. The parameters may have been provided in an incorrect format. Parameters should be passed in the following format:\n\n"
+							+ "java -jar ProPra.jar process=<Parameter> input=<ExampleInput.xml> output=<ExampleOutput.xml>\n\n"
+							+ "Specifying an output file is optional, and the parameters can be combined. It is important "
+							+ "to observe a meaningful order; otherwise, an error message may be displayed. For the parameters, "
+							+ "the following options are available:\n\n"
+							+ "'l': Search for a new solution for a given problem instance and save it at the specified path if an output file is specified.\n"
+							+ "'e': Generate a new problem instance based on the given parameters and save it at the specified path if an output file is specified.\n"
+							+ "'p': Check the admissibility of the given solution. In case of inadmissibility, the type and number of violated conditions are displayed in the console.\n"
+							+ "'b': Calculate and display the total score of the solution, regardless of admissibility.\n"
+							+ "'d': Display the problem instance and its corresponding solution in the console.\n");
+			System.out.println("Program will be aborted.\n");
 			return;
 		}
 		SnakeHunt hunt = new SnakeHunt();
 		System.out.println();
-		System.out.println("Lade Daten der unter '" + input + "' zu findenden Datei in das Modell des Programmes...");
+		System.out.println("Loading data from the file located at '" + input + "' into the program's model...");
 		System.out.println();
 
 		/*
-		 * Nun wird ueberprueft, ob sich mindestens einer der Parameter mehrfach in der
-		 * 'ablauf' Variable befindet. Dies ist moeglich und fuehrt nicht zum
-		 * Programmabbruch aber dem Nutzer wird eine Warnmeldung angezeigt.
+		 * Now it is checked whether at least one of the parameters is repeated in the
+		 * 'process' variable. This is possible and does not lead to program
+		 * termination, but a warning message is displayed to the user.
 		 */
 		int l = 0;
 		int e = 0;
 		int p = 0;
 		int b = 0;
 		int d = 0;
-		for (char command : course.toCharArray()) {
+		for (char command : process.toCharArray()) {
 			if (command == 'l') {
 				l++;
 			}
@@ -326,67 +309,61 @@ public class SnakeHunt implements SnakeHuntAPI {
 				d++;
 			}
 			if (l > 1 || e > 1 || b > 1 || d > 1 || p > 1) {
-				System.out.println("Achtung! Ein oder mehrere Ablaufparameter wurden mehr als ein Mal "
-						+ "uebergeben. Moeglicherweise ergeben sich im\nProgrammverlauf Fehler oder "
-						+ "Programmteile werden unnoetigerweise zu oft ausgefuehrt. Außerdem ist zu "
-						+ "beachten,\ndass das Datenmodell des Programmes sich mit den Befehlen 'l' und "
-						+ "'e' aendern kann. Ein Befehl wird sich im\nZweifel an dem Datenmodell orientieren, "
-						+ "das der vorherige Befehl geaendert hat.");
+				System.out.println("Attention! One or more process parameters have been provided more than once. "
+						+ "This may result in errors in the program flow or unnecessary execution of program parts. "
+						+ "Additionally, it should be noted that the data model of the program can change with the commands 'l' and 'e'. "
+						+ "A command will potentially be based on the data model that the previous command has changed.");
 				System.out.println();
 				break;
 			}
 		}
 
 		/*
-		 * Hier werden die einzelnen Parameter in der Variablen 'ablauf' nach und nach
-		 * abgearbeitet. Dabei wird immer geprueft, ob schon Daten Modell stehen, denn
-		 * so werden die Parameter unabhaengig voneinander. Es ist moeglich jeden
-		 * Parameter an den Anfang oder das Ende von 'ablauf' zu setzen und das Programm
-		 * wird entsprechend entweder erst eine Datei einlesen oder die Daten des schon
-		 * vorhandenen Modelles nutzen. Schliesslich wird noch eine Warnmeldung
-		 * ausgegeben, wenn ein Buchstabe uebergeben wurde, der keine Funktion hat. Dies
-		 * fuehrt aber nicht zum Programmabbruch.
+		 * Here, the individual parameters in the 'process' variable are processed one
+		 * by one. It is always checked whether data model already exists because
+		 * parameters will operate independently in that case. It is possible to place
+		 * each parameter at the beginning or end of 'process', and the program will
+		 * either read a file or use the data from the existing model accordingly.
+		 * Finally, a warning message is given if a letter is passed that has no
+		 * function. However, this does not lead to program termination.
 		 */
 		try {
-			char[] courseArray = course.toCharArray();
+			char[] courseArray = process.toCharArray();
 			for (char commmand : courseArray) {
 				if (commmand == 'l') {
 					try {
-						System.out.println("Loese Probleminstanz...");
+						System.out.println("Solving problem instance...");
 						System.out.println();
 
 						if (hunt.model == null) {
 							hunt.readInAndTransferModel(input);
 						}
 						hunt.searchSnakesInCurrentModel();
-						System.out.println("Die im Modell gefundene Probleminstanz wurde geloest.");
+						System.out.println("The problem instance found in the model has been solved.");
 						System.out.println();
-						if (!course.contains("d") && hunt.model.getJungle().numberOfFields() != hunt.model
-								.getJungle().numberOfTakenFields()) {
-							System.out.println("Es ist hierbei zu beachten, dass "
-									+ " der eingelesene Dschungel leere Felder enthaelt. Es wurden\n"
-									+ hunt.model.getJungle().numberOfFields() + " Felder erwartet aber nur "
-									+ hunt.model.getJungle().numberOfTakenFields() + " wurden eingelesen. "
-									+ " Die uebrigen Felder sind leer. Mit dem\nBefehl 'e' kann ein vollstaendiger "
-									+ " Dschungel erzeugt werden.");
+						if (!process.contains("d") && hunt.model.getJungle().numberOfFields() != hunt.model.getJungle()
+								.numberOfTakenFields()) {
+							System.out.println("It should be noted that the loaded jungle contains empty fields. "
+									+ hunt.model.getJungle().numberOfFields() + " fields were expected, but only "
+									+ hunt.model.getJungle().numberOfTakenFields() + " were read. "
+									+ "The remaining fields are empty. A complete jungle can be generated with the 'e' command.");
 							System.out.println();
 						}
 					} catch (IllegalArgumentException modelTooEmpty) {
 						if (!(commmand == courseArray[courseArray.length - 1])) {
-							System.out.println("Es wird versucht mit den uebrigen Befehlen fortzufahren...");
+							System.out.println("Attempting to proceed with the remaining commands...");
 							System.out.println();
 						}
 					}
 				}
 				if (commmand == 'e') {
-					System.out.println("Erzeuge Dschungel...");
+					System.out.println("Generating jungle...");
 					System.out.println();
 					if (hunt.model == null) {
 						hunt.readInAndTransferModel(input);
 					}
 					hunt.generateJungleWithCurrentModel();
-					System.out.println(
-							"Der im Modell zu findenden Probleminstanz wurde ein (neuer) Dschungel hinzugefuegt.");
+					System.out.println("A (new) jungle has been added to the problem instance found in the model.");
 					System.out.println();
 				}
 				if (commmand == 'p') {
@@ -402,7 +379,7 @@ public class SnakeHunt implements SnakeHuntAPI {
 						}
 					} catch (IllegalArgumentException modelTooEmpty) {
 						if (!(commmand == courseArray[courseArray.length - 1])) {
-							System.out.println("Es wird versucht mit den uebrigen Befehlen fortzufahren...");
+							System.out.println("Attempting to proceed with the remaining commands...");
 							System.out.println();
 						}
 					}
@@ -413,8 +390,7 @@ public class SnakeHunt implements SnakeHuntAPI {
 					}
 					int evaluation;
 					if (hunt.model.getSolution() == null) {
-						System.out.println("Es ist keine Loesung vorhanden und deswegen kann"
-								+ " nichts bewertet werden. Es wird 0 zurueckgegeben.");
+						System.out.println("No solution is available, so nothing can be evaluated. Returning 0.");
 						System.out.println();
 						evaluation = 0;
 					} else {
@@ -422,42 +398,43 @@ public class SnakeHunt implements SnakeHuntAPI {
 						evaluation = evaluator.evaluateSolution(hunt.model.getSolution());
 					}
 					if (hunt.model != null && hunt.model.getSolution() != null) {
-						System.out.println("Die gegebene Loesung hat " + evaluation + " Punkte erzielt.");
+						System.out.println("The given solution scored " + evaluation + " points.");
 						System.out.println();
 					}
 				}
 				if (commmand == 'd') {
 					hunt.viewOfCurrentModel(input);
 				}
-				if ((commmand != 'l') && (commmand != 'e') && (commmand != 'p') && (commmand != 'b') && (commmand != 'd')) {
-					System.out.println("Achtung! Der uebergebene Parameter " + commmand
-							+ " hat keine Funktion im Programm. Der Parameter wird uebersprungen.");
+				if ((commmand != 'l') && (commmand != 'e') && (commmand != 'p') && (commmand != 'b')
+						&& (commmand != 'd')) {
+					System.out.println("Attention! The provided parameter " + commmand
+							+ " has no function in the program. The parameter will be skipped.");
 					System.out.println();
 				}
 			}
 
 			/*
-			 * Bei Angabe einer Ausgabedatei wird in diesem Teil des Programmes schliesslich
-			 * das Modell in eine Datei mit dem angegebenen Namen geschrieben.
+			 * If an output file is specified, in this part of the program, the model is
+			 * written to a file with the specified name.
 			 */
 			if (!output.equals("")) {
 				hunt.writeCurrentModelInFile(output);
-				System.out.println("Nach Bearbeitung der angegebenen Ablaufparameter wurde der Inhalt "
-						+ "des Modelles unter\n'" + output + "' gespeichert.");
+				System.out.println("After processing the specified process parameters, the content "
+						+ "of the model has been saved under\n'" + output + "'.");
 				System.out.println();
 			} else {
-				System.out.println("Es wird nichts gespeichert, da keine Ausgabedatei angegeben wurde.");
+				System.out.println("Nothing will be saved since no output file was specified.");
 				System.out.println();
 			}
 		} catch (Exception error) {
-			System.out.println("Programm wird abbgebrochen.");
+			System.out.println("Program will be aborted.");
 			System.out.println();
 
 			/*
-			 * Der folgende Kommentar kann auskommentiert werden, wenn Informationen ueber
-			 * einen fehlerhaften Programmverlauf und beziehungsweise oder einen
-			 * Programmabbruch gewuenscht sind. Hierbei werden Informationen ueber die Art
-			 * und den Ort der Ausnahme ausgegeben, die den Programmabbruch verursacht hat.
+			 * The following comment can be commented out if information about erroneous
+			 * program flow and/or program termination is desired. Here, information about
+			 * the type and location of the exception that caused the program termination is
+			 * output to the terminal.
 			 */
 
 			// error.printStackTrace();

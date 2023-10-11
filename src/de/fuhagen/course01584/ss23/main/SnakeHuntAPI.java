@@ -3,104 +3,99 @@ package de.fuhagen.course01584.ss23.main;
 import java.util.List;
 
 /**
- * Ein Interface zur Herstellung einer Schnittstelle zwischen dem Programm und
- * dem Nutzer des Programmes. Es soll in einer implementierten Klasse moeglich
- * sein, das Programm durch eine Konsole beziehungsweise ein Terminal zu nutzen
- * und es soll moeglich sein, das Programm im API Modus ueber diese
- * Schnittstelle zu nutzen, indem dieses Programm beispielsweise als
- * <code>.jar</code> Datei eingebunden wird.
+ * An interface to create an interface between the program and the program's
+ * user. It should be possible to use the program through a console or terminal
+ * in an implemented class, and it should be possible to use the program in API
+ * mode through this interface, for example, by incorporating this program as a
+ * .jar file.
  * 
  * @author Philip Redecker
  *
  */
 public interface SnakeHuntAPI {
 	/**
-	 * Liest die vorgegebene Eingabedatei mit einer vollstaendigen Probleminstanz
-	 * und startet das Loesungverfahren fuer die Schlangensuche. Die gefundene
-	 * Loesung wird zusammen mit der Probleminstanz in der Ausgabedatei gespeichert.
+	 * Reads the given input file with a complete problem instance and starts the
+	 * solution procedure for the snake hunt. The found solution is saved along with
+	 * the problem instance in the output file.
 	 * 
-	 * @param xmlInputFile Dateipfad zu einer XML-Datei mit der Probleminstanz,
-	 *                        die geloest werden soll.
-	 * @param xmlOutputFile Dateipfad zu einer XML-Datei fuer die Probleminstanz
-	 *                        und die erzeugte Loesung.
-	 * @return <code>true</code>, wenn mindestens eine Schlange gefunden wurde,
-	 *         ansonsten <code>false</code>. Beim Auftreten eines Fehlers wird
-	 *         ebenfalls <code>false</code> zurückgegeben.
+	 * @param xmlInputFile  File path to an XML file with the problem instance to be
+	 *                      solved.
+	 * @param xmlOutputFile File path to an XML file for the problem instance and
+	 *                      the generated solution.
+	 * @return <code>true</code> if at least one snake was found, otherwise
+	 *         <code>false</code>. In case of an error, <code>false</code> is also
+	 *         returned.
 	 */
 	public boolean solveProblem(String xmlInputFile, String xmlOutputFile);
 
 	/**
-	 * Liest die Vorgegebene Eingabedatei mit einer (moeglicherweise
-	 * unvollstaendigen) Probleminstanz und erzeugt eine neue Probleminstanz auf
-	 * Basis der gegebenen Parameter. Die erzeugte Probleminstanz wird in der
-	 * vorgegebenen Ausgabedatei gespeichert.
+	 * Reads the given input file with a (possibly incomplete) problem instance and
+	 * creates a new problem instance based on the given parameters. The generated
+	 * problem instance is saved in the provided output file.
 	 * 
-	 * @param xmlInputFile Dateipfad zu einer XML-Datei mit Parametern fuer eine
-	 *                        Probleminstanz, die erzeugt werden soll.
-	 * @param xmlOutputFile Dateipfad zu einer XML-Datei fuer die erzeugte
-	 *                        Probleminstanz.
-	 * @return <code>true</code>, bei Erfolg, ansonsten <code>false</code>. Beim
-	 *         Auftreten eines Fehlers wird ebenfalls <code>false</code>
-	 *         zurückgegeben.
+	 * @param xmlInputFile  File path to an XML file with parameters for a problem
+	 *                      instance to be created.
+	 * @param xmlOutputFile File path to an XML file for the generated problem
+	 *                      instance.
+	 * @return <code>true</code> on success, otherwise <code>false</code>. In case
+	 *         of an error, <code>false</code> is also returned.
 	 */
 	public boolean generateProblem(String xmlInputFile, String xmlOutputFile);
 
 	/**
-	 * Moegliche Fehlertypen fuer eine Loesung einer Probleminstanz.
+	 * Possible error types for a solution of a problem instance.
 	 * <ul>
-	 * <li><code>GLIEDER</code>: Eine Schlange besteht nicht aus der richtigen
-	 * Anzahl von Schlangengliedern.</li>
-	 * <li><code>ZUORDNUNG</code>: Ein Schlangenglied ist einem Feld mit einem
-	 * falschen Zeichen zugeordnet.</li>
-	 * <li><code>VERWENDUNG</code>: Ein Schlangenglied ist einem bereits maximal
-	 * verwendeten Feld zugeordnet.</li>
-	 * <li><code>NACHBARSCHAFT</code>: Ein Schlangenglied befindet sich nicht in der
-	 * Nachbarschaft des jeweils vorherigen Schlangengliedes.</li>
+	 * <li><code>ELEMENTS</code>: A snake does not have the correct number of snake
+	 * elements.</li>
+	 * <li><code>ASSIGNMENT</code>: A snake element is assigned to a field with a
+	 * wrong character.</li>
+	 * <li><code>USAGE</code>: A snake element is assigned to an already maximally
+	 * used field.</li>
+	 * <li><code>NEIGHBORHOOD</code>: A snake element is not in the neighborhood of
+	 * the previous snake element.</li>
 	 * </ul>
 	 */
 	public enum ErrorType {
 		/**
-		 * Eine Schlange besteht nicht aus der richtigen Anzahl von Schlangengliedern.
+		 * A snake does not have the correct number of snake elements.
 		 */
 		ELEMENTS,
 		/**
-		 * Ein Schlangenglied ist einem Feld mit falschem Zeichen zugeordnet.
+		 * A snake element is assigned to a field with a wrong character.
 		 */
 		ASSIGNMENT,
 		/**
-		 * Ein Schlangenglied ist einem bereits maximal verwendeten Feld zugeordnet.
+		 * A snake element is assigned to an already maximally used field.
 		 */
 		USAGE,
 		/**
-		 * Ein Schlangenglied befindet sich nicht in der Nachbarschaft des jeweils
-		 * vorherigen Schlangengliedes.
+		 * A snake element is not in the neighborhood of the previous snake element.
 		 */
 		NEIGHBORHOOD
 	}
 
 	/**
-	 * Liest die Probleminstanz und Loesung aus der gegebenen Datei ein und
-	 * ueberprueft die Loesung auf Zulaessingkeit. Dabei werden sowohl die Art als
-	 * auch die Haeufigkeit der verletzten Bedingungen ermittelt.
+	 * Reads the problem instance and solution from the given file and verifies the
+	 * solution for validity. Both the type and frequency of violated conditions are
+	 * determined.
 	 * 
-	 * @param xmlInputFile Dateipfad zu einer XML-Datei mit einer Probleminstanz
-	 *                        und der zugehoerigen Loesung.
-	 * @return Liste der gefundenen Einzelfehler. Beim Auftreten eines Fehlers wird
-	 *         eine leere Liste zurueckgegeben.
+	 * @param xmlInputFile File path to an XML file with a problem instance and its
+	 *                     associated solution.
+	 * @return List of found individual errors. In case of an error, an empty list
+	 *         is returned.
 	 */
 	public List<ErrorType> examineSolution(String xmlInputFile);
 
 	/**
-	 * Liest die Probleminstanz und Loesung aus der gegebenen Datei ein und
-	 * berechnet die erreichte Punktzahl. Die Berechnung erfolgt unabhaengig von der
-	 * Zulaessigkeit der Loesung. Punkte werden fuer jede gefundene Schlange einer
-	 * Schlangenart und fuer jedes von einem Schlangenglied verwendete Feld (fuer
-	 * jede Verwendung) vergeben.
+	 * Reads the problem instance and solution from the given file and calculates
+	 * the achieved score. The calculation is done regardless of the solution's
+	 * validity. Points are awarded for each found snake of a snake type and for
+	 * each field used by a snake element (for each usage).
 	 * 
-	 * @param xmlInputFile Dateipfad zu einer XML-Datei mit einer Probleminstanz
-	 *                        und Loesung.
-	 * @return Erreichte Gesamtpunktzahl. Beim Auftreten eines Fehlers wird der Wert
-	 *         <code>0</code> zurueckgegeben.
+	 * @param xmlInputFile File path to an XML file with a problem instance and
+	 *                     solution.
+	 * @return Total achieved score. In case of an error, <code>0</code> is
+	 *         returned.
 	 */
 	public int evaluateSolution(String xmlInputFile);
 }

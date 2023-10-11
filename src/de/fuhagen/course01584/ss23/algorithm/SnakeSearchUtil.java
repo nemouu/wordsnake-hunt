@@ -5,12 +5,11 @@ import java.util.*;
 import de.fuhagen.course01584.ss23.model.*;
 
 /**
- * Eine Klasse SchlangenSucheUtil, die die Schnittstelle ISchlangenSucheUtil und
- * damit die in ISchlangenSucheUtil angegebenen Methoden implementiert. Es
- * werden hier verschiedene Funktionen angeboten, die die Schlangensuche in der
- * Klasse SchlangenSuche vereinfachen und beschleunigen sollen. Mit der
- * Implementierung durch eine Schnittstelle soll die Funktionalitaet anpassbar
- * bleiben.
+ * A class SnakeSearchUtil that implements the ISnakeSearchUtil interface and
+ * thereby implements the methods specified in ISnakeSearchUtil. This class
+ * offers various functions that aim to simplify and accelerate the snake search
+ * in the SnakeSearch class. By implementing these functions through an
+ * interface, the functionality remains adaptable.
  * 
  * @author Philip Redecker
  *
@@ -21,12 +20,11 @@ public class SnakeSearchUtil implements ISnakeSearchUtil {
 	private int pointsOfMostValuableType;
 
 	/**
-	 * Ein parametrisierter Konstruktor, dem das Modell in dem gesucht wird, direkt
-	 * uebergeben wird. Es wird hier unter keinen Umstaenden zu einer Ausnahme
-	 * kommen, da diese in diesem Fall schon vorher in der Klasse SchlangenSuche
-	 * abgefangen wird.
+	 * A parameterized constructor that directly accepts the model in which the
+	 * search is to be conducted. Under no circumstances will an exception occur
+	 * here, as exceptions are handled in the SnakeSearch class.
 	 * 
-	 * @param model Das Modell, dass der Utility Klasse uebergeben werden soll.
+	 * @param model The model to be passed to the utility class.
 	 */
 	public SnakeSearchUtil(IModel model) {
 		super();
@@ -36,8 +34,8 @@ public class SnakeSearchUtil implements ISnakeSearchUtil {
 	}
 
 	/**
-	 * Ein parameterloser Konstruktor, so, dass es bei zukuenftiger Aanderung des
-	 * Programmes moeglich ist, diese Klasse zum Beispiel zum Testen zu nutzen.
+	 * A parameterless constructor, allowing this class to be used for future
+	 * program changes, for example, for testing.
 	 */
 	public SnakeSearchUtil() {
 		super();
@@ -46,10 +44,10 @@ public class SnakeSearchUtil implements ISnakeSearchUtil {
 	@Override
 	public List<SnakeType> createValidSnakeTypes() {
 		/*
-		 * Es werden alle Schlangenarten des Modelles aufgelistet und mittels einem
-		 * Komparator so verglichen, dass die Schlangenart, die vorraussichtlich die
-		 * meisten Punkte erzielt, ganz vorne in der Liste steht. Details zu dem
-		 * Schlangenartkomparator finden sich weiter unten in dieser Klasse hier.
+		 * List all snake types in the model and compare them using a comparator to
+		 * ensure that the snake type that is expected to earn the most points is at the
+		 * top of the list. Details about the SnakeTypeComparator can be found below in
+		 * this class.
 		 */
 		List<SnakeType> validSnakeTypes = new ArrayList<SnakeType>();
 		for (SnakeType snakeType : model.getSnakeTypes()) {
@@ -62,12 +60,11 @@ public class SnakeSearchUtil implements ISnakeSearchUtil {
 	@Override
 	public List<Field> createValidStartingFields(SnakeType type) {
 		/*
-		 * Es werden alle Startfelder fuer eine bestimmte Schlangenart aufgelistet.
-		 * Dabei werden nur die Felder hinzugefuegt, die dasselbe Zeichen wie das erste
-		 * Zeichen der Zeichenkette der Schlangenart und die eine Verwendbarkeit von
-		 * mehr als 0 haben. Die Felder werden schliesslich mit einem Feldkomparator
-		 * sortiert. Details zu dem Feldkomparator finden sich weiter unten in dieser
-		 * Klasse hier.
+		 * List all starting fields for a specific snake type. Only fields that have the
+		 * same character as the first character of the snake type's string and have a
+		 * usage greater than 0 are added. The fields are then sorted using a
+		 * FieldComparator. Details about the FieldComparator can be found below in this
+		 * class.
 		 */
 		List<Field> validStartingFields = new ArrayList<Field>();
 		for (int i = 0; i < model.getJungle().getFields().length; i++) {
@@ -85,17 +82,16 @@ public class SnakeSearchUtil implements ISnakeSearchUtil {
 	@Override
 	public List<Field> createValidNeighbors(SnakeElement previousElement, Snake currentSnake) {
 		/*
-		 * Hiermit werdenzu einer Schlange und einem Schlangenglied die moeglichen
-		 * Nachbarn aufgelistet. Es werden die Nachbarn hinzugefuegt, die mit
-		 * getNachbarn() gefunden wurden und die eine Verwendbarkeit von mehr als 0
-		 * haben. Schliesslich werden die Felder mit einem Feldkomparator
-		 * sortiert.Details zu dem Feldkomparator finden sich weiter unten in dieser
-		 * Klasse hier.
+		 * List possible neighbors for a snake and a snake element. Neighbors found
+		 * using getNeighbors() and having a usage greater than 0 are added. Fields are
+		 * then sorted using a FieldComparator. Details about the FieldComparator can be
+		 * found below in this class.
 		 */
 		List<Field> validNeighborFields = new ArrayList<Field>();
 		for (Field neighborField : currentSnake.getType().getStructure().getNeighbors(model.getJungle(),
 				previousElement.getField())) {
-			if (neighborField.getCharacter().equals(currentSnake.characterOfNextElement()) && neighborField.getUsage() > 0) {
+			if (neighborField.getCharacter().equals(currentSnake.characterOfNextElement())
+					&& neighborField.getUsage() > 0) {
 				validNeighborFields.add(neighborField);
 			}
 		}
@@ -115,11 +111,9 @@ public class SnakeSearchUtil implements ISnakeSearchUtil {
 
 	private Double getProbablePointsOfOneType(SnakeType type) {
 		/*
-		 * Eine Hilfsfunktion fuer den Schlangenartkomparator. Es werden fuer eine
-		 * Schlangenart die Punkte berechnet, die eine Schlange dieser Art in dem
-		 * aktuellen Dschungel vorraussichtlich haben wird. Mit einbezogen werden
-		 * hierbei alle Felder des Dschungels, die ein Zeichen haben, dass in der
-		 * Zeichenkette der Schlange vorkommt.
+		 * A helper function for the SnakeTypeComparator. It calculates the points that
+		 * a snake of this type is likely to earn in the current jungle. It includes all
+		 * jungle fields that have a character that appears in the snake type's string.
 		 */
 		int pointsTotal = 0;
 		int numberOfFields = 0;
@@ -141,9 +135,8 @@ public class SnakeSearchUtil implements ISnakeSearchUtil {
 
 	private int getAmountNeighbors(SnakeType type, Jungle jungle, Field field) {
 		/*
-		 * Eine Hilfsfunktion fuer den Feldkomparator. Fuer eine Schlangenart, einen
-		 * Dschungel und ein (aktuelles) Feld wird die Anzahl der Nachbarn mit
-		 * Verwendbarkeit groesser als 0 ausgegeben.
+		 * A helper function for the FieldComparator. It returns the number of neighbors
+		 * with usage greater than 0 for a snake type, a jungle, and a (current) field.
 		 */
 		int amount = 0;
 		for (Field neighborField : type.getStructure().getNeighbors(jungle, field)) {
@@ -156,8 +149,8 @@ public class SnakeSearchUtil implements ISnakeSearchUtil {
 
 	private Double getAveragePointsAllTypes(List<SnakeType> types) {
 		/*
-		 * Eine Hilfsfunktion fuer den Feldkomparator. Es werden die durchschnittlichen
-		 * Punkte einer Schlangenart in einer Probleminstanz berechnet.
+		 * A helper function for the FieldComparator. It calculates the average points
+		 * of a snake type in a problem instance.
 		 */
 		int points = 0;
 		for (SnakeType snakeType : types) {
@@ -173,8 +166,8 @@ public class SnakeSearchUtil implements ISnakeSearchUtil {
 
 	private int getPointsOfMostValuableSnakeType(List<SnakeType> types) {
 		/*
-		 * Eine Hilfsfunktion fuer den Feldkomparator. Fuer eine Probleminstanz werden
-		 * die Punkte der Schlangenart ausgegeben, die die meisten Punkte hat.
+		 * A helper function for the FieldComparator. It returns the points of the snake
+		 * type with the most points in a problem instance.
 		 */
 		int points = 0;
 		for (SnakeType snakeType : types) {
@@ -186,11 +179,10 @@ public class SnakeSearchUtil implements ISnakeSearchUtil {
 	}
 
 	/**
-	 * Eine selbst erstellte Komparator Klasse, die die Comparator Klasse aus
-	 * java.util implementiert. Es soll dadruch besser moeglich sein die
-	 * tatsaechlichen Punkte der einzelnen Schlangenarten zu vergleichen. Dabei wird
-	 * immer die Laenge der jeweiligen Schlange und die durchschnittliche Punktzahl
-	 * der Felder, die fuer die Schlange ueberhaupt in Frage kommen, mit einbezogen.
+	 * A custom Comparator class that implements the Comparator class from
+	 * java.util. It aims to compare the actual points of individual snake types
+	 * more effectively. It considers the length of the respective snake and the
+	 * average points of the fields that are eligible for the snake.
 	 * 
 	 * @author Philip Redecker
 	 *
@@ -210,17 +202,17 @@ public class SnakeSearchUtil implements ISnakeSearchUtil {
 	}
 
 	/**
-	 * Eine selbst erstellte Komparator Klasse, die die Comparator Klasse aus
-	 * java.util implementiert. Hier kann insgesamt nach drei verschiedenen
-	 * Kriterien sortiert werden. Hat eine Probleminstanz Schlangen, die besonders
-	 * viele Punkte haben im Vergleich zu anderen Schlangen desselben Problemes so
-	 * wird nach der MRV Strategie gesucht. Das heisst es werden zunaechst immer die
-	 * Wege gegangen, die am wahrscheinlichsten zu einem Abbruch fuehren, denn so
-	 * kann so schnell wie moeglich weiter gesucht werden. Sind die Punkte aller
-	 * Schlangen eher gleich, so wird nach der Anzahl der freien Nachbarfelder
-	 * sortiert. So kann sichergestellt werden dass zum Beispiel Felder in der Ecke
-	 * eines Dschungels vermieden werden. Schliesslich wird in beiden dieser Faelle
-	 * bei Gleichheit einfach nach Feldpunkten sortiert.
+	 * A custom Comparator class that implements the Comparator class from
+	 * java.util. This class allows sorting based on three different criteria. If a
+	 * problem instance has snakes that earn significantly more points compared to
+	 * other snakes of the same problem, it sorts according to the MRV (Most
+	 * Remaining Value) strategy. This means that the paths that are likely to
+	 * result in an early termination are traversed first, thus allowing the search
+	 * to continue as quickly as possible. If the points of all snakes are rather
+	 * similar, it sorts based on the number of free neighboring fields. This
+	 * ensures, for example, that fields in the corner of a jungle are avoided.
+	 * Finally, in both of these cases, when there is a tie, it simply sorts based
+	 * on field points.
 	 * 
 	 * @author Philip Redecker
 	 *

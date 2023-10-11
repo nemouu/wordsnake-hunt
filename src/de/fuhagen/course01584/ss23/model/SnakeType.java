@@ -1,11 +1,11 @@
 package de.fuhagen.course01584.ss23.model;
 
 /**
- * Eine Klasse, die Schlangenarten modelliert. Jede Schlange im Modell hat eine
- * Schlangenart und auch im Modell selbst sind bestimmte Schlangenarten
- * vorgegeben. Nach Schlangen dieser Schlangenarten kann dann im Dschungel
- * gesucht werden, sofern dieser vorhanden ist. Neben Gettern und Settern werden
- * auch einige Hilfsmethoden angeboten, die von anderen Klassen genutzt werden.
+ * A class that models snake types. Each snake in the model has a snake type,
+ * and certain snake types are predefined in the model itself. Snakes of these
+ * snake types can then be searched for in the jungle, if it exists. In addition
+ * to getters and setters, some helper methods are provided that can be used by
+ * other classes.
  * 
  * @author Philip Redecker
  *
@@ -18,49 +18,44 @@ public class SnakeType {
 	private int amount;
 
 	/**
-	 * Ein parametrisierter Konstruktor, der es ermoeglicht bei Instanziierung
-	 * direkt alle moeglichen Informationen an die Instanz dieser Klasse zu
-	 * uebergeben. Es werden die Attribute ID, Zeichenkette und Punkte uebergeben
-	 * aber auch die Nachbarschaftsstruktur, der Schlangen dieser Schlangenart
-	 * folgen muessen. Beim Attribut Anzahl ist zu beachten, dass dieses
-	 * hauptsaechlich dem Dschungelgenerator dient, der immer genau so viele
-	 * Schlangen im Dschungel verteilen muss. Fuer die Schlangensuche spielt die
-	 * Anzahl keine Rolle, da die tatsaechliche Anzahl der gefundenen Schlangen
-	 * nicht mit dieser Anzahl hier uebereinstimmen muss.
+	 * A parameterized constructor that allows passing all possible information to
+	 * an instance of this class directly upon instantiation. The attributes ID,
+	 * string, and points are passed, as well as the neighborhood structure that
+	 * snakes of this snake type must follow. Regarding the attribute 'amount,' it
+	 * is important to note that this mainly serves the jungle generator, which
+	 * always needs to distribute exactly this many snakes in the jungle. For the
+	 * snake search, the actual number of found snakes does not have to match this
+	 * amount here.
 	 * 
-	 * @param id           Ein String, der die ID enthaelt, die diese Schlangenart
-	 *                     haben soll.
-	 * @param structure     Die Nachbarschaftsstruktur, der diese Schlangenart folgen
-	 *                     soll.
-	 * @param signs Die Zeichen, die Schlangen dieser Schlangenart haben
-	 *                     muessen.
-	 * @param points       Die Punkte, die das Finden von Schlangen dieser
-	 *                     Schlangenart erzielt.
-	 * @param amount       Die Anzahl der Schlangen dieser Art, die im
-	 *                     Dschungelgenerator im Dschungel verteilt werden sollen.
-	 * @throws IllegalArgumentException Wird ein ungueltiges Argument fuer die
-	 *                                  Parameter Anzahl, Punkte und beziehungsweise
-	 *                                  oder Zeichenkette verwendet, so wird eine
-	 *                                  Ausnahme ausgeloest.
+	 * @param id        A string containing the ID that this snake type should have.
+	 * @param structure The neighborhood structure that this snake type should
+	 *                  follow.
+	 * @param signs     The signs that snakes of this snake type must have.
+	 * @param points    The points that finding snakes of this snake type achieves.
+	 * @param amount    The number of snakes of this type to be distributed in the
+	 *                  jungle generator in the jungle.
+	 * @throws IllegalArgumentException If an invalid argument is used for the
+	 *                                  parameters 'amount,' 'points,' and/or
+	 *                                  'signs,' an exception is thrown.
 	 */
 	public SnakeType(String id, INeighborhood structure, String signs, int points, int amount)
 			throws IllegalArgumentException {
 		super();
 		if (amount < 1) {
 			throw new IllegalArgumentException(
-					"Fuer die Klasse 'Schlangenart' darf das Attribut 'anzahl' nicht kleiner als 1 sein.");
+					"For the class 'SnakeType,' the 'amount' attribute cannot be less than 1.");
 		}
 		if (amount > Integer.MAX_VALUE - 1) {
 			throw new IllegalArgumentException(
-					"Fuer die Klasse 'Schlangenart' darf das Attribut 'anzahl' nicht zu gross sein.");
+					"For the class 'SnakeType,' the 'amount' attribute cannot be too large.");
 		}
 		if (points < 0 || points > Integer.MAX_VALUE - 1) {
 			throw new IllegalArgumentException(
-					"Fuer die Klasse 'Schlangenart' darf das Attribut 'punkte' nicht zu klein oder zu gross sein.");
+					"For the class 'SnakeType,' the 'points' attribute cannot be too small or too large.");
 		}
 		if (signs.length() < 1) {
-			throw new IllegalArgumentException("Die Schlangenart braucht mindestens ein Zeichen, "
-					+ "damit ueberhaupt nach ihr gesucht werden kann.");
+			throw new IllegalArgumentException(
+					"The snake type needs at least one character " + "so that it can be searched for at all.");
 		}
 		this.id = id;
 		this.structure = structure;
@@ -70,8 +65,8 @@ public class SnakeType {
 	}
 
 	/**
-	 * Ein parameterloser Konstruktor, so, dass es bei zukuenftiger Aanderung des
-	 * Programmes moeglich ist, diese Klasse zum Beispiel zum Testen zu nutzen.
+	 * A parameterless constructor, so that it is possible to use this class for
+	 * testing, for example, in future program changes.
 	 */
 	public SnakeType() {
 		super();
@@ -82,147 +77,133 @@ public class SnakeType {
 		if (id == null || structure == null || signs == null) {
 			return "";
 		}
-		return "ID=" + id + ", Nachbarschaftsstruktur=" + structure.getType() + ", Zeichenkette=" + signs
-				+ ", Punkte=" + points + ", Anzahl=" + amount;
+		return "ID=" + id + ", Neighborhood Structure=" + structure.getType() + ", String=" + signs + ", Points="
+				+ points + ", Amount=" + amount;
 	}
 
 	/**
-	 * Diese Methode gibt einen String zurueck, der die ID der Schlangenart
-	 * enthaelt.
+	 * This method returns a string that contains the ID of the snake type.
 	 * 
-	 * @return Ein String, der die ID der Schlangenart enthaelt.
+	 * @return A string that contains the ID of the snake type.
 	 */
 	public String getId() {
 		return id;
 	}
 
 	/**
-	 * Durch diese Methode ist das Setzen der ID einer Schlangenart auch nach
-	 * Instanziierung moeglich. Diese Methode dient vor allem dem Einlesen von Daten
-	 * aber unter anderem auch dem Testen oder beziehungsweise und der spaeteren
-	 * Programmerweiterung.
+	 * This method allows setting the ID of a snake type even after instantiation.
+	 * This method is mainly used for reading data, but also for testing and
+	 * subsequent program extension.
 	 * 
-	 * @param id Die ID, die dieser Schlangenart uebergeben werden soll.
+	 * @param id The ID to be passed to this snake type.
 	 */
 	public void setId(String id) {
 		this.id = id;
 	}
 
 	/**
-	 * Diese Methode gibt die Nachbarschaftsstruktur zurueck, der die Schlangenart
-	 * unterliegt.
+	 * This method returns the neighborhood structure that the snake type is subject
+	 * to.
 	 * 
-	 * @return Die Nachbarschaftsstruktur der Schlangenart.
+	 * @return The neighborhood structure of the snake type.
 	 */
 	public INeighborhood getStructure() {
 		return structure;
 	}
 
 	/**
-	 * Durch diese Methode ist das Setzen der Nachbarschaftsstruktur einer
-	 * Schlangenart auch nach Instanziierung moeglich. Diese Methode dient vor allem
-	 * dem Einlesen von Daten aber unter anderem auch dem Testen oder
-	 * beziehungsweise und der spaeteren Programmerweiterung.
+	 * Through this method, setting the neighborhood structure of a snake type is
+	 * possible even after instantiation. This method is primarily used for reading
+	 * data, but also for testing and future program extension.
 	 * 
-	 * @param structure Die Nachbarschaftsstruktur, die dieser Schlangenart
-	 *                 uebergeben werden soll.
+	 * @param structure The neighborhood structure to be passed to this snake type.
 	 */
 	public void setStructure(INeighborhood structure) {
 		this.structure = structure;
 	}
 
 	/**
-	 * Diese Methode gibt einen String zurueck, der die Zeichenkette der
-	 * Schlangenart enthaelt.
+	 * This method returns a string containing the string of the snake type.
 	 * 
-	 * @return Ein String, der die Zeichenkette der Schlangenart enthaelt.
+	 * @return A string containing the string of the snake type.
 	 */
 	public String getSigns() {
 		return signs;
 	}
 
 	/**
-	 * Durch diese Methode ist das Setzen der Zeichenkette einer Schlangenart auch
-	 * nach Instanziierung moeglich. Es ist darauf zu achten, dass eine gueltige
-	 * Zeichenkette uebergeben wird. Diese Methode dient vor allem dem Einlesen von
-	 * Daten aber unter anderem auch dem Testen oder beziehungsweise und der
-	 * spaeteren Programmerweiterung.
+	 * Through this method, setting the string of a snake type is possible even
+	 * after instantiation. It is important to ensure that a valid string is passed.
+	 * This method is primarily used for reading data, but also for testing and
+	 * future program extension.
 	 * 
-	 * @param signs Die Zeichenkette, die dieser Schlangenart uebergeben
-	 *                     werden soll.
-	 * @throws IllegalArgumentException Falls ein ungueltiges Argument fuer die
-	 *                                  Zeichenkette uebergeben wird, wird eine
-	 *                                  Ausnahme geworfen.
+	 * @param signs The string to be passed to this snake type.
+	 * @throws IllegalArgumentException If an invalid argument is passed for the
+	 *                                  string, an exception is thrown.
 	 */
 	public void setSigns(String signs) throws IllegalArgumentException {
 		if (signs.length() < 1) {
-			throw new IllegalArgumentException("Die Schlangenart braucht mindestens ein Zeichen, "
-					+ "damit ueberhaupt nach ihr gesucht werden kann.");
+			throw new IllegalArgumentException(
+					"The snake type needs at least one character, " + "so that it can be searched for at all.");
 		}
 		this.signs = signs;
 	}
 
 	/**
-	 * Diese Methode gibt die Punkte der Schlangenart in Form einer ganzen Zahl
-	 * zurueck.
+	 * This method returns the points of the snake type as an integer.
 	 * 
-	 * @return Die Punkte der Schlangenart, eine ganze Zahl.
+	 * @return The points of the snake type, an integer.
 	 */
 	public int getPoints() {
 		return points;
 	}
 
 	/**
-	 * Durch diese Methode ist das Setzen der Punkte einer Schlangenart auch nach
-	 * Instanziierung moeglich. Es ist darauf zu achten, dass eine gueltige
-	 * Punktzahl uebergeben wird. Diese Methode dient vor allem dem Einlesen von
-	 * Daten aber unter anderem auch dem Testen oder beziehungsweise und der
-	 * spaeteren Programmerweiterung.
+	 * Through this method, setting the points of a snake type is possible even
+	 * after instantiation. It is important to ensure that a valid point value is
+	 * passed. This method is primarily used for reading data, but also for testing
+	 * and future program extension.
 	 * 
-	 * @param points Die Punkte, die dieser Schlangenart uebergeben werden soll.
-	 * @throws IllegalArgumentException Falls ein ungueltiges Argument fuer die
-	 *                                  Punkte uebergeben wird, wird eine Ausnahme
-	 *                                  geworfen.
+	 * @param points The points to be passed to this snake type.
+	 * @throws IllegalArgumentException If an invalid argument is passed for the
+	 *                                  points, an exception is thrown.
 	 */
 	public void setPoints(int points) throws IllegalArgumentException {
 		if (points < 0 || points > Integer.MAX_VALUE - 1) {
 			throw new IllegalArgumentException(
-					"Fuer die Klasse 'Schlangenart' darf das Attribut 'punkte' nicht zu klein oder zu gross sein.");
+					"For the 'SnakeType' class, the 'points' attribute cannot be too small or too large.");
 		}
 		this.points = points;
 	}
 
 	/**
-	 * Diese Methode gibt die Anzahl der Schlangen dieser Schlangenart in Form einer
-	 * ganzen Zahl zurueck.
+	 * This method returns the number of snakes of this snake type as an integer.
 	 * 
-	 * @return Die Anzahl der Schlangen einer Schlangenart.
+	 * @return The number of snakes of a snake type.
 	 */
 	public int getAmount() {
 		return amount;
 	}
 
 	/**
-	 * Durch diese Methode ist das Setzen der Anzahl der Schlangen einer
-	 * Schlangenart auch nach Instanziierung moeglich. Es ist darauf zu achten, dass
-	 * eine gueltige Anzahl uebergeben wird. Diese Methode dient vor allem dem
-	 * Einlesen von Daten aber unter anderem auch dem Testen oder beziehungsweise
-	 * und der spaeteren Programmerweiterung.
+	 * Through this method, setting the number of snakes of a snake type is possible
+	 * even after instantiation. It is important to ensure that a valid number is
+	 * passed. This method is primarily used for reading data, but also for testing
+	 * and future program extension.
 	 * 
-	 * @param amount Die Anzahl der Schlangen dieser Schlangenart, die im Dschungel
-	 *               verteilt werden soll.
-	 * @throws IllegalArgumentException Falls ein ungueltiges Argument fuer die
-	 *                                  Anzahl uebergeben wird, wird eine Ausnahme
-	 *                                  geworfen.
+	 * @param amount The number of snakes of this snake type to be distributed in
+	 *               the jungle.
+	 * @throws IllegalArgumentException If an invalid argument is passed for the
+	 *                                  number, an exception is thrown.
 	 */
 	public void setAmount(int amount) throws IllegalArgumentException {
 		if (amount < 0) {
 			throw new IllegalArgumentException(
-					"Fuer die Klasse 'Schlangenart' darf das Attribut 'anzahl' nicht kleiner als 0 sein.");
+					"For the 'SnakeType' class, the 'amount' attribute cannot be less than 0.");
 		}
 		if (amount > Integer.MAX_VALUE - 1) {
 			throw new IllegalArgumentException(
-					"Fuer die Klasse 'Schlangenart' darf das Attribut 'anzahl' nicht zu gross sein.");
+					"For the 'SnakeType' class, the 'amount' attribute cannot be too large.");
 		}
 		this.amount = amount;
 	}

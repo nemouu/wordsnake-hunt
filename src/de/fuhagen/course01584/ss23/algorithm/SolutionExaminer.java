@@ -6,11 +6,10 @@ import de.fuhagen.course01584.ss23.main.SnakeHuntAPI.ErrorType;
 import de.fuhagen.course01584.ss23.model.*;
 
 /**
- * In dieser Klasse werden Konstruktoren und Methoden bereitgestellt, um die
- * Pruefung von Loesung zu Probleminstanzen der Schlangenjagd zu ermoeglichen.
- * Hierbei werden. Die einem Modell enthaltene Loesung wird in ausgesuchten
- * Methoden auf Fehler ueberprueft. Die Fehler haben hierbei den Typ der in dem
- * Interface SchlangenjagdAPI definierten Enum <code>Fehlertyp</code>.
+ * This class provides constructors and methods to enable the examination of
+ * solutions to problem instances in the snake hunt. The solution contained in a
+ * model is checked for errors using selected methods. The errors have the type
+ * defined in the 'ErrorType' enum specified in the 'SnakeSearchAPI' interface.
  * 
  * @author Philip Redecker
  *
@@ -22,25 +21,23 @@ public class SolutionExaminer {
 	private List<ErrorType> errorList;
 
 	/**
-	 * Ein parametrisierter Konstruktor fuer die Klasse LoesungsPruefer, der ein
-	 * Modell uebergeben wird. Wird ein (zu) leeres Modell uebergeben, so wird eine
-	 * Ausnahme geworfen.
+	 * A parameterized constructor for the SolutionExaminer class that accepts a
+	 * model. If an empty model or null is passed, an exception is thrown.
 	 * 
-	 * @param model Das Modell, dessen Loesung der Loesungspruefer pruefen soll.
-	 * @throws IllegalArgumentException Eine Ausnahme wird geworfen, wenn dem
-	 *                                  Konstruktor ein unpassendes Modell
-	 *                                  uebergeben wird.
+	 * @param model The model whose solution the examiner should check.
+	 * @throws IllegalArgumentException An exception is thrown if an inappropriate
+	 *                                  model is passed to the constructor.
 	 */
 	public SolutionExaminer(IModel model) throws IllegalArgumentException {
 		super();
 		if (model.getSolution() == null || model.getSolution().getSnakes().size() == 0) {
-			System.out.println("Das Modell, dass dem Loesungspruefer uebergeben werden soll, hat keine Loesung. Um "
-					+ "eine Loesung zu\npruefen, muss ein Modell uebergeben werden, dass eine Loesung besitzt. Ist "
-					+ "keine Loesung vorhanden,\nso kann diese mit der Schlangensuche gefunden werden. Es wird eine "
-					+ "leere Fehlerliste\nzurueckgegeben.");
+			System.out.println("The model passed to the solution examiner has no solution. To "
+					+ "check a solution, a model containing a solution must be passed. If "
+					+ "there is no solution, it can be found using snake search. An empty "
+					+ "error list will be returned.");
 			System.out.println();
-			throw new IllegalArgumentException("Dem Konstruktor von LoesungsPruefer muss ein Modell uebergeben werden, "
-					+ "dass eine Loesung enthaelt.");
+			throw new IllegalArgumentException(
+					"The SolutionExaminer constructor must be passed a model containing a solution.");
 		}
 		this.model = model;
 		this.jungle = model.getJungle();
@@ -48,20 +45,20 @@ public class SolutionExaminer {
 	}
 
 	/**
-	 * Ein parameterloser Konstruktor, so, dass es bei zukuenftiger Aanderung des
-	 * Programmes moeglich ist, diese Klasse zum Beispiel zum Testen zu nutzen.
+	 * A parameterless constructor, making it possible to use this class for testing
+	 * in future program changes.
 	 */
 	public SolutionExaminer() {
 		super();
 	}
 
 	/**
-	 * Eine oeffentliche Methode, die mehrere private Methoden nutzt, um die Art und
-	 * Anzahl der Fehler vom Typ <code>Fehlertyp</code> zu ermitteln. Kommt ein
-	 * Fehler mehrmals vor, so ist fuer jeden dieser Fehler ein Element in der
-	 * zurueckgegebenen Fehlerliste.
+	 * A public method that uses multiple private methods to determine the type and
+	 * number of errors of type 'ErrorType' in the solution. If an error occurs
+	 * multiple times, an element of the corresponding error type is added to the
+	 * returned error list each time.
 	 * 
-	 * @return Die (ungeordnete) Liste mit allen in der Loesung vorkommenen Fehler.
+	 * @return The (unordered) list of all errors present in the solution.
 	 */
 	public List<ErrorType> examineSolution() {
 		errorList = new ArrayList<ErrorType>();
@@ -72,34 +69,32 @@ public class SolutionExaminer {
 		return errorList;
 	}
 
-	private void examineNumber(List<ErrorType> fehlerliste) {
+	private void examineNumber(List<ErrorType> errorList) {
 		/*
-		 * Die im Modell enthaltene Loesung wird auf Fehler des Typs 'Fehlertyp.GLIEDER'
-		 * ueberrpueft. Kommt ein solcher Fehler vor, wird fuer jeden dieser Fehler ein
-		 * Element des entsprechenden Fehlertyps der Fehlerliste hinzugefuegt.
+		 * The solution contained in the model is checked for errors of type
+		 * 'ErrorType.ELEMENTS'. If such an error occurs, an element of the
+		 * corresponding error type is added to the error list.
 		 */
 		for (Snake snake : snakes) {
 			if (snake.getElements().size() != snake.getType().getSigns().length()) {
-				fehlerliste.add(ErrorType.ELEMENTS);
+				errorList.add(ErrorType.ELEMENTS);
 			}
 		}
 	}
 
 	private void examineAssignment(List<ErrorType> errorList) {
 		/*
-		 * Die im Modell enthaltene Loesung wird auf Fehler des Typs
-		 * 'Fehlertyp.ZUORDNUNG' ueberrpueft. Kommt ein solcher Fehler vor, wird fuer
-		 * jeden dieser Fehler ein Element des entsprechenden Fehlertyps der Fehlerliste
-		 * hinzugefuegt.
+		 * The solution contained in the model is checked for errors of type
+		 * 'ErrorType.ASSIGNMENT'. If such an error occurs, an element of the
+		 * corresponding error type is added to the error list.
 		 */
 		for (Snake snake : snakes) {
 			if (snake.getElements().size() == snake.getType().getSigns().length()) {
 				for (int i = 0; i < snake.getElements().size(); i++) {
-					if (snake.getElements().get(i).getField().getCharacter()
-							.equals(snake.getType().getSigns().substring(i, i + 1)) == false) {
+					if (!snake.getElements().get(i).getField().getCharacter()
+							.equals(snake.getType().getSigns().substring(i, i + 1))) {
 						errorList.add(ErrorType.ASSIGNMENT);
 					}
-
 				}
 			}
 		}
@@ -107,12 +102,11 @@ public class SolutionExaminer {
 
 	private void examineUsage(List<ErrorType> errorList) {
 		/*
-		 * Die im Modell enthaltene Loesung wird auf Fehler des Typs
-		 * 'Fehlertyp.VERWENDUNG' ueberrpueft. Kommt ein solcher Fehler vor, wird fuer
-		 * jeden dieser Fehler ein Element des entsprechenden Fehlertyps der Fehlerliste
-		 * hinzugefuegt. Es wird ein 2 dimensionales Array mit Zahlen erstellt, um die
-		 * Verwendbarkeit der Felder zu speichern. So kann die Loesung auf
-		 * Verwendbarkeitsfehler untersucht werden ohne das Modell an sich zu aendern.
+		 * The solution contained in the model is checked for errors of type
+		 * 'ErrorType.USAGE'. If such an error occurs, an element of the corresponding
+		 * error type is added to the error list. A 2-dimensional array with numbers is
+		 * created to store the usability of the fields. This allows checking for
+		 * usability errors in the solution without modifying the model itself.
 		 */
 		int[][] usageMatrix = new int[jungle.getRows()][jungle.getColumns()];
 		for (int i = 0; i < usageMatrix.length; i++) {
@@ -125,25 +119,22 @@ public class SolutionExaminer {
 				if (usageMatrix[element.getField().getRow()][element.getField().getColumn()] < 1) {
 					errorList.add(ErrorType.USAGE);
 				}
-				usageMatrix[element.getField().getRow()][element.getField()
-						.getColumn()] = usageMatrix[element.getField().getRow()][element.getField()
-								.getColumn()] - 1;
+				usageMatrix[element.getField().getRow()][element.getField().getColumn()]--;
 			}
 		}
 	}
 
 	private void examineNeighborhood(List<ErrorType> errorList) {
 		/*
-		 * Die im Modell enthaltene Loesung wird auf Fehler des Typs
-		 * 'Fehlertyp.NACHBARSCHAFT' ueberrpueft. Kommt ein solcher Fehler vor, wird
-		 * fuer jeden dieser Fehler ein Element des entsprechenden Fehlertyps der
-		 * Fehlerliste hinzugefuegt.
+		 * The solution contained in the model is checked for errors of type
+		 * 'ErrorType.NEIGHBORHOOD'. If such an error occurs, an element of the
+		 * corresponding error type is added to the error list.
 		 */
 		for (Snake snake : snakes) {
 			for (int i = 0; i < snake.getElements().size() - 1; i++) {
 				snake.getType().getStructure().getNeighbors(jungle, snake.getElements().get(i).getField());
-				if (snake.getType().getStructure().getNeighbors(jungle, snake.getElements().get(i).getField())
-						.contains(snake.getElements().get(i + 1).getField()) == false) {
+				if (!snake.getType().getStructure().getNeighbors(jungle, snake.getElements().get(i).getField())
+						.contains(snake.getElements().get(i + 1).getField())) {
 					errorList.add(ErrorType.NEIGHBORHOOD);
 				}
 			}
@@ -151,56 +142,51 @@ public class SolutionExaminer {
 	}
 
 	/**
-	 * Es wird das Modell zurueckgegeben, dass sich aktuell im LoesungsPruefer
-	 * befindet. Dies ist vor allem fuer kuenftige Aenderungen und auch fuer damit
-	 * einhergehende Tests gedacht.
+	 * Returns the model currently in the SolutionExaminer. This is primarily
+	 * intended for future changes and testing.
 	 * 
-	 * @return Wert der Variablen <code>modell</code>.
+	 * @return Value of the 'model' variable.
 	 */
 	public IModel getModel() {
 		return model;
 	}
 
 	/**
-	 * Es kann das Modell des LoesungsPruefers gesetzt werden. So ist es zum
-	 * Beispiel moeglich ein Modell zu uebergeben, auch wenn zunaechst der
-	 * parameterlose Konstruktor genutzt wurde. Es ist auch im Allgemeinen moeglich
-	 * das Modell nach Instanziierung der Klasse zu aendern.
+	 * Allows setting the model of the SolutionExaminer. It is possible to pass a
+	 * model, even if the parameterless constructor was used initially. It is also
+	 * generally possible to change the model after instantiating the class.
 	 * 
-	 * @param model Das Modell, das uebergeben werden soll.
-	 * @throws IllegalArgumentException Eine Ausnahme wird geworfen, wenn ein
-	 *                                  unpassendes Modell uebergeben wird.
+	 * @param model The model to be passed.
+	 * @throws IllegalArgumentException An exception is thrown if an inappropriate
+	 *                                  model is passed.
 	 */
 	public void setModel(IModel model) throws IllegalArgumentException {
 		if (model.getSolution() == null || model.getSolution().getSnakes().size() == 0) {
-			System.out.println("Das Modell, dass dem Loesungspruefer uebergeben werden soll, hat keine Loesung. Um "
-					+ "eine Loesung zu\npruefen, muss ein Modell uebergeben werden, dass eine Loesung besitzt. Ist "
-					+ "keine Loesung vorhanden,\nso kann diese mit der Schlangensuche gefunden werden. Es wird eine "
-					+ "leere Fehlerliste\nzurueckgegeben.");
+			System.out.println("The model passed to the solution examiner has no solution. To "
+					+ "check a solution, a model containing a solution must be passed. If "
+					+ "there is no solution, it can be found using snake search. An empty "
+					+ "error list will be returned.");
 			System.out.println();
-			throw new IllegalArgumentException(
-					"Dem LoesungsPruefer muss ein Modell uebergeben werden, dass eine Loesung enthaelt.");
+			throw new IllegalArgumentException("The SolutionExaminer must be passed a model containing a solution.");
 		}
 		this.model = model;
 	}
 
 	/**
-	 * Es wird die aktuelle Fehlerliste des LoesungsPruefers zurueckgegeben. Dies
-	 * ist vor allem fuer kuenftige Aenderungen und auch fuer damit einhergehende
-	 * Tests gedacht.
+	 * Returns the current error list of the SolutionExaminer. This is primarily
+	 * intended for future changes and testing.
 	 * 
-	 * @return Die (aktuelle) Fehlerliste des LoesungsPruefers.
+	 * @return The current error list of the SolutionExaminer.
 	 */
 	public List<ErrorType> getErrorList() {
 		return errorList;
 	}
 
 	/**
-	 * Es wird die aktuelle Liste mit Schlangen des LoesungsPruefers zurueckgegeben.
-	 * Dies ist vor allem fuer kuenftige Aenderungen und auch fuer damit
-	 * einhergehende Tests gedacht.
+	 * Returns the current list of snakes in the SolutionExaminer. This is primarily
+	 * intended for future changes and testing.
 	 * 
-	 * @return Die Schlangenliste des LoesungsPruefers.
+	 * @return The snake list of the SolutionExaminer.
 	 */
 	public List<Snake> getSnakes() {
 		return snakes;

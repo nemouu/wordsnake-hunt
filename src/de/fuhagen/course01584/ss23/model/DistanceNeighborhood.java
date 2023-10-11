@@ -3,45 +3,42 @@ package de.fuhagen.course01584.ss23.model;
 import java.util.*;
 
 /**
- * Eine Implementierung der Schnittstelle INachbarschaft, die eine Nachbarschaft
- * zwischen direkt aneinander grenzenden Feldern beschreibt. Hierbei werden alle
- * Felder betrachten die ueber, unter, neben und diagonal zum Ausgangsfeld
- * liegen. Wie viele Nachbarn hinzugefuegt werden haengt von dem eingegebenen
- * Parameter, also der Distanz ab.
+ * An implementation of the INeighborhood interface that describes a
+ * neighborhood between directly adjacent fields. It considers all fields that
+ * are above, below, next to, and diagonally adjacent to the origin field. The
+ * number of neighbors to be added depends on the input parameter, i.e., the
+ * distance.
  * 
  * @author Philip Redecker
  *
  */
 public class DistanceNeighborhood implements INeighborhood {
-	private String type = "Distanz";
+	private final String type = "Distanz";
 	private List<Integer> parameter = new ArrayList<Integer>();
 
 	/**
-	 * Ein Konstruktor, dem der in der Klasse genutzte Parameter direkt uebergeben
-	 * wird. Bei Instanziierung der Klasse ist also direkt bekannt wie weit nach
-	 * Nachbarn gesucht werden soll.
+	 * A constructor to directly pass the parameter used in the class. Upon
+	 * instantiation of the class, it is known how far to search for neighbors.
 	 * 
-	 * @param parameter Eine Zahl, die bestimmt wo die Nachbarfelder eines Feldes
-	 *                  liegen.
+	 * @param parameter A number determining where the neighboring fields of a field
+	 *                  are located.
 	 */
 	public DistanceNeighborhood(int parameter) {
 		super();
 		if (parameter < 1) {
 			throw new IllegalArgumentException(
-					"Fuer die Klasse DistanzNachbarschaft darf das Attribut 'parameters' keine "
-							+ " Elemente haben, die negativ sind.");
+					"For the DistanceNeighborhood class, the 'parameters' attribute must not have elements that are negative.");
 		}
 		if (Integer.MAX_VALUE - 1 < parameter) {
 			throw new IllegalArgumentException(
-					"Fuer die Klasse DistanzNachbarschaft darf das Attribut 'parameters' keine "
-							+ "Elemente haben, die groesser als der groesste Integerwert sind.");
+					"For the DistanceNeighborhood class, the 'parameters' attribute must not have elements larger than the largest integer value.");
 		}
 		this.parameter.add(parameter);
 	}
 
 	/**
-	 * Ein parameterloser Konstruktor, so, dass es bei zukuenftiger Aanderung des
-	 * Programmes moeglich ist, diese Klasse zum Beispiel zum Testen zu nutzen.
+	 * A parameterless constructor so that it is possible to use this class for
+	 * testing, for example, in future changes to the program.
 	 */
 	public DistanceNeighborhood() {
 		super();
@@ -50,13 +47,11 @@ public class DistanceNeighborhood implements INeighborhood {
 	@Override
 	public List<Field> getNeighbors(Jungle jungle, Field field) {
 		/*
-		 * In dieser Methode werden die Nachbarn eines Feldes in einem Dschungel
-		 * gefunden. Dabei werden alle Felder, die in der Entfernung des Parameters vom
-		 * Ursprungsfeld liegen betrachtet. Dabei wird immer geprueft, ob der jeweilige
-		 * Nachbarn ueberhaupt noch in den Grenzen des Dschungels liegt. Ausserdem
-		 * werden hierbei manche Felder moeglicherweise mehrmals betrachtet, deshalb
-		 * wird immer gerpueft, ob sich ein bestimmtes Feld schon in der Liste mit
-		 * Nachbarn befindet.
+		 * In this method, the neighbors of a field in a jungle are found. It considers
+		 * all fields that are at the distance of the parameter from the origin field.
+		 * It always checks if the respective neighbor is still within the boundaries of
+		 * the jungle. Also, some fields may be considered multiple times, so it always
+		 * checks whether a specific field is already in the list of neighbors.
 		 */
 		List<Field> listOfNeighbors = new ArrayList<Field>();
 		int param = parameter.get(0);
@@ -66,22 +61,26 @@ public class DistanceNeighborhood implements INeighborhood {
 				if (i == 0 && j == 0) {
 				} else {
 					if (field.getRow() + i < jungleFields.length && field.getColumn() + j < jungleFields[0].length) {
-						if (listOfNeighbors.contains(jungleFields[field.getRow() + i][field.getColumn() + j]) == false) {
+						if (listOfNeighbors
+								.contains(jungleFields[field.getRow() + i][field.getColumn() + j]) == false) {
 							listOfNeighbors.add(jungleFields[field.getRow() + i][field.getColumn() + j]);
 						}
 					}
 					if (field.getRow() - i >= 0 && field.getColumn() - j >= 0) {
-						if (listOfNeighbors.contains(jungleFields[field.getRow() - i][field.getColumn() - j]) == false) {
+						if (listOfNeighbors
+								.contains(jungleFields[field.getRow() - i][field.getColumn() - j]) == false) {
 							listOfNeighbors.add(jungleFields[field.getRow() - i][field.getColumn() - j]);
 						}
 					}
 					if (field.getRow() + i < jungleFields.length && field.getColumn() - j >= 0) {
-						if (listOfNeighbors.contains(jungleFields[field.getRow() + i][field.getColumn() - j]) == false) {
+						if (listOfNeighbors
+								.contains(jungleFields[field.getRow() + i][field.getColumn() - j]) == false) {
 							listOfNeighbors.add(jungleFields[field.getRow() + i][field.getColumn() - j]);
 						}
 					}
 					if (field.getRow() - i >= 0 && field.getColumn() + j < jungleFields[0].length) {
-						if (listOfNeighbors.contains(jungleFields[field.getRow() - i][field.getColumn() + j]) == false) {
+						if (listOfNeighbors
+								.contains(jungleFields[field.getRow() - i][field.getColumn() + j]) == false) {
 							listOfNeighbors.add(jungleFields[field.getRow() - i][field.getColumn() + j]);
 						}
 					}
@@ -109,41 +108,35 @@ public class DistanceNeighborhood implements INeighborhood {
 	@Override
 	public void setParameters(List<Integer> parameters) {
 		if (parameters.size() > 1) {
-			throw new IllegalArgumentException("Fuer die Klasse DistanzNachbarschaft darf das Attribut 'parameters'"
-					+ "nicht mehr als ein Element haben");
+			throw new IllegalArgumentException("For the DistanceNeighborhood class, the 'parameters' "
+					+ "attribute cannot have more than one element.");
 		}
 		if (parameters.get(0) < 0) {
-			throw new IllegalArgumentException(
-					"Fuer die Klasse DistanzNachbarschaft darf das Attribut 'parameters' keine "
-							+ " Elemente haben, die negativ sind.");
+			throw new IllegalArgumentException("For the DistanceNeighborhood class, the 'parameters' "
+					+ "attribute must not have elements that are negative.");
 		}
 		if (Integer.MAX_VALUE - 1 < parameters.get(0)) {
-			throw new IllegalArgumentException(
-					"Fuer die Klasse DistanzNachbarschaft darf das Attribut 'parameters' keine "
-							+ "Elemente haben, die groesser als der groesste Integerwert sind");
+			throw new IllegalArgumentException("For the DistanceNeighborhood class, the 'parameters' "
+					+ "attribute must not have elements larger than the largest integer value.");
 		}
 		this.parameter = parameters;
 	}
 
 	/**
-	 * Eine Methode mit der es moeglich ist einen einzelnen Parameter zu setzen.
-	 * Dies ist vor allem in dieser Implementierung der Schnittstelle nuetzlich, da
-	 * hier eigentlich nur ein Parameter gebraucht wird. Die Methode wird
-	 * hauptsaechlich zum Testen der Klasse und der anderen Methoden der Klasse
-	 * verwendet.
+	 * A method to set a single parameter. This is especially useful in this
+	 * implementation of the interface since only one parameter is needed. The
+	 * method is mainly used to test the class and its other methods.
 	 * 
-	 * @param parameter Eine Zahl, die als Parameter uebergeben werden soll.
+	 * @param parameter A number to be passed as a parameter.
 	 */
 	public void setParameter(int parameter) {
 		if (parameter < 1) {
-			throw new IllegalArgumentException(
-					"Fuer die Klasse DistanzNachbarschaft darf das Attribut 'parameters' keine "
-							+ " Elemente haben, die negativ sind.");
+			throw new IllegalArgumentException("For the DistanceNeighborhood class, the 'parameters' "
+					+ "attribute must not have elements that are negative.");
 		}
 		if (Integer.MAX_VALUE - 1 < parameter) {
-			throw new IllegalArgumentException(
-					"Fuer die Klasse DistanzNachbarschaft darf das Attribut 'parameters' keine "
-							+ "Elemente haben, die groesser als der groesste Integerwert sind");
+			throw new IllegalArgumentException("For the DistanceNeighborhood class, the 'parameters' "
+					+ "attribute must not have elements that are larger than the largest integer value.");
 		}
 		this.parameter.set(0, parameter);
 	}

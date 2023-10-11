@@ -3,51 +3,51 @@ package de.fuhagen.course01584.ss23.model;
 import java.util.*;
 
 /**
- * Eine Implementierung der Schnittstelle INachbarschaft, die eine Nachbarschaft
- * zwischen Feldern beschreibt, die sternförmig im Dschungel angeordnet sind.
- * Hierbei gibt der erste Parameter die maximale Distanz in waage- und
- * senkrechter Richtung vor und der zweite Parameter gibt die maximale Distanz
- * in beiden diagonalen Richtungen vor.
+ * An implementation of the INeighborhood interface that describes a
+ * neighborhood between fields arranged in a star shape in the jungle. The first
+ * parameter determines the maximum distance in the horizontal and vertical
+ * directions, and the second parameter determines the maximum distance in both
+ * diagonal directions.
  * 
  * @author Philip Redecker
  *
  */
 public class StarNeighborhood implements INeighborhood {
-	private String type = "Stern";
+	private final String type = "Stern";
 	private List<Integer> parameters = new ArrayList<Integer>();
 
 	/**
-	 * Ein Konstruktor, dem die in der Klasse genutzten Parameter direkt uebergeben
-	 * werden. Bei Instanziierung der Klasse ist also direkt bekannt wie weit und wo
-	 * nach Nachbarn gesucht werden soll.
+	 * A constructor to directly pass the parameters used in the class. When
+	 * instantiating the class, it is directly known how far and where to search for
+	 * neighbors.
 	 * 
-	 * @param parameters Eine Liste mit Zahlen, die bestimmen wo die Nachbarfelder
-	 *                   eines Feldes liegen.
+	 * @param parameters A list of numbers that determine where the neighboring
+	 *                   fields of a field are located.
 	 */
 	public StarNeighborhood(List<Integer> parameters) {
 		super();
 		if (parameters.size() != 2) {
-			throw new IllegalArgumentException("Fuer die Klasse 'SternNachbarschaft' kann nur eine"
-					+ "Liste uebergeben werden, die zwei Eintraege hat.");
+			throw new IllegalArgumentException(
+					"For the 'StarNeighborhood' class, only a list with two entries can be passed.");
 		}
 		if (parameters.get(0) < 0 || parameters.get(1) < 0) {
-			throw new IllegalArgumentException("Fuer die Klasse 'SternNachbarschaft' kann nur eine"
-					+ "Liste uebergeben werden, deren Eintraege positiv sind.");
+			throw new IllegalArgumentException(
+					"For the 'StarNeighborhood' class, only a list with positive entries can be passed.");
 		}
 		if (parameters.get(0) > Integer.MAX_VALUE - 1 || parameters.get(1) > Integer.MAX_VALUE - 1) {
-			throw new IllegalArgumentException("Fuer die Klasse 'SternNachbarschaft' kann nur eine"
-					+ "Liste uebergeben werden, deren Eintraege nicht groesser als der groesste Integerwert sind.");
+			throw new IllegalArgumentException("For the 'StarNeighborhood' class, only a "
+					+ "list with entries not greater than the largest integer value can be passed.");
 		}
 		if (parameters.get(0) == 0 && parameters.get(1) == 0) {
-			throw new IllegalArgumentException("Fuer die Klasse 'SternNachbarschaft' kann keine"
-					+ "Liste uebergeben werden, deren Eintraege beide gleich 0 sind.");
+			throw new IllegalArgumentException(
+					"For the 'StarNeighborhood' class, a list with both entries equal to 0 cannot be passed.");
 		}
 		this.parameters = parameters;
 	}
 
 	/**
-	 * Ein parameterloser Konstruktor, so, dass es bei zukuenftiger Aanderung des
-	 * Programmes moeglich ist, diese Klasse zum Beispiel zum Testen zu nutzen.
+	 * A parameterless constructor, so that it is possible to use this class for
+	 * testing, for example, in future program changes.
 	 */
 	public StarNeighborhood() {
 		super();
@@ -92,7 +92,7 @@ public class StarNeighborhood implements INeighborhood {
 
 	@Override
 	public String toString() {
-		return type + ", Parameter=(" + parameters.get(0) + ", " + parameters.get(1) + ")";
+		return type + ", Parameters=(" + parameters.get(0) + ", " + parameters.get(1) + ")";
 	}
 
 	@Override
@@ -108,16 +108,16 @@ public class StarNeighborhood implements INeighborhood {
 	@Override
 	public void setParameters(List<Integer> parameters) {
 		if (parameters.size() != 2) {
-			throw new IllegalArgumentException("Fuer die Klasse 'SternNachbarschaft' kann nur eine"
-					+ "Liste uebergeben werden, die zwei Eintraege hat.");
+			throw new IllegalArgumentException(
+					"For the 'StarNeighborhood' class, only a list with two entries can be passed.");
 		}
 		if (parameters.get(0) < 0 || parameters.get(1) < 0) {
-			throw new IllegalArgumentException("Fuer die Klasse 'SternNachbarschaft' kann nur eine"
-					+ "Liste uebergeben werden, derem Eintraege positiv sind.");
+			throw new IllegalArgumentException(
+					"For the 'StarNeighborhood' class, only a list with positive entries can be passed.");
 		}
 		if (parameters.get(0) > Integer.MAX_VALUE - 1 || parameters.get(1) > Integer.MAX_VALUE - 1) {
-			throw new IllegalArgumentException("Fuer die Klasse 'SternNachbarschaft' kann nur eine"
-					+ "Liste uebergeben werden, derem Eintraege nicht groesser als der groesste Integerwert sind.");
+			throw new IllegalArgumentException("For the 'StarNeighborhood' class, only a "
+					+ "list with entries not greater than the largest integer value can be passed.");
 		}
 		this.parameters = parameters;
 	}

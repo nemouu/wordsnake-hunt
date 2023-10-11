@@ -8,11 +8,10 @@ import de.fuhagen.course01584.ss23.model.*;
 import java.io.*;
 
 /**
- * Eine Implementierung der Schnittstelle ISchreiber, um das Schreiben von Daten
- * des Modelles in XML-Dateien zu ermoeglichen. Es wird zunaechst ein Dokument
- * erstellt und dann werden diesem nach und nach die Informationen des Modelles
- * hinzugefuegt. Schliesslich wird kann dieses Dokument dann ausgegeben und an
- * einer angegebenen Stelle gespeichert werden.
+ * An implementation of the IWriter interface to enable writing data from the
+ * model to XML files. A document is created first, and then the model's
+ * information is gradually added to it. Finally, this document can be output
+ * and saved at a specified location.
  * 
  * @author Philip Redecker
  *
@@ -22,12 +21,11 @@ public class WriterXML implements IWriter {
 	private Document doc;
 
 	/**
-	 * Ein parametrisierter Konstruktor fuer die Klasse SchreiberXML. Es wird ein
-	 * Modell uebergeben, das in eine Datei geschrieben werden soll. Bei der
-	 * Instanziierung wird dieses Modell dann an das interne Modell der
-	 * Schreiberklasse uebergeben.
+	 * A parameterized constructor for the WriterXML class. A model is passed that
+	 * needs to be written to a file. During instantiation, this model is then
+	 * transferred to the internal model of the Writer class.
 	 * 
-	 * @param model Das Modell, das in eine Datei geschrieben werden soll.
+	 * @param model The model to be written to a file.
 	 */
 	public WriterXML(IModel model) {
 		super();
@@ -35,8 +33,8 @@ public class WriterXML implements IWriter {
 	}
 
 	/**
-	 * Ein parameterloser Konstruktor, so, dass es bei zukuenftiger Aanderung des
-	 * Programmes moeglich ist, diese Klasse zum Beispiel zum Testen zu nutzen.
+	 * A parameterless constructor, allowing this class to be used for future
+	 * program changes, such as for testing purposes.
 	 */
 	public WriterXML() {
 		super();
@@ -44,32 +42,31 @@ public class WriterXML implements IWriter {
 
 	@Override
 	public void writeInFile(String fileName) throws Exception {
-		// Es wird geprueft ob der Name der Ausgabedatei ein gueltiges Format hat.
+		// Check if the output file name has a valid format.
 		if (fileName == null || !fileName.endsWith(".xml")) {
-			System.out.println("Es ist zu einem Fehler gekommen! Der angegebene Dateipfad zum Speichern hat nicht\ndas "
-					+ "richtige Format. Der Pfad muss in der Form 'Dateiname.xml' angegeben werden. Die\nDatei "
-					+ "konnte nicht gespeichert werden.");
+			System.out.println("An error occurred! The specified file path for saving does not have "
+					+ "the correct format. The path must be in the form 'filename.xml'. The file "
+					+ "could not be saved.");
 			System.out.println();
-			throw new IllegalArgumentException("Der angegebene Dateipfad zum Speichern hat nicht das "
-					+ "richtige Format. Der Pfad muss\nin der Form 'Dateiname.xml' angegeben werden.");
+			throw new IllegalArgumentException("The specified file path for saving does not have the correct format. "
+					+ "The path must be in the form 'filename.xml'.");
 		}
 
 		/*
-		 * Es wird das Dokument erstellt, dem nun nach und nach Daten hinzugefuegt
-		 * werden, und es wird sichergestellt, dass dieses Dokument den Vorgaben der
-		 * Datei 'schlangenjagd.dtd' entspricht.
+		 * Create the document to which data will be gradually added, and ensure that
+		 * this document conforms to the specifications of the 'schlangenjagd.dtd' file.
 		 */
 		Element root = new Element("Schlangenjagd");
 		DocType dType = new DocType("Schlangenjagd", "schlangenjagd.dtd");
 		doc = new Document(root, dType);
 
-		// Die Daten des Modelles werden mit Hilfe dieser privaten Methoden uebergeben.
+		// Transfer model data using private methods.
 		transferTimeFromModel(doc);
 		transferJungleAndFieldsFromModel(doc);
 		transferSnakeTypesFromModel(doc);
 		transferSnakesFromModel(doc);
 
-		// Das Dokument wird ausgegeben und an der angegebenen Stelle gespeichert.
+		// Output the document and save it at the specified location.
 		XMLOutputter xml = new XMLOutputter();
 		xml.setFormat(Format.getPrettyFormat());
 		xml.output(doc, new FileWriter(fileName));
@@ -77,10 +74,9 @@ public class WriterXML implements IWriter {
 
 	private void transferSnakesFromModel(Document doc) {
 		/*
-		 * Hier werden die Schlangen aus der Loesung des Modelles des Programmes
-		 * uebertragen. Es werden hier aber nur Schlangen geschrieben, wenn diese auch
-		 * vorher im Modell standen. Sind keine Schlangen vorhanden, wird dieser Schritt
-		 * uebersprungen.
+		 * Here, the snakes from the model's solution are transferred. However, snakes
+		 * are only written here if they were present in the model beforehand. If there
+		 * are no snakes, this step is skipped.
 		 */
 		if (toBeTransferredModel.getSolution() != null) {
 			Element snakes = new Element("Schlangen");
@@ -99,8 +95,8 @@ public class WriterXML implements IWriter {
 
 	private void transferSnakeTypesFromModel(Document doc) {
 		/*
-		 * Hier werden die Schlangenarten des Modelles, mit ID, Punkten, Anzahl und
-		 * Nachbarschaftsstruktur, dem Dokument hinzugefuegt.
+		 * Here, the snake types from the model, with ID, points, amount, and
+		 * neighborhood structure, are added to the document.
 		 */
 		Element snakeTypes = new Element("Schlangenarten");
 		for (SnakeType type : toBeTransferredModel.getSnakeTypes()) {
@@ -122,14 +118,12 @@ public class WriterXML implements IWriter {
 
 	private void transferJungleAndFieldsFromModel(Document doc) {
 		/*
-		 * Hier wird der Dschungel des Modelles, mit allen Feldern und den Angaben fuer
-		 * Zeilen, Spalten und Zeichenmenge, dem Dokument hinzugefuegt.
+		 * Here, the jungle from the model, along with all fields and information about
+		 * rows, columns, and characters, is added to the document.
 		 */
 		Element jungle = new Element("Dschungel");
-		jungle.setAttribute(
-				new Attribute("zeilen", Integer.toString(toBeTransferredModel.getJungle().getRows())));
-		jungle.setAttribute(
-				new Attribute("spalten", Integer.toString(toBeTransferredModel.getJungle().getColumns())));
+		jungle.setAttribute(new Attribute("zeilen", Integer.toString(toBeTransferredModel.getJungle().getRows())));
+		jungle.setAttribute(new Attribute("spalten", Integer.toString(toBeTransferredModel.getJungle().getColumns())));
 		jungle.setAttribute(new Attribute("zeichen", toBeTransferredModel.getJungle().getSigns()));
 		if (toBeTransferredModel.getJungle().getFields()[0][0].getCharacter() != null) {
 			for (int i = 0; i < toBeTransferredModel.getJungle().getFields().length; i++) {
@@ -141,8 +135,8 @@ public class WriterXML implements IWriter {
 							Integer.toString(toBeTransferredModel.getJungle().getFields()[i][j].getRow()));
 					field.setAttribute("spalte",
 							Integer.toString(toBeTransferredModel.getJungle().getFields()[i][j].getColumn()));
-					field.setAttribute("verwendbarkeit", Integer
-							.toString(toBeTransferredModel.getJungle().getFields()[i][j].getUsage()));
+					field.setAttribute("verwendbarkeit",
+							Integer.toString(toBeTransferredModel.getJungle().getFields()[i][j].getUsage()));
 					field.setAttribute("punkte",
 							Integer.toString(toBeTransferredModel.getJungle().getFields()[i][j].getPoints()));
 					jungle.addContent(field);
@@ -154,8 +148,8 @@ public class WriterXML implements IWriter {
 
 	private void transferTimeFromModel(Document doc) {
 		/*
-		 * Hier wird die Zeit zusammen mit der Zeiteinheit, die sich im Modell befindet,
-		 * in das Dokument geschrieben.
+		 * Here, the time along with the time unit in the model is written into the
+		 * document.
 		 */
 		Element time = new Element("Zeit");
 		time.setAttribute(new Attribute("einheit", toBeTransferredModel.getUnitOfTime()));
@@ -167,14 +161,12 @@ public class WriterXML implements IWriter {
 	}
 
 	/**
-	 * Eine Methode, die die das Dokument, das in dieser Klasse erstellt wird
-	 * zurueckgibt. Es ist darauf zu achten, dass die Variable eventuell leer ist,
-	 * falls die Methode genutzt wird bevor ueberhaupt ein Dokument erstellt wurde
-	 * (dies erledigen die anderen Methoden dieser Klasse). Die Methode ist
-	 * hauptsaechlich gedacht, um diese Klasse und ihre Methoden ausreichend testen
-	 * zu koennen.
+	 * A method that returns the document created in this class. It should be noted
+	 * that the variable may be empty if the method is used before a document is
+	 * even created (this is done by the other methods of this class). The method is
+	 * mainly intended to sufficiently test this class and its methods.
 	 * 
-	 * @return Der Wert der Variable <code>dokument</code>.
+	 * @return The value of the variable <code>document</code>.
 	 */
 	public Document getDocument() {
 		return doc;

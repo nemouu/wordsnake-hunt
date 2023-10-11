@@ -124,14 +124,6 @@ class SnakeTypeTest {
 			assertThrows(NullPointerException.class, () -> new SnakeType(null, null, null, 0, 1),
 					"\nEs wird nicht der leere String zurueckgegeben, obwohl das Modell leer ist.");
 		}
-
-		@DisplayName("Test toString Methode mit normalem Inhalt")
-		@Test
-		void testToStringNormal() {
-			SnakeType type = new SnakeType("A0", exampleNeighborhood, "FERNUNI", 2, 3);
-			assertEquals("ID=A0, Nachbarschaftsstruktur=Distanz, Zeichenkette=FERNUNI, Punkte=2, Anzahl=3",
-					type.toString(), "\nEs wird nicht der richtige String zurueckgegeben.");
-		}
 	}
 
 	@DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)

@@ -3,84 +3,76 @@ package de.fuhagen.course01584.ss23.algorithm;
 import de.fuhagen.course01584.ss23.model.*;
 
 /**
- * Ein Interface zur Herstellung einer Schnittstelle zwischen Schlangensuche,
- * Hauptkomponente und Datenmodell. Dadurch ist es moeglich in Zukunft die
- * Schlangensuche zu erweitern, anzupassen oder zu ersetzen durch eine andere
- * Implementierung. Die Schnittstelle wird so eingesetzt, dass die konkrete
- * Implementierung der Klasse SchlangeSuche austauschbar bleibt.
+ * An interface to establish a connection between the snake search component,
+ * the main component and the data model. This allows future extension,
+ * customization or replacement of the snake search with a different
+ * implementation. The interface is used to keep the concrete implementation of
+ * the SnakeSearch class replaceable.
  * 
  * @author Philip Redecker
- *
  */
 public interface ISnakeSearch {
 
 	/**
-	 * Eine Methode zum Suchen von Schlangen in einem gegebenen Dschungel. Es soll
-	 * so lange nach Schlangen gesucht werden bis der Dschungel komplett durchsucht
-	 * worden ist oder bis ein vorgegebenes Zeitlimit erreicht worden ist. Die
-	 * Loesung wird in einer private Variablen <code>Loesung</code> gespeichert.
+	 * A method for searching snakes in a given jungle. It should search for snakes
+	 * until the jungle has been completely searched or until a specified time limit
+	 * has been reached. The solution is stored in a private variable
+	 * <code>solution</code>.
 	 */
 	void searchSnakes();
 
 	/**
-	 * Es wird der Wert der Variablen <code>funktionen</code> zurueckgegeben.
-	 * Hierbei handelt es sich um eine weitere Schnittstelle, weswegen in dieser
-	 * Klasse Getter und Setter angeboten werden. Dies ist fuer zukuenftige
-	 * Programmerweiterung und beziehungsweise oder Tests gedacht.
+	 * Returns the value of the <code>functions</code> variable. This is another
+	 * interface, so getter and setter methods are provided in this class. This is
+	 * intended for future program extension and/or testing.
 	 * 
-	 * @return Der Wert der Variablen <code>funktionen</code>.
+	 * @return The value of the <code>functions</code> variable.
 	 */
 	ISnakeSearchUtil getFunctions();
 
 	/**
-	 * Es kann der Wert der Variablen <code>funktionen</code> gesetzt. Hierbei
-	 * handelt es sich um eine weitere Schnittstelle, weswegen in dieser Klasse
-	 * Getter und Setter angeboten werden. Dies ist fuer zukuenftige
-	 * Programmerweiterung und beziehungsweise oder Tests gedacht.
+	 * Sets the value of the <code>functions</code> variable. This is another
+	 * interface, so getter and setter methods are provided in this class. This is
+	 * intended for future program extension and/or testing.
 	 * 
-	 * @param functions Eine Instanz einer Klasse, die das Interface
-	 *                   <code>ISchlangenSucheUtil</code> implementiert.
+	 * @param functions An instance of a class that implements the
+	 *                  <code>ISnakeSearchUtil</code> interface.
 	 */
 	void setFunctions(ISnakeSearchUtil functions);
 
 	/**
-	 * Es wird das Modell zurueckgegeben, dass sich aktuell in der Schlangesuche
-	 * befindet. Dies ist vor allem fuer kuenftige Aenderungen und auch fuer damit
-	 * einhergehende Tests gedacht.
+	 * Returns the model currently used in the snake search. This is mainly for
+	 * future changes and also for associated tests.
 	 * 
-	 * @return Der Wert der Variablen <code>modell</code>.
+	 * @return The value of the <code>model</code> variable.
 	 */
 	IModel getModel();
 
 	/**
-	 * Es kann das Modell der Schlangesuche gesetzt werden. So ist es zum Beispiel
-	 * moeglich ein Modell zu uebergeben, auch wenn zunaechst der parameterlose
-	 * Konstruktor genutzt wurde. Es ist auch im Allgemeinen moeglich das Modell
-	 * nach Instanziierung der Klasse zu aendern.
+	 * Sets the model for the snake search. For example, it's possible to pass a
+	 * model even if the parameterless constructor was initially used. It is also
+	 * generally possible to change the model after class instantiation.
 	 * 
-	 * @param model Das Modell, das uebergeben werden soll.
-	 * @throws IllegalArgumentException Eine Ausnahme wird geworfen, wenn ein
-	 *                                  unpassendes Modell uebergeben wird.
+	 * @param model The model to be passed.
+	 * @throws IllegalArgumentException An exception is thrown if an inappropriate
+	 *                                  model is passed.
 	 */
 	void setModel(IModel model) throws IllegalArgumentException;
 
 	/**
-	 * Es wird die Loesung zurueckgegeben, die die Schlangensuche gefunden hat.
-	 * Hierbei ist zu beachten, dass der Aufruf dieser Methode erst sinnvoll ist,
-	 * nachdem die Schlangensuche ueberhaupt nach einer Loesung gesucht hat. Wird
-	 * dies Methode vorher aufgerufen, wird moeglicherweise eine unvollstaendige
-	 * Loesung zurueckgegeben.
+	 * Returns the solution found by the snake search. Note that calling this method
+	 * only makes sense after the snake search has actually searched for a solution.
+	 * If this method is called earlier, an incomplete solution may be returned.
 	 * 
-	 * @return Der Wert der Variable <code>loesung</code>.
+	 * @return The value of the <code>solution</code> variable.
 	 */
 	Solution getSolution();
 
 	/**
-	 * Es wird der Zeitpunkt zurueckgegeben, an dem die Schlangensuche gestartet
-	 * wurde. Dies ist hauptsaechlich fuer die Nutzung dieser Klasse in der
-	 * Hauptkomponente dieses Programmes noetig.
+	 * Returns the time when the snake search was started. This is mainly necessary
+	 * for using this class in the main component of this program.
 	 * 
-	 * @return Der Wert der Variable <code>aktZeit</code>.
+	 * @return The value of the <code>currTime</code> variable.
 	 */
 	Long getCurrTime();
 

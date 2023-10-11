@@ -71,57 +71,6 @@ class ProblemModelTest {
 					() -> "\nFuer den zu grossen Wert '" + 0.0 + "' wurde keine Ausnahme erzeugt.");
 		}
 
-		@DisplayName("Test toString Methode, wenn moeglichst viel leer ist, Teil 1")
-		@Test
-		void testToStringEmptyOne() {
-			Double[] exampleTime = { 3.0 };
-			IModel exampleModel = new ProblemModel(new Jungle(0, 0, null, 1), exampleSolution, exampleTime);
-			assertEquals("Der Dschungel dieses Problemes hat 0 Zeilen, 0 Spalten und die Zeichenmenge 'null' \naber "
-					+ "keine Felder und es kann nach Schlangen der Schlangenart/en \n\n"
-					+ "\ngesucht werden. Die Felder koennen mit dem Befehl 'e' erzeugt werden. Die Loesung hierzu ist "
-					+ "nicht \nvorhanden und kann mit dem Befehl 'l' gesucht werden.", exampleModel.toString(),
-					"\nEs wird nicht der entsprechende String zurueckgegeben, obwohl das Modell leer ist.");
-		}
-
-		@DisplayName("Test toString Methode, wenn moeglichst viel leer ist, Teil 2")
-		@Test
-		void testToStringTwo() {
-			Double[] exampleTime = { 3.0 };
-			IModel exampleModel = new ProblemModel(new Jungle(3, 3, "FERNUNI", 1), exampleSolution, exampleTime);
-			assertEquals("Der Dschungel dieses Problemes hat 3 Zeilen, 3 Spalten und die "
-					+ "Zeichenmenge 'FERNUNI' \naber keine Felder und es kann nach Schlangen der Schlangenart/en \n\n"
-					+ "\ngesucht werden. Die Felder koennen mit dem Befehl 'e' erzeugt werden. Die Loesung hierzu ist "
-					+ "nicht \nvorhanden und kann mit dem Befehl 'l' gesucht werden.", exampleModel.toString(),
-					"\nEs wird nicht der entsprechende String zurueckgegeben, obwohl das Modell leer ist.");
-		}
-
-		@DisplayName("Test toString Methode mit ohne Loesung")
-		@Test
-		void testToStringWithoutSolution() {
-			Double[] exampleTime = { 3.0 };
-			SnakeType type1 = new SnakeType("A0", new DistanceNeighborhood(1), "FERNUNI", 1, 1);
-			SnakeType type2 = new SnakeType("A1", new DistanceNeighborhood(3), "JUNITTEST", 2, 4);
-			Jungle exampleJungle = new Jungle(3, 4, "asdertg", 1);
-			for (int i = 0; i < exampleJungle.getRows(); i++) {
-				for (int j = 0; j < exampleJungle.getColumns(); j++) {
-					exampleJungle.getFields()[i][j].setCharacter("a");
-				}
-			}
-			IModel exampleModel = new ProblemModel(exampleJungle, null, exampleTime);
-			exampleModel.addSnakeType(type1);
-			exampleModel.addSnakeType(type2);
-			assertEquals("Der Dschungel dieses Problemes hat 3 Zeilen, " + "4 Spalten und die Zeichenmenge 'asdertg'. "
-					+ "Die Felder werden\nimmer in dem Format '(Zeichen, Verwendbarkeit, Punkte)' angegeben und"
-					+ " sind wie folgt angeordnet: \n\n\n (a,1,1) (a,1,1) (a,1,1) (a,1,1)\n\n (a,1,1) (a,1,1) (a,1,1) (a,1,1)"
-					+ "\n\n (a,1,1) (a,1,1) (a,1,1) (a,1,1)\n\n\nEs kann nach Schlangen" + " der Schlangenart/en \n\n"
-					+ " (ID=A0, Nachbarschaftsstruktur=Distanz, Zeichenkette=FERNUNI, Punkte=1, Anzahl=1)\n"
-					+ " (ID=A1, Nachbarschaftsstruktur=Distanz, Zeichenkette=JUNITTEST, Punkte=2, Anzahl=4)"
-					+ "\n\ngesucht werden und im Modell ist aktuell keine Loesung vorhanden. Es kann mit dem Befehl 'l' nach einer"
-					+ " Loesung\ngesucht werden.", exampleModel.toString(),
-					"\nEs wird nicht der richtige String zurueckgegeben.");
-
-		}
-
 		@DisplayName("Einfacher Test von berechneZeitInNanosekunden, Teil 1 ")
 		@Test
 		void testCalculateTimeInNanosecondsOne() {

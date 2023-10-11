@@ -3,11 +3,10 @@ package de.fuhagen.course01584.ss23.ioprocessing;
 import de.fuhagen.course01584.ss23.model.IModel;
 
 /**
- * Ein Interface zur Herstellung einer Schnittstelle zwischen Datenmodell und
- * Dateneingabe. Dadurch ist es moeglich in Zukunft das Programm durch eine
- * andere Form der Dateneingabe mit Daten zu vorsorgen, sollte dies gewuenscht
- * sein. Es ist zum Beispiel moeglich Daten in verschiedenen Dateiformaten
- * bereitzustellen.
+ * An interface to establish an interface between the data model and data input.
+ * This makes it possible to provide data to the program through a different
+ * form of data input in the future, if desired. For example, it is possible to
+ * provide data in various file formats.
  * 
  * @author Philip Redecker
  *
@@ -15,22 +14,21 @@ import de.fuhagen.course01584.ss23.model.IModel;
 public interface IReader {
 
 	/**
-	 * Die Eingabedatei wird unter <code>dateiPfad</code> gesucht. Wird eine Datei
-	 * gefunden, wird geprueft, ob sie das richtige Format hat und anschliessend
-	 * werden die Daten, die in der Datei stehen in das Datenmodell geschrieben.
+	 * The input file is searched for at <code>filePath</code>. If a file is found,
+	 * it is checked to see if it has the correct format, and then the data
+	 * contained in the file is written into the data model.
 	 * 
-	 * @param filePath Der Pfad zu der einzulesenden Datei.
-	 * @throws Exception Eine Ausnahme wird geworfen, wenn keine Datei gefunden wird
-	 *                   oder wenn sie das falsche Format hat.
+	 * @param filePath The path to the file to be read.
+	 * @throws Exception An exception is thrown if no file is found or if it has the
+	 *                   wrong format.
 	 */
 	void readFile(String filePath) throws Exception;
 
 	/**
-	 * Es wird das Modell zurueckgegeben, dass sich aktuell in der Leserklasse
-	 * befindet, die das Interface ILeser implementiert. Dies ist vor allem fuer
-	 * kuenftige Aenderungen und auch fuer damit einhergehende Tests gedacht.
+	 * Returns the model that is currently in the reader class implementing the
+	 * IReader interface. This is primarily intended for future changes and testing.
 	 * 
-	 * @return Wert der Variablen <code>uebergebenesModell</code>.
+	 * @return Value of the variable <code>transferredModel</code>.
 	 */
 	IModel getTransferredModel();
 

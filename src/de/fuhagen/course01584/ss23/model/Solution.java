@@ -3,10 +3,9 @@ package de.fuhagen.course01584.ss23.model;
 import java.util.*;
 
 /**
- * Eine Klasse, die die Speicherung einer Loesung im Modell erlaubt. Eine
- * Loesung, die von der Schlangensuche gefunden oder eine Loesung, die
- * eingelesen wurde, kann hier abgelegt werden. Es werden einige Methoden
- * angeboten, die die Datenverarbeitungs- und Algorithmusklassen unterstuetzen.
+ * A class that allows the storage of a solution in the model. A solution found
+ * by snake search or a solution that was read can be stored here. Some methods
+ * are provided to support data processing and algorithm classes.
  * 
  * @author Philip Redecker
  *
@@ -15,13 +14,12 @@ public class Solution {
 	private List<Snake> snakes;
 
 	/**
-	 * Ein parametrisierter Konstruktor in dem direkt eine Liste von Schlangen,
-	 * gemaess der in diesem Paket definierten Datenstruktur Schlange, uebergeben
-	 * wird. Eine Instanz einer Loesungsklasse hat in diesem Fall also eine Liste
-	 * mit (Loesungs-) Schlangen.
+	 * A parameterized constructor in which a list of snakes is directly passed,
+	 * according to the data structure defined in this package, Snake. In this case,
+	 * an instance of a solution class has a list of (solution) snakes.
 	 * 
-	 * @param snakes Eine Liste mit Schlangen, gemaess der in diesem Paket
-	 *               definierten Datenstruktur Schlange.
+	 * @param snakes A list of snakes according to the data structure defined in
+	 *               this package, Snake.
 	 */
 	public Solution(List<Snake> snakes) {
 		super();
@@ -29,10 +27,10 @@ public class Solution {
 	}
 
 	/**
-	 * Ein parameterloser Konstruktor, so, dass es bei zukuenftiger Aanderung des
-	 * Programmes moeglich ist, diese Klasse zum Beispiel zum Testen zu nutzen. Hier
-	 * wird direkt eine leere Liste mit Schlangen erzeugt, damit der Loesung
-	 * jederzeit Schlangen hinzugefuegt werden koennen, sollte dies gewuenscht sein.
+	 * A parameterless constructor, so that it is possible to use this class for
+	 * testing, for example, in future program changes. Here, an empty list of
+	 * snakes is created directly so that snakes can be added to the solution at any
+	 * time, if desired.
 	 */
 	public Solution() {
 		super();
@@ -40,18 +38,18 @@ public class Solution {
 	}
 
 	/**
-	 * Eine Methode, die die verschiedenen Schlagenarten zaehlt und ausgibt, die
-	 * tatsaechlich in einer Loesung vorhanden sind. Diese Zahl stimmt nach den
-	 * Vorgaben nicht zwingend mit der Zahl der im Modell enthaltenen Schlangenarten
-	 * ueberein. Dies wird insbesondere in den Datenverarbeitungsklassen und beim
-	 * Testen dieser Klasse genutzt.
+	 * A method that counts and returns the various types of snakes that are
+	 * actually present in a solution. This number does not necessarily correspond
+	 * to the number of snake types contained in the model according to the
+	 * specifications. This is used particularly in the data processing classes and
+	 * when testing this class.
 	 * 
-	 * @return Die Anzahl der verschiedenen Schlangenarten in der Loesung.
+	 * @return The number of different snake types in the solution.
 	 */
 	public int getNumberOfDifferentSnakeTypes() {
 		List<SnakeType> differentSnakeTypes = new ArrayList<SnakeType>();
 		for (Snake snake : snakes) {
-			if (differentSnakeTypes.contains(snake.getType()) == false) {
+			if (!differentSnakeTypes.contains(snake.getType())) {
 				differentSnakeTypes.add(snake.getType());
 			}
 		}
@@ -59,13 +57,12 @@ public class Solution {
 	}
 
 	/**
-	 * Diese Methode ermoeglicht es eine Schlange in der Loesung anhand ihrer der ID
-	 * ihrer Schlangenart zu finden und zurueckzugeben.
+	 * This method allows finding and returning a snake in the solution based on the
+	 * ID of its snake type.
 	 * 
-	 * @param id Ein String, der die ID der Schlangenart enthaelt, nach der gesucht
-	 *           wird.
-	 * @return <code>null</code>, wenn keine Schlange gefunden wurde, ansonsten wird
-	 *         die Schlange zurueckgegeben.
+	 * @param id A string containing the ID of the snake type to search for.
+	 * @return <code>null</code> if no snake was found, otherwise the snake is
+	 *         returned.
 	 */
 	public Snake getSnakeWithSnakeTypeID(String id) {
 		for (Snake snake : snakes) {
@@ -77,17 +74,17 @@ public class Solution {
 	}
 
 	/**
-	 * Eine Methode die der Loesung eine Schlange hinzufuegen kann.
+	 * A method that can add a snake to the solution.
 	 * 
-	 * @param inSnake Eine Schlange, gemaess der in diesem Paket definierten
-	 *                Datenstruktur Schlange.
+	 * @param inSnake A snake according to the data structure defined in this
+	 *                package, Snake.
 	 */
 	public void addSnake(Snake inSnake) {
 		this.snakes.add(inSnake);
 	}
 
 	/**
-	 * Eine Methode, die die letzte Schlange in der Loesung entfernt.
+	 * A method that removes the last snake in the solution.
 	 */
 	public void removeLastSnake() {
 		if (this.snakes != null) {
@@ -98,23 +95,21 @@ public class Solution {
 	}
 
 	/**
-	 * Es werden die Schlangen der Loesung zurueckgegeben.
+	 * Returns the snakes in the solution.
 	 * 
-	 * @return Eine Liste von Schlangen gemaess der in diesem Paket definierten
-	 *         Datenstruktur Schlangen.
+	 * @return A list of snakes according to the data structure defined in this
+	 *         package, Snake.
 	 */
 	public List<Snake> getSnakes() {
 		return snakes;
 	}
 
 	/**
-	 * Durch diese Methode ist das Setzen der Schlangen der Loesung auch nach
-	 * Instanziierung moeglich. Diese Methode dient vor allem dem Einlesen von Daten
-	 * aber unter anderem auch dem Testen oder beziehungsweise und der spaeteren
-	 * Programmerweiterung.
+	 * Through this method, setting the snakes of the solution is possible even
+	 * after instantiation. This method is primarily used for reading data, but also
+	 * for testing and subsequent program extension.
 	 * 
-	 * @param snakes Eine Liste mit Schlangen, die der Loesung uebergeben werden
-	 *               soll.
+	 * @param snakes A list of snakes to be passed to the solution.
 	 */
 	public void setSnakes(List<Snake> snakes) {
 		this.snakes = snakes;

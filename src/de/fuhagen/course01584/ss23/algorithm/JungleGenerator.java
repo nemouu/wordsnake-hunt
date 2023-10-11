@@ -5,16 +5,13 @@ import java.util.*;
 import de.fuhagen.course01584.ss23.model.*;
 
 /**
- * In dieser Klasse werden Konstruktoren und Methoden bereitgestellt, um die
- * Erzeugung einfacher Probleminstanzen fuer die Schlangenjagd zu ermoeglichen.
- * Dies bedeutet, dass sich Schlangen bei der Erzeugung solcher Probleminstanzen
- * nicht ueberschneiden koennen sollen, jedes Feld also maximal ein Mal
- * verwendet werden darf. Zur Erzeugung werden die Daten zu Zeilen, Spalten und
- * der Zeichenmenge des Dschungels und die Daten zu zu verteilenden
- * Schlangenarten genutzt.
+ * This class provides constructors and methods to enable the creation of simple
+ * problem instances for snake hunting. This means that snakes should not
+ * intersect when creating such problem instances, and each field should be used
+ * at most once. The data for rows, columns, character set of the jungle, and
+ * the data for distributing snake types are used for creation.
  * 
  * @author Philip Redecker
- *
  */
 public class JungleGenerator {
 	private IModel model;
@@ -28,31 +25,29 @@ public class JungleGenerator {
 	private boolean full;
 
 	/**
-	 * Erstellt bei Uebergabe eines geeigneten Modelles eine Probleminstanz auf
-	 * Basis der Daten des Modelles. Fehlen die Daten oder Teile der Daten, so wird
-	 * eine Fehlermeldung ausgegeben.
+	 * Creates a problem instance based on the data of the model when a suitable
+	 * model is provided. If the data or parts of the data are missing, an error
+	 * message is displayed.
 	 * 
-	 * @param model Das Modell auf Basis dessen der Dschungelgenerator den
-	 *               Dschungel generiert. Es ist darauf zu achten ein Modell zu
-	 *               uebergeben, dass genug Daten hat, so, dass ein Dschungel
-	 *               erzeugt werden kann. Ist dies nicht der Fall wird eine
-	 *               Fehlermeldung ausgegeben.
+	 * @param model The model based on which the jungle generator generates the
+	 *              jungle. It is important to pass a model that has enough data so
+	 *              that a jungle can be generated. If this is not the case, an
+	 *              error message will be displayed.
 	 *
-	 * @throws IllegalArgumentException Eine Ausnahme wird geworfen, wenn dem
-	 *                                  Konstruktor ein unpassendes Modell
-	 *                                  uebergeben wird.
+	 * @throws IllegalArgumentException An exception is thrown if an inappropriate
+	 *                                  model is passed to the constructor.
 	 */
 	public JungleGenerator(IModel model) throws IllegalArgumentException {
 		super();
 		this.snakeTypes = model.getSnakeTypes();
 		if (model.getJungle().getRows() * model.getJungle().getColumns() < minimumNumberUsedFields()) {
-			System.out
-					.println("Das Modell, dass dem Dschungelgenerator uebergeben werden soll enthaelt mehr\nSchlangen "
-							+ "als in den Dschungel passen. Es kann kein Dschungel generiert werden.");
+			System.out.println(
+					"The model to be passed to the jungle generator contains more\nsnakes than can fit in the jungle. "
+							+ "Like this a jungle cannot be generated.");
 			System.out.println();
 			throw new IllegalArgumentException(
-					"Dem Konstruktor des Dschungelgenerators kann kein Modell uebergeben werden, dass"
-							+ " mehr Schlangen hat, als in den Dschungel passen.");
+					"The constructor for the component jungle generator cannot be passed a model with"
+							+ " more snakes than can fit in the jungle.");
 		}
 		this.model = model;
 		this.minimumSnakes = minimumNumberUsedFields();
@@ -66,36 +61,34 @@ public class JungleGenerator {
 	}
 
 	/**
-	 * Ein parameterloser Konstruktor, so, dass es bei zukuenftiger Aanderung des
-	 * Programmes moeglich ist, diese Klasse zum Beispiel zum Testen zu nutzen.
+	 * A parameterless constructor, so that it is possible to use this class for
+	 * testing, for example, in future program changes.
 	 */
 	public JungleGenerator() {
 		super();
 	}
 
 	/**
-	 * Die hauptsaechliche Methode dieser Klasse. Es werden insgesamt drei andere
-	 * private Methoden dieser Klasse genutzt, um basierend auf den Daten des
-	 * Modelles einen Dschungel zu erzeugen. Es werden nach und nach alle Schlangen
-	 * durchgegangen und verteilt. Hierbei wird immer die private Methode
-	 * <code>platziereSchlangenglied</code> genutzt, um fuer die in dieser Methode
-	 * platzierten Schlangen, die Glieder der Schlangen zu platzieren. Passt eine
-	 * Schlange nicht mehr in den Dschungel, wird sie Stueck fuer Stueck wieder
-	 * entfernt und es wird versucht die Schlangen anders zu positionieren. Es wird
-	 * an dieser Stelle beruecksichtigt, dass der Dschungelgenerator bei besonders
-	 * unguenstiger Verteilung der Schlangen nicht schnell genug terminiert.
-	 * Passiert dies, so wird unter den gleichen Vorgaben ein neuer Versuch
-	 * gestartet.
+	 * The main method of this class. Three other private methods of this class are
+	 * used to generate a jungle based on the data of the model. All snakes are
+	 * traversed one by one and distributed based on the data of the model. The
+	 * private method 'placeSnakeElement' is always used to place the elements of
+	 * the snakes placed in this method. If a snake no longer fits in the jungle, it
+	 * is gradually removed, and attempts are made to position the snakes
+	 * differently. It has to be considered at this point that the jungle generator
+	 * does not terminate quickly in the case of a particularly unfavorable
+	 * distribution of the snakes. If this happens, a new attempt is started under
+	 * the same conditions.
 	 * 
-	 * @throws Exception Schlaegt der Dschungelgenerator zwei mal in Folge fehl,
-	 *                   wird eine Ausnahme erzeugt.
+	 * @throws Exception If the jungle generator fails twice in a row, an exception
+	 *                   is thrown.
 	 */
 	public void generateJungle() throws Exception {
 		placeSnake();
 		fillRestOfJungle(newJungle);
 		if (failed) {
-			System.out.println("Der Generator ist fehlgeschlagen. Moeglicherweise sind die Schlangen unguenstig\n"
-					+ "verteilt worden. Versuche noch einmal...");
+			System.out.println("The generator has failed. The snakes may have been distributed unfavorably.\n"
+					+ "Trying again...");
 			System.out.println();
 			this.snakeTypes = model.getSnakeTypes();
 			this.minimumSnakes = minimumNumberUsedFields();
@@ -108,10 +101,9 @@ public class JungleGenerator {
 			placeSnake();
 			fillRestOfJungle(newJungle);
 			if (failed) {
-				System.out.println(
-						"Der Generator ist wieder fehlgeschlagen. Moeglicherweise sind die Schlangen wieder unguenstig\n"
-								+ "verteilt worden. Ein Neustart des Programmes kann das Problem beheben. Sollte es wieder zu\n"
-								+ "einem Fehler kommen, liegt moeglicherweise ein anderes Problem vor.");
+				System.out.println("The generator has failed again. The snakes may be unfavorably distributed again.\n"
+						+ "Restarting the program may fix the problem. If an error occurs again,\n"
+						+ "there may be another issue.");
 				System.out.println();
 				throw new Exception();
 			}
@@ -120,9 +112,9 @@ public class JungleGenerator {
 
 	private void placeSnake() {
 		/*
-		 * Hier wird geprueft, ob alle Schlangen verteilt worden sein. Ist dies der
-		 * Fall, so werden sie einem neuenDschungel hinzugefuegt. Fuer die Generierung
-		 * eines Dschungel wurde ein Zeitlimit von 10 Sekunden gesetzt.
+		 * Here, it is checked whether all snakes have been distributed. If this is the
+		 * case, they are added to a new jungle. A time limit of 10 seconds is set for
+		 * generating a jungle.
 		 */
 		if (jungle.numberOfTakenFields() == minimumSnakes && numberOfTypesTotal() == 0 && full == false) {
 			for (int i = 0; i < jungle.getFields().length; i++) {
@@ -138,7 +130,7 @@ public class JungleGenerator {
 			return;
 		}
 
-		// Es werden alle Schlangenarten, deren Anzahl noch groesser 0 ist aufgelistet.
+		// All snake types whose count is still greater than 0 are listed.
 		List<SnakeType> validSnakeTypes = createValidSnakeTypes();
 		for (SnakeType snakeType : validSnakeTypes) {
 			snakeType.setAmount(snakeType.getAmount() - 1);
@@ -146,11 +138,10 @@ public class JungleGenerator {
 			currentType = snakeType;
 
 			/*
-			 * Es werden alle Startfelder fuer die aktuelle Schlangenart aufgelistet und
-			 * fuer jedes dieser Startfelder wird nun versucht eine Schlange der aktuellen
-			 * Schlangenart zu platzieren. Ist das Platzieren fehlgeschlangen, wird die
-			 * Anzahl der Art wieder erhoeht, damit das Platzieren nochmal mit einem anderen
-			 * Startfeld versucht werden kann.
+			 * All starting fields for the current snake type are listed, and for each of
+			 * these starting fields, an attempt is made to place a snake of the current
+			 * snake type. If placing fails, the type count is increased again so that
+			 * placing can be attempted again with a different starting field.
 			 */
 			List<Field> validStartingFields = createValidStartingFields();
 			for (Field startingField : validStartingFields) {
@@ -166,8 +157,8 @@ public class JungleGenerator {
 
 	private void placeSnakeElement(Field previousField, int elementIndex) {
 		/*
-		 * Ist die Schlange vollstaendig verteilt, wird versucht die naechste Schlange
-		 * zu verteilen.
+		 * If the snake is completely distributed, an attempt is made to distribute the
+		 * next snake.
 		 */
 		if (elementIndex == currentType.getSigns().length()) {
 			placeSnake();
@@ -175,10 +166,9 @@ public class JungleGenerator {
 		}
 
 		/*
-		 * Es werden die Nachbarn des letztes Schlangengliedes aufgelistet und es wird
-		 * nach und nach versucht die Schlange zu verteilen. Gelingt dies nicht werden
-		 * die Felder im Dschungel wieder freigegeben und es wird in 'platziereSchlange'
-		 * zurueckgekehrt.
+		 * The neighbors of the last snake element are listed, and attempts are made to
+		 * distribute the snake step by step. If this fails, the fields in the jungle
+		 * are released again, and 'placeSnake' is returned to.
 		 */
 		List<Field> validNeighborFields = createValidNeighbors(previousField);
 		for (Field neighborField : validNeighborFields) {
@@ -198,11 +188,10 @@ public class JungleGenerator {
 	}
 
 	/**
-	 * Die leeren Felder eines Dschungel werden mit Zeichen ausgefuellt, die
-	 * zufaellig aus der Zeichenmenge des Dschungels ausgewaehlt werden.
+	 * The empty fields of a jungle are filled with characters randomly selected
+	 * from the character set of the jungle.
 	 * 
-	 * @param jungle Der Dschungel, in dem die leeren Felder ausgefuellt werden
-	 *                  sollen.
+	 * @param jungle The jungle in which the empty fields should be filled.
 	 */
 	private void fillRestOfJungle(Jungle jungle) {
 		for (int i = 0; i < jungle.getRows(); i++) {
@@ -220,10 +209,9 @@ public class JungleGenerator {
 
 	private List<SnakeType> createValidSnakeTypes() {
 		/*
-		 * Es werden alle Schlangenarten des Modelles zurueckgegeben, deren Anzahl
-		 * groesser als 0 ist, von denen also noch mindestens eine verteilt werden muss.
-		 * Schliesslich werden die Schlangenarten durchgemischt, um eine zufaellige
-		 * Verteilung zu garantieren.
+		 * All snake types of the model with a count greater than 0 are returned, i.e.,
+		 * those that still need to be distributed. Finally, the snake types are
+		 * shuffled to ensure a random distribution.
 		 */
 		List<SnakeType> validSnakeTypes = new ArrayList<SnakeType>();
 		for (SnakeType snakeType : model.getSnakeTypes()) {
@@ -237,10 +225,10 @@ public class JungleGenerator {
 
 	private List<Field> createValidNeighbors(Field previousField) {
 		/*
-		 * Es werden alle Nachbarn des letzten Feldes bestimmt, wobei die Anordnung der
-		 * Nachbarn im Dschungel immer auf der Nachbarschaftsstruktur der aktuellen
-		 * Schlangenart basiert. Schliesslich werden die Felder durchgemischt, um eine
-		 * zufaellige Verteilung zu garantieren.
+		 * All neighbors of the last field are determined, where the arrangement of the
+		 * neighbors in the jungle is always based on the neighborhood structure of the
+		 * current snake type. Finally, the fields are shuffled to ensure a random
+		 * distribution.
 		 */
 		List<Field> validNeighborFields = new ArrayList<Field>();
 		for (Field neighborField : currentType.getStructure().getNeighbors(jungle, previousField)) {
@@ -254,9 +242,8 @@ public class JungleGenerator {
 
 	private List<Field> createValidStartingFields() {
 		/*
-		 * Es werden alle moeglichen Startfelder, also alle Felder, die noch kein
-		 * Zeichen haben, aufgelistet und durchgemischt, um eine zufaellige Verteilung
-		 * zu garantieren.
+		 * All possible starting fields, i.e., all fields that do not have a character
+		 * yet, are listed and shuffled to ensure a random distribution.
 		 */
 		List<Field> validStartingFields = new ArrayList<Field>();
 		for (int i = 0; i < jungle.getFields().length; i++) {
@@ -287,118 +274,107 @@ public class JungleGenerator {
 	}
 
 	/**
-	 * Es wird der aktuelle Wert der privaten Variable <code>fehlgeschlagen</code>
-	 * zurueckgegeben. Es ist hierdurch moeglich Auskunft darueber zu geben, ob ein
-	 * Dschungel innerhalb einer bestimmten Zeit erzeugt werden konnte. Ausserdem
-	 * kann damit direkt ein zweiter Versuch gestartet werden, denn oftmals liegt
-	 * eine Zeitueberschreitung nur an einer ungluecklichen Verteilung der Schlangen
-	 * im Dschungel.
+	 * Returns the current value of the private variable 'failed'. This makes it
+	 * possible to determine whether a jungle could be generated within a certain
+	 * time. Additionally, a second attempt can be started directly, as often a
+	 * timeout is only due to an unlucky distribution of the snakes in the jungle.
 	 * 
-	 * @return Wert der Variablen <code>fehlgeschlagen</code>.
+	 * @return Value of the variable <code>failed</code>.
 	 */
 	public boolean getFailed() {
 		return failed;
 	}
 
 	/**
-	 * Es wird das Modell zurueckgegeben, dass sich aktuell im Dschungelgenerator
-	 * befindet. Dies ist vor allem fuer kuenftige Aenderungen und auch fuer damit
-	 * einhergehende Tests gedacht.
+	 * Returns the model currently in the jungle generator. This is mainly for
+	 * future changes and also for associated tests.
 	 * 
-	 * @return Wert der Variablen <code>modell</code>.
+	 * @return Value of the variable <code>model</code>.
 	 */
 	public IModel getModel() {
 		return model;
 	}
 
 	/**
-	 * Es kann das Modell des Dschungelgenerators gesetzt werden. So ist es zum
-	 * Beispiel moeglich ein Modell zu uebergeben, auch wenn zunaechst der
-	 * parameterlose Konstruktor genutzt wurde. Es ist auch im Allgemeinen moeglich
-	 * das Modell nach Instanziierung der Klasse zu aendern.
+	 * The model of the jungle generator can be set through this. For example, it is
+	 * possible to pass a model even if the parameterless constructor was initially
+	 * used. It is also generally possible to change the model after class
+	 * instantiation.
 	 * 
-	 * @param model Das Modell, das uebergeben werden soll.
-	 * @throws IllegalArgumentException Eine Ausnahme wird geworfen, wenn ein
-	 *                                  unpassendes Modell uebergeben wird.
+	 * @param model The model to be passed.
+	 * @throws IllegalArgumentException An exception is thrown if an inappropriate
+	 *                                  model is passed.
 	 */
 	public void setModel(IModel model) throws IllegalArgumentException {
 		if (model.getJungle().getRows() * model.getJungle().getColumns() < minimumNumberUsedFields()) {
-			System.out
-					.println("Das Modell, dass dem Dschungelgenerator uebergeben werden soll enthaelt mehr\nSchlangen "
-							+ "als in den Dschungel passen. Es kann kein Dschungel generiert werden.");
+			System.out.println("The model to be passed to the jungle generator contains more\nsnakes "
+					+ "than can fit in the jungle. A jungle cannot be generated.");
 			System.out.println();
-			throw new IllegalArgumentException("Dem Dschungelgenerator kann kein Modell uebergeben werden, dass"
-					+ " mehr Schlangen hat, als in den Dschungel passen.");
+			throw new IllegalArgumentException(
+					"The jungle generator cannot be passed a model with" + " more snakes than can fit in the jungle.");
 		}
 		this.model = model;
 	}
 
 	/**
-	 * Es wird nur der Dschungel des Modelles zurueckgegeben, das sich aktuell im
-	 * Dschungelgenerator befindet. Dies ist fuer zukuenftige Programmerweiterung
-	 * und beziehungsweise oder Tests gedacht, denn so ist der Zugriff auf diesen
-	 * Teil des Programmes gewaehrleistet.
+	 * Only the jungle of the model in the jungle generator is returned. This is
+	 * mainly for future program extension and/or tests, as access to this part of
+	 * the program is guaranteed.
 	 * 
-	 * @return Der Wert der Variablen <code>dschungel</code>.
+	 * @return The value of the variable <code>jungle</code>'.
 	 */
 	public Jungle getJungle() {
 		return jungle;
 	}
 
 	/**
-	 * Es kann hierdurch nur der Dschungel geaendert werden, sollte dies gewollt
-	 * sein. Dies ist fuer zukuenftige Programmerweiterung und beziehungsweise oder
-	 * Tests gedacht
+	 * Only the jungle can be changed here if desired. This is mainly for future
+	 * program extension and/or tests.
 	 * 
-	 * @param jungle Der Dschungel, der dem Modell des Dschungelgenerators
-	 *                  uebergeben werden soll.
+	 * @param jungle The jungle to be passed to the model of the jungle generator.
 	 */
 	public void setJungle(Jungle jungle) {
 		this.jungle = jungle;
 	}
 
 	/**
-	 * Es wird die Anzahl der Felder uebergeben, die die Schlangen in dem Dschungel
-	 * ueberdecken werden, wenn sie verteilt sind. Es werden hierbei die Laenge und
-	 * Anzahl der einzelnen Schlangenarten mit einbezogen.
+	 * The number of fields to be covered by the snakes in the jungle when
+	 * distributed is passed. This includes the length and number of the individual
+	 * snake types.
 	 * 
-	 * @return Die Anzahl der Felder, die die Schlangenarten des Modelles nutzen
-	 *         werden.
+	 * @return The number of fields to be used by the snake types of the model.
 	 */
 	public int getMinimumSnakes() {
 		return minimumSnakes;
 	}
 
 	/**
-	 * Es wird der neue Dschungel zurueckgegeben. Dadurch ist ein Zugriff auf den
-	 * Dschungel moeglich, den der Dschungelgenerator erzeugt hat. Es ist zu
-	 * beachten, dass der neue Dschungel unvollstaendig ist, wenn er zurueckgeben
-	 * wird bevor er befuellt worden ist.
+	 * Returns the new jungle. This allows access to the jungle generated by the
+	 * jungle generator. It should be noted that the new jungle is incomplete if
+	 * returned before it has been filled.
 	 * 
-	 * @return Der Wert der Variable <code>neuerDschungel</code>.
+	 * @return The value of the variable <code>newJungle</code>.
 	 */
 	public Jungle getNewJungle() {
 		return newJungle;
 	}
 
 	/**
-	 * Es wird eine Liste mit den Schlangenarten zurueckgegeben, die im Modell des
-	 * Dschungelgenerator stehen. Dies ist fuer zukuenftige Programmerweiterung und
-	 * beziehungsweise oder Tests gedacht.
+	 * Returns a list of snake types present in the model of the jungle generator.
+	 * This is for future program extension and/or tests.
 	 * 
-	 * @return Der Wert der Variable <code>schlangenarten</code>.
+	 * @return The value of the variable <code>snakeTypes</code>.
 	 */
 	public List<SnakeType> getSnakeTypes() {
 		return snakeTypes;
 	}
 
 	/**
-	 * Es ist moeglich die im Modell des Dschungelgenerators vorhandenen
-	 * Schlangenarten zu aendern und beziehungsweise oder zu erweitern. Dies ist
-	 * fuer zukuenftige Programmerweiterung und beziehungsweise oder Tests gedacht.
+	 * It is possible to change and/or extend the snake types present in the model
+	 * of the jungle generator. This is for future program extension and/or tests.
 	 * 
-	 * @param snakeTypes Die Liste mit Schlangenarten, die dem Modell des
-	 *                       Dschungelgenerators uebergeben werden soll.
+	 * @param snakeTypes The list of snake types to be passed to the model of the
+	 *                   jungle generator.
 	 */
 	public void setSnakeTypes(List<SnakeType> snakeTypes) {
 		this.snakeTypes = snakeTypes;

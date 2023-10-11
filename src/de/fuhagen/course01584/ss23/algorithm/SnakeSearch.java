@@ -5,10 +5,9 @@ import java.util.*;
 import de.fuhagen.course01584.ss23.model.*;
 
 /**
- * Eine Klasse SchlangenSuche, die die Schnittstelle ISchlangenSuche und damit
- * die in ISchlangenSuche angegebenen Methoden implementiert. Es sind hier
- * verschiedene private Methoden zu finden, die die Funktionalitaet
- * ermoeglichen, die durch die Schnittstelle vorgegeben wurde.
+ * A class SnakeSearch that implements the ISnakeSearch interface and thereby
+ * implements the methods specified in ISnakeSearch. Various private methods can
+ * be found here that enable the functionality specified by the interface.
  * 
  * @author Philip Redecker
  *
@@ -23,25 +22,23 @@ public class SnakeSearch implements ISnakeSearch {
 	private ISnakeSearchUtil functions;
 
 	/**
-	 * Ein parametrisierter Konstruktor dem das Modell, in dem nach Schlangen
-	 * gesucht werden soll, direkt uebergeben wird. Ist in dem Modell kein Dschungel
-	 * vorhanden wird eine Ausnahme geworfen.
+	 * A parameterized constructor to which the model in which snakes are to be
+	 * searched is directly passed. If there is no jungle in the model, an exception
+	 * is thrown.
 	 * 
-	 * @param model Das Modell, in dem gesucht werden soll.
-	 * @throws IllegalArgumentException Eine Ausnahme wird geworfen, wenn ein
-	 *                                  unpassendes Modell uebergeben wird.
+	 * @param model The model in which to search.
+	 * @throws IllegalArgumentException An exception is thrown if an inappropriate
+	 *                                  model is passed.
 	 */
 	public SnakeSearch(IModel model) throws IllegalArgumentException {
 		super();
 		if (model.getJungle().numberOfTakenFields() == 0) {
-			System.out.println("Das Modell, dass der Schlangensuche uebergeben werden soll, hat einen Dschungel ohne "
-					+ "Felder. Es\nmuss ein Modell uebergeben werden, dass "
-					+ "Feldern besitzt. Sind keine Felder vorhanden, so koennen\ndiese mit dem "
-					+ "Dschungelgenerator erstellt werden.");
+			System.out.println("The model to be passed to SnakeSearch has a jungle without "
+					+ "fields. A model with fields must be passed. If no fields are present, they can be created with the "
+					+ "jungle generator.");
 			System.out.println();
 			throw new IllegalArgumentException(
-					"Dem Konstruktor von SchlangenSuche muss ein Modell uebergeben werden, dass"
-							+ " Felder im Dschungel hat.");
+					"The constructor of SnakeSearch must be passed a model that has " + "fields in the jungle.");
 		}
 		this.model = model;
 		this.currSolution = new Solution();
@@ -52,8 +49,8 @@ public class SnakeSearch implements ISnakeSearch {
 	}
 
 	/**
-	 * Ein parameterloser Konstruktor, so, dass es bei zukuenftiger Aanderung des
-	 * Programmes moeglich ist, diese Klasse zum Beispiel zum Testen zu nutzen.
+	 * A parameterless constructor, so that in future changes to the program it is
+	 * possible to use this class, for example for testing.
 	 */
 	public SnakeSearch() {
 		super();
@@ -67,14 +64,13 @@ public class SnakeSearch implements ISnakeSearch {
 
 	private void searchSnake() {
 		/*
-		 * Eine Methode, die in die SchlangenSuche einsteigt. Es werden Schlangen nach
-		 * und nach aufgebaut und dann gegebenenfalls wieder abgebaut, falls keine neuen
-		 * Glieder mehr gefunden werden koennen oder falls eine Loesung gespeichert
-		 * wurde oder eine neue Kombination probiert wird. Aus dieser Methode wird die
-		 * Methode 'sucheSchlangenglied' aufgerufen. Hier wird die 'loesung'
-		 * ueberschrieben, falls die 'aktLoesung' mehr Punkte erzielt. Es ist zu
-		 * beachten, dass zusaetzliche Zeitabfragen eingefuegt wurden, denn so
-		 * terminiert das Programm schneller, wenn die Zeit abgelaufen ist.
+		 * A method that enters the snake search. Snakes are built up one by one and
+		 * then possibly broken down again if no new elements can be found or if a
+		 * solution has been saved or a new combination is being tried. The method
+		 * 'searchSnakeElement' is called from this method. Here, the 'solution' is
+		 * overwritten if the 'currSolution' achieves more points. It should be noted
+		 * that additional time queries have been inserted, so the program terminates
+		 * faster when the time is up.
 		 */
 		if (evaluator.evaluateSolution(currSolution) > evaluator.evaluateSolution(solution)) {
 			solution = new Solution();
@@ -88,8 +84,7 @@ public class SnakeSearch implements ISnakeSearch {
 		}
 
 		/*
-		 * Es wird zuerst ueber die Schlangenarten iteriert, um die Priorisierung ueber
-		 * Schlangenarten zu vereinfachen.
+		 * First, iterate over snake types to simplify prioritizing snake types.
 		 */
 		List<SnakeType> snakeTypes = functions.createValidSnakeTypes();
 		for (SnakeType snakeType : snakeTypes) {
@@ -98,20 +93,17 @@ public class SnakeSearch implements ISnakeSearch {
 				if (System.nanoTime() - currTime > modelTime) {
 					return;
 				}
-				// Es wird eine neue Schlange erstellt mit entsprechendem Schlangenkopf.
+				// Create a new snake with the corresponding snake head.
 				startingField.setUsage(startingField.getUsage() - 1);
 				Snake newSnake = new Snake(snakeType);
 				SnakeElement snakeHead = new SnakeElement(startingField);
 				newSnake.addElement(snakeHead);
 				currSolution.addSnake(newSnake);
 
-				// Es wird versucht die weiteren Schlangenglieder zu suchen.
+				// Try to search for the remaining snake elements.
 				searchSnakeElement(snakeHead, newSnake);
 
-				/*
-				 * Die Schlange wird und der Schlangenkopf werden wieder entfernt und die
-				 * genutzten Felder werden wieder freigegeben.
-				 */
+				// Remove the snake and the snake head, and release the used fields.
 				startingField.setUsage(startingField.getUsage() + 1);
 				newSnake.removeLastElement();
 				currSolution.removeLastSnake();
@@ -121,41 +113,34 @@ public class SnakeSearch implements ISnakeSearch {
 
 	private void searchSnakeElement(SnakeElement previousElement, Snake currentSnake) {
 		/*
-		 * Eine Methode, die von der Methode 'sucheSchlange' und von sich selbst
-		 * aufgerufen wird. Es wird immer das naechste Glied der aktuellen Schlange
-		 * gesucht. So lange bis das entweder nicht mehr moeglich ist, weil kein
-		 * passendes Folgeglied gefunden wird oder bis eine Loesung gespeichert oder bis
-		 * eine neue Kombination probiert wird. Ist eine Schlange vollstaendig, wird
-		 * hier in die Methode 'sucheSchlange' gesprungen, um nach der naechsten
-		 * Schlange zu suchen.
+		 * A method called by the 'searchSnake' method and by itself. The next element
+		 * of the current snake is always searched for. So long until it is no longer
+		 * possible either because no suitable subsequent element is found or until a
+		 * solution is saved or a new combination is tried. If a snake is complete, this
+		 * jumps into the 'searchSnake' method to search for the next snake.
 		 */
 		if (previousElement.getField().getCharacter().equals(currentSnake.characterOfLastElement())
 				&& currentSnake.getElements().size() == currentSnake.getType().getSigns().length()) {
 			searchSnake();
 			return;
 		}
-		/*
-		 * Es werden zulaessige Nachbarn aufgelistet und nach und nach ueber diese
-		 * iteriert.
-		 */
+
+		// List permissible neighbors and iterate over them one by one.
 		List<Field> neighborFields = functions.createValidNeighbors(previousElement, currentSnake);
 		for (Field neighborField : neighborFields) {
 			if (System.nanoTime() - currTime > modelTime) {
 				return;
 			}
 
-			// Fuege der aktuellen Schlange den naechsten Nachbar hinzu.
+			// Add the next neighbor to the current snake.
 			neighborField.setUsage(neighborField.getUsage() - 1);
 			SnakeElement newElement = new SnakeElement(neighborField);
 			currentSnake.addElement(newElement);
 
-			// Suche nach dem naechsten Schlangenglied.
+			// Search for the next snake element.
 			searchSnakeElement(newElement, currentSnake);
 
-			/*
-			 * Entferne die einzelnen Schlangenglieder wieder und gebe die genutzten Felder
-			 * wieder frei.
-			 */
+			// Remove the individual snake elements and release the used fields again.
 			neighborField.setUsage(neighborField.getUsage() + 1);
 			currentSnake.removeLastElement();
 		}
@@ -169,13 +154,12 @@ public class SnakeSearch implements ISnakeSearch {
 	@Override
 	public void setModel(IModel model) throws IllegalArgumentException {
 		if (model.getJungle().numberOfTakenFields() == 0) {
-			System.out.println("Das Modell, dass der Schlangensuche uebergeben werden soll, hat einen Dschungel ohne "
-					+ "Felder. Es\nmuss ein Modell uebergeben werden, dass "
-					+ "Feldern besitzt. Sind keine Felder vorhanden, so koennen\ndiese mit dem "
-					+ "Dschungelgenerator erstellt werden.");
+			System.out.println("The model to be passed to SnakeSearch has a jungle without "
+					+ "fields. A model with fields must be passed. If no fields are present, they can be created with the "
+					+ "jungle generator.");
 			System.out.println();
 			throw new IllegalArgumentException(
-					"Der SchlangenSuche muss ein Modell uebergeben werden, dass" + " Felder im Dschungel hat.");
+					"SnakeSearch must be passed a model that has " + "fields in the jungle.");
 		}
 		this.model = model;
 	}

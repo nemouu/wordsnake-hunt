@@ -3,11 +3,10 @@ package de.fuhagen.course01584.ss23.model;
 import java.util.*;
 
 /**
- * Ein Interface zur Herstellung einer Schnittstelle zwischen Datenmodell und
- * Nachbarschaftsverhaeltnis, das bestimmt wie Schlangenglieder im Dschungel des
- * Modelles angeordnet sind. Dadurch ist es moeglich in Zukunft das Programm
- * durch eine andere Form der Nachbarschaft zu erweitern, sollte dies gewuenscht
- * sein.
+ * An interface for creating a link between the data model and neighborhood
+ * relations, which are determining how snake segments are arranged in the
+ * jungle of the model. This allows future expansion of the program with a
+ * different form of neighborhood if desired.
  * 
  * @author Philip Redecker
  *
@@ -15,47 +14,44 @@ import java.util.*;
 public interface INeighborhood {
 
 	/**
-	 * Es wird die Art der Nachbarschaft als String zurueckgegeben. Der hier
-	 * zurueckgegebene String beschreibt die Nachbarschaft und sollte idealerweise
-	 * auch im Klassennamen der implementierenden Klasse zu finden sein.
+	 * Returns the type of neighborhood as a String. The String returned here
+	 * describes the neighborhood and ideally should also be found in the class name
+	 * of the implementing class.
 	 * 
-	 * @return Der Wert einer Variable <code>art</code>, der die Art der
-	 *         Nachbarschaft beschreibt.
+	 * @return The value of a variable <code>type</code> that describes the type of
+	 *         neighborhood.
 	 */
 	String getType();
 
 	/**
-	 * Es werden die Parameter der jeweiligen Implementierung ausgegeben. Je nach
-	 * Implementierung kann dies eine Zahl oder mehrere Zahlen sein, deswegen wurde
-	 * die Liste als Datenstruktur gewaehlt. Die Parameter der Nachbarschaft haben
-	 * Einfluss auf die tatsaechlich verfuegbaren Nachbarn eines Feldes, deshalb
-	 * wurde der Zugriff auf diese ermoeglicht.
+	 * Returns the parameters of the respective implementation. Depending on the
+	 * implementation, this can be a single number or multiple numbers, which is why
+	 * a list was chosen as the data structure. The parameters of the neighborhood
+	 * affect the actually available neighbors of a field, which is why access to
+	 * them is provided.
 	 * 
-	 * @return Eine Liste mit Parametern der implementierten Nachbarschaftsklasse.
+	 * @return A list of parameters of the implemented neighborhood class.
 	 */
 	List<Integer> getParameters();
 
 	/**
-	 * Es ist durch diese Methode moeglich die Parameter der implementierenden
-	 * Klasse nachtraeglich zu aendern. Dies ist hauptsaechlich zum Testen der
-	 * jeweiligen Klassen gedacht oder aber auch fuer zukuenftige Aenderungen des
-	 * Programmes.
+	 * It is possible to change the parameters of the implementing class through
+	 * this method. This is primarily intended for testing the respective classes or
+	 * for future program changes.
 	 * 
-	 * @param parameters Eine Liste mit einem oder mehreren Parametern, die der
-	 *                   implementierenden Klasse uebergeben werden sollen.
+	 * @param parameters A list of one or more parameters to be passed to the
+	 *                   implementing class.
 	 */
 	void setParameters(List<Integer> parameters);
 
 	/**
-	 * Diese Methode bestimmt die Nachbarn eines Feldes in einem uebergebenen
-	 * Dschungel. Um zu suchen werden im Allgemeinen die Parameter genutzt, die der
-	 * implementierenden Klasse vorher uebergeben worden sind.
+	 * This method determines the neighbors of a field in a given jungle. Generally,
+	 * the parameters that have been passed to the implementing class are used for
+	 * the search.
 	 * 
-	 * @param jungle Der Dschungel, in dem nach den Nachbarn gesucht wird.
-	 * @param field      Das Feld, dessen Nachbarn bestimmt werden sollen.
-	 * @return Eine Liste mit Nachbarn des eingegebenen Feldes, die im eingegebenen
-	 *         Dschungel liegen.
+	 * @param jungle The jungle in which to search for the neighbors.
+	 * @param field  The field for which neighbors are to be determined.
+	 * @return A list of neighbors of the input field located in the input jungle.
 	 */
 	List<Field> getNeighbors(Jungle jungle, Field field);
-
 }

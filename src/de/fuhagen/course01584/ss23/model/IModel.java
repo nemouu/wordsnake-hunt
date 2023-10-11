@@ -3,12 +3,11 @@ package de.fuhagen.course01584.ss23.model;
 import java.util.List;
 
 /**
- * Ein Interface zur Herstellung einer Schnittstelle zwischen Datenmodell und
- * den anderen Komponenten des Programmes. Dadurch ist es moeglich in Zukunft
- * das Programm durch ein anderes Modell zu erweitern oder das Modell
- * anzupassen, sollte dies gewuenscht sein. Es werden generell viele Getter und
- * Setter angeboten aber abgesehen davon gibt es auch einige Hilfsfunktionen,
- * die die Schlangesuche unterstuetzen.
+ * An interface for creating a link between the data model and other components
+ * of the program. This allows future expansion of the program with a different
+ * model or adapting the existing model if desired. It generally provides many
+ * getters and setters, as well as some helper functions to support snake
+ * hunting.
  * 
  * @author Philip Redecker
  *
@@ -16,148 +15,133 @@ import java.util.List;
 public interface IModel {
 
 	/**
-	 * Es wird die Zeit des Modelles zurueckgegeben. Hierbei wird entweder eine Zahl
-	 * fuer die Zeitvorgabe oder aber zwei Zahlen fuer die Zeitvorgabe und die
-	 * Zeitabgabe zurueckgegeben.
+	 * Returns the time of the model. It returns either a number for the time
+	 * constraint or two numbers for the time constraint and the time taken.
 	 * 
-	 * @return Ein Array, in dem entweder ein Eintrag oder zwei Eintraege fuer die
-	 *         Zeitvorgabe beziehungsweise Zeitabgabe stehen.
+	 * @return An array containing either one or two entries for the time constraint
+	 *         and/or time taken.
 	 */
 	Double[] getTime();
 
 	/**
-	 * Durch diese Methode ist das Setzen der Zeit des Modelles auch nach
-	 * Instanziierung moeglich. Dies dient vor allem dem Einlesen von Daten aber
-	 * unter anderem auch dem Testen oder beziehungsweise und der spaeteren
-	 * Programmerweiterung.
+	 * This method allows setting the time of the model even after instantiation.
+	 * This is primarily for reading data but also for testing or future program
+	 * expansion.
 	 * 
-	 * @param time Ein Array aus Double, in dem entweder ein oder zwei Eintraege
-	 *             stehen. Ein Eintrag fuer die Zeitvorgabe und einer fuer die
-	 *             Zeitabgabe.
-	 * @throws IllegalArgumentException Falls ein ungueltiges Argument fuer Zeit
-	 *                                  uebergeben wird, wird eine Ausnahme
-	 *                                  geworfen.
+	 * @param time An array of Doubles containing either one or two entries. One
+	 *             entry for the time constraint and one for the time taken.
+	 * @throws IllegalArgumentException If an invalid argument for time is passed,
+	 *                                  an exception is thrown.
 	 */
 	void setTime(Double[] time) throws IllegalArgumentException;
 
 	/**
-	 * Es wird die Zeiteinheit der Zeitangaben des Modelles zurueckgegeben.
+	 * Returns the time unit of the model's time indications.
 	 * 
-	 * @return Ein String, der die Zeiteinheit enthaelt.
+	 * @return A String containing the time unit.
 	 */
 	String getUnitOfTime();
 
 	/**
-	 * Durch diese Methode ist das Setzen der Zeiteinheit des Modelles auch nach
-	 * Instanziierung moeglich. Es ist darauf zu achten, dass eine gueltige
-	 * Zeiteinheit uebergeben wird. Gueltig sind <code>ms</code> (Milisekunden),
-	 * <code>s</code>(Sekunden), <code>min</code> (Minuten), <code>h</code>(Stunden)
-	 * und <code>d</code>(Tage). Diese Methode dient vor allem dem Einlesen von
-	 * Daten aber unter anderem auch dem Testen oder beziehungsweise und der
-	 * spaeteren Programmerweiterung.
+	 * This method allows setting the time unit of the model even after
+	 * instantiation. It is important to pass a valid time unit. Valid units are
+	 * <code>ms</code> (milliseconds), <code>s</code> (seconds), <code>min</code>
+	 * (minutes), <code>h</code> (hours), and <code>d</code> (days). This method is
+	 * primarily for reading data but also for testing or future program expansion.
 	 * 
-	 * @param unitOfTime Ein String, der die Zeiteinheit enthaelt, die dem Modell
-	 *                    uebergeben werden soll.
-	 * @throws IllegalArgumentException Falls ein ungueltiges Argument fuer
-	 *                                  Zeiteinheit uebergeben wird, wird eine
-	 *                                  Ausnahme geworfen.
+	 * @param unitOfTime A String containing the time unit to be passed to the
+	 *                   model.
+	 * @throws IllegalArgumentException If an invalid argument for time unit is
+	 *                                  passed, an exception is thrown.
 	 */
 	void setUnitOfTime(String unitOfTime) throws IllegalArgumentException;
 
 	/**
-	 * Es wird der Dschungel des Modelles mit Zeilen, Spalten, Zeichenmenge und
-	 * Feldern zurueckgegeben.
+	 * Returns the jungle of the model with rows, columns, character set, and
+	 * fields.
 	 * 
-	 * @return Der Dschungel des Modelles.
+	 * @return The jungle of the model.
 	 */
 	Jungle getJungle();
 
 	/**
-	 * Durch diese Methode ist das Setzen des Dschungels des Modelles auch nach
-	 * Instanziierung moeglich. Diese Methode dient vor allem dem Einlesen von Daten
-	 * aber unter anderem auch dem Testen oder beziehungsweise und der spaeteren
-	 * Programmerweiterung.
+	 * This method allows setting the jungle of the model even after instantiation.
+	 * This is primarily for reading data but also for testing or future program
+	 * expansion.
 	 * 
-	 * @param jungle Ein Dschungel gemaess der in diesem Paket definierten
-	 *                  Datenstruktur Dschungel.
+	 * @param jungle A jungle according to the data structure Jungle defined in this
+	 *               package.
 	 */
 	void setJungle(Jungle jungle);
 
 	/**
-	 * Es werden die Schlangenarten des Modelles zurueckgegeben.
+	 * Returns the snake types of the model.
 	 * 
-	 * @return Eine Liste von Schlangenarten gemaess der in diesem Paket definierten
-	 *         Datenstruktur Schlangenart.
+	 * @return A list of snake types according to the data structure SnakeType
+	 *         defined in this package.
 	 */
 	List<SnakeType> getSnakeTypes();
 
 	/**
-	 * Durch diese Methode ist das Setzen der Schlangenarten des Modelles auch nach
-	 * Instanziierung moeglich. Diese Methode dient vor allem dem Einlesen von Daten
-	 * aber unter anderem auch dem Testen oder beziehungsweise und der spaeteren
-	 * Programmerweiterung.
+	 * This method allows setting the snake types of the model even after
+	 * instantiation. This is primarily for reading data but also for testing or
+	 * future program expansion.
 	 * 
-	 * @param snakeTypes Eine Liste mit Schlangenarten, die dem Dschungel
-	 *                       uebergeben werden soll.
+	 * @param snakeTypes A list of snake types to be passed to the jungle.
 	 */
 	void setSnakeTypes(List<SnakeType> snakeTypes);
 
 	/**
-	 * Eine Methode, die es ermoeglicht dem Modell eine einzelne Schlangenart,
-	 * gemaess der in diesem Paket definierten Datenstruktur Schlangenart,
-	 * hinzuzufuegen.
+	 * A method that allows adding a single snake type, according to the data
+	 * structure SnakeType, to the model.
 	 * 
-	 * @param inType Die Schlangenart, die hinzugefuegt werden soll.
+	 * @param inType The snake type to be added.
 	 */
 	void addSnakeType(SnakeType inType);
 
 	/**
-	 * Es wird der Loesung des Modelles mit den dazugehoerigen Schlangenarten
-	 * zurueckgegeben.
+	 * Returns the solution of the model with the associated snake types.
 	 * 
-	 * @return Die Loesung des Modelles, gemaess der in diesem Paket definierten
-	 *         Datenstruktur Loesung.
+	 * @return The solution of the model, according to the data structure Solution
+	 *         defined in this package.
 	 */
 	Solution getSolution();
 
 	/**
-	 * Durch diese Methode ist das Setzen der Loesung des Modelles auch nach
-	 * Instanziierung moeglich. Diese Methode dient vor allem dem Einlesen von Daten
-	 * aber unter anderem auch dem Testen oder beziehungsweise und der spaeteren
-	 * Programmerweiterung.
+	 * This method allows setting the solution of the model even after
+	 * instantiation. This is primarily for reading data but also for testing or
+	 * future program expansion.
 	 * 
-	 * @param solution Eine Loesung gemaess der in diesem Paket definierten
-	 *                Datenstruktur Loesung.
+	 * @param solution A solution according to the data structure Solution defined
+	 *                 in this package.
 	 */
 	void setSolution(Solution solution);
 
 	/**
-	 * Mit dieser Hilfsmethode wird die im Modell stehende Zeit in Nanosekunden
-	 * umgerechnet, da die Zeitmessung in diesem Programm in Nanosekunden erfolgt.
-	 * Dazu wird die Zeiteinheit mit einbezogen.
+	 * This helper method converts the time in the model to nanoseconds, as time
+	 * measurement in this program is done in nanoseconds. The time unit is taken
+	 * into account.
 	 * 
-	 * @param modelSpecification Die Zeitvorgabe aus dem Modell.
-	 * @return Eine Zahl, die der Zeitvorgabe in Nanosekunden entspricht.
-	 * @throws IllegalArgumentException Wurden im Modell falsche Angaben zur
-	 *                                  Zeiteinheit gemacht oder wurden falsche
-	 *                                  Parameter uebergeben, wird eine Ausnahme
-	 *                                  ausgeloest.
+	 * @return A number corresponding to the time constraint in nanoseconds.
+	 * @throws IllegalArgumentException If incorrect time unit information was
+	 *                                  provided in the model or incorrect
+	 *                                  parameters were passed, an exception is
+	 *                                  thrown.
 	 */
 	Double calculateTimeToNanoseconds() throws IllegalArgumentException;
 
 	/**
-	 * Mit dieser Hilfsmethode wird die gemessene Zeit bei der Schlangensuche in die
-	 * urspruengliche Zeiteinheit des Modelles umgerechnet. Schliesslich kann dann
-	 * die genutzte Zeit ins Modell geschrieben werden.
+	 * This helper method converts the measured time in snake hunting to the
+	 * original time unit of the model. Finally, the used time can be written to the
+	 * model.
 	 * 
-	 * @param usedTimeInNanoseconds Die gemessene Zeit aus der Schlangensuche.
-	 * @return Eine Zahl, die der gemessenen Zeit in der Zeiteinheit des Modelles
-	 *         entspricht.
-	 * @throws IllegalArgumentException Wurden im Modell falsche Angaben zur
-	 *                                  Zeiteinheit gemacht oder wurden falsche
-	 *                                  Parameter uebergeben, wird eine Ausnahme
-	 *                                  ausgeloest.
+	 * @param usedTimeInNanoseconds The measured time from snake hunting in
+	 *                              nanoseconds.
+	 * @return A number corresponding to the measured time in the model's time unit.
+	 * @throws IllegalArgumentException If incorrect time unit information was
+	 *                                  provided in the model or incorrect
+	 *                                  parameters were passed, an exception is
+	 *                                  thrown.
 	 */
 	Double calculateTimeInUnitGivenByModel(Long usedTimeInNanoseconds) throws IllegalArgumentException;
-
 }

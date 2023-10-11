@@ -3,27 +3,25 @@ package de.fuhagen.course01584.ss23.model;
 import java.util.*;
 
 /**
- * Eine Klasse, die Schlangen modelliert. Diese werden zum Beispiel vom
- * Dschungelgenerator im Dschungel versteckt oder von der Schlangensuche im
- * Dschungel gesucht. Neben Gettern und Settern werden auch einige Hilfsmethoden
- * angeboten, die von anderen Klassen genutzt werden.
+ * A class that models snakes. These snakes are hidden, for example, by the
+ * jungle generator in the jungle, or searched by the snake search in the
+ * jungle. In addition to getters and setters, some utility methods are provided
+ * that are used by other classes.
  * 
  * @author Philip Redecker
- *
  */
 public class Snake {
 	private SnakeType type;
 	private List<SnakeElement> elements;
 
 	/**
-	 * In diesem parametrisierten Konstruktor kann bei Instanziierung dieser Klasse
-	 * eine Schlangenart aber auch eine Liste von Schlangengliedern uebergeben
-	 * werden. In diesem Fall ist die Schlange also moeglicherweise nach der
-	 * Instanziierung vollstaendig.
+	 * In this parameterized constructor, when instantiating this class, a snake
+	 * type or a list of snake elements can be passed. In this case, the snake may
+	 * be complete after instantiation.
 	 * 
-	 * @param type     Die Schlangenart, die die Schlange haben soll.
-	 * @param elements Eine Liste mit Schlangengliedern, gemaess der in diesem Paket
-	 *                definierten Datenstruktur Schlangenglied.
+	 * @param type     The snake type the snake should have.
+	 * @param elements A list of snake elements, according to the data structure
+	 *                 snake element defined in this package.
 	 */
 	public Snake(SnakeType type, List<SnakeElement> elements) {
 		super();
@@ -32,13 +30,12 @@ public class Snake {
 	}
 
 	/**
-	 * Ein alternativer parametrisierter Konstruktor. In diesem wird nur eine
-	 * Schlangenart uebergeben. Im Konstruktor selbst wird dann eine leere Liste aus
-	 * Schlangengliedern, gemaess der in diesem Paket definierten Datenstruktur
-	 * Schlangenglied erzeugt, sodass der Schlange jederzeit Schlangenglieder
-	 * hinzugefuegt werden koennen.
+	 * An alternative parameterized constructor. In this, only a snake type is
+	 * passed. In the constructor itself, an empty list of snake elements, according
+	 * to the data structure snake element defined in this package, is created, so
+	 * that snake elements can be added to the snake at any time.
 	 * 
-	 * @param type Die Schlangenart, die die Schlange haben soll.
+	 * @param type The snake type the snake should have.
 	 */
 	public Snake(SnakeType type) {
 		super();
@@ -47,11 +44,11 @@ public class Snake {
 	}
 
 	/**
-	 * Ein parameterloser Konstruktor, so, dass es bei zukuenftiger Aanderung des
-	 * Programmes moeglich ist, diese Klasse zum Beispiel zum Testen zu nutzen. Es
-	 * wird im Konstruktor selbst eine leere Liste aus Schlangengliedern, gemaess
-	 * der in diesem Paket definierten Datenstruktur Schlangenglied erzeugt, sodass
-	 * der Schlange jederzeit Schlangenglieder hinzugefuegt werden koennen.
+	 * A parameterless constructor, so that in future changes to the program, it is
+	 * possible to use this class for testing, for example. In the constructor
+	 * itself, an empty list of snake elements, according to the data structure
+	 * snake element defined in this package, is created, so that snake elements can
+	 * be added to the snake at any time.
 	 */
 	public Snake() {
 		super();
@@ -59,17 +56,16 @@ public class Snake {
 	}
 
 	/**
-	 * Eine Methode, die der Schlange ein Schlangenglied (am Ende der Schlange)
-	 * hinzufuegt.
+	 * A method that adds a snake element (at the end of the snake) to the snake.
 	 * 
-	 * @param inElement Das Schlangenglied, das hinzugefuegt werden soll.
+	 * @param inElement The snake element to be added.
 	 */
 	public void addElement(SnakeElement inElement) {
 		this.elements.add(inElement);
 	}
 
 	/**
-	 * Eine Methode, die das letzte Schlangenglied einer Schlange entfernt.
+	 * A method that removes the last snake element of a snake.
 	 */
 	public void removeLastElement() {
 		if (elements != null && elements.size() > 0) {
@@ -78,13 +74,11 @@ public class Snake {
 	}
 
 	/**
-	 * Eine Methode, die einen String zurueckgibt, der das Zeichen des naechsten
-	 * Schlangengliedes enthaelt. Hat die Schlange kein naechstes Glied mehr, wird
-	 * <code>""</code> zurueckgegeben.
+	 * A method that returns a string containing the character of the next snake
+	 * element. If the snake no longer has a next element, "" is returned.
 	 * 
-	 * @return Ein String, der das Zeichen des naechsten Schlangengliedes enthaelt.
-	 *         Wenn es kein naechstes Glied mehr gibt wird <code>null</code>
-	 *         zurueckgegeben.
+	 * @return A string containing the character of the next snake element. If there
+	 *         is no next element, null is returned.
 	 */
 	public String characterOfNextElement() {
 		if (elements.size() < type.getSigns().length()) {
@@ -94,55 +88,52 @@ public class Snake {
 	}
 
 	/**
-	 * Eine Methode, die einen String zurueckgibt, der das Zeichen des letzten
-	 * Schlangengliedes der Schlange enthaelt.
+	 * A method that returns a string containing the character of the last snake
+	 * element of the snake.
 	 * 
-	 * @return Ein String, der das Zeichen des letzten Schlangengliedes enthaelt.
+	 * @return A string containing the character of the last snake element.
 	 */
 	public String characterOfLastElement() {
 		return type.getSigns().substring(type.getSigns().length() - 1, type.getSigns().length());
 	}
 
 	/**
-	 * Es wird die Schlangenart der Schlange zurueckgegeben.
+	 * Returns the snake type of the snake.
 	 * 
-	 * @return Eine Schlangenart, gemaess der in diesem Paket definierten
-	 *         Datenstruktur Schlangenart.
+	 * @return A snake type, according to the data structure snake type defined in
+	 *         this package.
 	 */
 	public SnakeType getType() {
 		return type;
 	}
 
 	/**
-	 * Durch diese Methode ist das Setzen der Schlangenart der Schlange auch nach
-	 * Instanziierung moeglich. Diese Methode dient vor allem dem Einlesen von Daten
-	 * aber unter anderem auch dem Testen oder beziehungsweise und der spaeteren
-	 * Programmerweiterung.
+	 * This method allows setting the snake type of the snake even after
+	 * instantiation. This method is mainly used for reading data, but also for
+	 * testing or for future program extension.
 	 * 
-	 * @param type Eine Schlangenart, die der Schlange uebergeben werden soll.
+	 * @param type A snake type to be passed to the snake.
 	 */
 	public void setType(SnakeType type) {
 		this.type = type;
 	}
 
 	/**
-	 * Es werden die Schlangenglieder der Schlange zurueckgegeben.
+	 * Returns the snake elements of the snake.
 	 * 
-	 * @return Eine Liste von Schlangengliedern gemaess der in diesem Paket
-	 *         definierten Datenstruktur Schlangenglied.
+	 * @return A list of snake elements according to the data structure snake
+	 *         element defined in this package.
 	 */
 	public List<SnakeElement> getElements() {
 		return elements;
 	}
 
 	/**
-	 * Durch diese Methode ist das Setzen der Schlangenglieder der Schlange auch
-	 * nach Instanziierung moeglich. Diese Methode dient vor allem dem Einlesen von
-	 * Daten aber unter anderem auch dem Testen oder beziehungsweise und der
-	 * spaeteren Programmerweiterung.
+	 * This method allows setting the snake elements of the snake even after
+	 * instantiation. This method is mainly used for reading data, but also for
+	 * testing or for future program extension.
 	 * 
-	 * @param elements Eine Liste mit Schlangengliedern, die der Schlange uebergeben
-	 *                werden soll.
+	 * @param elements A list of snake elements to be passed to the snake.
 	 */
 	public void setElements(List<SnakeElement> elements) {
 		this.elements = elements;

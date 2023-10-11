@@ -12,14 +12,12 @@ import org.jdom2.input.sax.XMLReaders;
 import de.fuhagen.course01584.ss23.model.*;
 
 /**
- * Eine Implementierung der Schnittstelle ILeser, die es ermoeglicht Daten aus
- * XML-Dateien einzulesen und diese Daten in das interne Modell des Programmes
- * zu uebertragen. Dazu wird zunaechst ein 'leeres' Modell instanziiert und dann
- * wird dieses nach und nach mit den Daten befuellt, die in der XML-Datei
- * stehen. Wichtig ist hierbei, dass insbesondere nur XML-Datei eingelesen
- * werden koennen, die der Datei <code>schlangenjagd.dtd</code> entsprechen.
- * Entsprechen sie dieser DTD nicht wird eine Fehlermeldung ausgegeben.
- * 
+ * An implementation of the IReader interface that allows reading data from XML
+ * files and transferring this data into the program's internal data model.
+ * Initially, an 'empty' model is instantiated upon construction, and then it is
+ * gradually filled with the data contained in the XML file. It is essential to
+ * note that only XML files that conform to the 'schlangenjagd.dtd' file can be
+ * read. If they do not conform to this DTD, an error message will be displayed.
  * 
  * @author Philip Redecker
  *
@@ -28,10 +26,9 @@ public class ReaderXML implements IReader {
 	private IModel transferredModel;
 
 	/**
-	 * Ein parameterloser Konstruktor in dem bei Instanziierung direkt eine Instanz
-	 * eines Modelles erstellt wird, sodass bei Aufruf der entsprechenden Methoden
-	 * direkt ein internes Modell verfuegbar ist, in das die Daten uebertragen
-	 * werden koennen.
+	 * A parameterless constructor in which an instance of a model is created
+	 * directly upon instantiation. This ensures that an internal model is available
+	 * when the corresponding methods are called.
 	 */
 	public ReaderXML() {
 		super();
@@ -47,16 +44,16 @@ public class ReaderXML implements IReader {
 			Element root = xmlFile.getRootElement();
 			List<Element> items = root.getChildren();
 			for (Element item : items) {
-				if (item.getName() == "Zeit") {
+				if ("Zeit".equals(item.getName())) {
 					transferTimeFromFile(item);
 				}
-				if (item.getName() == "Dschungel") {
+				if ("Dschungel".equals(item.getName())) {
 					transferJungleFromFile(item);
 				}
-				if (item.getName() == "Schlangenarten") {
+				if ("Schlangenarten".equals(item.getName())) {
 					transferSnakeTypesFromFile(item);
 				}
-				if (item.getName() == "Schlangen") {
+				if ("Schlangen".equals(item.getName())) {
 					transferSnakesFromFile(item);
 				}
 			}
@@ -66,26 +63,21 @@ public class ReaderXML implements IReader {
 				transferredModel.setUnitOfTime("s");
 			}
 		} catch (JDOMException e) {
-			System.out.println("Fehler beim Einlesen. Die unter '" + filePath
-					+ "' gefundene Datei hat nicht das richtige\nFormat. Dies kann zum Programmabbruch fuehren.");
+			System.out.println("Error reading the file. The file found at '" + filePath
+					+ "' does not have the correct format. This may lead to program termination.");
 			System.out.println();
 		} catch (IOException e) {
-			System.out.println("Fehler beim Einlesen. Unter '" + filePath
-					+ "' wurde keine Datei gefunden. Dies kann\nzum Programmabbruch fuehren.");
+			System.out.println("Error reading the file. No file was found at '" + filePath
+					+ "'. This may lead to program termination.");
 			System.out.println();
 		}
 	}
 
 	private void transferSnakesFromFile(Element item) throws Exception {
-		/*
-		 * Hier werden die Schlangen, die in der Eingabedatei stehen, in das Modell
-		 * geschrieben. Haben die Daten ein ungueltiges Format, so wird eine Ausnahme
-		 * abgefangen und eine Fehlermeldung ausgegeben.
-		 */
 		try {
 			Solution transferredSolution = new Solution();
 			for (Element element : item.getChildren()) {
-				transferredSolution.addSnake(new Snake(findeSnakeTypeWithID(element.getAttributeValue("art"))));
+				transferredSolution.addSnake(new Snake(findSnakeTypeWithID(element.getAttributeValue("art"))));
 				for (Element snakeElement : element.getChildren()) {
 					transferredSolution.getSnakes().get(transferredSolution.getSnakes().size() - 1)
 							.addElement(new SnakeElement(findFieldWithID(snakeElement.getAttributeValue("feld"))));
@@ -93,33 +85,23 @@ public class ReaderXML implements IReader {
 			}
 			transferredModel.setSolution(transferredSolution);
 		} catch (Exception e) {
-			System.out.println(
-					"Es ist zu einem Fehler gekommen! Die Daten fuer die Schlangen der eingelesenen Datei sind fehlerhaft.");
+			System.out.println("An error occurred! The data for the snakes in the file is flawed.");
 			System.out.println();
 			throw new Exception();
 		}
 	}
 
 	private void transferSnakeTypesFromFile(Element item) throws Exception {
-		/*
-		 * Hier werden die Schlangenarten, die in der Eingabedatei stehen, in das Modell
-		 * geschrieben. Haben die Daten ein ungueltiges Format, so wird eine Ausnahme
-		 * abgefangen und eine Fehlermeldung ausgegeben. Ausserdem wird eine Ausnahme
-		 * erzeugt, wenn eine Schlangenart eine Nachbarschaftsstruktur hat, die dem
-		 * Modell aktuell nicht bekannt ist. Das heisst, wenn dem Modell eine
-		 * Nachbarschaftsstruktur hinzugefuegt werden soll, so muessen auch hier
-		 * Anpassungen vorgenommen werden.
-		 */
 		try {
 			for (Element element : item.getChildren()) {
-				if (element.getChild("Nachbarschaftsstruktur").getAttributeValue("typ").equals("Distanz")) {
+				if ("Distanz".equals(element.getChild("Nachbarschaftsstruktur").getAttributeValue("typ"))) {
 					INeighborhood transferredNeighborhood = new DistanceNeighborhood(Integer.parseInt(element
 							.getChild("Nachbarschaftsstruktur").getChild("Parameter").getAttributeValue("wert")));
 					transferredModel.addSnakeType(new SnakeType(element.getAttributeValue("id"),
 							transferredNeighborhood, element.getChild("Zeichenkette").getText(),
 							Integer.parseInt(element.getAttributeValue("punkte")),
 							Integer.parseInt(element.getAttributeValue("anzahl"))));
-				} else if (element.getChild("Nachbarschaftsstruktur").getAttributeValue("typ").equals("Sprung")) {
+				} else if ("Sprung".equals(element.getChild("Nachbarschaftsstruktur").getAttributeValue("typ"))) {
 					List<Integer> transferredParameters = new ArrayList<Integer>();
 					for (Element parameter : element.getChild("Nachbarschaftsstruktur").getChildren()) {
 						transferredParameters.add(Integer.parseInt(parameter.getAttributeValue("wert")));
@@ -129,7 +111,7 @@ public class ReaderXML implements IReader {
 							transferredNeighborhood, element.getChild("Zeichenkette").getText(),
 							Integer.parseInt(element.getAttributeValue("punkte")),
 							Integer.parseInt(element.getAttributeValue("anzahl"))));
-				} else if (element.getChild("Nachbarschaftsstruktur").getAttributeValue("typ").equals("Stern")) {
+				} else if ("Stern".equals(element.getChild("Nachbarschaftsstruktur").getAttributeValue("typ"))) {
 					List<Integer> transferredParameters = new ArrayList<Integer>();
 					for (Element parameter : element.getChild("Nachbarschaftsstruktur").getChildren()) {
 						transferredParameters.add(Integer.parseInt(parameter.getAttributeValue("wert")));
@@ -144,21 +126,13 @@ public class ReaderXML implements IReader {
 				}
 			}
 		} catch (Exception e) {
-			System.out.println(
-					"Es ist zu einem Fehler gekommen! Die Daten fuer die Schlangenarten der eingelesenen Datei sind fehlerhaft.");
+			System.out.println("An error occurred! The data for the snake types in the file is flawed.");
 			System.out.println();
 			throw new Exception();
 		}
 	}
 
 	private void transferJungleFromFile(Element item) throws Exception {
-		/*
-		 * Hier wird der Dschungel, der in der Eingabedatei steht, in das Modell
-		 * geschrieben. Dabei wird erst ein leerer Dschungel erzeugt und danach wird
-		 * dieser nach und nach mit den Daten der eingelesenen Datei gefuellt. Haben die
-		 * Daten ein ungueltiges Format, so wird eine Ausnahme abgefangen und eine
-		 * Fehlermeldung ausgegeben.
-		 */
 		try {
 			List<Element> children = item.getChildren();
 			Jungle transferredJungle = new Jungle(Integer.parseInt(item.getAttributeValue("zeilen")),
@@ -175,20 +149,13 @@ public class ReaderXML implements IReader {
 			}
 			transferredModel.setJungle(transferredJungle);
 		} catch (Exception e) {
-			System.out.println(
-					"Es ist zu einem Fehler gekommen! Die Daten fuer den Dschungel der eingelesenen Datei sind fehlerhaft.");
+			System.out.println("An error occurred! The data for the jungle in the file is flawed.");
 			System.out.println();
 			throw new Exception();
 		}
 	}
 
 	private void transferTimeFromFile(Element item) throws Exception {
-		/*
-		 * Hier werden die Zeitangaben, die in der Eingabedatei stehen, in das Modell
-		 * geschrieben. Hierbei wird auf die Groesse der Zeitangabe der Datei Ruecksicht
-		 * genommen. Haben die Daten ein ungueltiges Format, so wird eine Ausnahme
-		 * abgefangen und eine Fehlermeldung ausgegeben.
-		 */
 		try {
 			Double[] transferredTime = { 0.0, 0.0 };
 			String transferredUnitOfTime = item.getAttributeValue("einheit");
@@ -201,18 +168,13 @@ public class ReaderXML implements IReader {
 			transferredModel.setUnitOfTime(transferredUnitOfTime);
 			transferredModel.setTime(transferredTime);
 		} catch (Exception e) {
-			System.out.println(
-					"Es ist zu einem Fehler gekommen! Die Daten fuer die Zeit der eingelesenen Datei sind fehlerhaft.");
+			System.out.println("An error occurred! The data for the time in the file is flawed.");
 			System.out.println();
 			throw new Exception();
 		}
 	}
 
-	private SnakeType findeSnakeTypeWithID(String id) {
-		/*
-		 * Eine Hilfsmethode, um die Schlangen aus einer Datei in das Modell zu
-		 * uebertragen.
-		 */
+	private SnakeType findSnakeTypeWithID(String id) {
 		for (SnakeType snakeType : transferredModel.getSnakeTypes()) {
 			if (snakeType.getId().equals(id)) {
 				return snakeType;
@@ -222,10 +184,6 @@ public class ReaderXML implements IReader {
 	}
 
 	private Field findFieldWithID(String id) {
-		/*
-		 * Eine Hilfsmethode, um die Schlangen aus einer Datei in das Modell zu
-		 * uebertragen.
-		 */
 		for (int i = 0; i < transferredModel.getJungle().getRows(); i++) {
 			for (int j = 0; j < transferredModel.getJungle().getColumns(); j++) {
 				if (transferredModel.getJungle().getFields()[i][j].getId().equals(id)) {
