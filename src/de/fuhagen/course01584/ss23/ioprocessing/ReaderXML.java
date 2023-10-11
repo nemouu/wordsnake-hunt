@@ -87,7 +87,6 @@ public class ReaderXML implements IReader {
 		} catch (Exception e) {
 			System.out.println("An error occurred! The data for the snakes in the file is flawed.");
 			System.out.println();
-			throw new Exception();
 		}
 	}
 
@@ -128,7 +127,6 @@ public class ReaderXML implements IReader {
 		} catch (Exception e) {
 			System.out.println("An error occurred! The data for the snake types in the file is flawed.");
 			System.out.println();
-			throw new Exception();
 		}
 	}
 
@@ -151,7 +149,6 @@ public class ReaderXML implements IReader {
 		} catch (Exception e) {
 			System.out.println("An error occurred! The data for the jungle in the file is flawed.");
 			System.out.println();
-			throw new Exception();
 		}
 	}
 
@@ -170,7 +167,6 @@ public class ReaderXML implements IReader {
 		} catch (Exception e) {
 			System.out.println("An error occurred! The data for the time in the file is flawed.");
 			System.out.println();
-			throw new Exception();
 		}
 	}
 
