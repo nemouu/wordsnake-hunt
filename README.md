@@ -1,6 +1,6 @@
 # Snake Hunt Word Puzzle Solver (Schlangenjagd)
 
-A sophisticated Java application that solves complex word-finding puzzles reminiscent of advanced crossword games. The application searches for "word snakes" (continuous letter sequences forming words) within a letter grid "jungle", implementing advanced algorithmic techniques for constraint satisfaction and optimization. This project was developed as part of a university programming practicum, demonstrating expertise in algorithmic design, object-oriented programming, and software architecture.
+A Java application that solves complex word-finding puzzles reminiscent of advanced crossword games. The application searches for "word snakes" (continuous letter sequences forming words) within a letter grid "jungle", implementing advanced algorithmic techniques for constraint satisfaction and optimization. This project was developed as part of a university programming practicum, demonstrating knowledge in algorithmic design, object-oriented programming and software architecture.
 
 ## Project Overview
 
