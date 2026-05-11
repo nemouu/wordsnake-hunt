@@ -3,7 +3,7 @@
 <SnakeHunt>
   <Time unit="s">
     <Limit>60.0</Limit>
-    <Elapsed>9.22947E-4</Elapsed>
+    <Elapsed>9.01037E-4</Elapsed>
   </Time>
   <Jungle rows="2" cols="4" signs="ABCDEFGHIJKLMNOPQRSTUVWXYZ">
     <Field id="F0" row="0" col="0" usability="1" points="1">F</Field>

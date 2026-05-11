@@ -27,6 +27,28 @@ src/main/java/org/snakehunt/
 
 Neighborhood structures use the **Strategy pattern** — `DistanceNeighborhood`, `JumpNeighborhood`, and `StarNeighborhood` are interchangeable implementations behind a common `INeighborhood` interface.
 
+## CLI Features
+
+When running the solver three keywords must be used:
+
+| Flag | Description |
+| --- | --- |
+| `process` | Sets up mode of operation (several can be selected) |
+| `input` | References the XML input file |
+| `output` | References the XML output file (if needed)|
+
+The CLI supports multiple operation modes, which are handed over after the `process` keyword and they can be chained:
+
+| Flag | Mode | Description |
+| --- | --- | --- |
+| `l` | Solve | Finds solutions for the given puzzle. |
+| `e` | Generate | Generates a new puzzle instance. |
+| `p` | Validate | Validates an existing solution. |
+| `b` | Evaluate | Scores a solution. |
+| `d` | Display | Visualizes the puzzle grid. |
+
+The operations can be combined, a few examples are shown below.
+
 ## Build and Run
 
 ### Maven
@@ -73,20 +95,6 @@ docker run --rm wordsnake-hunt process=pb input=res/sh_p1_solution.xml
 ```
 
 These examples use actual files from the `res/` directory and demonstrate the most common use cases. The `--rm` flag automatically cleans up the container after execution.
-
-## CLI Features
-
-The CLI supports multiple operation modes, which can be chained:
-
-| Flag | Mode | Description |
-| --- | --- | --- |
-| `l` | Solve | Finds solutions for the given puzzle. |
-| `e` | Generate | Generates a new puzzle instance. |
-| `p` | Validate | Validates an existing solution. |
-| `b` | Evaluate | Scores a solution. |
-| `d` | Display | Visualizes the puzzle grid. |
-
-The operations can be combined, a few examples are shown above.
 
 ## Tech Stack
 
