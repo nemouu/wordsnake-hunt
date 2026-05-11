@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE SnakeHunt SYSTEM "snakehunt.dtd">
+<SnakeHunt>
+  <Time unit="s">
+    <Limit>10.0</Limit>
+    <Elapsed>2.406820735</Elapsed>
+  </Time>
+  <Jungle rows="5" cols="5" signs="VIP">
+    <Field id="F0" row="0" col="0" usability="5" points="5">V</Field>
+    <Field id="F1" row="0" col="1" usability="8" points="8">T</Field>
+    <Field id="F2" row="0" col="2" usability="7" points="7">P</Field>
+    <Field id="F3" row="0" col="3" usability="3" points="3">E</Field>
+    <Field id="F4" row="0" col="4" usability="4" points="4">V</Field>
+    <Field id="F5" row="1" col="0" usability="4" points="4">T</Field>
+    <Field id="F6" row="1" col="1" usability="4" points="4">I</Field>
+    <Field id="F7" row="1" col="2" usability="6" points="6">E</Field>
+    <Field id="F8" row="1" col="3" usability="8" points="8">R</Field>
+    <Field id="F9" row="1" col="4" usability="8" points="8">I</Field>
+    <Field id="F10" row="2" col="0" usability="9" points="9">I</Field>
+    <Field id="F11" row="2" col="1" usability="3" points="3">O</Field>
+    <Field id="F12" row="2" col="2" usability="7" points="7">V</Field>
+    <Field id="F13" row="2" col="3" usability="3" points="3">R</Field>
+    <Field id="F14" row="2" col="4" usability="2" points="2">P</Field>
+    <Field id="F15" row="3" col="0" usability="4" points="4">I</Field>
+    <Field id="F16" row="3" col="1" usability="2" points="2">T</Field>
+    <Field id="F17" row="3" col="2" usability="2" points="2">T</Field>
+    <Field id="F18" row="3" col="3" usability="6" points="6">R</Field>
+    <Field id="F19" row="3" col="4" usability="9" points="9">P</Field>
+    <Field id="F20" row="4" col="0" usability="6" points="6">N</Field>
+    <Field id="F21" row="4" col="1" usability="2" points="2">A</Field>
+    <Field id="F22" row="4" col="2" usability="0" points="0">E</Field>
+    <Field id="F23" row="4" col="3" usability="9" points="9">I</Field>
+    <Field id="F24" row="4" col="4" usability="4" points="4">I</Field>
+  </Jungle>
+  <SnakeTypes>
+    <SnakeType id="A0" points="100" amount="1">
+      <Word>NATTER</Word>
+      <NeighborhoodStructure type="Distance">
+        <Parameter value="1" />
+      </NeighborhoodStructure>
+    </SnakeType>
+    <SnakeType id="A1" points="10" amount="1">
+      <Word>OTTER</Word>
+      <NeighborhoodStructure type="Distance">
+        <Parameter value="1" />
+      </NeighborhoodStructure>
+    </SnakeType>
+    <SnakeType id="A2" points="1" amount="1">
+      <Word>VIPER</Word>
+      <NeighborhoodStructure type="Distance">
+        <Parameter value="1" />
+      </NeighborhoodStructure>
+    </SnakeType>
+  </SnakeTypes>
+  <Snakes>
+    <Snake type="A1">
+      <SnakeElement field="F11" />
+      <SnakeElement field="F5" />
+      <SnakeElement field="F1" />
+      <SnakeElement field="F7" />
+      <SnakeElement field="F8" />
+    </Snake>
+    <Snake type="A1">
+      <SnakeElement field="F11" />
+      <SnakeElement field="F5" />
+      <SnakeElement field="F1" />
+      <SnakeElement field="F7" />
+      <SnakeElement field="F8" />
+    </Snake>
+    <Snake type="A1">
+      <SnakeElement field="F11" />
+      <SnakeElement field="F5" />
+      <SnakeElement field="F1" />
+      <SnakeElement field="F7" />
+      <SnakeElement field="F8" />
+    </Snake>
+    <Snake type="A2">
+      <SnakeElement field="F12" />
+      <SnakeElement field="F6" />
+      <SnakeElement field="F2" />
+      <SnakeElement field="F7" />
+      <SnakeElement field="F8" />
+    </Snake>
+    <Snake type="A2">
+      <SnakeElement field="F12" />
+      <SnakeElement field="F6" />
+      <SnakeElement field="F2" />
+      <SnakeElement field="F7" />
+      <SnakeElement field="F8" />
+    </Snake>
+    <Snake type="A2">
+      <SnakeElement field="F12" />
+      <SnakeElement field="F6" />
+      <SnakeElement field="F2" />
+      <SnakeElement field="F7" />
+      <SnakeElement field="F8" />
+    </Snake>
+    <Snake type="A2">
+      <SnakeElement field="F12" />
+      <SnakeElement field="F6" />
+      <SnakeElement field="F2" />
+      <SnakeElement field="F3" />
+      <SnakeElement field="F8" />
+    </Snake>
+  </Snakes>
+</SnakeHunt>

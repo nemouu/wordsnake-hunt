@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE SnakeHunt SYSTEM "snakehunt.dtd" >
+<SnakeHunt>
+	<Time unit="s">
+		<Limit>10.0</Limit>
+	</Time>
+	<Jungle rows="20" cols="20" signs="ABCDEFGHIJKLMNOPQRSTUVWXYZ">
+	</Jungle>
+	<SnakeTypes>
+		<SnakeType id="A0" points="1" amount="3">
+			<Word>FERNUNI</Word>
+			<NeighborhoodStructure type="Distance">
+				<Parameter value="1" />
+			</NeighborhoodStructure>
+		</SnakeType>
+		<SnakeType id="A1" points="1" amount="3">
+			<Word>HAGEN</Word>
+			<NeighborhoodStructure type="Jump">
+				<Parameter value="2" />
+				<Parameter value="1" />
+			</NeighborhoodStructure>
+		</SnakeType>
+		<SnakeType id="A2" points="1" amount="3">
+			<Word>ANACONDA</Word>
+			<NeighborhoodStructure type="Jump">
+				<Parameter value="3" />
+				<Parameter value="2" />
+			</NeighborhoodStructure>
+		</SnakeType>
+	</SnakeTypes>
+</SnakeHunt>

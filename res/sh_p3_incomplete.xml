@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE SnakeHunt SYSTEM "snakehunt.dtd" >
+<SnakeHunt>
+	<Time unit="s">
+		<Limit>10.0</Limit>
+	</Time>
+	<Jungle rows="11" cols="11" signs="ABCDEFGHIJKLMNOPQRSTUVWXYZ">
+	</Jungle>
+	<SnakeTypes>
+		<SnakeType id="A0" points="1" amount="1">
+			<Word>DONAUDAMPFSCHIFFFAHRTSELEKTRIZITÄTENHAUPTBETRIEBSWERKBAUUNTERBEAMTENGESELLSCHAFT</Word>
+			<NeighborhoodStructure type="Distance">
+				<Parameter value="1" />
+			</NeighborhoodStructure>
+		</SnakeType>
+	</SnakeTypes>
+</SnakeHunt>

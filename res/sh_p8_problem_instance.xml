@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE SnakeHunt SYSTEM "snakehunt.dtd">
+<SnakeHunt>
+    <Time unit="min">
+        <Limit>0.2</Limit>
+    </Time>
+    <Jungle rows="8" cols="8" signs="☀☁☂☃☄★☆☇☔☕☼☽☾♨♫⚘⚽⛄⛅⛆⛈⛐⛰⛵⛷⛸⛹⛺">
+        <Field id="F0" row="0" col="0" usability="1" points="5">☻</Field>
+        <Field id="F1" row="0" col="1" usability="1" points="8">☺</Field>
+        <Field id="F2" row="0" col="2" usability="1" points="7">☻</Field>
+        <Field id="F3" row="0" col="3" usability="1" points="3">⛸</Field>
+        <Field id="F4" row="0" col="4" usability="1" points="4">☄</Field>
+        <Field id="F5" row="0" col="5" usability="1" points="4">☺</Field>
+        <Field id="F6" row="0" col="6" usability="1" points="4">☻</Field>
+        <Field id="F7" row="0" col="7" usability="1" points="6">☺</Field>
+        <Field id="F8" row="1" col="0" usability="1" points="8">☺</Field>
+        <Field id="F9" row="1" col="1" usability="1" points="8">☻</Field>
+        <Field id="F10" row="1" col="2" usability="1" points="9">☺</Field>
+        <Field id="F11" row="1" col="3" usability="1" points="3">☺</Field>
+        <Field id="F12" row="1" col="4" usability="1" points="7">☻</Field>
+        <Field id="F13" row="1" col="5" usability="1" points="3">☻</Field>
+        <Field id="F14" row="1" col="6" usability="1" points="2">⚘</Field>
+        <Field id="F15" row="1" col="7" usability="1" points="4">☻</Field>
+        <Field id="F16" row="2" col="0" usability="1" points="2">P</Field>
+        <Field id="F17" row="2" col="1" usability="1" points="2">☺</Field>
+        <Field id="F18" row="2" col="2" usability="1" points="6">P</Field>
+        <Field id="F19" row="2" col="3" usability="1" points="9">R</Field>
+        <Field id="F20" row="2" col="4" usability="1" points="6">☻</Field>
+        <Field id="F21" row="2" col="5" usability="1" points="2">⛐</Field>
+        <Field id="F22" row="2" col="6" usability="1" points="0">☺</Field>
+        <Field id="F23" row="2" col="7" usability="1" points="9">☺</Field>
+        <Field id="F24" row="3" col="0" usability="1" points="4">☻</Field>
+        <Field id="F25" row="3" col="1" usability="1" points="9">R</Field>
+        <Field id="F26" row="3" col="2" usability="1" points="8">☺</Field>
+        <Field id="F27" row="3" col="3" usability="1" points="3">♡</Field>
+        <Field id="F28" row="3" col="4" usability="1" points="7">☺</Field>
+        <Field id="F29" row="3" col="5" usability="1" points="2">☺</Field>
+        <Field id="F30" row="3" col="6" usability="1" points="5">☺</Field>
+        <Field id="F31" row="3" col="7" usability="1" points="4">☻</Field>
+        <Field id="F32" row="4" col="0" usability="1" points="0">☻</Field>
+        <Field id="F33" row="4" col="1" usability="1" points="6">☻</Field>
+        <Field id="F34" row="4" col="2" usability="1" points="3">☺</Field>
+        <Field id="F35" row="4" col="3" usability="1" points="5">☻</Field>
+        <Field id="F36" row="4" col="4" usability="1" points="9">P</Field>
+        <Field id="F37" row="4" col="5" usability="1" points="0">☻</Field>
+        <Field id="F38" row="4" col="6" usability="1" points="5">☺</Field>
+        <Field id="F39" row="4" col="7" usability="1" points="4">☻</Field>
+        <Field id="F40" row="5" col="0" usability="1" points="5">☺</Field>
+        <Field id="F41" row="5" col="1" usability="1" points="0">☺</Field>
+        <Field id="F42" row="5" col="2" usability="1" points="7">☺</Field>
+        <Field id="F43" row="5" col="3" usability="1" points="7">☻</Field>
+        <Field id="F44" row="5" col="4" usability="1" points="7">☆</Field>
+        <Field id="F45" row="5" col="5" usability="1" points="2">R</Field>
+        <Field id="F46" row="5" col="6" usability="1" points="0">☻</Field>
+        <Field id="F47" row="5" col="7" usability="1" points="8">☺</Field>
+        <Field id="F48" row="6" col="0" usability="1" points="0">⛈</Field>
+        <Field id="F49" row="6" col="1" usability="1" points="7">☺</Field>
+        <Field id="F50" row="6" col="2" usability="1" points="2">☻</Field>
+        <Field id="F51" row="6" col="3" usability="1" points="3">♫</Field>
+        <Field id="F52" row="6" col="4" usability="1" points="6">☺</Field>
+        <Field id="F53" row="6" col="5" usability="1" points="5">P</Field>
+        <Field id="F54" row="6" col="6" usability="1" points="6">☻</Field>
+        <Field id="F55" row="6" col="7" usability="1" points="5">⛰</Field>
+        <Field id="F56" row="7" col="0" usability="1" points="8">☻</Field>
+        <Field id="F57" row="7" col="1" usability="1" points="9">☼</Field>
+        <Field id="F58" row="7" col="2" usability="1" points="4">⛈</Field>
+        <Field id="F59" row="7" col="3" usability="1" points="4">♥</Field>
+        <Field id="F60" row="7" col="4" usability="1" points="0">R</Field>
+        <Field id="F61" row="7" col="5" usability="1" points="1">☻</Field>
+        <Field id="F62" row="7" col="6" usability="1" points="6">★</Field>
+        <Field id="F63" row="7" col="7" usability="1" points="3">★</Field>
+    </Jungle>
+    <SnakeTypes>
+        <SnakeType id="A0" points="10" amount="1">
+            <Word>PR☻PR♥</Word>
+            <NeighborhoodStructure type="Distance">
+                <Parameter value="1" />
+            </NeighborhoodStructure>
+        </SnakeType>
+        <SnakeType id="A1" points="10" amount="1">
+            <Word>PR☺PR♡</Word>
+            <NeighborhoodStructure type="Distance">
+                <Parameter value="1" />
+            </NeighborhoodStructure>
+        </SnakeType>
+        <SnakeType id="A2" points="1" amount="6">
+            <Word>☺☻</Word>
+            <NeighborhoodStructure type="Distance">
+                <Parameter value="1" />
+            </NeighborhoodStructure>
+        </SnakeType>
+        <SnakeType id="A3" points="3" amount="4">
+            <Word>☺☻☺☻</Word>
+            <NeighborhoodStructure type="Distance">
+                <Parameter value="1" />
+            </NeighborhoodStructure>
+        </SnakeType>
+        <SnakeType id="A4" points="6" amount="2">
+            <Word>☺☻☺☻☺☻</Word>
+            <NeighborhoodStructure type="Distance">
+                <Parameter value="1" />
+            </NeighborhoodStructure>
+        </SnakeType>
+    </SnakeTypes>
+    <Snakes />
+</SnakeHunt>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE SnakeHunt SYSTEM "snakehunt.dtd" >
+<SnakeHunt>
+	<Time unit="h">
+		<Limit>0.005</Limit>
+	</Time>
+	<Jungle rows="8" cols="10" signs="ÁÀĂÂÄÓÒǑÔÖ">
+	</Jungle>
+	<SnakeTypes>
+		<SnakeType id="A0" points="10" amount="3">
+			<Word>ANNA</Word>
+			<NeighborhoodStructure type="Distance">
+				<Parameter value="1" />
+			</NeighborhoodStructure>
+		</SnakeType>
+		<SnakeType id="A1" points="1" amount="3">
+			<Word>ANNA</Word>
+			<NeighborhoodStructure type="Distance">
+				<Parameter value="2" />
+			</NeighborhoodStructure>
+		</SnakeType>
+		<SnakeType id="A2" points="10" amount="3">
+			<Word>OTTO</Word>
+			<NeighborhoodStructure type="Distance">
+				<Parameter value="1" />
+			</NeighborhoodStructure>
+		</SnakeType>
+		<SnakeType id="A3" points="1" amount="3">
+			<Word>OTTO</Word>
+			<NeighborhoodStructure type="Distance">
+				<Parameter value="2" />
+			</NeighborhoodStructure>
+		</SnakeType>
+		<SnakeType id="A4" points="30" amount="1">
+			<Word>ANON</Word>
+			<NeighborhoodStructure type="Jump">
+				<Parameter value="2" />
+				<Parameter value="1" />
+			</NeighborhoodStructure>
+		</SnakeType>
+		<SnakeType id="A5" points="20" amount="1">
+			<Word>NONA</Word>
+			<NeighborhoodStructure type="Jump">
+				<Parameter value="2" />
+				<Parameter value="1" />
+			</NeighborhoodStructure>
+		</SnakeType>
+	</SnakeTypes>
+</SnakeHunt>

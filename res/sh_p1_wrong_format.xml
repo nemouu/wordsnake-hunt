@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE SnakeHunt SYSTEM "snakehunt.dtd">
+<SnakeHunt>
+  <Time unit="s">
+    <Limit>60.0</Limit>
+    <Elapsed>0.001205252</Elapsed>
+  </Time>
+  <Jungle rows="2" cols="4" signs="ABCDEFGHIJKLMNOPQRSTUVWXYZ">
+    <Field id="F0" row="0" col="0" usability="1" points="1">F</Field>
+    <Field id="F1" row="0" col="1" usability="1" points="1">E</Field>
+    <Field id="F2" row="0" col="2" usability="1" points="1">R</Field>
+    <Field id="F3" row="0" col="3" usability="1" points="1">N</Field>
+    <Field id="F4" row="1" col="0" usability="1" points="1">X</Field>
+    <Field id="F5" row="1" col="1" usability="1" points="1">I</Field>
+    <Field id="F6" row="1" col="2" usability="1" points="1">N</Field>
+    <Field id="F7" row="1" col="3" usability="1" points="1">U</Field>
+  </Jungle>
+</SnakeHunt>

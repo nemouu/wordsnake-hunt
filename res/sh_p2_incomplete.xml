@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE SnakeHunt SYSTEM "snakehunt.dtd" >
+<SnakeHunt>
+	<Time unit="s">
+		<Limit>10.0</Limit>
+	</Time>
+	<Jungle rows="5" cols="10" signs="ABCDEFGHIJKLMNOPQRSTUVWXYZ">
+	</Jungle>
+	<SnakeTypes>
+		<SnakeType id="A0" points="1" amount="1">
+			<Word>DIE</Word>
+			<NeighborhoodStructure type="Distance">
+				<Parameter value="1" />
+			</NeighborhoodStructure>
+		</SnakeType>
+		<SnakeType id="A1" points="1" amount="1">
+			<Word>DIES</Word>
+			<NeighborhoodStructure type="Distance">
+				<Parameter value="1" />
+			</NeighborhoodStructure>
+		</SnakeType>
+		<SnakeType id="A2" points="1" amount="1">
+			<Word>DIESE</Word>
+			<NeighborhoodStructure type="Distance">
+				<Parameter value="1" />
+			</NeighborhoodStructure>
+		</SnakeType>
+		<SnakeType id="A3" points="1" amount="1">
+			<Word>DIESES</Word>
+			<NeighborhoodStructure type="Distance">
+				<Parameter value="1" />
+			</NeighborhoodStructure>
+		</SnakeType>
+		<SnakeType id="A4" points="1" amount="1">
+			<Word>DIESEN</Word>
+			<NeighborhoodStructure type="Distance">
+				<Parameter value="1" />
+			</NeighborhoodStructure>
+		</SnakeType>
+		<SnakeType id="A5" points="1" amount="1">
+			<Word>DIESER</Word>
+			<NeighborhoodStructure type="Distance">
+				<Parameter value="1" />
+			</NeighborhoodStructure>
+		</SnakeType>
+	</SnakeTypes>
+</SnakeHunt>

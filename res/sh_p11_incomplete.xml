@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE SnakeHunt SYSTEM "snakehunt.dtd" >
+<SnakeHunt>
+	<Time unit="s">
+		<Limit>10.0</Limit>
+	</Time>
+	<Jungle rows="7" cols="7" signs="AEIOU">
+	</Jungle>
+    <SnakeTypes>
+        <SnakeType id="A0" points="10" amount="1">
+            <Word>ADA</Word>
+            <NeighborhoodStructure type="Distance">
+                <Parameter value="1" />
+            </NeighborhoodStructure>
+        </SnakeType>
+        <SnakeType id="A1" points="10" amount="1">
+            <Word>AMY</Word>
+            <NeighborhoodStructure type="Distance">
+                <Parameter value="1" />
+            </NeighborhoodStructure>
+        </SnakeType>
+        <SnakeType id="A2" points="10" amount="1">
+            <Word>ANN</Word>
+            <NeighborhoodStructure type="Distance">
+                <Parameter value="1" />
+            </NeighborhoodStructure>
+        </SnakeType>
+        <SnakeType id="A3" points="10" amount="1">
+            <Word>AVA</Word>
+            <NeighborhoodStructure type="Distance">
+                <Parameter value="1" />
+            </NeighborhoodStructure>
+        </SnakeType>
+        <SnakeType id="A4" points="10" amount="1">
+            <Word>BEA</Word>
+            <NeighborhoodStructure type="Distance">
+                <Parameter value="1" />
+            </NeighborhoodStructure>
+        </SnakeType>
+        <SnakeType id="A5" points="10" amount="1">
+            <Word>ELA</Word>
+            <NeighborhoodStructure type="Distance">
+                <Parameter value="1" />
+            </NeighborhoodStructure>
+        </SnakeType>
+        <SnakeType id="A6" points="10" amount="1">
+            <Word>EVA</Word>
+            <NeighborhoodStructure type="Distance">
+                <Parameter value="1" />
+            </NeighborhoodStructure>
+        </SnakeType>
+        <SnakeType id="A7" points="10" amount="1">
+            <Word>IDA</Word>
+            <NeighborhoodStructure type="Distance">
+                <Parameter value="1" />
+            </NeighborhoodStructure>
+        </SnakeType>
+        <SnakeType id="A8" points="10" amount="1">
+            <Word>INA</Word>
+            <NeighborhoodStructure type="Distance">
+                <Parameter value="1" />
+            </NeighborhoodStructure>
+        </SnakeType>
+        <SnakeType id="A9" points="10" amount="1">
+            <Word>ISA</Word>
+            <NeighborhoodStructure type="Distance">
+                <Parameter value="1" />
+            </NeighborhoodStructure>
+        </SnakeType>
+        <SnakeType id="A10" points="10" amount="1">
+            <Word>LEA</Word>
+            <NeighborhoodStructure type="Distance">
+                <Parameter value="1" />
+            </NeighborhoodStructure>
+        </SnakeType>
+        <SnakeType id="A11" points="10" amount="1">
+            <Word>LIA</Word>
+            <NeighborhoodStructure type="Distance">
+                <Parameter value="1" />
+            </NeighborhoodStructure>
+        </SnakeType>
+        <SnakeType id="A12" points="10" amount="1">
+            <Word>LIN</Word>
+            <NeighborhoodStructure type="Distance">
+                <Parameter value="1" />
+            </NeighborhoodStructure>
+        </SnakeType>
+        <SnakeType id="A13" points="10" amount="1">
+            <Word>LIV</Word>
+            <NeighborhoodStructure type="Distance">
+                <Parameter value="1" />
+            </NeighborhoodStructure>
+        </SnakeType>
+        <SnakeType id="A14" points="10" amount="1">
+            <Word>MIA</Word>
+            <NeighborhoodStructure type="Distance">
+                <Parameter value="1" />
+            </NeighborhoodStructure>
+        </SnakeType>
+        <SnakeType id="A15" points="10" amount="1">
+            <Word>PIA</Word>
+            <NeighborhoodStructure type="Distance">
+                <Parameter value="1" />
+            </NeighborhoodStructure>
+        </SnakeType>
+        <SnakeType id="A16" points="10" amount="1">
+            <Word>RIA</Word>
+            <NeighborhoodStructure type="Distance">
+                <Parameter value="1" />
+            </NeighborhoodStructure>
+        </SnakeType>
+        <SnakeType id="A17" points="10" amount="1">
+            <Word>SUE</Word>
+            <NeighborhoodStructure type="Distance">
+                <Parameter value="1" />
+            </NeighborhoodStructure>
+        </SnakeType>
+        <SnakeType id="A18" points="10" amount="1">
+            <Word>UTE</Word>
+            <NeighborhoodStructure type="Distance">
+                <Parameter value="1" />
+            </NeighborhoodStructure>
+        </SnakeType>
+        <SnakeType id="A19" points="10" amount="1">
+            <Word>ZOE</Word>
+            <NeighborhoodStructure type="Distance">
+                <Parameter value="1" />
+            </NeighborhoodStructure>
+        </SnakeType>
+    </SnakeTypes>
+</SnakeHunt>

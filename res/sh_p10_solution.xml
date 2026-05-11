@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE SnakeHunt SYSTEM "snakehunt.dtd">
+<SnakeHunt>
+    <Time unit="d">
+        <Limit>2.0E-4</Limit>
+        <Elapsed>2.0000005064814815E-4</Elapsed>
+    </Time>
+    <Jungle rows="6" cols="6" signs="BELN">
+        <Field id="F0" row="0" col="0" usability="1" points="5">L</Field>
+        <Field id="F1" row="0" col="1" usability="1" points="8">N</Field>
+        <Field id="F2" row="0" col="2" usability="1" points="7">B</Field>
+        <Field id="F3" row="0" col="3" usability="1" points="3">E</Field>
+        <Field id="F4" row="0" col="4" usability="1" points="4">E</Field>
+        <Field id="F5" row="0" col="5" usability="1" points="4">L</Field>
+        <Field id="F6" row="1" col="0" usability="1" points="4">E</Field>
+        <Field id="F7" row="1" col="1" usability="1" points="6">E</Field>
+        <Field id="F8" row="1" col="2" usability="1" points="8">B</Field>
+        <Field id="F9" row="1" col="3" usability="1" points="8">B</Field>
+        <Field id="F10" row="1" col="4" usability="1" points="9">B</Field>
+        <Field id="F11" row="1" col="5" usability="1" points="3">E</Field>
+        <Field id="F12" row="2" col="0" usability="1" points="7">L</Field>
+        <Field id="F13" row="2" col="1" usability="1" points="3">L</Field>
+        <Field id="F14" row="2" col="2" usability="1" points="2">N</Field>
+        <Field id="F15" row="2" col="3" usability="1" points="4">E</Field>
+        <Field id="F16" row="2" col="4" usability="1" points="2">N</Field>
+        <Field id="F17" row="2" col="5" usability="1" points="2">L</Field>
+        <Field id="F18" row="3" col="0" usability="1" points="6">B</Field>
+        <Field id="F19" row="3" col="1" usability="1" points="9">E</Field>
+        <Field id="F20" row="3" col="2" usability="1" points="6">E</Field>
+        <Field id="F21" row="3" col="3" usability="1" points="2">B</Field>
+        <Field id="F22" row="3" col="4" usability="1" points="0">L</Field>
+        <Field id="F23" row="3" col="5" usability="1" points="9">B</Field>
+        <Field id="F24" row="4" col="0" usability="1" points="4">B</Field>
+        <Field id="F25" row="4" col="1" usability="1" points="9">N</Field>
+        <Field id="F26" row="4" col="2" usability="1" points="8">N</Field>
+        <Field id="F27" row="4" col="3" usability="1" points="3">E</Field>
+        <Field id="F28" row="4" col="4" usability="1" points="7">E</Field>
+        <Field id="F29" row="4" col="5" usability="1" points="2">B</Field>
+        <Field id="F30" row="5" col="0" usability="1" points="5">N</Field>
+        <Field id="F31" row="5" col="1" usability="1" points="4">L</Field>
+        <Field id="F32" row="5" col="2" usability="1" points="0">L</Field>
+        <Field id="F33" row="5" col="3" usability="1" points="6">B</Field>
+        <Field id="F34" row="5" col="4" usability="1" points="3">N</Field>
+        <Field id="F35" row="5" col="5" usability="1" points="5">E</Field>
+    </Jungle>
+    <SnakeTypes>
+        <SnakeType id="A0" points="20" amount="2">
+            <Word>LEBEN</Word>
+            <NeighborhoodStructure type="Distance">
+                <Parameter value="2" />
+            </NeighborhoodStructure>
+        </SnakeType>
+        <SnakeType id="A1" points="1" amount="2">
+            <Word>NEBEL</Word>
+            <NeighborhoodStructure type="Distance">
+                <Parameter value="3" />
+            </NeighborhoodStructure>
+        </SnakeType>
+    </SnakeTypes>
+    <Snakes>
+        <Snake type="A0">
+            <SnakeElement field="F12" />
+            <SnakeElement field="F19" />
+            <SnakeElement field="F8" />
+            <SnakeElement field="F7" />
+            <SnakeElement field="F1" />
+        </Snake>
+        <Snake type="A1">
+            <SnakeElement field="F25" />
+            <SnakeElement field="F28" />
+            <SnakeElement field="F10" />
+            <SnakeElement field="F20" />
+            <SnakeElement field="F0" />
+        </Snake>
+        <Snake type="A1">
+            <SnakeElement field="F26" />
+            <SnakeElement field="F35" />
+            <SnakeElement field="F23" />
+            <SnakeElement field="F15" />
+            <SnakeElement field="F31" />
+        </Snake>
+        <Snake type="A0">
+            <SnakeElement field="F5" />
+            <SnakeElement field="F4" />
+            <SnakeElement field="F9" />
+            <SnakeElement field="F11" />
+            <SnakeElement field="F16" />
+        </Snake>
+        <Snake type="A0">
+            <SnakeElement field="F13" />
+            <SnakeElement field="F6" />
+            <SnakeElement field="F2" />
+            <SnakeElement field="F3" />
+            <SnakeElement field="F14" />
+        </Snake>
+    </Snakes>
+</SnakeHunt>

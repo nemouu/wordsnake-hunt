@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE SnakeHunt SYSTEM "snakehunt.dtd" >
+<SnakeHunt>
+	<Time unit="min">
+		<Limit>0.3</Limit>
+	</Time>
+	<Jungle rows="50" cols="50" signs="ABCDEFGHIJKLMNOPQRSTUVWXYZ">
+	</Jungle>
+    <SnakeTypes>
+        <SnakeType id="A0" points="30" amount="50">
+            <Word>ERNSTE</Word>
+            <NeighborhoodStructure type="Distance">
+                <Parameter value="2" />
+            </NeighborhoodStructure>
+        </SnakeType>
+        <SnakeType id="A1" points="20" amount="50">
+            <Word>ERSTEN</Word>
+            <NeighborhoodStructure type="Distance">
+                <Parameter value="4" />
+            </NeighborhoodStructure>
+        </SnakeType>
+        <SnakeType id="A2" points="10" amount="50">
+            <Word>NESTER</Word>
+            <NeighborhoodStructure type="Distance">
+                <Parameter value="6" />
+            </NeighborhoodStructure>
+        </SnakeType>
+        <SnakeType id="A3" points="40" amount="50">
+            <Word>STERNE</Word>
+            <NeighborhoodStructure type="Jump">
+                <Parameter value="2" />
+                <Parameter value="1" />
+            </NeighborhoodStructure>
+        </SnakeType>
+        <SnakeType id="A4" points="50" amount="50">
+            <Word>RESTEN</Word>
+            <NeighborhoodStructure type="Jump">
+                <Parameter value="3" />
+                <Parameter value="1" />
+            </NeighborhoodStructure>
+        </SnakeType>
+        <SnakeType id="A5" points="60" amount="50">
+            <Word>TRENSE</Word>
+            <NeighborhoodStructure type="Jump">
+                <Parameter value="3" />
+                <Parameter value="2" />
+            </NeighborhoodStructure>
+        </SnakeType>
+        <SnakeType id="A6" points="70" amount="50">
+            <Word>TRESEN</Word>
+            <NeighborhoodStructure type="Jump">
+                <Parameter value="4" />
+                <Parameter value="1" />
+            </NeighborhoodStructure>
+        </SnakeType>
+    </SnakeTypes>
+</SnakeHunt>

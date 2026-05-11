@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE SnakeHunt SYSTEM "snakehunt.dtd">
+<SnakeHunt>
+    <Time unit="ms">
+        <Limit>2000.0</Limit>
+    </Time>
+    <Jungle rows="6" cols="6" signs="X">
+        <Field id="F0" row="0" col="0" usability="1" points="5">A</Field>
+        <Field id="F1" row="0" col="1" usability="1" points="8">A</Field>
+        <Field id="F2" row="0" col="2" usability="1" points="7">X</Field>
+        <Field id="F3" row="0" col="3" usability="1" points="3">A</Field>
+        <Field id="F4" row="0" col="4" usability="1" points="4">A</Field>
+        <Field id="F5" row="0" col="5" usability="1" points="4">X</Field>
+        <Field id="F6" row="1" col="0" usability="1" points="4">A</Field>
+        <Field id="F7" row="1" col="1" usability="1" points="6">A</Field>
+        <Field id="F8" row="1" col="2" usability="1" points="8">A</Field>
+        <Field id="F9" row="1" col="3" usability="1" points="8">A</Field>
+        <Field id="F10" row="1" col="4" usability="1" points="9">X</Field>
+        <Field id="F11" row="1" col="5" usability="1" points="3">X</Field>
+        <Field id="F12" row="2" col="0" usability="1" points="7">A</Field>
+        <Field id="F13" row="2" col="1" usability="1" points="3">X</Field>
+        <Field id="F14" row="2" col="2" usability="1" points="2">A</Field>
+        <Field id="F15" row="2" col="3" usability="1" points="4">X</Field>
+        <Field id="F16" row="2" col="4" usability="1" points="2">X</Field>
+        <Field id="F17" row="2" col="5" usability="1" points="2">X</Field>
+        <Field id="F18" row="3" col="0" usability="1" points="6">A</Field>
+        <Field id="F19" row="3" col="1" usability="1" points="9">A</Field>
+        <Field id="F20" row="3" col="2" usability="1" points="6">A</Field>
+        <Field id="F21" row="3" col="3" usability="1" points="2">A</Field>
+        <Field id="F22" row="3" col="4" usability="1" points="0">A</Field>
+        <Field id="F23" row="3" col="5" usability="1" points="9">X</Field>
+        <Field id="F24" row="4" col="0" usability="1" points="4">A</Field>
+        <Field id="F25" row="4" col="1" usability="1" points="9">X</Field>
+        <Field id="F26" row="4" col="2" usability="1" points="8">A</Field>
+        <Field id="F27" row="4" col="3" usability="1" points="3">A</Field>
+        <Field id="F28" row="4" col="4" usability="1" points="7">X</Field>
+        <Field id="F29" row="4" col="5" usability="1" points="2">A</Field>
+        <Field id="F30" row="5" col="0" usability="1" points="5">X</Field>
+        <Field id="F31" row="5" col="1" usability="1" points="4">A</Field>
+        <Field id="F32" row="5" col="2" usability="1" points="0">X</Field>
+        <Field id="F33" row="5" col="3" usability="1" points="6">A</Field>
+        <Field id="F34" row="5" col="4" usability="1" points="3">A</Field>
+        <Field id="F35" row="5" col="5" usability="1" points="5">X</Field>
+    </Jungle>
+    <SnakeTypes>
+        <SnakeType id="A0" points="1" amount="2">
+            <Word>AA</Word>
+            <NeighborhoodStructure type="Distance">
+                <Parameter value="1" />
+            </NeighborhoodStructure>
+        </SnakeType>
+        <SnakeType id="A1" points="5" amount="2">
+            <Word>AA</Word>
+            <NeighborhoodStructure type="Jump">
+                <Parameter value="1" />
+                <Parameter value="0" />
+            </NeighborhoodStructure>
+        </SnakeType>
+        <SnakeType id="A2" points="5" amount="2">
+            <Word>AA</Word>
+            <NeighborhoodStructure type="Jump">
+                <Parameter value="1" />
+                <Parameter value="1" />
+            </NeighborhoodStructure>
+        </SnakeType>
+        <SnakeType id="A3" points="10" amount="2">
+            <Word>AA</Word>
+            <NeighborhoodStructure type="Jump">
+                <Parameter value="2" />
+                <Parameter value="1" />
+            </NeighborhoodStructure>
+        </SnakeType>
+        <SnakeType id="A4" points="100" amount="2">
+            <Word>AAA</Word>
+            <NeighborhoodStructure type="Jump">
+                <Parameter value="3" />
+                <Parameter value="1" />
+            </NeighborhoodStructure>
+        </SnakeType>
+    </SnakeTypes>
+    <Snakes />
+</SnakeHunt>

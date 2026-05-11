@@ -1,0 +1,47 @@
+<!ELEMENT SnakeHunt (Time?, Jungle, SnakeTypes, 
+        Snakes?)>
+<!ELEMENT Time (Limit, Elapsed?)> 
+<!ATTLIST Time
+    unit (ms|s|min|h|d) "s"
+>
+<!ELEMENT Limit (#PCDATA)>
+<!ELEMENT Elapsed (#PCDATA)>
+<!ELEMENT Jungle (Field*)>
+<!ATTLIST Jungle
+    rows CDATA #REQUIRED
+    cols CDATA #REQUIRED
+    signs CDATA #REQUIRED
+>
+<!ELEMENT Field (#PCDATA)> 
+<!ATTLIST Field
+    id ID #REQUIRED
+    row CDATA #REQUIRED
+    col CDATA #REQUIRED
+    usability CDATA "1"
+    points CDATA "1"
+>
+<!ELEMENT SnakeTypes (SnakeType+)>
+<!ELEMENT SnakeType (Word, NeighborhoodStructure)>
+<!ATTLIST SnakeType
+    id ID #REQUIRED
+    points CDATA "1"
+    amount CDATA #REQUIRED
+>
+<!ELEMENT Word (#PCDATA)>
+<!ELEMENT NeighborhoodStructure (Parameter*)>
+<!ATTLIST NeighborhoodStructure
+    type CDATA #REQUIRED
+>
+<!ELEMENT Parameter EMPTY>
+<!ATTLIST Parameter
+    value CDATA #REQUIRED
+>
+<!ELEMENT Snakes (Snake*)>
+<!ELEMENT Snake (SnakeElement+)>
+<!ATTLIST Snake
+    type IDREF #REQUIRED
+>
+<!ELEMENT SnakeElement EMPTY>
+<!ATTLIST SnakeElement
+    field IDREF #REQUIRED
+>

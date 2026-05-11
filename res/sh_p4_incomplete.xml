@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE SnakeHunt SYSTEM "snakehunt.dtd" >
+<SnakeHunt>
+	<Time unit="s">
+		<Limit>10.0</Limit>
+	</Time>
+	<Jungle rows="5" cols="8" signs="ABCDEFGHIJKLMNOPQRSTUVWXYZ">
+	</Jungle>
+	<SnakeTypes>
+		<SnakeType id="A0" points="1" amount="1">
+			<Word>ÄSKULAPNATTER</Word>
+			<NeighborhoodStructure type="Distance">
+				<Parameter value="2" />
+			</NeighborhoodStructure>
+		</SnakeType>
+		<SnakeType id="A1" points="1" amount="1">
+			<Word>RINGELNATTER</Word>
+			<NeighborhoodStructure type="Distance">
+				<Parameter value="2" />
+			</NeighborhoodStructure>
+		</SnakeType>
+		<SnakeType id="A2" points="1" amount="1">
+			<Word>SCHLINGNATTER</Word>
+			<NeighborhoodStructure type="Distance">
+				<Parameter value="2" />
+			</NeighborhoodStructure>
+		</SnakeType>
+	</SnakeTypes>
+</SnakeHunt>

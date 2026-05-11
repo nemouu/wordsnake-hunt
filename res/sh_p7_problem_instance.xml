@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE SnakeHunt SYSTEM "snakehunt.dtd">
+<SnakeHunt>
+    <Time unit="s">
+        <Limit>10.0</Limit>
+    </Time>
+    <Jungle rows="10" cols="5" signs="!&quot;§$%&amp;/()=?+*~#',;:-_@€&lt;&gt;|">
+        <Field id="F0" row="0" col="0" usability="1" points="5">N</Field>
+        <Field id="F1" row="0" col="1" usability="1" points="8">a</Field>
+        <Field id="F2" row="0" col="2" usability="1" points="7">e</Field>
+        <Field id="F3" row="0" col="3" usability="1" points="3">h</Field>
+        <Field id="F4" row="0" col="4" usability="1" points="4">;</Field>
+        <Field id="F5" row="1" col="0" usability="1" points="4">N</Field>
+        <Field id="F6" row="1" col="1" usability="1" points="4">H</Field>
+        <Field id="F7" row="1" col="2" usability="1" points="6">G</Field>
+        <Field id="F8" row="1" col="3" usability="1" points="8">g</Field>
+        <Field id="F9" row="1" col="4" usability="1" points="8">E</Field>
+        <Field id="F10" row="2" col="0" usability="1" points="9">E</Field>
+        <Field id="F11" row="2" col="1" usability="1" points="3">A</Field>
+        <Field id="F12" row="2" col="2" usability="1" points="7">N</Field>
+        <Field id="F13" row="2" col="3" usability="1" points="3">G</Field>
+        <Field id="F14" row="2" col="4" usability="1" points="2">e</Field>
+        <Field id="F15" row="3" col="0" usability="1" points="4">N</Field>
+        <Field id="F16" row="3" col="1" usability="1" points="2">n</Field>
+        <Field id="F17" row="3" col="2" usability="1" points="2">A</Field>
+        <Field id="F18" row="3" col="3" usability="1" points="6">A</Field>
+        <Field id="F19" row="3" col="4" usability="1" points="9">h</Field>
+        <Field id="F20" row="4" col="0" usability="1" points="6">G</Field>
+        <Field id="F21" row="4" col="1" usability="1" points="2">e</Field>
+        <Field id="F22" row="4" col="2" usability="1" points="0">e</Field>
+        <Field id="F23" row="4" col="3" usability="1" points="9">G</Field>
+        <Field id="F24" row="4" col="4" usability="1" points="4">!</Field>
+        <Field id="F25" row="5" col="0" usability="1" points="9">N</Field>
+        <Field id="F26" row="5" col="1" usability="1" points="8">G</Field>
+        <Field id="F27" row="5" col="2" usability="1" points="3">g</Field>
+        <Field id="F28" row="5" col="3" usability="1" points="7">H</Field>
+        <Field id="F29" row="5" col="4" usability="1" points="2">H</Field>
+        <Field id="F30" row="6" col="0" usability="1" points="5">(</Field>
+        <Field id="F31" row="6" col="1" usability="1" points="4">e</Field>
+        <Field id="F32" row="6" col="2" usability="1" points="0">=</Field>
+        <Field id="F33" row="6" col="3" usability="1" points="6">n</Field>
+        <Field id="F34" row="6" col="4" usability="1" points="3">e</Field>
+        <Field id="F35" row="7" col="0" usability="1" points="5">a</Field>
+        <Field id="F36" row="7" col="1" usability="1" points="9">h</Field>
+        <Field id="F37" row="7" col="2" usability="1" points="0">N</Field>
+        <Field id="F38" row="7" col="3" usability="1" points="5">*</Field>
+        <Field id="F39" row="7" col="4" usability="1" points="4">a</Field>
+        <Field id="F40" row="8" col="0" usability="1" points="5">&gt;</Field>
+        <Field id="F41" row="8" col="1" usability="1" points="0">H</Field>
+        <Field id="F42" row="8" col="2" usability="1" points="7">G</Field>
+        <Field id="F43" row="8" col="3" usability="1" points="7">A</Field>
+        <Field id="F44" row="8" col="4" usability="1" points="7">a</Field>
+        <Field id="F45" row="9" col="0" usability="1" points="2">_</Field>
+        <Field id="F46" row="9" col="1" usability="1" points="0">€</Field>
+        <Field id="F47" row="9" col="2" usability="1" points="8">€</Field>
+        <Field id="F48" row="9" col="3" usability="1" points="0">?</Field>
+        <Field id="F49" row="9" col="4" usability="1" points="7">h</Field>
+    </Jungle>
+    <SnakeTypes>
+        <SnakeType id="A0" points="1" amount="2">
+            <Word>hagen</Word>
+            <NeighborhoodStructure type="Distance">
+                <Parameter value="3" />
+            </NeighborhoodStructure>
+        </SnakeType>
+        <SnakeType id="A1" points="1" amount="2">
+            <Word>HAGEN</Word>
+            <NeighborhoodStructure type="Distance">
+                <Parameter value="3" />
+            </NeighborhoodStructure>
+        </SnakeType>
+        <SnakeType id="A2" points="1" amount="2">
+            <Word>HaGeN</Word>
+            <NeighborhoodStructure type="Distance">
+                <Parameter value="3" />
+            </NeighborhoodStructure>
+        </SnakeType>
+        <SnakeType id="A3" points="1" amount="2">
+            <Word>hAGeN</Word>
+            <NeighborhoodStructure type="Distance">
+                <Parameter value="3" />
+            </NeighborhoodStructure>
+        </SnakeType>
+    </SnakeTypes>
+    <Snakes />
+</SnakeHunt>

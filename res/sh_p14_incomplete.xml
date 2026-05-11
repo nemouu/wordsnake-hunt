@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE SnakeHunt SYSTEM "snakehunt.dtd" >
+<SnakeHunt>
+    <Time unit="ms">
+        <Limit>100</Limit>
+	</Time>
+	<Jungle rows="10" cols="10" signs="EHLMNPRUV">
+	</Jungle>
+    <SnakeTypes>
+        <SnakeType id="A0" points="115" amount="4">
+            <Word>RUHR</Word>
+            <NeighborhoodStructure type="Distance">
+                <Parameter value="1" />
+            </NeighborhoodStructure>
+        </SnakeType>
+        <SnakeType id="A1" points="131" amount="4">
+            <Word>LENNE</Word>
+            <NeighborhoodStructure type="Distance">
+                <Parameter value="1" />
+            </NeighborhoodStructure>
+        </SnakeType>
+        <SnakeType id="A2" points="213" amount="4">
+            <Word>VOLME</Word>
+            <NeighborhoodStructure type="Distance">
+                <Parameter value="1" />
+            </NeighborhoodStructure>
+        </SnakeType>
+        <SnakeType id="A3" points="63" amount="4">
+            <Word>ENNEPE</Word>
+            <NeighborhoodStructure type="Distance">
+                <Parameter value="1" />
+            </NeighborhoodStructure>
+        </SnakeType>
+    </SnakeTypes>
+</SnakeHunt>

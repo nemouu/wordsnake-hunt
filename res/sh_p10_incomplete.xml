@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE SnakeHunt SYSTEM "snakehunt.dtd" >
+<SnakeHunt>
+	<Time unit="d">
+		<Limit>0.0002</Limit>
+	</Time>
+	<Jungle rows="6" cols="6" signs="BELN">
+	</Jungle>
+	<SnakeTypes>
+		<SnakeType id="A0" points="20" amount="2">
+			<Word>LEBEN</Word>
+			<NeighborhoodStructure type="Distance">
+				<Parameter value="2" />
+			</NeighborhoodStructure>
+		</SnakeType>
+		<SnakeType id="A1" points="1" amount="2">
+			<Word>NEBEL</Word>
+			<NeighborhoodStructure type="Distance">
+				<Parameter value="3" />
+			</NeighborhoodStructure>
+		</SnakeType>
+	</SnakeTypes>
+</SnakeHunt>

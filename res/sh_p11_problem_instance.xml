@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE SnakeHunt SYSTEM "snakehunt.dtd">
+<SnakeHunt>
+    <Time unit="s">
+        <Limit>10.0</Limit>
+    </Time>
+    <Jungle rows="7" cols="7" signs="AEIOU">
+        <Field id="F0" row="0" col="0" usability="1" points="5">I</Field>
+        <Field id="F1" row="0" col="1" usability="1" points="8">M</Field>
+        <Field id="F2" row="0" col="2" usability="1" points="7">U</Field>
+        <Field id="F3" row="0" col="3" usability="1" points="3">B</Field>
+        <Field id="F4" row="0" col="4" usability="2" points="4">L</Field>
+        <Field id="F5" row="0" col="5" usability="1" points="4">I</Field>
+        <Field id="F6" row="0" col="6" usability="1" points="4">A</Field>
+        <Field id="F7" row="1" col="0" usability="1" points="6">A</Field>
+        <Field id="F8" row="1" col="1" usability="1" points="8">V</Field>
+        <Field id="F9" row="1" col="2" usability="1" points="8">T</Field>
+        <Field id="F10" row="1" col="3" usability="2" points="9">E</Field>
+        <Field id="F11" row="1" col="4" usability="2" points="3">I</Field>
+        <Field id="F12" row="1" col="5" usability="1" points="7">P</Field>
+        <Field id="F13" row="1" col="6" usability="1" points="3">I</Field>
+        <Field id="F14" row="2" col="0" usability="1" points="2">I</Field>
+        <Field id="F15" row="2" col="1" usability="1" points="4">A</Field>
+        <Field id="F16" row="2" col="2" usability="1" points="2">V</Field>
+        <Field id="F17" row="2" col="3" usability="1" points="2">E</Field>
+        <Field id="F18" row="2" col="4" usability="3" points="6">A</Field>
+        <Field id="F19" row="2" col="5" usability="2" points="9">N</Field>
+        <Field id="F20" row="2" col="6" usability="2" points="6">N</Field>
+        <Field id="F21" row="3" col="0" usability="1" points="2">L</Field>
+        <Field id="F22" row="3" col="1" usability="1" points="0">E</Field>
+        <Field id="F23" row="3" col="2" usability="1" points="9">U</Field>
+        <Field id="F24" row="3" col="3" usability="1" points="4">I</Field>
+        <Field id="F25" row="3" col="4" usability="1" points="9">R</Field>
+        <Field id="F26" row="3" col="5" usability="2" points="8">A</Field>
+        <Field id="F27" row="3" col="6" usability="2" points="3">A</Field>
+        <Field id="F28" row="4" col="0" usability="1" points="7">Y</Field>
+        <Field id="F29" row="4" col="1" usability="1" points="2">S</Field>
+        <Field id="F30" row="4" col="2" usability="2" points="5">A</Field>
+        <Field id="F31" row="4" col="3" usability="1" points="4">A</Field>
+        <Field id="F32" row="4" col="4" usability="3" points="0">E</Field>
+        <Field id="F33" row="4" col="5" usability="1" points="6">A</Field>
+        <Field id="F34" row="4" col="6" usability="1" points="3">D</Field>
+        <Field id="F35" row="5" col="0" usability="1" points="5">M</Field>
+        <Field id="F36" row="5" col="1" usability="1" points="9">D</Field>
+        <Field id="F37" row="5" col="2" usability="1" points="0">V</Field>
+        <Field id="F38" row="5" col="3" usability="1" points="5">L</Field>
+        <Field id="F39" row="5" col="4" usability="1" points="4">O</Field>
+        <Field id="F40" row="5" col="5" usability="1" points="5">L</Field>
+        <Field id="F41" row="5" col="6" usability="1" points="0">S</Field>
+        <Field id="F42" row="6" col="0" usability="1" points="7">I</Field>
+        <Field id="F43" row="6" col="1" usability="2" points="7">A</Field>
+        <Field id="F44" row="6" col="2" usability="1" points="7">A</Field>
+        <Field id="F45" row="6" col="3" usability="1" points="2">A</Field>
+        <Field id="F46" row="6" col="4" usability="1" points="0">Z</Field>
+        <Field id="F47" row="6" col="5" usability="1" points="8">I</Field>
+        <Field id="F48" row="6" col="6" usability="1" points="0">O</Field>
+    </Jungle>
+    <SnakeTypes>
+        <SnakeType id="A0" points="10" amount="1">
+            <Word>ADA</Word>
+            <NeighborhoodStructure type="Distance">
+                <Parameter value="1" />
+            </NeighborhoodStructure>
+        </SnakeType>
+        <SnakeType id="A1" points="10" amount="1">
+            <Word>AMY</Word>
+            <NeighborhoodStructure type="Distance">
+                <Parameter value="1" />
+            </NeighborhoodStructure>
+        </SnakeType>
+        <SnakeType id="A2" points="10" amount="1">
+            <Word>ANN</Word>
+            <NeighborhoodStructure type="Distance">
+                <Parameter value="1" />
+            </NeighborhoodStructure>
+        </SnakeType>
+        <SnakeType id="A3" points="10" amount="1">
+            <Word>AVA</Word>
+            <NeighborhoodStructure type="Distance">
+                <Parameter value="1" />
+            </NeighborhoodStructure>
+        </SnakeType>
+        <SnakeType id="A4" points="10" amount="1">
+            <Word>BEA</Word>
+            <NeighborhoodStructure type="Distance">
+                <Parameter value="1" />
+            </NeighborhoodStructure>
+        </SnakeType>
+        <SnakeType id="A5" points="10" amount="1">
+            <Word>ELA</Word>
+            <NeighborhoodStructure type="Distance">
+                <Parameter value="1" />
+            </NeighborhoodStructure>
+        </SnakeType>
+        <SnakeType id="A6" points="10" amount="1">
+            <Word>EVA</Word>
+            <NeighborhoodStructure type="Distance">
+                <Parameter value="1" />
+            </NeighborhoodStructure>
+        </SnakeType>
+        <SnakeType id="A7" points="10" amount="1">
+            <Word>IDA</Word>
+            <NeighborhoodStructure type="Distance">
+                <Parameter value="1" />
+            </NeighborhoodStructure>
+        </SnakeType>
+        <SnakeType id="A8" points="10" amount="1">
+            <Word>INA</Word>
+            <NeighborhoodStructure type="Distance">
+                <Parameter value="1" />
+            </NeighborhoodStructure>
+        </SnakeType>
+        <SnakeType id="A9" points="10" amount="1">
+            <Word>ISA</Word>
+            <NeighborhoodStructure type="Distance">
+                <Parameter value="1" />
+            </NeighborhoodStructure>
+        </SnakeType>
+        <SnakeType id="A10" points="10" amount="1">
+            <Word>LEA</Word>
+            <NeighborhoodStructure type="Distance">
+                <Parameter value="1" />
+            </NeighborhoodStructure>
+        </SnakeType>
+        <SnakeType id="A11" points="10" amount="1">
+            <Word>LIA</Word>
+            <NeighborhoodStructure type="Distance">
+                <Parameter value="1" />
+            </NeighborhoodStructure>
+        </SnakeType>
+        <SnakeType id="A12" points="10" amount="1">
+            <Word>LIN</Word>
+            <NeighborhoodStructure type="Distance">
+                <Parameter value="1" />
+            </NeighborhoodStructure>
+        </SnakeType>
+        <SnakeType id="A13" points="10" amount="1">
+            <Word>LIV</Word>
+            <NeighborhoodStructure type="Distance">
+                <Parameter value="1" />
+            </NeighborhoodStructure>
+        </SnakeType>
+        <SnakeType id="A14" points="10" amount="1">
+            <Word>MIA</Word>
+            <NeighborhoodStructure type="Distance">
+                <Parameter value="1" />
+            </NeighborhoodStructure>
+        </SnakeType>
+        <SnakeType id="A15" points="10" amount="1">
+            <Word>PIA</Word>
+            <NeighborhoodStructure type="Distance">
+                <Parameter value="1" />
+            </NeighborhoodStructure>
+        </SnakeType>
+        <SnakeType id="A16" points="10" amount="1">
+            <Word>RIA</Word>
+            <NeighborhoodStructure type="Distance">
+                <Parameter value="1" />
+            </NeighborhoodStructure>
+        </SnakeType>
+        <SnakeType id="A17" points="10" amount="1">
+            <Word>SUE</Word>
+            <NeighborhoodStructure type="Distance">
+                <Parameter value="1" />
+            </NeighborhoodStructure>
+        </SnakeType>
+        <SnakeType id="A18" points="10" amount="1">
+            <Word>UTE</Word>
+            <NeighborhoodStructure type="Distance">
+                <Parameter value="1" />
+            </NeighborhoodStructure>
+        </SnakeType>
+        <SnakeType id="A19" points="10" amount="1">
+            <Word>ZOE</Word>
+            <NeighborhoodStructure type="Distance">
+                <Parameter value="1" />
+            </NeighborhoodStructure>
+        </SnakeType>
+    </SnakeTypes>
+    <Snakes />
+</SnakeHunt>
